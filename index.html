@@ -3,171 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Support Desk</title>
-    <!-- Tailwind CSS for modern styling -->
+    <title>IT Support Portal & Team Dashboard</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for icons -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
     <!-- Header Section -->
     <header class="bg-indigo-700 text-white shadow-md">
-        <div class="max-w-4xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
+        <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center space-x-3 mb-4 md:mb-0">
                 <div class="bg-white text-indigo-700 p-2.5 rounded-lg shadow">
                     <i class="fa-solid fa-headset text-2xl"></i>
                 </div>
                 <div>
                     <h1 class="text-2xl font-bold">IT Support Desk</h1>
-                    <p class="text-indigo-200 text-sm">Submit your technical issues and track requests</p>
+                    <p class="text-indigo-200 text-sm">Enterprise Ticketing & Tracking Portal</p>
                 </div>
             </div>
-            <!-- Quick Contact Header Badge -->
-            <div class="bg-indigo-800 border border-indigo-600 px-4 py-2.5 rounded-lg flex items-center space-x-3 shadow-inner">
-                <i class="fa-solid fa-phone-volume text-indigo-300 text-lg"></i>
-                <div>
-                    <p class="text-xs text-indigo-200 uppercase font-semibold">Urgent Support Line</p>
-                    <a href="tel:+971588421560" class="font-bold text-white hover:underline">+971 58 842 1560</a>
-                </div>
+            <!-- Navigation / View Toggle -->
+            <div class="flex items-center space-x-3">
+                <button onclick="switchView('portal')" id="portalBtn" class="bg-indigo-800 border border-indigo-500 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600">
+                    <i class="fa-solid fa-ticket mr-1.5"></i> Raise Ticket
+                </button>
+                <button onclick="switchView('dashboard')" id="dashboardBtn" class="bg-indigo-900/60 border border-indigo-700 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600">
+                    <i class="fa-solid fa-gauge mr-1.5"></i> Support Dashboard <span id="badgeCount" class="ml-1 bg-rose-500 text-white text-xs px-1.5 py-0.5 rounded-full">0</span>
+                </button>
             </div>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="max-w-4xl mx-auto px-4 py-8">
+    <main class="max-w-6xl mx-auto px-4 py-8">
         
-        <!-- Ticket Form Card -->
-        <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
-            <div class="flex items-center space-x-3 border-b border-slate-100 pb-4 mb-6">
-                <div class="bg-indigo-50 text-indigo-600 p-2 rounded-lg">
-                    <i class="fa-solid fa-ticket text-lg"></i>
-                </div>
-                <h2 class="text-xl font-bold text-slate-900">Raise a New Support Ticket</h2>
-            </div>
-
-            <!-- Web3Forms Form Submission Target -->
-            <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" class="space-y-5">
-                
-                <!-- Web3Forms Access Key Integration -->
-                <input type="hidden" name="access_key" value="d139da4f-b123-4cbd-b224-013a92892d4e">
-                
-                <!-- Hidden configurations for Web3Forms email formatting -->
-                <input type="hidden" name="subject" value="🚨 New IT Support Ticket Submitted">
-                <input type="hidden" name="from_name" value="IT Support Portal">
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <!-- Client Name -->
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="name">Your Name <span class="text-rose-500">*</span></label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-user"></i></span>
-                            <input type="text" name="name" id="name" required class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm transition" placeholder="John Doe">
-                        </div>
+        <!-- VIEW 1: CLIENT TICKET SUBMISSION PORTAL -->
+        <div id="portalView" class="max-w-3xl mx-auto space-y-6">
+            <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-4 mb-6">
+                    <div class="bg-indigo-50 text-indigo-600 p-2 rounded-lg">
+                        <i class="fa-solid fa-file-circle-plus text-lg"></i>
                     </div>
-
-                    <!-- Company Name (Mandatory) -->
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="company">Company Name <span class="text-rose-500">*</span></label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-building"></i></span>
-                            <input type="text" name="company_name" id="company" required class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm transition" placeholder="Acme Corporation">
-                        </div>
+                        <h2 class="text-xl font-bold text-slate-900">Raise a New Support Ticket</h2>
+                        <p class="text-xs text-slate-500">Fill out the form below. Requests are routed instantly to your support team.</p>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <!-- Contact Number (Mandatory) -->
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="phone">Contact Number <span class="text-rose-500">*</span></label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-phone"></i></span>
-                            <input type="tel" name="phone" id="phone" required class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm transition" placeholder="+971 50 000 0000">
+                <form id="ticketForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" onsubmit="saveTicketLocally(event)" class="space-y-5">
+                    
+                    <!-- Web3Forms Config -->
+                    <input type="hidden" name="access_key" value="d139da4f-b123-4cbd-b224-013a92892d4e">
+                    <input type="hidden" name="subject" value="🚨 New IT Support Ticket Submitted">
+                    <input type="hidden" name="from_name" value="IT Support Portal">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <!-- Client Name -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="name">Your Name <span class="text-rose-500">*</span></label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-user"></i></span>
+                                <input type="text" name="name" id="name" required class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="John Doe">
+                            </div>
+                        </div>
+
+                        <!-- Company Name (Mandatory) -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="company">Company Name <span class="text-rose-500">*</span></label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-building"></i></span>
+                                <input type="text" name="company_name" id="company" required class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="Acme Corporation">
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Email Address (Mandatory) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <!-- Contact Number (Mandatory) -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="phone">Contact Number <span class="text-rose-500">*</span></label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-phone"></i></span>
+                                <input type="tel" name="phone" id="phone" required class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="+971 50 000 0000">
+                            </div>
+                        </div>
+
+                        <!-- Email Address (Mandatory) -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="email">Email Address <span class="text-rose-500">*</span></label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-envelope"></i></span>
+                                <input type="email" name="email" id="email" required class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="john@company.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <!-- Priority Level -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="priority">Priority Level</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-gauge"></i></span>
+                                <select name="priority" id="priority" class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm bg-white">
+                                    <option value="Low">Low - General Inquiry</option>
+                                    <option value="Medium" selected>Medium - Impaired Operation</option>
+                                    <option value="High">High - System Down / Urgent</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Issue Subject -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="ticketSubject">Issue Subject <span class="text-rose-500">*</span></label>
+                            <input type="text" name="ticket_subject" id="ticketSubject" required class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="e.g., VPN Connection Error">
+                        </div>
+                    </div>
+
+                    <!-- Description -->
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="email">Email Address <span class="text-rose-500">*</span></label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-envelope"></i></span>
-                            <input type="email" name="email" id="email" required class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm transition" placeholder="john@company.com">
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="message">Description <span class="text-rose-500">*</span></label>
+                        <textarea name="message" id="message" rows="4" required class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm resize-none" placeholder="Describe the problem in detail..."></textarea>
+                    </div>
+
+                    <!-- Screenshot Attachment -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Attach Screenshot (Optional)</label>
+                        <input type="file" name="attachment" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer border border-slate-300 rounded-lg p-1.5 bg-slate-50"/>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg shadow transition duration-200 flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Submit Ticket</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Direct Contact Footer Details -->
+            <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center space-x-2">
+                    <i class="fa-solid fa-address-book text-indigo-600"></i>
+                    <span>Direct IT Support Info</span>
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-600">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-slate-100 p-2 rounded-md text-indigo-600"><i class="fa-solid fa-phone"></i></div>
+                        <div>
+                            <p class="font-semibold text-slate-900">Phone</p>
+                            <a href="tel:+971588421560" class="text-indigo-600 hover:underline">+971 58 842 1560</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-slate-100 p-2 rounded-md text-indigo-600"><i class="fa-solid fa-envelope"></i></div>
+                        <div>
+                            <p class="font-semibold text-slate-900">Email</p>
+                            <a href="mailto:vaibhav@spreadtechnical.com" class="text-indigo-600 hover:underline">vaibhav@spreadtechnical.com</a>
                         </div>
                     </div>
                 </div>
+            </section>
+        </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <!-- Issue Priority -->
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="priority">Priority Level</label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-gauge"></i></span>
-                            <select name="priority" id="priority" class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm bg-white transition">
-                                <option value="Low - General Inquiry">Low - General Inquiry</option>
-                                <option value="Medium - Impaired Operation" selected>Medium - Impaired Operation</option>
-                                <option value="High - System Down / Urgent">High - System Down / Urgent</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Issue Subject -->
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="ticketSubject">Issue Subject <span class="text-rose-500">*</span></label>
-                        <input type="text" name="ticket_subject" id="ticketSubject" required class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm transition" placeholder="e.g., Cannot connect to corporate VPN">
-                    </div>
-                </div>
-
-                <!-- Detailed Description / Message -->
+        <!-- VIEW 2: SUPPORT TEAM DASHBOARD -->
+        <div id="dashboardView" class="hidden space-y-6">
+            <div class="flex justify-between items-center bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="message">Description <span class="text-rose-500">*</span></label>
-                    <textarea name="message" id="message" rows="4" required class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm transition resize-none" placeholder="Please describe what happened, error messages displayed, or steps to reproduce..."></textarea>
+                    <h2 class="text-xl font-bold text-slate-900">Support Team Ticket Dashboard</h2>
+                    <p class="text-xs text-slate-500">Live tracking log of all tickets initiated from this browser session.</p>
                 </div>
-
-                <!-- Screenshot Attachment -->
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">Attach Screenshot (Optional)</label>
-                    <input type="file" name="attachment" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer border border-slate-300 rounded-lg p-1.5 bg-slate-50"/>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg shadow transition duration-200 flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-paper-plane"></i>
-                    <span>Submit Ticket</span>
+                <button onclick="clearDashboard()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 px-3 py-2 rounded-lg text-xs font-semibold transition border border-rose-200">
+                    <i class="fa-solid fa-trash-can mr-1"></i> Clear Local History
                 </button>
-            </form>
-        </section>
+            </div>
 
-        <!-- Direct Contact Footer Details -->
-        <section class="mt-6 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-            <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center space-x-2">
-                <i class="fa-solid fa-address-book text-indigo-600"></i>
-                <span>Direct IT Support Info</span>
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-600">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-slate-100 p-2 rounded-md text-indigo-600"><i class="fa-solid fa-phone"></i></div>
-                    <div>
-                        <p class="font-semibold text-slate-900">Phone</p>
-                        <a href="tel:+971588421560" class="text-indigo-600 hover:underline">+971 58 842 1560</a>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <div class="bg-slate-100 p-2 rounded-md text-indigo-600"><i class="fa-solid fa-envelope"></i></div>
-                    <div>
-                        <p class="font-semibold text-slate-900">Email</p>
-                        <a href="mailto:vaibhav@spreadtechnical.com" class="text-indigo-600 hover:underline">vaibhav@spreadtechnical.com</a>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <div class="bg-slate-100 p-2 rounded-md text-indigo-600"><i class="fa-solid fa-clock"></i></div>
-                    <div>
-                        <p class="font-semibold text-slate-900">Hours</p>
-                        <p>Mon - Sat (9 AM - 6 PM)</p>
-                    </div>
+            <!-- Tickets Grid Table -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-slate-100/75 text-slate-700 uppercase text-xs font-bold border-b border-slate-200">
+                                <th class="p-4">Ticket ID</th>
+                                <th class="p-4">Company / Client</th>
+                                <th class="p-4">Contact</th>
+                                <th class="p-4">Subject</th>
+                                <th class="p-4">Priority</th>
+                                <th class="p-4">Timestamp</th>
+                                <th class="p-4 text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dashboardTableBody" class="divide-y divide-slate-100 text-slate-700">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </section>
+        </div>
 
     </main>
+
+    <!-- Dashboard & View Management Script -->
+    <script>
+        function switchView(view) {
+            const portal = document.getElementById('portalView');
+            const dashboard = document.getElementById('dashboardView');
+            const pBtn = document.getElementById('portalBtn');
+            const dBtn = document.getElementById('dashboardBtn');
+
+            if (view === 'portal') {
+                portal.classList.remove('hidden');
+                dashboard.classList.add('hidden');
+                pBtn.className = "bg-indigo-800 border border-indigo-500 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600";
+                dBtn.className = "bg-indigo-900/60 border border-indigo-700 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600";
+            } else {
+                portal.classList.add('hidden');
+                dashboard.classList.remove('hidden');
+                dBtn.className = "bg-indigo-800 border border-indigo-500 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600";
+                pBtn.className = "bg-indigo-900/60 border border-indigo-700 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600";
+                loadDashboardTickets();
+            }
+        }
+
+        function saveTicketLocally(e) {
+            const ticket = {
+                id: 'TKT-' + Math.floor(100000 + Math.random() * 900000),
+                name: document.getElementById('name').value,
+                company: document.getElementById('company').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                priority: document.getElementById('priority').value,
+                subject: document.getElementById('ticketSubject').value,
+                description: document.getElementById('message').value,
+                date: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })
+            };
+
+            let tickets = JSON.parse(localStorage.getItem('support_tickets_log')) || [];
+            tickets.unshift(ticket);
+            localStorage.setItem('support_tickets_log', JSON.stringify(tickets));
+            updateBadgeCount();
+        }
+
+        function loadDashboardTickets() {
+            const tickets = JSON.parse(localStorage.getItem('support_tickets_log')) || [];
+            const tbody = document.getElementById('dashboardTableBody');
+            tbody.innerHTML = '';
+
+            if (tickets.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400 text-sm">No support tickets recorded yet.</td></tr>`;
+                return;
+            }
+
+            tickets.forEach(t => {
+                let badgeColor = 'bg-slate-100 text-slate-700';
+                if (t.priority === 'High') badgeColor = 'bg-rose-50 text-rose-700 border border-rose-200';
+                if (t.priority === 'Medium') badgeColor = 'bg-amber-50 text-amber-700 border border-amber-200';
+
+                const row = document.createElement('tr');
+                row.className = "hover:bg-slate-50 transition";
+                row.innerHTML = `
+                    <td class="p-4 font-bold text-indigo-600">${t.id}</td>
+                    <td class="p-4 font-semibold text-slate-900">${t.company}<br><span class="text-xs text-slate-400 font-normal">${t.name}</span></td>
+                    <td class="p-4 text-xs"><div><i class="fa-solid fa-phone mr-1 text-slate-400"></i>${t.phone}</div><div class="text-slate-400"><i class="fa-solid fa-envelope mr-1"></i>${t.email}</div></td>
+                    <td class="p-4 font-medium">${t.subject}</td>
+                    <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-semibold ${badgeColor}">${t.priority}</span></td>
+                    <td class="p-4 text-xs text-slate-500">${t.date}</td>
+                    <td class="p-4 text-center"><span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full text-xs font-bold">Open</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateBadgeCount() {
+            const tickets = JSON.parse(localStorage.getItem('support_tickets_log')) || [];
+            document.getElementById('badgeCount').innerText = tickets.length;
+        }
+
+        function clearDashboard() {
+            if (confirm("Are you sure you want to clear all recorded tickets from local history?")) {
+                localStorage.removeItem('support_tickets_log');
+                loadDashboardTickets();
+                updateBadgeCount();
+            }
+        }
+
+        window.onload = updateBadgeCount;
+    </script>
 </body>
 </html>
