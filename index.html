@@ -230,14 +230,14 @@
 
     </main>
 
-    <!-- Script Logic -->
+<!-- Logic Script -->
     <script>
         // ==========================================
-        // DATABASE CONFIGURATION (SHEETDB)
+        // DIRECT GOOGLE SHEETS API CONFIGURATION
         // ==========================================
         const DB_CONFIG = {
-            useDatabase: true, // Set to TRUE once you add your SheetDB API link below
-            apiUrl: "https://sheetdb.io/api/v1/j4c0wt473prf5" 
+            useDatabase: true, // Activated!
+            apiUrl: "https://script.google.com/macros/s/AKfycby5BAy5xGwTsJ3iMYd7zF1CXLHBl1tI8h23BxSZXmf88JO9oEe4zvgdpeRldNKW8oI/exec" // <-- Paste your URL here
         };
 
         const VALID_USERS = ["vaibhav@spreadtechnical.com", "support@spreadtechnical.com"];
@@ -266,14 +266,14 @@
             }, 400);
         }
 
-        // Save Ticket (SheetDB & Web3Forms)
+        // Save Ticket (Direct Google Sheets & Web3Forms)
         async function submitTicket(e) {
             e.preventDefault();
             const form = e.target;
             const submitBtn = document.getElementById('submitBtn');
             const originalBtnHtml = submitBtn.innerHTML;
             
-            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Saving to Database...</span>';
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Saving to Live DB...</span>';
             submitBtn.disabled = true;
 
             const formData = new FormData(form);
@@ -282,7 +282,7 @@
             const ticketData = {
                 id: 'INC-' + Math.floor(100000 + Math.random() * 900000),
                 name: document.getElementById('name').value,
-                company_name: document.getElementById('company').value,
+                company: document.getElementById('company').value,
                 phone: document.getElementById('phone').value,
                 email: userEmail,
                 priority: document.getElementById('priority').value,
@@ -294,14 +294,15 @@
 
             try {
                 // 1. Send Email Notification
-                await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+                fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData }); // Sent asynchronously 
 
-                // 2. Save to SheetDB / Excel (requires JSON { "data": [ {...} ] })
+                // 2. Save Direct to Google Sheet
                 if (DB_CONFIG.useDatabase) {
                     await fetch(DB_CONFIG.apiUrl, {
                         method: 'POST',
-                        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ data: [ticketData] })
+                        // Must use text/plain to bypass Google's strict CORS rules for API posts
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify(ticketData)
                     });
                 } else {
                     let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
@@ -326,14 +327,14 @@
         // Fetch & Render Dashboard
         async function fetchTicketsForDashboard() {
             const tbody = document.getElementById('dashboardTableBody');
-            tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-medium text-lg"><i class="fa-solid fa-circle-notch fa-spin text-m3-primary mr-3"></i> Syncing from Spreadsheet...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-medium text-lg"><i class="fa-solid fa-circle-notch fa-spin text-m3-primary mr-3"></i> Syncing from Google Sheet...</td></tr>`;
 
             let tickets = [];
             if (DB_CONFIG.useDatabase) {
                 try {
                     const res = await fetch(DB_CONFIG.apiUrl);
                     tickets = await res.json();
-                    tickets.reverse(); // Newest first
+                    tickets.reverse(); // Display newest tickets at the top
                 } catch (err) {
                     tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-rose-500 font-medium text-lg">Error connecting to Spreadsheet API.</td></tr>`;
                     return;
@@ -365,7 +366,7 @@
                         <td class="p-5"><div class="font-bold text-slate-900 text-base">${t.company}</div><div class="text-sm text-slate-600 font-medium mt-1">${t.name}</div><div class="text-xs text-slate-400 mt-1">${t.email}<br>${t.phone}</div></td>
                         <td class="p-5"><div class="font-bold text-slate-800 text-base mb-1">${t.subject}</div><div class="text-sm text-slate-600 font-medium whitespace-pre-wrap max-h-[100px] overflow-y-auto pr-2">${t.description}</div></td>
                         <td class="p-5"><span class="px-3 py-1.5 rounded-full text-xs font-bold border shadow-sm ${priorityStyle}">${t.priority}</span></td>
-                        <td class="p-5">${selectHTML}<span class="text-[10px] block mt-2 text-slate-400 update-msg hidden">Saved to DB ✅</span></td>
+                        <td class="p-5">${selectHTML}<span class="text-[10px] block mt-2 text-slate-400 update-msg hidden">Saved to Google Sheet ✅</span></td>
                     </tr>
                 `;
             });
@@ -374,18 +375,18 @@
         async function updateTicketStatus(ticketId, newStatus, selectElement) {
             const msgSpan = selectElement.nextElementSibling;
             msgSpan.classList.remove('hidden');
-            msgSpan.innerText = "Syncing...";
+            msgSpan.innerText = "Syncing to Sheet...";
             msgSpan.className = "text-[10px] block mt-2 text-amber-500 update-msg font-bold";
 
             if (DB_CONFIG.useDatabase) {
                 try {
-                    // Update external SheetDB via PATCH
-                    await fetch(`${DB_CONFIG.apiUrl}/id/${ticketId}`, {
-                        method: 'PATCH',
-                        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ data: { status: newStatus } })
+                    // Update external Google Sheet DB
+                    await fetch(DB_CONFIG.apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify({ action: "update", id: ticketId, status: newStatus })
                     });
-                    msgSpan.innerText = "Saved to DB ✅";
+                    msgSpan.innerText = "Saved to Sheet ✅";
                     msgSpan.className = "text-[10px] block mt-2 text-emerald-500 update-msg font-bold";
                 } catch(err) { msgSpan.innerText = "Error Saving ❌"; msgSpan.className = "text-[10px] block mt-2 text-rose-500 update-msg font-bold"; }
             } else {
@@ -404,7 +405,7 @@
         async function searchClientTickets() {
             const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase();
             const container = document.getElementById('trackingResults');
-            container.innerHTML = `<div class="text-center p-10"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i><p>Scanning Spreadsheet...</p></div>`;
+            container.innerHTML = `<div class="text-center p-10"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i><p>Scanning Live Database...</p></div>`;
             if (!queryEmail) return;
 
             let tickets = [];
@@ -413,7 +414,7 @@
                 catch (err) { container.innerHTML = `<p class="text-center text-rose-500">Database Connection Error.</p>`; return; }
             } else { tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; }
 
-            const filtered = tickets.filter(t => t.email === queryEmail);
+            const filtered = tickets.filter(t => t.email.trim().toLowerCase() === queryEmail);
             if (filtered.length === 0) {
                 container.innerHTML = `<div class="bg-white rounded-[32px] shadow-sm border border-m3-surfaceContainerHigh p-10 text-center"><div class="text-slate-300 text-5xl mb-4"><i class="fa-solid fa-box-open"></i></div><h3 class="text-xl font-bold text-slate-800">No Tickets Found</h3><p class="text-slate-500 text-base font-medium mt-1">No records match <b>${queryEmail}</b>.</p></div>`;
                 return;
@@ -463,6 +464,6 @@
 
         function logoutDashboard() { isITLoggedIn = false; switchView('login'); }
         function toggleFullscreen() { if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); } else { document.exitFullscreen(); } }
-    </script>
-</body>
+    </script>    
+    </body>
 </html>
