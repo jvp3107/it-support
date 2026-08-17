@@ -41,7 +41,7 @@
     </script>
     <style>
         body { background-color: #f8fafd; }
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #f0f4f8; }
         ::-webkit-scrollbar-thumb { background: #c2c7cf; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #74777f; }
@@ -50,7 +50,7 @@
         .view-section {
             display: none;
             opacity: 0;
-            transform: translateY(10px) scale(0.99);
+            transform: translateY(15px) scale(0.99);
             transition: opacity 0.4s cubic-bezier(0.2, 0, 0, 1), transform 0.4s cubic-bezier(0.2, 0, 0, 1);
         }
         .view-section.active {
@@ -59,7 +59,12 @@
             transform: translateY(0) scale(1);
         }
 
-        /* M3 Input Fields */
+        /* Pure CSS Floating Labels for M3 */
+        .m3-input-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
         .m3-input {
             width: 100%;
             background-color: #f0f4f8;
@@ -79,11 +84,27 @@
             position: absolute;
             left: 48px;
             top: 16px;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             color: #44474e;
             pointer-events: none;
-            transition: 0.2s ease all;
+            transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1) all;
             font-weight: 500;
+        }
+        /* Float label when focused OR when not placeholder-shown (contains text) */
+        .m3-input:focus ~ .m3-label,
+        .m3-input:not(:placeholder-shown) ~ .m3-label {
+            top: 6px;
+            font-size: 0.7rem;
+            color: #0b57d0;
+        }
+        /* Make sure default select acts like it has text */
+        select.m3-input ~ .m3-label {
+            top: 6px;
+            font-size: 0.7rem;
+            color: #44474e;
+        }
+        select.m3-input:focus ~ .m3-label {
+            color: #0b57d0;
         }
         .input-icon {
             position: absolute;
@@ -92,6 +113,7 @@
             transform: translateY(-50%);
             color: #44474e;
             font-size: 1.1rem;
+            z-index: 10;
         }
     </style>
 </head>
@@ -99,27 +121,27 @@
 
     <!-- Top App Bar (Material 3) -->
     <header class="bg-m3-surface sticky top-0 z-50 shadow-sm border-b border-m3-surfaceContainerHigh">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
             <!-- Brand -->
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 bg-m3-primaryContainer text-m3-primary rounded-full flex items-center justify-center text-2xl shadow-sm">
                     <i class="fa-solid fa-server"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold text-slate-900 leading-tight">Spread Technical</h1>
+                    <h1 class="text-xl md:text-2xl font-bold text-slate-900 leading-tight">Spread Technical</h1>
                     <p class="text-sm font-medium text-m3-primary">Enterprise Support</p>
                 </div>
             </div>
 
             <!-- Navigation Tabs (M3 Segmented Buttons) -->
-            <div class="hidden md:flex bg-m3-surfaceContainerLow p-1 rounded-full border border-m3-surfaceContainerHigh">
-                <button onclick="switchView('portal')" id="nav-portal" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-m3-primaryContainer text-m3-onPrimaryContainer flex items-center gap-2">
+            <div class="hidden md:flex bg-m3-surfaceContainerLow p-1.5 rounded-full border border-m3-surfaceContainerHigh shadow-inner">
+                <button onclick="switchView('portal')" id="nav-portal" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-m3-primaryContainer text-m3-onPrimaryContainer flex items-center gap-2 shadow-sm">
                     <i class="fa-solid fa-plus"></i> Raise Ticket
                 </button>
-                <button onclick="switchView('track')" id="nav-track" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh flex items-center gap-2">
+                <button onclick="switchView('track')" id="nav-track" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh hover:text-slate-900 flex items-center gap-2">
                     <i class="fa-solid fa-satellite-dish"></i> Track Request
                 </button>
-                <button onclick="switchView('login')" id="nav-login" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh flex items-center gap-2">
+                <button onclick="switchView('login')" id="nav-login" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh hover:text-slate-900 flex items-center gap-2">
                     <i class="fa-solid fa-shield-halved"></i> Staff Login
                 </button>
             </div>
@@ -131,32 +153,32 @@
         </div>
     </header>
 
-    <!-- Visual IT Showcase Header -->
-    <div id="heroBanner" class="bg-m3-surfaceContainerLow pt-8 pb-12 px-4 border-b border-m3-surfaceContainerHigh">
-        <div class="max-w-6xl mx-auto">
+    <!-- Visual IT Showcase Header (Optimized for large displays) -->
+    <div id="heroBanner" class="bg-m3-surfaceContainerLow pt-10 pb-14 px-4 sm:px-6 lg:px-8 border-b border-m3-surfaceContainerHigh transition-all duration-500">
+        <div class="max-w-[1400px] mx-auto">
             <div class="text-center mb-10">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Welcome to the Command Center</h2>
-                <p class="text-slate-600 max-w-2xl mx-auto">Fast, reliable, and secure IT infrastructure management. Log your incident below and our Network Operations Center will take it from here.</p>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">IT Command Center</h2>
+                <p class="text-slate-600 text-base md:text-lg max-w-3xl mx-auto font-medium">Fast, reliable, and secure IT infrastructure management. Log your incident below and our Network Operations Center will take it from here.</p>
             </div>
             
-            <!-- Image Collage (Desktops, Networks, Datacenters) -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="rounded-[24px] overflow-hidden shadow-m3-1 relative h-48 group">
-                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Workstations" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-5">
-                        <span class="text-white font-medium"><i class="fa-solid fa-laptop text-m3-primaryContainer mr-2"></i>Endpoints & OS</span>
+            <!-- Image Collage scaling dynamically -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Workstations" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6">
+                        <span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-laptop text-m3-primaryContainer mr-3 text-xl"></i>Endpoints & OS</span>
                     </div>
                 </div>
-                <div class="rounded-[24px] overflow-hidden shadow-m3-1 relative h-48 group">
-                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80" alt="Networks" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-5">
-                        <span class="text-white font-medium"><i class="fa-solid fa-network-wired text-m3-primaryContainer mr-2"></i>Network Routing</span>
+                <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group">
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" alt="Networks" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6">
+                        <span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-network-wired text-m3-primaryContainer mr-3 text-xl"></i>Network Routing</span>
                     </div>
                 </div>
-                <div class="rounded-[24px] overflow-hidden shadow-m3-1 relative h-48 group">
-                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" alt="Servers" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-5">
-                        <span class="text-white font-medium"><i class="fa-solid fa-server text-m3-primaryContainer mr-2"></i>Cloud & Servers</span>
+                <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="Servers" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6">
+                        <span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-server text-m3-primaryContainer mr-3 text-xl"></i>Cloud & Servers</span>
                     </div>
                 </div>
             </div>
@@ -164,86 +186,89 @@
     </div>
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 py-8 w-full -mt-6 relative z-10">
+    <main class="flex-grow max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full -mt-8 relative z-10">
         
         <!-- ========================================== -->
         <!-- VIEW 1: RAISE TICKET (PORTAL) -->
         <!-- ========================================== -->
-        <div id="portalView" class="view-section active max-w-4xl mx-auto">
-            <div class="bg-white rounded-[28px] shadow-m3-2 overflow-hidden">
-                <div class="p-8 border-b border-m3-surfaceContainerHigh flex items-center justify-between">
+        <div id="portalView" class="view-section active max-w-5xl mx-auto">
+            <div class="bg-white rounded-[32px] shadow-m3-3 overflow-hidden">
+                <div class="p-8 md:p-10 border-b border-m3-surfaceContainerHigh flex items-center justify-between bg-white">
                     <div>
-                        <h2 class="text-2xl font-bold text-slate-900">Raise IT Ticket</h2>
-                        <p class="text-sm text-slate-500 mt-1">Fill out the details below. Required fields are marked.</p>
+                        <h2 class="text-3xl font-bold text-slate-900">Raise IT Ticket</h2>
+                        <p class="text-base text-slate-500 mt-2 font-medium">Fill out the details below. Required fields are marked.</p>
                     </div>
-                    <div class="w-12 h-12 bg-m3-surfaceContainer rounded-full flex items-center justify-center text-m3-primary text-xl">
+                    <div class="hidden sm:flex w-16 h-16 bg-m3-surfaceContainerLow rounded-full items-center justify-center text-m3-primary text-3xl shadow-inner">
                         <i class="fa-solid fa-clipboard-list"></i>
                     </div>
                 </div>
 
-                <form id="ticketForm" onsubmit="saveTicketLocally(event)" class="p-8 space-y-6">
+                <form id="ticketForm" onsubmit="saveTicketLocally(event)" class="p-8 md:p-10 space-y-8">
                     <!-- Web3Forms Hidden Inputs -->
                     <input type="hidden" name="access_key" value="d139da4f-b123-4cbd-b224-013a92892d4e">
                     <input type="hidden" name="subject" value="🚨 New IT Incident Logged">
                     <input type="hidden" name="from_name" value="Spread IT Portal">
                     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="relative">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="m3-input-wrapper">
                             <i class="fa-solid fa-user input-icon"></i>
-                            <span class="m3-label">Full Name *</span>
                             <input type="text" name="name" id="name" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Full Name *</span>
                         </div>
-                        <div class="relative">
+                        <div class="m3-input-wrapper">
                             <i class="fa-solid fa-building input-icon"></i>
-                            <span class="m3-label">Company Name *</span>
                             <input type="text" name="company_name" id="company" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Company Name *</span>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="relative">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="m3-input-wrapper">
                             <i class="fa-solid fa-phone input-icon"></i>
-                            <span class="m3-label">Contact Number *</span>
                             <input type="tel" name="phone" id="phone" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Contact Number *</span>
                         </div>
-                        <div class="relative">
+                        <div class="m3-input-wrapper">
                             <i class="fa-solid fa-envelope input-icon"></i>
-                            <span class="m3-label">Email Address *</span>
                             <input type="email" name="email" id="email" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Email Address *</span>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="relative">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="m3-input-wrapper">
                             <i class="fa-solid fa-gauge-high input-icon"></i>
-                            <span class="m3-label">Priority Level</span>
                             <select name="priority" id="priority" class="m3-input appearance-none cursor-pointer">
                                 <option value="Low">Low - General Request</option>
                                 <option value="Medium" selected>Medium - Operation Impaired</option>
                                 <option value="High">High - System Down / Urgent</option>
                             </select>
+                            <span class="m3-label">Priority Level</span>
                         </div>
-                        <div class="relative">
+                        <div class="m3-input-wrapper">
                             <i class="fa-solid fa-tag input-icon"></i>
-                            <span class="m3-label">Issue Subject *</span>
                             <input type="text" name="ticket_subject" id="ticketSubject" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Issue Subject *</span>
                         </div>
                     </div>
 
-                    <div class="relative">
-                        <i class="fa-solid fa-align-left input-icon" style="top: 24px; transform: none;"></i>
-                        <span class="m3-label">Detailed Description *</span>
-                        <textarea name="message" id="message" rows="4" required class="m3-input resize-none" style="padding-top: 36px;" placeholder=" "></textarea>
+                    <!-- Label placed ABOVE Textbox -->
+                    <div class="flex flex-col gap-2 mt-2">
+                        <label for="message" class="text-sm font-bold text-slate-700 px-1">Detailed Description *</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-align-left absolute left-4 top-4 text-slate-500 text-[1.1rem]"></i>
+                            <textarea name="message" id="message" rows="5" required class="w-full bg-[#f0f4f8] border-b border-[#74777f] rounded-t-[4px] pl-12 pr-4 py-4 text-base text-[#1f1f1f] focus:bg-[#d3e3fd] focus:border-b-2 focus:border-[#0b57d0] transition-all outline-none resize-none" placeholder="Provide hostnames, exact error messages, or steps leading up to the issue..."></textarea>
+                        </div>
                     </div>
 
-                    <div class="bg-m3-surfaceContainerLow p-4 rounded-[16px] border border-dashed border-m3-outline">
-                        <label class="block text-sm font-medium text-slate-700 mb-2"><i class="fa-solid fa-paperclip mr-2"></i>Attach Screenshot/Log (Optional)</label>
-                        <input type="file" name="attachment" accept="image/*,.pdf,.log" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-m3-primaryContainer file:text-m3-onPrimaryContainer hover:file:bg-indigo-200 cursor-pointer"/>
+                    <div class="bg-m3-surfaceContainerLow p-5 rounded-[16px] border border-dashed border-m3-outline mt-2">
+                        <label class="block text-sm font-bold text-slate-700 mb-2"><i class="fa-solid fa-paperclip mr-2 text-m3-primary"></i>Attach Screenshot/Log (Optional)</label>
+                        <input type="file" name="attachment" accept="image/*,.pdf,.log" class="w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-m3-primaryContainer file:text-m3-onPrimaryContainer hover:file:bg-indigo-200 cursor-pointer transition-colors"/>
                     </div>
 
                     <div class="pt-4 flex justify-end">
-                        <button type="submit" id="submitBtn" class="bg-m3-primary text-white font-medium text-sm px-8 py-3.5 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all duration-300 flex items-center gap-2">
+                        <button type="submit" id="submitBtn" class="bg-m3-primary text-white font-bold text-base px-10 py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all duration-300 flex items-center gap-3">
                             <i class="fa-solid fa-paper-plane"></i> <span>Submit Ticket</span>
                         </button>
                     </div>
@@ -254,23 +279,23 @@
         <!-- ========================================== -->
         <!-- VIEW 2: TRACK TICKET -->
         <!-- ========================================== -->
-        <div id="trackView" class="view-section max-w-4xl mx-auto">
-            <div class="bg-white rounded-[28px] shadow-m3-2 p-8 mb-6 flex flex-col md:flex-row gap-6 items-center justify-between">
+        <div id="trackView" class="view-section max-w-5xl mx-auto">
+            <div class="bg-white rounded-[32px] shadow-m3-2 p-8 md:p-10 mb-8 flex flex-col lg:flex-row gap-6 items-center justify-between">
                 <div>
-                    <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-3">
-                        <div class="w-10 h-10 bg-m3-primaryContainer text-m3-primary rounded-full flex items-center justify-center text-lg"><i class="fa-solid fa-satellite-dish"></i></div>
+                    <h2 class="text-3xl font-bold text-slate-900 flex items-center gap-4">
+                        <div class="w-14 h-14 bg-m3-primaryContainer text-m3-primary rounded-full flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-satellite-dish"></i></div>
                         Track Status
                     </h2>
-                    <p class="text-slate-500 mt-2 text-sm">Enter your registered email to track live troubleshooting progress.</p>
+                    <p class="text-slate-500 mt-3 text-base font-medium">Enter your registered email to track live troubleshooting progress.</p>
                 </div>
                 
-                <div class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
-                    <div class="relative min-w-[250px]">
-                        <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-500"></i>
-                        <input type="email" id="trackEmailInput" class="w-full pl-11 pr-4 py-3 bg-m3-surfaceContainerLow border border-m3-surfaceContainerHigh rounded-[16px] focus:outline-none focus:border-m3-primary text-sm" placeholder="Your Email...">
+                <div class="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
+                    <div class="relative min-w-[300px]">
+                        <i class="fa-solid fa-envelope absolute left-5 top-1/2 transform -translate-y-1/2 text-slate-500"></i>
+                        <input type="email" id="trackEmailInput" class="w-full pl-12 pr-5 py-4 bg-m3-surfaceContainerLow border border-m3-surfaceContainerHigh rounded-full focus:outline-none focus:border-m3-primary text-base font-medium transition-colors" placeholder="Your Email Address...">
                     </div>
-                    <button onclick="searchClientTickets()" class="bg-m3-primaryContainer text-m3-onPrimaryContainer hover:bg-[#b5cffb] font-semibold px-6 py-3 rounded-full transition-all shadow-sm">
-                        Search
+                    <button onclick="searchClientTickets()" class="bg-m3-primaryContainer text-m3-onPrimaryContainer hover:bg-[#b5cffb] font-bold px-8 py-4 rounded-full transition-all shadow-sm text-base">
+                        Search Logs
                     </button>
                 </div>
             </div>
@@ -282,27 +307,27 @@
         <!-- ========================================== -->
         <!-- VIEW 3: STAFF LOGIN -->
         <!-- ========================================== -->
-        <div id="loginView" class="view-section max-w-sm mx-auto mt-8">
-            <div class="bg-white rounded-[28px] shadow-m3-3 overflow-hidden text-center p-8">
-                <div class="w-16 h-16 bg-m3-surfaceContainer text-m3-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+        <div id="loginView" class="view-section max-w-md mx-auto mt-12">
+            <div class="bg-white rounded-[32px] shadow-m3-3 overflow-hidden text-center p-10">
+                <div class="w-20 h-20 bg-m3-surfaceContainer text-m3-primary rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner">
                     <i class="fa-solid fa-fingerprint"></i>
                 </div>
-                <h2 class="text-xl font-bold text-slate-900">IT Authentication</h2>
-                <p class="text-sm text-slate-500 mt-1 mb-8">NOC Dashboard Access</p>
+                <h2 class="text-2xl font-bold text-slate-900">IT Authentication</h2>
+                <p class="text-base text-slate-500 mt-2 mb-10 font-medium">Secure NOC Dashboard Access</p>
                 
-                <form onsubmit="handleITLogin(event)" class="space-y-5 text-left">
-                    <div class="relative">
+                <form onsubmit="handleITLogin(event)" class="space-y-6 text-left">
+                    <div class="m3-input-wrapper">
                         <i class="fa-solid fa-envelope input-icon"></i>
-                        <span class="m3-label">Staff Email</span>
                         <input type="email" id="itUsername" required class="m3-input" placeholder=" ">
+                        <span class="m3-label">Staff Email</span>
                     </div>
-                    <div class="relative">
+                    <div class="m3-input-wrapper">
                         <i class="fa-solid fa-lock input-icon"></i>
-                        <span class="m3-label">Password</span>
                         <input type="password" id="itPassword" required class="m3-input" placeholder=" ">
+                        <span class="m3-label">Master Password</span>
                     </div>
                     
-                    <button type="submit" class="w-full bg-m3-primary text-white font-medium py-3.5 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all mt-6">
+                    <button type="submit" class="w-full bg-m3-primary text-white font-bold text-lg py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all mt-8">
                         Authenticate
                     </button>
                 </form>
@@ -310,40 +335,43 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- VIEW 4: IT TEAM DASHBOARD -->
+        <!-- VIEW 4: IT TEAM DASHBOARD (Optimized for Large Displays) -->
         <!-- ========================================== -->
-        <div id="dashboardView" class="view-section w-full">
-            <div class="bg-white rounded-[28px] shadow-m3-2 overflow-hidden">
-                <div class="bg-m3-surfaceContainerLow p-6 border-b border-m3-surfaceContainerHigh flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center text-xl shadow-sm"><i class="fa-solid fa-sliders"></i></div>
+        <div id="dashboardView" class="view-section w-full max-w-[1600px] mx-auto">
+            <div class="bg-white rounded-[32px] shadow-m3-3 overflow-hidden border border-m3-surfaceContainerHigh">
+                <div class="bg-m3-surfaceContainerLow p-6 lg:p-8 border-b border-m3-surfaceContainerHigh flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-5">
+                        <div class="w-14 h-14 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center text-2xl shadow-inner"><i class="fa-solid fa-sliders"></i></div>
                         <div>
-                            <h2 class="text-xl font-bold text-slate-900">Command Center</h2>
-                            <p class="text-sm text-slate-500">Live Ticket Management</p>
+                            <h2 class="text-2xl font-bold text-slate-900">NOC Command Center</h2>
+                            <p class="text-base text-slate-500 font-medium mt-1">Live Ticket Management & Triage</p>
                         </div>
                     </div>
-                    <div class="flex gap-3">
-                        <button onclick="logoutDashboard()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2 rounded-full text-sm font-semibold hover:bg-slate-50 transition">
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="toggleFullscreen()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm hidden md:flex items-center gap-2">
+                            <i class="fa-solid fa-expand"></i> Fullscreen
+                        </button>
+                        <button onclick="logoutDashboard()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm">
                             Sign Out
                         </button>
-                        <button onclick="clearDashboard()" class="bg-rose-100 text-rose-700 px-5 py-2 rounded-full text-sm font-semibold hover:bg-rose-200 transition">
-                            <i class="fa-solid fa-trash-can mr-1"></i> Clear DB
+                        <button onclick="clearDashboard()" class="bg-rose-100 text-rose-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-rose-200 transition shadow-sm">
+                            <i class="fa-solid fa-trash-can mr-1"></i> Flush DB
                         </button>
                     </div>
                 </div>
 
-                <div class="overflow-x-auto p-4">
-                    <table class="w-full text-left border-collapse">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[1000px]">
                         <thead>
-                            <tr class="text-slate-500 text-xs uppercase tracking-wider border-b border-m3-surfaceContainerHigh">
-                                <th class="p-4 font-medium">Ticket ID</th>
-                                <th class="p-4 font-medium">Client Info</th>
-                                <th class="p-4 font-medium">Issue</th>
-                                <th class="p-4 font-medium">Priority</th>
-                                <th class="p-4 font-medium">Status Action</th>
+                            <tr class="bg-m3-surfaceContainer text-slate-600 text-xs uppercase tracking-widest border-b border-m3-surfaceContainerHigh">
+                                <th class="p-5 font-bold w-48">Incident ID & Date</th>
+                                <th class="p-5 font-bold w-1/4">Requester Info</th>
+                                <th class="p-5 font-bold w-1/3">Issue Scope & Description</th>
+                                <th class="p-5 font-bold w-32">Priority</th>
+                                <th class="p-5 font-bold w-48">State Action</th>
                             </tr>
                         </thead>
-                        <tbody id="dashboardTableBody" class="divide-y divide-slate-100 text-sm"></tbody>
+                        <tbody id="dashboardTableBody" class="divide-y divide-slate-200 text-sm"></tbody>
                     </table>
                 </div>
             </div>
@@ -352,12 +380,12 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-m3-surfaceContainer border-t border-m3-surfaceContainerHigh py-8 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600 gap-4">
-            <p class="font-medium">&copy; 2026 Spread Technical. All rights reserved.</p>
-            <div class="flex flex-wrap justify-center gap-6">
-                <a href="tel:+971588421560" class="flex items-center gap-2 hover:text-m3-primary transition"><div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm"><i class="fa-solid fa-phone"></i></div> +971 58 842 1560</a>
-                <a href="mailto:vaibhav@spreadtechnical.com" class="flex items-center gap-2 hover:text-m3-primary transition"><div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm"><i class="fa-solid fa-envelope"></i></div> vaibhav@spreadtechnical.com</a>
+    <footer class="bg-m3-surfaceContainer border-t border-m3-surfaceContainerHigh py-8 mt-auto relative z-20">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600 gap-4">
+            <p class="font-bold">&copy; 2026 Spread Technical FZE. All rights reserved.</p>
+            <div class="flex flex-wrap justify-center gap-6 font-medium">
+                <a href="tel:+971588421560" class="flex items-center gap-2 hover:text-m3-primary transition"><div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-m3-primary"><i class="fa-solid fa-phone"></i></div> +971 58 842 1560</a>
+                <a href="mailto:vaibhav@spreadtechnical.com" class="flex items-center gap-2 hover:text-m3-primary transition"><div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-m3-primary"><i class="fa-solid fa-envelope"></i></div> vaibhav@spreadtechnical.com</a>
             </div>
         </div>
     </footer>
@@ -391,7 +419,7 @@
 
             // Reset Button Styles
             Object.values(btns).forEach(b => {
-                if(b) b.className = "px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh flex items-center gap-2";
+                if(b) b.className = "px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh hover:text-slate-900 flex items-center gap-2";
             });
 
             setTimeout(() => {
@@ -473,14 +501,14 @@
             let currentIndex = STATUS_FLOW.indexOf(currentStatus);
             if (currentIndex === -1) currentIndex = 0;
 
-            let html = `<div class="w-full py-6 mt-4"><div class="flex items-center justify-between relative px-4">`;
+            let html = `<div class="w-full py-8 mt-4"><div class="flex items-center justify-between relative px-6 md:px-10">`;
             
             // Background track
-            html += `<div class="absolute left-6 right-6 top-1/2 transform -translate-y-1/2 h-1.5 bg-m3-surfaceContainerHigh z-0 rounded-full"></div>`;
+            html += `<div class="absolute left-10 right-10 top-1/2 transform -translate-y-1/2 h-2 bg-m3-surfaceContainerHigh z-0 rounded-full shadow-inner"></div>`;
             
             // Active track
             let activeWidth = (currentIndex / (STATUS_FLOW.length - 1)) * 100;
-            html += `<div class="absolute left-6 top-1/2 transform -translate-y-1/2 h-1.5 bg-m3-primary z-0 transition-all duration-700 ease-in-out rounded-full" style="width: calc(${activeWidth}% - 1rem);"></div>`;
+            html += `<div class="absolute left-10 top-1/2 transform -translate-y-1/2 h-2 bg-m3-primary z-0 transition-all duration-700 ease-in-out rounded-full shadow-md" style="width: calc(${activeWidth}% - 2.5rem);"></div>`;
 
             // Nodes
             STATUS_FLOW.forEach((step, index) => {
@@ -488,18 +516,18 @@
                 let isCurrent = index === currentIndex;
                 
                 let circleClass = isCompleted 
-                    ? "bg-m3-primary text-white scale-110 shadow-md" 
-                    : "bg-m3-surfaceContainerHigh text-slate-500";
+                    ? "bg-m3-primary text-white scale-110 shadow-lg" 
+                    : "bg-white border-[3px] border-m3-surfaceContainerHigh text-slate-400";
                 
-                let textClass = isCurrent ? "text-m3-primary font-bold" : (isCompleted ? "text-slate-800 font-medium" : "text-slate-400 font-normal");
-                let icon = isCompleted ? '<i class="fa-solid fa-check text-sm"></i>' : `<span class="text-sm font-bold">${index + 1}</span>`;
+                let textClass = isCurrent ? "text-m3-primary font-extrabold text-[13px]" : (isCompleted ? "text-slate-800 font-bold" : "text-slate-400 font-semibold");
+                let icon = isCompleted ? '<i class="fa-solid fa-check text-base"></i>' : `<span class="text-sm font-bold">${index + 1}</span>`;
 
                 html += `
                     <div class="relative z-10 flex flex-col items-center">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${circleClass} border-4 border-white">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 ${circleClass} border-4 border-white">
                             ${icon}
                         </div>
-                        <span class="absolute top-12 text-xs text-center w-24 -ml-12 left-1/2 ${textClass}">${step}</span>
+                        <span class="absolute top-14 text-xs text-center w-28 -ml-14 left-1/2 ${textClass} uppercase tracking-wider">${step}</span>
                     </div>
                 `;
             });
@@ -519,37 +547,37 @@
 
             if (filtered.length === 0) {
                 container.innerHTML = `
-                    <div class="bg-white rounded-[24px] shadow-sm border border-m3-surfaceContainerHigh p-8 text-center">
-                        <div class="text-slate-300 text-4xl mb-3"><i class="fa-solid fa-box-open"></i></div>
-                        <h3 class="text-lg font-medium text-slate-700">No Tickets Found</h3>
-                        <p class="text-slate-500 text-sm">No records match <b>${queryEmail}</b>.</p>
+                    <div class="bg-white rounded-[32px] shadow-sm border border-m3-surfaceContainerHigh p-10 text-center">
+                        <div class="text-slate-300 text-5xl mb-4"><i class="fa-solid fa-box-open"></i></div>
+                        <h3 class="text-xl font-bold text-slate-800">No Tickets Found</h3>
+                        <p class="text-slate-500 text-base font-medium mt-1">No records match <b>${queryEmail}</b>.</p>
                     </div>`;
                 return;
             }
 
             filtered.forEach(t => {
                 let badge = t.priority === 'High' 
-                    ? '<span class="bg-rose-100 text-rose-700 px-3 py-1 rounded-full text-xs font-bold border border-rose-200">High Priority</span>'
-                    : (t.priority === 'Medium' ? '<span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-bold border border-amber-200">Medium</span>' : '<span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold border border-emerald-200">Low</span>');
+                    ? '<span class="bg-rose-100 text-rose-700 px-4 py-1.5 rounded-full text-xs font-bold border border-rose-200 shadow-sm">HIGH PRIORITY</span>'
+                    : (t.priority === 'Medium' ? '<span class="bg-amber-100 text-amber-700 px-4 py-1.5 rounded-full text-xs font-bold border border-amber-200 shadow-sm">MEDIUM</span>' : '<span class="bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-full text-xs font-bold border border-emerald-200 shadow-sm">LOW</span>');
                 
                 container.innerHTML += `
-                    <div class="bg-white rounded-[24px] shadow-m3-1 hover:shadow-m3-2 transition-shadow duration-300 border border-slate-100 p-6 sm:p-8">
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                    <div class="bg-white rounded-[32px] shadow-m3-2 hover:shadow-m3-3 transition-shadow duration-300 border border-slate-100 p-8 sm:p-10">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b border-slate-100 pb-6">
                             <div>
-                                <div class="flex items-center gap-3 mb-1">
-                                    <span class="text-xs font-mono font-bold text-m3-primary bg-m3-primaryContainer px-2 py-0.5 rounded">${t.id}</span>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="text-sm font-mono font-bold text-m3-primary bg-m3-primaryContainer px-3 py-1 rounded-md shadow-sm">${t.id}</span>
                                     ${badge}
                                 </div>
-                                <h3 class="text-xl font-bold text-slate-800">${t.subject}</h3>
-                                <p class="text-xs text-slate-500 mt-1">Logged on ${t.date}</p>
+                                <h3 class="text-2xl font-bold text-slate-900">${t.subject}</h3>
+                                <p class="text-sm text-slate-500 font-medium mt-1">Logged on ${t.date}</p>
                             </div>
                         </div>
                         
                         ${getProgressBarHTML(t.status || 'Monitoring')}
                         
-                        <div class="mt-12 bg-m3-surfaceContainerLow p-5 rounded-[16px] border border-m3-surfaceContainerHigh">
-                            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Description</h4>
-                            <p class="text-sm text-slate-700 whitespace-pre-wrap leading-relaxed">${t.description}</p>
+                        <div class="mt-14 bg-m3-surfaceContainerLow p-6 rounded-[24px] border border-m3-surfaceContainerHigh">
+                            <h4 class="text-xs font-extrabold text-slate-500 uppercase tracking-widest mb-3"><i class="fa-solid fa-align-left mr-2"></i>Issue Description</h4>
+                            <p class="text-base text-slate-800 whitespace-pre-wrap leading-relaxed font-medium">${t.description}</p>
                         </div>
                     </div>
                 `;
@@ -593,27 +621,41 @@
             tbody.innerHTML = '';
 
             if (tickets.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-500">No active tickets.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-medium text-lg">No active tickets in queue.</td></tr>`;
                 return;
             }
 
             tickets.forEach(t => {
                 let curStat = t.status || "Monitoring";
-                let selectHTML = `<select onchange="changeTicketStatus('${t.id}', this.value)" class="bg-m3-surfaceContainerHigh border-none text-slate-800 text-xs rounded-full px-4 py-2 outline-none focus:ring-2 focus:ring-m3-primary font-semibold cursor-pointer shadow-sm">`;
+                let selectHTML = `<select onchange="changeTicketStatus('${t.id}', this.value)" class="bg-m3-surfaceContainerHigh border border-slate-300 text-slate-800 text-sm rounded-full px-4 py-2 outline-none focus:ring-2 focus:ring-m3-primary font-bold cursor-pointer shadow-sm w-full max-w-[180px]">`;
                 STATUS_FLOW.forEach(s => {
                     selectHTML += `<option value="${s}" ${curStat === s ? 'selected' : ''}>${s}</option>`;
                 });
                 selectHTML += `</select>`;
 
-                let priorityStyle = t.priority === 'High' ? 'text-rose-600 bg-rose-50' : (t.priority === 'Medium' ? 'text-amber-600 bg-amber-50' : 'text-emerald-600 bg-emerald-50');
+                let priorityStyle = t.priority === 'High' ? 'text-rose-700 bg-rose-100 border-rose-200' : (t.priority === 'Medium' ? 'text-amber-700 bg-amber-100 border-amber-200' : 'text-emerald-700 bg-emerald-100 border-emerald-200');
 
                 tbody.innerHTML += `
-                    <tr class="hover:bg-slate-50 transition border-b border-slate-100 last:border-0">
-                        <td class="p-4"><div class="font-bold text-m3-primary text-xs font-mono">${t.id}</div><div class="text-xs text-slate-400 mt-1">${t.date}</div></td>
-                        <td class="p-4"><div class="font-bold text-slate-800">${t.company}</div><div class="text-xs text-slate-500 mt-1">${t.name} <br> ${t.email}</div></td>
-                        <td class="p-4"><div class="font-semibold text-slate-700 max-w-[200px] truncate" title="${t.subject}">${t.subject}</div></td>
-                        <td class="p-4"><span class="px-2.5 py-1 rounded text-xs font-bold ${priorityStyle}">${t.priority}</span></td>
-                        <td class="p-4">${selectHTML}</td>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100 last:border-0 align-top">
+                        <td class="p-5">
+                            <div class="font-bold text-m3-primary text-sm font-mono bg-m3-primaryContainer inline-block px-2 py-0.5 rounded">${t.id}</div>
+                            <div class="text-xs text-slate-500 font-medium mt-2 whitespace-nowrap">${t.date}</div>
+                        </td>
+                        <td class="p-5">
+                            <div class="font-bold text-slate-900 text-base">${t.company}</div>
+                            <div class="text-sm text-slate-600 font-medium mt-1">${t.name}</div>
+                            <div class="text-xs text-slate-400 mt-1">${t.email}<br>${t.phone}</div>
+                        </td>
+                        <td class="p-5">
+                            <div class="font-bold text-slate-800 text-base mb-1">${t.subject}</div>
+                            <div class="text-sm text-slate-600 font-medium whitespace-pre-wrap max-h-[100px] overflow-y-auto pr-2" style="scrollbar-width: thin;">${t.description}</div>
+                        </td>
+                        <td class="p-5">
+                            <span class="px-3 py-1.5 rounded-full text-xs font-bold border shadow-sm ${priorityStyle}">${t.priority}</span>
+                        </td>
+                        <td class="p-5">
+                            ${selectHTML}
+                        </td>
                     </tr>
                 `;
             });
@@ -625,18 +667,16 @@
                 loadDashboardTable();
             }
         }
-        
-        // Input focus styling fix for empty inputs with floating labels
-        document.querySelectorAll('.m3-input').forEach(input => {
-            input.addEventListener('blur', (e) => {
-                if(e.target.value.trim() !== "") {
-                    e.target.classList.add('has-val');
-                } else {
-                    e.target.classList.remove('has-val');
-                }
-            });
-        });
 
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message} (${err.name})`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
     </script>
 </body>
 </html>
