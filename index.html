@@ -28,8 +28,8 @@
                 <button onclick="switchView('portal')" id="portalBtn" class="bg-indigo-800 border border-indigo-500 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600">
                     <i class="fa-solid fa-ticket mr-1.5"></i> Raise Ticket
                 </button>
-                <button onclick="switchView('dashboard')" id="dashboardBtn" class="bg-indigo-900/60 border border-indigo-700 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600">
-                    <i class="fa-solid fa-gauge mr-1.5"></i> Support Dashboard <span id="badgeCount" class="ml-1 bg-rose-500 text-white text-xs px-1.5 py-0.5 rounded-full">0</span>
+                <button onclick="requestDashboardAccess()" id="dashboardBtn" class="bg-indigo-900/60 border border-indigo-700 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600">
+                    <i class="fa-solid fa-lock mr-1.5"></i> Support Dashboard <span id="badgeCount" class="ml-1 bg-rose-500 text-white text-xs px-1.5 py-0.5 rounded-full">0</span>
                 </button>
             </div>
         </div>
@@ -165,7 +165,7 @@
             </section>
         </div>
 
-        <!-- VIEW 2: SUPPORT TEAM DASHBOARD -->
+        <!-- VIEW 2: SUPPORT TEAM DASHBOARD (PASSWORD PROTECTED) -->
         <div id="dashboardView" class="hidden space-y-6">
             <div class="flex justify-between items-center bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div>
@@ -202,8 +202,23 @@
 
     </main>
 
-    <!-- Dashboard & View Management Script -->
+    <!-- Dashboard Password & View Management Script -->
     <script>
+        // CONFIG: Change your dashboard password here
+        const DASHBOARD_PASSWORD = "admin123";
+
+        function requestDashboardAccess() {
+            const enteredPassword = prompt("Enter password to access Support Dashboard:");
+            
+            if (enteredPassword === null) return; // Cancelled
+
+            if (enteredPassword === DASHBOARD_PASSWORD) {
+                switchView('dashboard');
+            } else {
+                alert("Incorrect password! Access denied.");
+            }
+        }
+
         function switchView(view) {
             const portal = document.getElementById('portalView');
             const dashboard = document.getElementById('dashboardView');
