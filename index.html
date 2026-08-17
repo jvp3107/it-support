@@ -352,11 +352,32 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="m3-input-wrapper">
-                            <i class="fa-solid fa-phone input-icon"></i>
-                            <input type="tel" name="phone" id="phone" required class="m3-input" placeholder=" ">
-                            <span class="m3-label">Contact Number *</span>
+                        <!-- Dual Input for Country Code + Phone -->
+                        <div class="flex gap-2 w-full">
+                            <div class="m3-input-wrapper w-[45%] sm:w-[35%]">
+                                <i class="fa-solid fa-globe input-icon" style="font-size: 1rem; left: 12px;"></i>
+                                <select id="countryCode" class="m3-input appearance-none cursor-pointer text-sm pr-2" style="padding-left: 36px;">
+                                    <option value="+971" selected>🇦🇪 +971 (UAE)</option>
+                                    <option value="+91">🇮🇳 +91 (IND)</option>
+                                    <option value="+1">🇺🇸 +1 (USA/CAN)</option>
+                                    <option value="+44">🇬🇧 +44 (UK)</option>
+                                    <option value="+966">🇸🇦 +966 (KSA)</option>
+                                    <option value="+968">🇴🇲 +968 (OMN)</option>
+                                    <option value="+973">🇧🇭 +973 (BHR)</option>
+                                    <option value="+974">🇶🇦 +974 (QAT)</option>
+                                    <option value="+965">🇰🇼 +965 (KWT)</option>
+                                    <option value="-" disabled>───────</option>
+                                    <!-- Full Country List -->
+                                    <option value="+93">🇦🇫 +93</option><option value="+355">🇦🇱 +355</option><option value="+213">🇩🇿 +213</option><option value="+376">🇦🇩 +376</option><option value="+244">🇦🇴 +244</option><option value="+54">🇦🇷 +54</option><option value="+374">🇦🇲 +374</option><option value="+61">🇦🇺 +61</option><option value="+43">🇦🇹 +43</option><option value="+994">🇦🇿 +994</option><option value="+880">🇧🇩 +880</option><option value="+375">🇧🇾 +375</option><option value="+32">🇧🇪 +32</option><option value="+501">🇧🇿 +501</option><option value="+229">🇧🇯 +229</option><option value="+975">🇧🇹 +975</option><option value="+591">🇧🇴 +591</option><option value="+387">🇧🇦 +387</option><option value="+267">🇧🇼 +267</option><option value="+55">🇧🇷 +55</option><option value="+673">🇧🇳 +673</option><option value="+359">🇧🇬 +359</option><option value="+226">🇧🇫 +226</option><option value="+257">🇧🇮 +257</option><option value="+855">🇰🇭 +855</option><option value="+237">🇨🇲 +237</option><option value="+238">🇨🇻 +238</option><option value="+236">🇨🇫 +236</option><option value="+235">🇹🇩 +235</option><option value="+56">🇨🇱 +56</option><option value="+86">🇨🇳 +86</option><option value="+57">🇨🇴 +57</option><option value="+269">🇰🇲 +269</option><option value="+242">🇨🇬 +242</option><option value="+506">🇨🇷 +506</option><option value="+385">🇭🇷 +385</option><option value="+53">🇨🇺 +53</option><option value="+357">🇨🇾 +357</option><option value="+420">🇨🇿 +420</option><option value="+45">🇩🇰 +45</option><option value="+253">🇩🇯 +253</option><option value="+1809">🇩🇴 +1809</option><option value="+593">🇪🇨 +593</option><option value="+20">🇪🇬 +20</option><option value="+503">🇸🇻 +503</option><option value="+240">🇬🇶 +240</option><option value="+291">🇪🇷 +291</option><option value="+372">🇪🇪 +372</option><option value="+251">🇪🇹 +251</option><option value="+679">🇫🇯 +679</option><option value="+358">🇫🇮 +358</option><option value="+33">🇫🇷 +33</option><option value="+241">🇬🇦 +241</option><option value="+220">🇬🇲 +220</option><option value="+995">🇬🇪 +995</option><option value="+49">🇩🇪 +49</option><option value="+233">🇬🇭 +233</option><option value="+30">🇬🇷 +30</option><option value="+502">🇬🇹 +502</option><option value="+224">🇬🇳 +224</option><option value="+245">🇬🇼 +245</option><option value="+592">🇬🇾 +592</option><option value="+509">🇭🇹 +509</option><option value="+504">🇭🇳 +504</option><option value="+36">🇭🇺 +36</option><option value="+354">🇮🇸 +354</option><option value="+62">🇮🇩 +62</option><option value="+98">🇮🇷 +98</option><option value="+964">🇮🇶 +964</option><option value="+353">🇮🇪 +353</option><option value="+972">🇮🇱 +972</option><option value="+39">🇮🇹 +39</option><option value="+225">🇨🇮 +225</option><option value="+1876">🇯🇲 +1876</option><option value="+81">🇯🇵 +81</option><option value="+962">🇯🇴 +962</option><option value="+7">🇰🇿 +7</option><option value="+254">🇰🇪 +254</option><option value="+686">🇰🇮 +686</option><option value="+996">🇰🇬 +996</option><option value="+856">🇱🇦 +856</option><option value="+371">🇱🇻 +371</option><option value="+961">🇱🇧 +961</option><option value="+266">🇱🇸 +266</option><option value="+231">🇱🇷 +231</option><option value="+218">🇱🇾 +218</option><option value="+423">🇱🇮 +423</option><option value="+370">🇱🇹 +370</option><option value="+352">🇱🇺 +352</option><option value="+261">🇲🇬 +261</option><option value="+265">🇲🇼 +265</option><option value="+60">🇲🇾 +60</option><option value="+960">🇲🇻 +960</option><option value="+223">🇲🇱 +223</option><option value="+356">🇲🇹 +356</option><option value="+692">🇲🇭 +692</option><option value="+222">🇲🇷 +222</option><option value="+230">🇲🇺 +230</option><option value="+52">🇲🇽 +52</option><option value="+691">🇫🇲 +691</option><option value="+373">🇲🇩 +373</option><option value="+377">🇲🇨 +377</option><option value="+976">🇲🇳 +976</option><option value="+382">🇲🇪 +382</option><option value="+212">🇲🇦 +212</option><option value="+258">🇲🇿 +258</option><option value="+95">🇲🇲 +95</option><option value="+264">🇳🇦 +264</option><option value="+674">🇳🇷 +674</option><option value="+977">🇳🇵 +977</option><option value="+31">🇳🇱 +31</option><option value="+64">🇳🇿 +64</option><option value="+505">🇳🇮 +505</option><option value="+227">🇳🇪 +227</option><option value="+234">🇳🇬 +234</option><option value="+850">🇰🇵 +850</option><option value="+47">🇳🇴 +47</option><option value="+92">🇵🇰 +92</option><option value="+680">🇵🇼 +680</option><option value="+507">🇵🇦 +507</option><option value="+675">🇵🇬 +675</option><option value="+595">🇵🇾 +595</option><option value="+51">🇵🇪 +51</option><option value="+63">🇵🇭 +63</option><option value="+48">🇵🇱 +48</option><option value="+351">🇵🇹 +351</option><option value="+40">🇷🇴 +40</option><option value="+7">🇷🇺 +7</option><option value="+250">🇷🇼 +250</option><option value="+685">🇼🇸 +685</option><option value="+378">🇸🇲 +378</option><option value="+239">🇸🇹 +239</option><option value="+221">🇸🇳 +221</option><option value="+381">🇷🇸 +381</option><option value="+248">🇸🇨 +248</option><option value="+232">🇸🇱 +232</option><option value="+65">🇸🇬 +65</option><option value="+421">🇸🇰 +421</option><option value="+386">🇸🇮 +386</option><option value="+677">🇸🇧 +677</option><option value="+252">🇸🇴 +252</option><option value="+27">🇿🇦 +27</option><option value="+82">🇰🇷 +82</option><option value="+211">🇸🇸 +211</option><option value="+34">🇪🇸 +34</option><option value="+94">🇱🇰 +94</option><option value="+249">🇸🇩 +249</option><option value="+597">🇸🇷 +597</option><option value="+268">🇸🇿 +268</option><option value="+46">🇸🇪 +46</option><option value="+41">🇨🇭 +41</option><option value="+963">🇸🇾 +963</option><option value="+886">🇹🇼 +886</option><option value="+992">🇹🇯 +992</option><option value="+255">🇹🇿 +255</option><option value="+66">🇹🇭 +66</option><option value="+228">🇹🇬 +228</option><option value="+676">🇹🇴 +676</option><option value="+1868">🇹🇹 +1868</option><option value="+216">🇹🇳 +216</option><option value="+90">🇹🇷 +90</option><option value="+993">🇹🇲 +993</option><option value="+688">🇹🇻 +688</option><option value="+256">🇺🇬 +256</option><option value="+380">🇺🇦 +380</option><option value="+598">🇺🇾 +598</option><option value="+998">🇺🇿 +998</option><option value="+678">🇻🇺 +678</option><option value="+379">🇻🇦 +379</option><option value="+58">🇻🇪 +58</option><option value="+84">🇻🇳 +84</option><option value="+967">🇾🇪 +967</option><option value="+260">🇿🇲 +260</option><option value="+263">🇿🇼 +263</option>
+                                </select>
+                                <span class="m3-label" style="left: 36px;">Code</span>
+                            </div>
+                            <div class="m3-input-wrapper w-[55%] sm:w-[65%]">
+                                <input type="tel" name="phone_number" id="phone_number" required class="m3-input" placeholder=" " style="padding-left: 16px;">
+                                <span class="m3-label" style="left: 16px;">Contact Number *</span>
+                            </div>
                         </div>
+
                         <div class="m3-input-wrapper">
                             <i class="fa-solid fa-envelope input-icon"></i>
                             <input type="email" name="email" id="email" required class="m3-input" placeholder=" ">
@@ -457,7 +478,7 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- VIEW 3: KNOWLEDGE BASE (NEW)               -->
+        <!-- VIEW 3: KNOWLEDGE BASE                     -->
         <!-- ========================================== -->
         <div id="kbView" class="view-section max-w-5xl mx-auto">
             <div class="bg-m3-primary text-white rounded-[32px] p-10 mb-8 text-center shadow-m3-2 bg-gradient-to-br from-[#0b57d0] to-[#0842a0]">
@@ -471,7 +492,6 @@
             </div>
 
             <div class="grid grid-cols-1 gap-4" id="kbContainer">
-                <!-- KB Item 1 -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
                     <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
                         <span><i class="fa-brands fa-microsoft text-blue-500 mr-2"></i> How to reset my Microsoft 365 / Office 365 Password?</span>
@@ -489,7 +509,6 @@
                     </div>
                 </div>
 
-                <!-- KB Item 2 -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
                     <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
                         <span><i class="fa-solid fa-shield-halved text-emerald-500 mr-2"></i> Cisco / Sophos VPN Connection Issues</span>
@@ -506,43 +525,8 @@
                         </ul>
                     </div>
                 </div>
-
-                <!-- KB Item 3 -->
-                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
-                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
-                        <span><i class="fa-solid fa-print text-slate-500 mr-2"></i> Network Printer is Offline or Not Responding</span>
-                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
-                    </button>
-                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400">
-                        <ul class="list-disc pl-5 space-y-2 mb-4">
-                            <li>Check the physical printer to ensure it has paper, toner, and no paper jams.</li>
-                            <li>Verify the printer shows an active IP address on its display panel.</li>
-                            <li>On your Windows PC, go to Settings > Devices > Printers & Scanners.</li>
-                            <li>Find the printer, click "Manage" and run the "Troubleshooter".</li>
-                            <li>If the issue persists, clear the print spooler: Open Command Prompt as Admin, type <code>net stop spooler</code>, then <code>net start spooler</code>.</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- KB Item 4 -->
-                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
-                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
-                        <span><i class="fa-solid fa-cloud text-cyan-500 mr-2"></i> SharePoint / OneDrive Sync Issues</span>
-                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
-                    </button>
-                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400">
-                        <p class="mb-3">If files are not syncing to Azure Cloud / SharePoint:</p>
-                        <ul class="list-disc pl-5 space-y-2 mb-4">
-                            <li>Look at the blue cloud icon in your Windows system tray (bottom right).</li>
-                            <li>If there is a red 'X', click it to view sync conflicts. Usually, this means a file is open in another program or has invalid characters in the file name.</li>
-                            <li>If the icon is gray, you are signed out. Click it to sign back in with your M365 credentials.</li>
-                            <li>To force a sync, right-click the cloud icon, click Settings, go to Account tab, click "Unlink this PC", and then sign in again to rebuild the connection.</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
             
-            <!-- No Results KB Message -->
             <div id="kbNoResults" class="hidden text-center p-10 bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm mt-4">
                 <i class="fa-solid fa-ghost text-4xl text-slate-300 dark:text-slate-600 mb-3"></i>
                 <h3 class="text-xl font-bold text-slate-700 dark:text-slate-300">No articles found</h3>
@@ -552,7 +536,7 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- VIEW 4: SYSTEM HEALTH (NEW)                -->
+        <!-- VIEW 4: SYSTEM HEALTH                      -->
         <!-- ========================================== -->
         <div id="healthView" class="view-section max-w-5xl mx-auto">
             <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-2 p-8 md:p-10 mb-8 transition-colors duration-300">
@@ -570,9 +554,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="healthServicesContainer">
-                    <!-- Javascript will populate these -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="healthServicesContainer"></div>
 
                 <div class="mt-8 p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
                     <p><i class="fa-solid fa-clock-rotate-left mr-2"></i> Last updated: <span id="healthLastUpdate" class="font-bold">Just now</span>. Next automated ping in <span id="healthNextPing" class="font-mono text-m3-primary dark:text-m3-darkPrimary">60</span>s.</p>
@@ -617,39 +599,25 @@
         <!-- ========================================== -->
         <div id="dashboardView" class="view-section w-full max-w-[1600px] mx-auto">
             
-            <!-- Dashboard KPIs -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                 <div class="kpi-card bg-white dark:bg-m3-darkSurface p-6 rounded-2xl shadow-m3-1 border border-slate-100 dark:border-slate-800 flex items-center justify-between transition-colors">
-                    <div>
-                        <p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Tickets</p>
-                        <h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiTotal">0</h3>
-                    </div>
+                    <div><p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Tickets</p><h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiTotal">0</h3></div>
                     <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl"><i class="fa-solid fa-layer-group"></i></div>
                 </div>
                 <div class="kpi-card bg-white dark:bg-m3-darkSurface p-6 rounded-2xl shadow-m3-1 border border-slate-100 dark:border-slate-800 flex items-center justify-between transition-colors">
-                    <div>
-                        <p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Open / Monitoring</p>
-                        <h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiOpen">0</h3>
-                    </div>
+                    <div><p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Open / Monitoring</p><h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiOpen">0</h3></div>
                     <div class="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl"><i class="fa-solid fa-eye"></i></div>
                 </div>
                 <div class="kpi-card bg-white dark:bg-m3-darkSurface p-6 rounded-2xl shadow-m3-1 border border-slate-100 dark:border-slate-800 flex items-center justify-between transition-colors">
-                    <div>
-                        <p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">In Progress</p>
-                        <h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiWorking">0</h3>
-                    </div>
+                    <div><p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">In Progress</p><h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiWorking">0</h3></div>
                     <div class="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl"><i class="fa-solid fa-gears"></i></div>
                 </div>
                 <div class="kpi-card bg-white dark:bg-m3-darkSurface p-6 rounded-2xl shadow-m3-1 border border-slate-100 dark:border-slate-800 flex items-center justify-between transition-colors">
-                    <div>
-                        <p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Resolved</p>
-                        <h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiResolved">0</h3>
-                    </div>
+                    <div><p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Resolved</p><h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiResolved">0</h3></div>
                     <div class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl"><i class="fa-solid fa-check-double"></i></div>
                 </div>
             </div>
 
-            <!-- Main Dashboard Table -->
             <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-3 overflow-hidden border border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh transition-colors duration-300">
                 <div class="bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow p-6 lg:p-8 border-b border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh flex flex-col xl:flex-row justify-between items-center gap-4 transition-colors">
                     <div class="flex items-center gap-5 w-full xl:w-auto">
@@ -660,31 +628,18 @@
                         </div>
                     </div>
                     
-                    <!-- Dashboard Filters & Controls -->
                     <div class="flex flex-wrap items-center gap-3 w-full xl:w-auto justify-end">
                         <div class="relative bg-white dark:bg-m3-darkSurface rounded-full border border-slate-200 dark:border-slate-700 px-3 py-1 flex items-center shadow-sm">
                             <i class="fa-solid fa-search text-slate-400 ml-2"></i>
                             <input type="text" id="dashSearch" onkeyup="filterDashboard()" class="bg-transparent border-none outline-none text-sm px-3 py-1 text-slate-700 dark:text-white w-40 focus:w-60 transition-all" placeholder="Search ID, Name...">
                         </div>
                         <select id="dashStatusFilter" onchange="filterDashboard()" class="bg-white dark:bg-m3-darkSurface border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-white rounded-full px-4 py-2 text-sm font-semibold shadow-sm outline-none">
-                            <option value="All">All Statuses</option>
-                            <option value="Monitoring">Monitoring</option>
-                            <option value="Assigned">Assigned</option>
-                            <option value="Working">Working</option>
-                            <option value="Resolved">Resolved</option>
+                            <option value="All">All Statuses</option><option value="Monitoring">Monitoring</option><option value="Assigned">Assigned</option><option value="Working">Working</option><option value="Resolved">Resolved</option>
                         </select>
-                        <button onclick="exportToCSV()" class="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition shadow-sm flex items-center gap-2">
-                            <i class="fa-solid fa-file-csv"></i> Export
-                        </button>
-                        <button onclick="fetchTicketsForDashboard()" class="bg-white dark:bg-m3-darkSurface border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm" title="Refresh Data">
-                            <i class="fa-solid fa-rotate-right"></i>
-                        </button>
-                        <button onclick="toggleFullscreen()" class="bg-white dark:bg-m3-darkSurface border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm hidden md:flex items-center gap-2">
-                            <i class="fa-solid fa-expand"></i> Fullscreen
-                        </button>
-                        <button onclick="logoutDashboard()" class="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-700 transition shadow-sm">
-                            Sign Out
-                        </button>
+                        <button onclick="exportToCSV()" class="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition shadow-sm flex items-center gap-2"><i class="fa-solid fa-file-csv"></i> Export</button>
+                        <button onclick="fetchTicketsForDashboard()" class="bg-white dark:bg-m3-darkSurface border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm" title="Refresh Data"><i class="fa-solid fa-rotate-right"></i></button>
+                        <button onclick="toggleFullscreen()" class="bg-white dark:bg-m3-darkSurface border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm hidden md:flex items-center gap-2"><i class="fa-solid fa-expand"></i> Fullscreen</button>
+                        <button onclick="logoutDashboard()" class="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-700 transition shadow-sm">Sign Out</button>
                     </div>
                 </div>
 
@@ -692,71 +647,33 @@
                     <table class="w-full text-left border-collapse min-w-[1200px]" id="dashboardTable">
                         <thead>
                             <tr class="bg-m3-surfaceContainer dark:bg-m3-darkSurfaceContainer text-slate-600 dark:text-slate-400 text-xs uppercase tracking-widest border-b border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh">
-                                <th class="p-5 font-bold w-48">Incident ID & Date</th>
-                                <th class="p-5 font-bold w-1/4">Requester Info</th>
-                                <th class="p-5 font-bold w-1/3">Issue Scope & Description</th>
-                                <th class="p-5 font-bold w-32">Priority</th>
-                                <th class="p-5 font-bold w-48 text-center">State Action</th>
+                                <th class="p-5 font-bold w-48">Incident ID & Date</th><th class="p-5 font-bold w-1/4">Requester Info</th><th class="p-5 font-bold w-1/3">Issue Scope & Description</th><th class="p-5 font-bold w-32">Priority</th><th class="p-5 font-bold w-48 text-center">State Action</th>
                             </tr>
                         </thead>
-                        <tbody id="dashboardTableBody" class="divide-y divide-slate-200 dark:divide-slate-800 text-sm">
-                            <!-- Populated by JS -->
-                        </tbody>
+                        <tbody id="dashboardTableBody" class="divide-y divide-slate-200 dark:divide-slate-800 text-sm"></tbody>
                     </table>
                 </div>
-                
-                <!-- Pagination Footer -->
-                <div class="bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow p-4 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-sm text-slate-500 dark:text-slate-400">
-                    <span id="tableRecordCount">Showing 0 records</span>
-                    <div class="flex gap-2">
-                        <button class="px-3 py-1 bg-white dark:bg-m3-darkSurface border border-slate-200 dark:border-slate-700 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50" disabled><i class="fa-solid fa-chevron-left"></i> Prev</button>
-                        <button class="px-3 py-1 bg-white dark:bg-m3-darkSurface border border-slate-200 dark:border-slate-700 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50" disabled>Next <i class="fa-solid fa-chevron-right"></i></button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-4 flex justify-end">
-                <button onclick="clearDashboard()" class="text-rose-500 hover:text-rose-700 text-xs font-bold transition flex items-center gap-1">
-                    <i class="fa-solid fa-triangle-exclamation"></i> Flush Local Cache (Danger)
-                </button>
             </div>
         </div>
-
     </main>
 
     <!-- Floating Chat Widget -->
     <div id="chat-widget">
-        <!-- Chat Window -->
         <div id="chat-window" class="bg-white dark:bg-m3-darkSurface border border-slate-200 dark:border-slate-700 flex flex-col mb-4">
             <div class="bg-m3-primary dark:bg-m3-darkPrimary p-4 text-white dark:text-m3-darkOnPrimary flex justify-between items-center shadow-md">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"><i class="fa-solid fa-robot"></i></div>
-                    <div>
-                        <h4 class="font-bold text-sm">Spread IT Assistant</h4>
-                        <p class="text-[10px] opacity-80">Online - Automated</p>
-                    </div>
-                </div>
+                <div class="flex items-center gap-3"><div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"><i class="fa-solid fa-robot"></i></div><div><h4 class="font-bold text-sm">Spread IT Assistant</h4><p class="text-[10px] opacity-80">Online - Automated</p></div></div>
                 <button onclick="toggleChat()" class="hover:bg-white/20 w-8 h-8 rounded-full transition"><i class="fa-solid fa-times"></i></button>
             </div>
-            
             <div id="chat-messages" class="flex-grow p-4 overflow-y-auto flex flex-col gap-2 bg-slate-50 dark:bg-slate-900/50">
                 <div class="text-xs text-center text-slate-400 dark:text-slate-500 mb-2">Today</div>
-                <div class="chat-message chat-bot shadow-sm">
-                    Hello! I'm the Spread Technical virtual assistant. How can I help you today?
-                </div>
-                <!-- Messages injected here -->
+                <div class="chat-message chat-bot shadow-sm">Hello! I'm the Spread Technical virtual assistant. How can I help you today?</div>
             </div>
-            
             <div class="p-3 bg-white dark:bg-m3-darkSurface border-t border-slate-200 dark:border-slate-700 flex gap-2">
                 <input type="text" id="chatInput" onkeypress="handleChatKey(event)" class="flex-grow bg-slate-100 dark:bg-slate-800 border-none rounded-full px-4 py-2 text-sm text-slate-800 dark:text-white outline-none focus:ring-1 focus:ring-m3-primary" placeholder="Type a message...">
                 <button onclick="sendChatMessage()" class="w-10 h-10 bg-m3-primary dark:bg-m3-darkPrimary text-white dark:text-m3-darkOnPrimary rounded-full flex items-center justify-center hover:scale-105 transition shadow-sm"><i class="fa-solid fa-paper-plane text-sm"></i></button>
             </div>
         </div>
-        
-        <!-- Chat Bubble Toggle -->
-        <button onclick="toggleChat()" id="chat-toggle-btn" class="w-16 h-16 bg-m3-primary dark:bg-m3-darkPrimary text-white dark:text-m3-darkOnPrimary rounded-full shadow-m3-3 flex items-center justify-center text-2xl hover:scale-110 transition-transform duration-300 animate-bounce-slight absolute right-0 bottom-0">
-            <i class="fa-solid fa-messages"></i>
-        </button>
+        <button onclick="toggleChat()" id="chat-toggle-btn" class="w-16 h-16 bg-m3-primary dark:bg-m3-darkPrimary text-white dark:text-m3-darkOnPrimary rounded-full shadow-m3-3 flex items-center justify-center text-2xl hover:scale-110 transition-transform duration-300 animate-bounce-slight absolute right-0 bottom-0"><i class="fa-solid fa-messages"></i></button>
     </div>
 
     <!-- Footer -->
@@ -764,7 +681,6 @@
         <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600 dark:text-slate-400 gap-4">
             <p class="font-bold">&copy; 2026 Spread Technical FZE. All rights reserved.</p>
             <div class="flex flex-wrap justify-center gap-6 font-medium">
-                <a href="#" class="hover:text-m3-primary dark:hover:text-m3-darkPrimary transition"><i class="fa-solid fa-location-dot mr-1"></i> Dubai, UAE</a>
                 <a href="tel:+971588421560" class="flex items-center gap-2 hover:text-m3-primary dark:hover:text-m3-darkPrimary transition"><div class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center shadow-sm text-m3-primary dark:text-m3-darkPrimary"><i class="fa-solid fa-phone"></i></div> +971 58 842 1560</a>
                 <a href="mailto:vaibhav@spreadtechnical.com" class="flex items-center gap-2 hover:text-m3-primary dark:hover:text-m3-darkPrimary transition"><div class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center shadow-sm text-m3-primary dark:text-m3-darkPrimary"><i class="fa-solid fa-envelope"></i></div> vaibhav@spreadtechnical.com</a>
             </div>
@@ -777,7 +693,7 @@
     <script>
         // === CONFIGURATION ===
         const DB_CONFIG = {
-            useDatabase: true, // Make TRUE after deploying Google Apps Script
+            useDatabase: true, // Database is ACTIVE
             apiUrl: "https://script.google.com/macros/s/AKfycby5BAy5xGwTsJ3iMYd7zF1CXLHBl1tI8h23BxSZXmf88JO9oEe4zvgdpeRldNKW8oI/exec" 
         };
 
@@ -788,300 +704,156 @@
 
         // Initialization
         document.addEventListener('DOMContentLoaded', () => {
-            // Setup input floats
             document.querySelectorAll('.m3-input').forEach(input => {
                 input.addEventListener('blur', (e) => { 
                     if(e.target.value.trim() !== "") { e.target.classList.add('has-val'); } 
                     else { e.target.classList.remove('has-val'); } 
                 });
             });
-            
-            // Check system preference for dark mode
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.documentElement.classList.add('dark');
                 document.getElementById('theme-icon').className = 'fa-solid fa-sun text-lg';
             }
-            
-            // Initialize Health Dashboard
             initSystemHealth();
-            
-            // Set date
-            setInterval(() => {
-                const now = new Date();
-                // Dubai Timezone approximation if needed, sticking to local for simplicity in UI display
-            }, 1000);
         });
 
-        // ==========================================
-        // UI & NAVIGATION LOGIC
-        // ==========================================
-
+        // UI & NAVIGATION
         function toggleDarkMode() {
-            const html = document.documentElement;
-            const icon = document.getElementById('theme-icon');
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                icon.className = 'fa-solid fa-moon text-lg';
-            } else {
-                html.classList.add('dark');
-                icon.className = 'fa-solid fa-sun text-lg';
-            }
+            const html = document.documentElement; const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) { html.classList.remove('dark'); icon.className = 'fa-solid fa-moon text-lg'; } 
+            else { html.classList.add('dark'); icon.className = 'fa-solid fa-sun text-lg'; }
         }
 
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const content = document.getElementById('mobileMenuContent');
+            const menu = document.getElementById('mobileMenu'); const content = document.getElementById('mobileMenuContent');
             if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                setTimeout(() => {
-                    menu.classList.remove('opacity-0');
-                    content.classList.remove('translate-x-full');
-                }, 10);
+                menu.classList.remove('hidden'); setTimeout(() => { menu.classList.remove('opacity-0'); content.classList.remove('translate-x-full'); }, 10);
             } else {
-                menu.classList.add('opacity-0');
-                content.classList.add('translate-x-full');
-                setTimeout(() => menu.classList.add('hidden'), 300);
+                menu.classList.add('opacity-0'); content.classList.add('translate-x-full'); setTimeout(() => menu.classList.add('hidden'), 300);
             }
         }
 
         function switchView(viewName) {
-            const views = document.querySelectorAll('.view-section');
-            const btns = document.querySelectorAll('.nav-btn');
-            const hero = document.getElementById('heroBanner');
-            
-            if(viewName === 'portal') hero.style.display = 'block'; 
-            else hero.style.display = 'none';
-
-            views.forEach(v => { 
-                v.classList.remove('active'); 
-                setTimeout(() => { if(!v.classList.contains('active')) v.style.display = 'none'; }, 400); 
-            });
-            
-            btns.forEach(b => { 
-                b.className = "nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:bg-m3-surfaceContainerHigh dark:hover:bg-m3-darkSurfaceContainerHigh flex items-center gap-2"; 
-            });
+            const views = document.querySelectorAll('.view-section'); const btns = document.querySelectorAll('.nav-btn'); const hero = document.getElementById('heroBanner');
+            if(viewName === 'portal') hero.style.display = 'block'; else hero.style.display = 'none';
+            views.forEach(v => { v.classList.remove('active'); setTimeout(() => { if(!v.classList.contains('active')) v.style.display = 'none'; }, 400); });
+            btns.forEach(b => { b.className = "nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:bg-m3-surfaceContainerHigh dark:hover:bg-m3-darkSurfaceContainerHigh flex items-center gap-2"; });
 
             setTimeout(() => {
                 let targetView = viewName + 'View';
-                if (viewName === 'login') {
-                    if (isITLoggedIn) { 
-                        targetView = 'dashboardView'; 
-                        fetchTicketsForDashboard(); 
-                    }
-                }
-                
+                if (viewName === 'login') { if (isITLoggedIn) { targetView = 'dashboardView'; fetchTicketsForDashboard(); } }
                 const viewEl = document.getElementById(targetView);
-                if(viewEl) {
-                    viewEl.style.display = 'block'; 
-                    setTimeout(() => viewEl.classList.add('active'), 50);
-                }
-
+                if(viewEl) { viewEl.style.display = 'block'; setTimeout(() => viewEl.classList.add('active'), 50); }
                 const activeBtn = document.getElementById('nav-' + viewName);
-                if(activeBtn) {
-                    activeBtn.className = "nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer text-m3-onPrimaryContainer dark:text-m3-darkOnPrimaryContainer flex items-center gap-2 shadow-sm";
-                }
+                if(activeBtn) { activeBtn.className = "nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer text-m3-onPrimaryContainer dark:text-m3-darkOnPrimaryContainer flex items-center gap-2 shadow-sm"; }
             }, 400);
         }
 
-        function toggleFullscreen() { 
-            if (!document.fullscreenElement) { 
-                document.documentElement.requestFullscreen().catch(err => {
-                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
-                }); 
-            } else { 
-                document.exitFullscreen(); 
-            } 
-        }
+        function toggleFullscreen() { if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); } else { document.exitFullscreen(); } }
 
-        // ==========================================
-        // KNOWLEDGE BASE LOGIC
-        // ==========================================
-
+        // KB & HEALTH
         function toggleKB(btn) {
             const item = btn.parentElement;
-            // Close others
-            document.querySelectorAll('.kb-item').forEach(el => {
-                if(el !== item) el.classList.remove('active');
-            });
+            document.querySelectorAll('.kb-item').forEach(el => { if(el !== item) el.classList.remove('active'); });
             item.classList.toggle('active');
         }
 
         function filterKB() {
-            const input = document.getElementById('kbSearchInput').value.toLowerCase();
-            const items = document.querySelectorAll('.kb-item');
-            let found = false;
-
+            const input = document.getElementById('kbSearchInput').value.toLowerCase(); const items = document.querySelectorAll('.kb-item'); let found = false;
             items.forEach(item => {
-                const text = item.innerText.toLowerCase();
-                if (text.includes(input)) {
-                    item.style.display = "block";
-                    found = true;
-                } else {
-                    item.style.display = "none";
-                    item.classList.remove('active');
-                }
+                if (item.innerText.toLowerCase().includes(input)) { item.style.display = "block"; found = true; } 
+                else { item.style.display = "none"; item.classList.remove('active'); }
             });
-
             document.getElementById('kbNoResults').style.display = found ? 'none' : 'block';
         }
 
-        // ==========================================
-        // SYSTEM HEALTH DASHBOARD LOGIC
-        // ==========================================
-
         const systemServices = [
-            { name: "Active Directory (UAE OUs)", status: "Operational", uptime: "99.99%", ping: 12 },
-            { name: "Microsoft 365 Exchange", status: "Operational", uptime: "99.98%", ping: 45 },
-            { name: "Azure Virtual Desktop", status: "Operational", uptime: "99.95%", ping: 28 },
-            { name: "Sophos XG Firewall (HQ)", status: "Operational", uptime: "100%", ping: 5 },
-            { name: "Cisco Core Switches", status: "Operational", uptime: "100%", ping: 2 },
-            { name: "SharePoint Document Storage", status: "Degraded", uptime: "98.50%", ping: 150 }
+            { name: "Active Directory (UAE OUs)", status: "Operational", uptime: "99.99%", ping: 12 }, { name: "Microsoft 365 Exchange", status: "Operational", uptime: "99.98%", ping: 45 },
+            { name: "Azure Virtual Desktop", status: "Operational", uptime: "99.95%", ping: 28 }, { name: "Sophos XG Firewall (HQ)", status: "Operational", uptime: "100%", ping: 5 },
+            { name: "Cisco Core Switches", status: "Operational", uptime: "100%", ping: 2 }, { name: "SharePoint Document Storage", status: "Operational", uptime: "99.80%", ping: 42 }
         ];
 
         function initSystemHealth() {
-            const container = document.getElementById('healthServicesContainer');
-            container.innerHTML = '';
-            
+            const container = document.getElementById('healthServicesContainer'); container.innerHTML = '';
             systemServices.forEach(srv => {
-                const isOp = srv.status === "Operational";
-                const colorClass = isOp ? "text-emerald-500" : "text-amber-500";
+                const isOp = srv.status === "Operational"; const colorClass = isOp ? "text-emerald-500" : "text-amber-500";
                 const bgClass = isOp ? "bg-emerald-50 dark:bg-emerald-900/10 border-emerald-200 dark:border-emerald-800/30" : "bg-amber-50 dark:bg-amber-900/10 border-amber-200 dark:border-amber-800/30";
                 const icon = isOp ? "fa-check-circle" : "fa-triangle-exclamation";
-
                 container.innerHTML += `
                     <div class="border rounded-2xl p-5 ${bgClass} transition-colors duration-300">
-                        <div class="flex justify-between items-center mb-3">
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200">${srv.name}</h4>
-                            <span class="${colorClass} font-bold text-sm flex items-center gap-1"><i class="fa-solid ${icon}"></i> ${srv.status}</span>
-                        </div>
-                        <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 font-mono">
-                            <span>Uptime: ${srv.uptime}</span>
-                            <span>Latency: ${srv.ping}ms</span>
-                        </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 mt-3 rounded-full overflow-hidden">
-                            <div class="h-full ${isOp ? 'bg-emerald-500' : 'bg-amber-500'} rounded-full" style="width: ${srv.uptime}"></div>
-                        </div>
-                    </div>
-                `;
+                        <div class="flex justify-between items-center mb-3"><h4 class="font-bold text-slate-800 dark:text-slate-200">${srv.name}</h4><span class="${colorClass} font-bold text-sm flex items-center gap-1"><i class="fa-solid ${icon}"></i> ${srv.status}</span></div>
+                        <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 font-mono"><span>Uptime: ${srv.uptime}</span><span>Latency: ${srv.ping}ms</span></div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 mt-3 rounded-full overflow-hidden"><div class="h-full ${isOp ? 'bg-emerald-500' : 'bg-amber-500'} rounded-full" style="width: ${srv.uptime}"></div></div>
+                    </div>`;
             });
-
-            // Simulate ping update
-            let countdown = 60;
-            setInterval(() => {
-                countdown--;
-                if(countdown <= 0) {
-                    countdown = 60;
-                    document.getElementById('healthLastUpdate').innerText = new Date().toLocaleTimeString();
-                    // Randomize pings slightly for effect
-                    initSystemHealth(); // Re-render
-                }
-                const el = document.getElementById('healthNextPing');
-                if(el) el.innerText = countdown;
-            }, 1000);
         }
+        let countdown = 60;
+        setInterval(() => {
+            countdown--; if(countdown <= 0) { countdown = 60; document.getElementById('healthLastUpdate').innerText = new Date().toLocaleTimeString(); initSystemHealth(); }
+            const el = document.getElementById('healthNextPing'); if(el) el.innerText = countdown;
+        }, 1000);
 
-        // ==========================================
-        // CHAT BOT LOGIC
-        // ==========================================
-
+        // CHAT BOT
         function toggleChat() {
-            const win = document.getElementById('chat-window');
-            const btn = document.getElementById('chat-toggle-btn');
-            if (win.style.display === 'flex') {
-                win.style.display = 'none';
-                btn.style.transform = 'scale(1)';
-            } else {
-                win.style.display = 'flex';
-                btn.style.transform = 'scale(0)';
-            }
+            const win = document.getElementById('chat-window'); const btn = document.getElementById('chat-toggle-btn');
+            if (win.style.display === 'flex') { win.style.display = 'none'; btn.style.transform = 'scale(1)'; } 
+            else { win.style.display = 'flex'; btn.style.transform = 'scale(0)'; }
         }
-
-        function handleChatKey(e) {
-            if (e.key === 'Enter') sendChatMessage();
-        }
-
+        function handleChatKey(e) { if (e.key === 'Enter') sendChatMessage(); }
         function sendChatMessage() {
-            const input = document.getElementById('chatInput');
-            const text = input.value.trim();
-            if (!text) return;
-
-            addChatBubble(text, 'user');
-            input.value = '';
-
-            // Simple bot logic
+            const input = document.getElementById('chatInput'); const text = input.value.trim(); if (!text) return;
+            addChatBubble(text, 'user'); input.value = '';
             setTimeout(() => {
-                let response = "I'm a virtual assistant. Your query has been noted. For technical issues, please use the 'Raise Ticket' portal.";
+                let response = "Your query has been noted. For technical issues, please use the 'Raise Ticket' portal.";
                 const lower = text.toLowerCase();
-                
-                if(lower.includes("password") || lower.includes("reset")) {
-                    response = "For password resets, please check our Knowledge Base or navigate to passwordreset.microsoftonline.com.";
-                } else if (lower.includes("vpn") || lower.includes("connect")) {
-                    response = "VPN issues are common. Ensure your Sophos/Cisco client has the correct gateway. Need an engineer? Raise a ticket.";
-                } else if (lower.includes("hello") || lower.includes("hi")) {
-                    response = "Hello! Welcome to Spread Technical Support. How can I assist your IT needs?";
-                }
-
+                if(lower.includes("password")) response = "For password resets, please check our Knowledge Base.";
+                else if (lower.includes("vpn")) response = "VPN issues are common. Ensure your client has the correct gateway. Need an engineer? Raise a ticket.";
                 addChatBubble(response, 'bot');
             }, 1000);
         }
-
         function addChatBubble(text, sender) {
-            const container = document.getElementById('chat-messages');
-            const div = document.createElement('div');
-            div.className = `chat-message ${sender === 'user' ? 'chat-user' : 'chat-bot'} shadow-sm animate-slide-up`;
-            div.innerText = text;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
+            const container = document.getElementById('chat-messages'); const div = document.createElement('div');
+            div.className = `chat-message ${sender === 'user' ? 'chat-user' : 'chat-bot'} shadow-sm animate-slide-up`; div.innerText = text;
+            container.appendChild(div); container.scrollTop = container.scrollHeight;
         }
 
-
-        // ==========================================
-        // TICKET LOGIC (DB & LOCAL)
-        // ==========================================
-
+        // TICKET LOGIC & PHONE MERGING
         async function getNextTicketId() {
             let nextId = 1000001;
             try {
+                let tickets = [];
                 if (DB_CONFIG.useDatabase) {
-                    const res = await fetch(DB_CONFIG.apiUrl);
-                    const tickets = await res.json();
-                    if(tickets && tickets.length > 0) {
-                        const ids = tickets.map(t => parseInt(String(t.id).replace(/\D/g, '')) || 0);
-                        const max = Math.max(...ids);
-                        if(max >= 1000001) nextId = max + 1;
-                    }
-                } else {
-                    const tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
-                    if(tickets.length > 0) {
-                        const ids = tickets.map(t => parseInt(String(t.id).replace(/\D/g, '')) || 0);
-                        const max = Math.max(...ids);
-                        if(max >= 1000001) nextId = max + 1;
-                    }
+                    const res = await fetch(DB_CONFIG.apiUrl); tickets = await res.json();
+                } else { tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; }
+                if(tickets && tickets.length > 0) {
+                    const ids = tickets.map(t => parseInt(String(t.id).replace(/\D/g, '')) || 0);
+                    const max = Math.max(...ids);
+                    if(max >= 1000001) nextId = max + 1;
                 }
-            } catch(e) { console.warn("Failed to fetch past IDs"); }
+            } catch(e) {}
             return 'INC-' + nextId;
         }
 
         async function submitTicket(e) {
             e.preventDefault();
-            const form = e.target;
-            const submitBtn = document.getElementById('submitBtn');
-            const originalBtnHtml = submitBtn.innerHTML;
-            
-            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Generating ID & Saving...</span>';
-            submitBtn.disabled = true;
+            const submitBtn = document.getElementById('submitBtn'); const originalBtnHtml = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Saving...</span>'; submitBtn.disabled = true;
 
             const userEmail = document.getElementById('email').value.trim().toLowerCase();
             const generatedId = await getNextTicketId(); 
+            
+            const countryCode = document.getElementById('countryCode').value;
+            const phoneNumber = document.getElementById('phone_number').value.trim();
+            const fullPhone = `${countryCode} ${phoneNumber}`;
             
             const ticketData = {
                 id: generatedId,
                 name: document.getElementById('name').value,
                 company: document.getElementById('company').value,
-                phone: document.getElementById('phone').value,
+                phone: fullPhone, 
                 email: userEmail,
-                device: document.getElementById('deviceType').value,      // <-- MUST HAVE THIS
-                asset: document.getElementById('assetTag').value || 'N/A', // <-- MUST HAVE THIS
+                device: document.getElementById('deviceType').value,
+                asset: document.getElementById('assetTag').value || 'N/A',
                 priority: document.getElementById('priority').value,
                 subject: document.getElementById('ticketSubject').value,
                 description: document.getElementById('message').value,
@@ -1091,220 +863,96 @@
 
             try {
                 if (DB_CONFIG.useDatabase) {
-                    if(DB_CONFIG.apiUrl.includes("YOUR_GOOGLE")) throw new Error("API URL not set");
-                    await fetch(DB_CONFIG.apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify(ticketData)
-                    });
+                    await fetch(DB_CONFIG.apiUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(ticketData) });
                 } else {
-                    let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
-                    tickets.unshift(ticketData);
-                    localStorage.setItem('spread_tickets', JSON.stringify(tickets));
+                    let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; tickets.unshift(ticketData); localStorage.setItem('spread_tickets', JSON.stringify(tickets));
                 }
-
-                form.reset(); 
+                e.target.reset(); 
                 alert(`Incident Logged Successfully!\nTicket ID: ${ticketData.id}`);
-                
-                document.getElementById('trackEmailInput').value = userEmail;
-                switchView('track');
-                setTimeout(() => searchClientTickets(), 500);
-            } catch (error) {
-                console.error(error);
-                alert("Submission Failed. If Database is ON, check your URL & Permissions.");
-            } finally {
-                submitBtn.innerHTML = originalBtnHtml;
-                submitBtn.disabled = false;
-            }
+
+                document.getElementById('trackEmailInput').value = userEmail; switchView('track'); setTimeout(() => searchClientTickets(), 500);
+            } catch (error) { alert("Submission Failed. Check network connection."); } 
+            finally { submitBtn.innerHTML = originalBtnHtml; submitBtn.disabled = false; }
         }
 
-        // ==========================================
-        // DASHBOARD & EXPORT LOGIC
-        // ==========================================
-
+        // IT DASHBOARD LOGIC
         function handleITLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('itUsername').value.trim().toLowerCase();
-            const p = document.getElementById('itPassword').value;
-            if (VALID_USERS.includes(u) && p === IT_PASS) {
-                isITLoggedIn = true;
-                document.getElementById('itUsername').value = ''; 
-                document.getElementById('itPassword').value = '';
-                switchView('login');
-            } else { alert("Authentication Failed. Invalid Credentials."); }
+            e.preventDefault(); const u = document.getElementById('itUsername').value.trim().toLowerCase(); const p = document.getElementById('itPassword').value;
+            if (VALID_USERS.includes(u) && p === IT_PASS) { isITLoggedIn = true; document.getElementById('itUsername').value = ''; document.getElementById('itPassword').value = ''; switchView('login'); } 
+            else { alert("Authentication Failed."); }
         }
-
         function logoutDashboard() { isITLoggedIn = false; switchView('login'); }
-
-        let cachedDashboardTickets = []; // Store for filtering
+        let cachedDashboardTickets = [];
 
         async function fetchTicketsForDashboard() {
-            const tbody = document.getElementById('dashboardTableBody');
-            tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-medium text-lg"><i class="fa-solid fa-circle-notch fa-spin text-m3-primary mr-3"></i> Syncing Data...</td></tr>`;
-
+            const tbody = document.getElementById('dashboardTableBody'); tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center"><i class="fa-solid fa-circle-notch fa-spin"></i> Syncing Data...</td></tr>`;
             let tickets = [];
             if (DB_CONFIG.useDatabase) {
-                try {
-                    const res = await fetch(DB_CONFIG.apiUrl);
-                    tickets = await res.json();
-                    tickets.reverse(); 
-                } catch (err) {
-                    tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-rose-500 font-medium text-lg">Error connecting to DB.</td></tr>`;
-                    return;
-                }
-            } else {
-                tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
-            }
-
-            cachedDashboardTickets = tickets;
-            renderKPIs(tickets);
-            renderDashboardTable(tickets);
+                try { const res = await fetch(DB_CONFIG.apiUrl); tickets = await res.json(); tickets.reverse(); } 
+                catch (err) { tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-rose-500">Error connecting to DB.</td></tr>`; return; }
+            } else { tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; }
+            cachedDashboardTickets = tickets; renderKPIs(tickets); renderDashboardTable(tickets);
         }
 
         function renderKPIs(tickets) {
-            const total = tickets.length;
-            const open = tickets.filter(t => t.status === "Monitoring" || t.status === "Assigned").length;
-            const working = tickets.filter(t => t.status === "Working").length;
-            const resolved = tickets.filter(t => t.status === "Resolved").length;
-
-            document.getElementById('kpiTotal').innerText = total;
-            document.getElementById('kpiOpen').innerText = open;
-            document.getElementById('kpiWorking').innerText = working;
-            document.getElementById('kpiResolved').innerText = resolved;
+            document.getElementById('kpiTotal').innerText = tickets.length;
+            document.getElementById('kpiOpen').innerText = tickets.filter(t => t.status === "Monitoring" || t.status === "Assigned").length;
+            document.getElementById('kpiWorking').innerText = tickets.filter(t => t.status === "Working").length;
+            document.getElementById('kpiResolved').innerText = tickets.filter(t => t.status === "Resolved").length;
         }
 
         function filterDashboard() {
-            const query = document.getElementById('dashSearch').value.toLowerCase();
-            const statusFilter = document.getElementById('dashStatusFilter').value;
-            
-            const filtered = cachedDashboardTickets.filter(t => {
-                const matchesSearch = t.id.toLowerCase().includes(query) || t.name.toLowerCase().includes(query) || t.subject.toLowerCase().includes(query);
-                const matchesStatus = statusFilter === 'All' || t.status === statusFilter;
-                return matchesSearch && matchesStatus;
-            });
-
-            renderDashboardTable(filtered);
+            const query = document.getElementById('dashSearch').value.toLowerCase(); const statusFilter = document.getElementById('dashStatusFilter').value;
+            renderDashboardTable(cachedDashboardTickets.filter(t => {
+                return (t.id.toLowerCase().includes(query) || t.name.toLowerCase().includes(query)) && (statusFilter === 'All' || t.status === statusFilter);
+            }));
         }
 
         function renderDashboardTable(tickets) {
             const tbody = document.getElementById('dashboardTableBody');
-            document.getElementById('tableRecordCount').innerText = `Showing ${tickets.length} records`;
-
-            if (tickets.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 dark:text-slate-400 font-medium text-lg">No records found.</td></tr>`;
-                return;
-            }
+            if (tickets.length === 0) { tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500">No records found.</td></tr>`; return; }
             tbody.innerHTML = '';
             tickets.forEach(t => {
-                let curStat = t.status || "Monitoring";
-                let selectHTML = `<select onchange="updateTicketStatus('${t.id}', this.value, this)" class="bg-m3-surfaceContainerHigh dark:bg-m3-darkSurfaceContainerHigh border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white text-sm rounded-full px-4 py-2 outline-none focus:ring-2 focus:ring-m3-primary font-bold cursor-pointer shadow-sm w-full max-w-[180px]">`;
-                STATUS_FLOW.forEach(s => { selectHTML += `<option value="${s}" ${curStat === s ? 'selected' : ''}>${s}</option>`; });
-                selectHTML += `</select>`;
+                let selectHTML = `<select onchange="updateTicketStatus('${t.id}', this.value, this)" class="bg-m3-surfaceContainerHigh dark:bg-m3-darkSurfaceContainerHigh border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white text-sm rounded-full px-4 py-2 outline-none font-bold cursor-pointer w-full max-w-[180px]">`;
+                STATUS_FLOW.forEach(s => { selectHTML += `<option value="${s}" ${(t.status||"Monitoring") === s ? 'selected' : ''}>${s}</option>`; }); selectHTML += `</select>`;
+                let badge = t.priority === 'High' ? 'text-rose-700 bg-rose-100 dark:bg-rose-900/30 dark:text-rose-400' : (t.priority === 'Medium' ? 'text-amber-700 bg-amber-100 dark:bg-amber-900/30 dark:text-amber-400' : 'text-emerald-700 bg-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-400');
                 
-                let priorityStyle = t.priority === 'High' ? 'text-rose-700 bg-rose-100 border-rose-200 dark:bg-rose-900/30 dark:text-rose-400' : 
-                                   (t.priority === 'Medium' ? 'text-amber-700 bg-amber-100 border-amber-200 dark:bg-amber-900/30 dark:text-amber-400' : 'text-emerald-700 bg-emerald-100 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400');
-
                 tbody.innerHTML += `
-                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition border-b border-slate-100 dark:border-slate-800 align-top">
-                        <td class="p-5">
-                            <div class="font-bold text-m3-primary dark:text-m3-darkPrimary text-sm font-mono bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer inline-block px-2 py-0.5 rounded">${t.id}</div>
-                            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-2 whitespace-nowrap">${t.date}</div>
-                        </td>
-                        <td class="p-5">
-                            <div class="font-bold text-slate-900 dark:text-white text-base">${t.company}</div>
-                            <div class="text-sm text-slate-600 dark:text-slate-300 font-medium mt-1">${t.name}</div>
-                            <div class="text-xs text-slate-400 mt-1">${t.email}<br>${t.phone}</div>
-                        </td>
-                        <td class="p-5">
-                            <div class="font-bold text-slate-800 dark:text-slate-200 text-base mb-1">${t.subject}</div>
-                            <div class="text-sm text-slate-600 dark:text-slate-400 font-medium whitespace-pre-wrap max-h-[100px] overflow-y-auto pr-2">${t.description}</div>
-                            ${t.device ? `<div class="mt-2 text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 inline-block px-2 py-1 rounded">Dev: ${t.device} | Asset: ${t.asset || 'N/A'}</div>` : ''}
-                        </td>
-                        <td class="p-5"><span class="px-3 py-1.5 rounded-full text-xs font-bold border shadow-sm ${priorityStyle}">${t.priority}</span></td>
-                        <td class="p-5 text-center">
-                            ${selectHTML}
-                            <span class="text-[10px] block mt-2 text-slate-400 update-msg hidden">Saved ✅</span>
-                        </td>
-                    </tr>
-                `;
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
+                        <td class="p-5"><div class="font-bold text-m3-primary dark:text-m3-darkPrimary text-sm font-mono bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer inline-block px-2 py-0.5 rounded">${t.id}</div><div class="text-xs text-slate-500 mt-2">${t.date}</div></td>
+                        <td class="p-5"><div class="font-bold text-slate-900 dark:text-white">${t.company}</div><div class="text-sm text-slate-600 dark:text-slate-300">${t.name}</div><div class="text-xs text-slate-400">${t.email}<br>${t.phone}</div></td>
+                        <td class="p-5"><div class="font-bold text-slate-800 dark:text-slate-200">${t.subject}</div><div class="text-sm text-slate-600 dark:text-slate-400 max-h-[100px] overflow-y-auto">${t.description}</div>${t.device ? `<div class="mt-2 text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-500 px-2 py-1 inline-block rounded">Dev: ${t.device} | Asset: ${t.asset||'N/A'}</div>`:''}</td>
+                        <td class="p-5"><span class="px-3 py-1.5 rounded-full text-xs font-bold border shadow-sm ${badge}">${t.priority}</span></td>
+                        <td class="p-5 text-center">${selectHTML}<span class="text-[10px] block mt-2 text-slate-400 update-msg hidden">Saved ✅</span></td>
+                    </tr>`;
             });
         }
 
         async function updateTicketStatus(ticketId, newStatus, selectElement) {
-            const msgSpan = selectElement.nextElementSibling;
-            msgSpan.classList.remove('hidden');
-            msgSpan.innerText = "Syncing...";
-            msgSpan.className = "text-[10px] block mt-2 text-amber-500 update-msg font-bold animate-pulse";
-
+            const msgSpan = selectElement.nextElementSibling; msgSpan.classList.remove('hidden'); msgSpan.innerText = "Syncing..."; msgSpan.className = "text-[10px] block mt-2 text-amber-500 update-msg font-bold animate-pulse";
             if (DB_CONFIG.useDatabase) {
-                try {
-                    await fetch(DB_CONFIG.apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify({ action: "update", id: ticketId, status: newStatus })
-                    });
-                    msgSpan.innerText = "Saved to Sheet ✅";
-                    msgSpan.className = "text-[10px] block mt-2 text-emerald-500 update-msg font-bold";
-                } catch(err) { 
-                    msgSpan.innerText = "Error Saving ❌"; 
-                    msgSpan.className = "text-[10px] block mt-2 text-rose-500 update-msg font-bold"; 
-                }
+                try { await fetch(DB_CONFIG.apiUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "update", id: ticketId, status: newStatus }) });
+                      msgSpan.innerText = "Saved to Sheet ✅"; msgSpan.className = "text-[10px] block mt-2 text-emerald-500 update-msg font-bold"; } 
+                catch(err) { msgSpan.innerText = "Error Saving ❌"; msgSpan.className = "text-[10px] block mt-2 text-rose-500 update-msg font-bold"; }
             } else {
-                let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
-                let index = tickets.findIndex(t => t.id === ticketId);
-                if(index !== -1) {
-                    tickets[index].status = newStatus;
-                    localStorage.setItem('spread_tickets', JSON.stringify(tickets));
-                    msgSpan.innerText = "Saved Locally ✅";
-                    msgSpan.className = "text-[10px] block mt-2 text-emerald-500 update-msg font-bold";
-                }
+                let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; let index = tickets.findIndex(t => t.id === ticketId);
+                if(index !== -1) { tickets[index].status = newStatus; localStorage.setItem('spread_tickets', JSON.stringify(tickets)); msgSpan.innerText = "Saved Locally ✅"; msgSpan.className = "text-[10px] block mt-2 text-emerald-500 update-msg font-bold"; }
             }
-            
-            // Update local cache & KPIs
-            let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId);
-            if(cachedIndex !== -1) cachedDashboardTickets[cachedIndex].status = newStatus;
-            renderKPIs(cachedDashboardTickets);
-
+            let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId); if(cachedIndex !== -1) cachedDashboardTickets[cachedIndex].status = newStatus; renderKPIs(cachedDashboardTickets);
             setTimeout(() => { msgSpan.classList.add('hidden'); }, 3000);
         }
 
         function exportToCSV() {
-            if(cachedDashboardTickets.length === 0) { alert("No data to export."); return; }
-            
-            let csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "ID,Date,Name,Company,Email,Phone,Device,Asset Tag,Priority,Subject,Status\n";
-            
-            cachedDashboardTickets.forEach(t => {
-                let row = `"${t.id}","${t.date}","${t.name}","${t.company}","${t.email}","${t.phone}","${t.device || ''}","${t.asset || ''}","${t.priority}","${t.subject}","${t.status || 'Monitoring'}"`;
-                csvContent += row + "\n";
-            });
-
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `Spread_Tech_Tickets_${new Date().toISOString().split('T')[0]}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            if(cachedDashboardTickets.length === 0) return;
+            let csvContent = "data:text/csv;charset=utf-8,ID,Date,Name,Company,Email,Phone,Device,Asset Tag,Priority,Subject,Status\n";
+            cachedDashboardTickets.forEach(t => { csvContent += `"${t.id}","${t.date}","${t.name}","${t.company}","${t.email}","${t.phone}","${t.device||''}","${t.asset||''}","${t.priority}","${t.subject}","${t.status||'Monitoring'}"\n`; });
+            const link = document.createElement("a"); link.setAttribute("href", encodeURI(csvContent)); link.setAttribute("download", `Tickets.csv`); document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
-        function clearDashboard() {
-            if (confirm("DANGER: Are you sure you want to clear the local ticket database? (This does not delete cloud Google Sheet data)")) {
-                localStorage.removeItem('spread_tickets');
-                fetchTicketsForDashboard();
-            }
-        }
-
-        // ==========================================
         // CLIENT TRACKING LOGIC
-        // ==========================================
-
         async function searchClientTickets() {
-            const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase();
-            const container = document.getElementById('trackingResults');
-            container.innerHTML = `<div class="text-center p-10"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i><p class="text-slate-500 dark:text-slate-400">Scanning Database...</p></div>`;
-            if (!queryEmail) return;
-
+            const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase(); const container = document.getElementById('trackingResults');
+            container.innerHTML = `<div class="text-center p-10"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i></div>`; if (!queryEmail) return;
             let tickets = [];
             if (DB_CONFIG.useDatabase) {
                 try { const res = await fetch(DB_CONFIG.apiUrl); tickets = await res.json(); } 
@@ -1312,22 +960,18 @@
             } else { tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; }
 
             const filtered = tickets.filter(t => t.email.trim().toLowerCase() === queryEmail);
-            if (filtered.length === 0) {
-                container.innerHTML = `<div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-sm border border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh p-10 text-center"><div class="text-slate-300 dark:text-slate-600 text-5xl mb-4"><i class="fa-solid fa-box-open"></i></div><h3 class="text-xl font-bold text-slate-800 dark:text-slate-200">No Tickets Found</h3><p class="text-slate-500 dark:text-slate-400 text-base font-medium mt-1">No records match <b>${queryEmail}</b>.</p></div>`;
-                return;
-            }
+            if (filtered.length === 0) { container.innerHTML = `<div class="text-center p-10"><h3 class="text-xl font-bold">No Tickets Found</h3></div>`; return; }
 
             container.innerHTML = '';
             filtered.forEach(t => {
-                let badge = t.priority === 'High' ? '<span class="bg-rose-100 text-rose-700 px-4 py-1.5 rounded-full text-xs font-bold border border-rose-200 shadow-sm dark:bg-rose-900/30 dark:text-rose-400">HIGH PRIORITY</span>' : (t.priority === 'Medium' ? '<span class="bg-amber-100 text-amber-700 px-4 py-1.5 rounded-full text-xs font-bold border border-amber-200 shadow-sm dark:bg-amber-900/30 dark:text-amber-400">MEDIUM</span>' : '<span class="bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-full text-xs font-bold border border-emerald-200 shadow-sm dark:bg-emerald-900/30 dark:text-emerald-400">LOW</span>');
+                let badge = t.priority === 'High' ? '<span class="bg-rose-100 text-rose-700 px-4 py-1.5 rounded-full text-xs font-bold dark:bg-rose-900/30 dark:text-rose-400">HIGH PRIORITY</span>' : (t.priority === 'Medium' ? '<span class="bg-amber-100 text-amber-700 px-4 py-1.5 rounded-full text-xs font-bold dark:bg-amber-900/30 dark:text-amber-400">MEDIUM</span>' : '<span class="bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-full text-xs font-bold dark:bg-emerald-900/30 dark:text-emerald-400">LOW</span>');
                 container.innerHTML += `
-                    <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-2 border border-slate-100 dark:border-slate-800 p-8 sm:p-10 mb-6 transition-colors duration-300">
+                    <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-2 border border-slate-100 dark:border-slate-800 p-8 sm:p-10 mb-6">
                         <div class="flex justify-between items-center mb-6 border-b border-slate-100 dark:border-slate-800 pb-6">
-                            <div><div class="flex items-center gap-3 mb-2"><span class="text-sm font-mono font-bold text-m3-primary dark:text-m3-darkPrimary bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer px-3 py-1 rounded-md shadow-sm">${t.id}</span>${badge}</div><h3 class="text-2xl font-bold text-slate-900 dark:text-white">${t.subject}</h3><p class="text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">Logged on ${t.date}</p></div>
+                            <div><div class="flex items-center gap-3 mb-2"><span class="text-sm font-mono font-bold text-m3-primary dark:text-m3-darkPrimary bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer px-3 py-1 rounded-md">${t.id}</span>${badge}</div><h3 class="text-2xl font-bold dark:text-white">${t.subject}</h3><p class="text-sm text-slate-500 mt-1">Logged on ${t.date}</p></div>
                         </div>
                         ${getProgressBarHTML(t.status || 'Monitoring')}
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
@@ -1335,14 +979,14 @@
             let currentIndex = STATUS_FLOW.indexOf(currentStatus); if (currentIndex === -1) currentIndex = 0;
             let html = `<div class="w-full py-8 mt-4"><div class="flex items-center justify-between relative px-6 md:px-10"><div class="absolute left-10 right-10 top-1/2 transform -translate-y-1/2 h-2 bg-m3-surfaceContainerHigh dark:bg-m3-darkSurfaceContainerHigh z-0 rounded-full shadow-inner"></div>`;
             let activeWidth = (currentIndex / (STATUS_FLOW.length - 1)) * 100;
-            html += `<div class="absolute left-10 top-1/2 transform -translate-y-1/2 h-2 bg-m3-primary dark:bg-m3-darkPrimary z-0 transition-all duration-700 ease-in-out rounded-full shadow-md" style="width: calc(${activeWidth}% - 2.5rem);"></div>`;
+            html += `<div class="absolute left-10 top-1/2 transform -translate-y-1/2 h-2 bg-m3-primary dark:bg-m3-darkPrimary z-0 transition-all rounded-full" style="width: calc(${activeWidth}% - 2.5rem);"></div>`;
 
             STATUS_FLOW.forEach((step, index) => {
                 let isCompleted = index <= currentIndex; let isCurrent = index === currentIndex;
-                let circleClass = isCompleted ? "bg-m3-primary dark:bg-m3-darkPrimary text-white dark:text-m3-darkOnPrimary scale-110 shadow-lg border-white dark:border-slate-900" : "bg-white dark:bg-m3-darkSurface border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh text-slate-400";
-                let textClass = isCurrent ? "text-m3-primary dark:text-m3-darkPrimary font-extrabold text-[13px]" : (isCompleted ? "text-slate-800 dark:text-slate-200 font-bold" : "text-slate-400 dark:text-slate-500 font-semibold");
+                let circleClass = isCompleted ? "bg-m3-primary dark:bg-m3-darkPrimary text-white scale-110 shadow-lg border-white dark:border-slate-900" : "bg-white dark:bg-m3-darkSurface border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh text-slate-400";
+                let textClass = isCurrent ? "text-m3-primary dark:text-m3-darkPrimary font-extrabold text-[13px]" : (isCompleted ? "text-slate-800 dark:text-slate-200 font-bold" : "text-slate-400 font-semibold");
                 let icon = isCompleted ? '<i class="fa-solid fa-check text-base"></i>' : `<span class="text-sm font-bold">${index + 1}</span>`;
-                html += `<div class="relative z-10 flex flex-col items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 ${circleClass} border-4">${icon}</div><span class="absolute top-14 text-xs text-center w-28 -ml-14 left-1/2 ${textClass} uppercase tracking-wider">${step}</span></div>`;
+                html += `<div class="relative z-10 flex flex-col items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center transition-all ${circleClass} border-4">${icon}</div><span class="absolute top-14 text-xs text-center w-28 -ml-14 left-1/2 ${textClass} uppercase tracking-wider">${step}</span></div>`;
             });
             return html += `</div></div>`;
         }
