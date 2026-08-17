@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Mobile App Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0b57d0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Spread IT Admin</title>
+    
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Google Sans"', 'sans-serif'], },
+                    colors: { primary: '#0b57d0', surface: '#f0f4f8', surfaceHigh: '#e1e3e8' }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #f0f4f8; -webkit-tap-highlight-color: transparent; }
+        .view { display: none; animation: fadeIn 0.3s ease; }
+        .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Mobile Input Styling */
+        .mobile-input {
+            width: 100%; background: #fff; border: 1px solid #e1e3e8; border-radius: 12px;
+            padding: 16px 16px 16px 44px; font-size: 16px; outline: none; transition: border 0.2s;
+        }
+        .mobile-input:focus { border-color: #0b57d0; }
+        .input-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #74777f; }
+        
+        /* Hide scrollbar for clean app feel */
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="text-slate-800 h-screen flex flex-col overflow-hidden">
+
+    <!-- ========================================== -->
+    <!-- LOGIN VIEW                                 -->
+    <!-- ========================================== -->
+    <div id="loginView" class="view active h-full flex flex-col justify-center px-6 bg-white">
+        <div class="text-center mb-8">
+            <div class="w-20 h-20 bg-blue-50 text-primary rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-slate-900">Spread IT Admin</h1>
+            <p class="text-slate-500 text-sm mt-1">Mobile Command Center</p>
+        </div>
+
+        <form onsubmit="handleLogin(event)" class="space-y-4">
+            <div class="relative">
+                <i class="fa-solid fa-user input-icon"></i>
+                <input type="email" id="username" class="mobile-input" placeholder="Staff Email" required>
+            </div>
+            <div class="relative">
+                <i class="fa-solid fa-lock input-icon"></i>
+                <input type="password" id="password" class="mobile-input" placeholder="Master Password" required>
+            </div>
+            <button type="submit" class="w-full bg-primary text-white font-bold py-4 rounded-xl mt-4 active:scale-95 transition-transform">
+                Sign In
+            </button>
+        </form>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TICKETS LIST VIEW                          -->
+    <!-- ========================================== -->
+    <div id="dashboardView" class="view h-full flex flex-col relative">
+        <!-- App Bar -->
+        <div class="bg-primary text-white px-5 py-4 flex justify-between items-center shadow-md z-10 sticky top-0 pb-safe">
+            <div>
+                <h1 class="text-lg font-bold leading-tight">Ticket Queue</h1>
+                <p class="text-[11px] opacity-80" id="syncStatus">Syncing...</p>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="fetchTickets()" class="text-xl active:scale-75 transition-transform"><i class="fa-solid fa-rotate-right"></i></button>
+                <button onclick="logout()" class="text-xl active:scale-75 transition-transform"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+            </div>
+        </div>
+
+        <!-- Filter Chips -->
+        <div class="flex gap-2 overflow-x-auto px-4 py-3 bg-white shadow-sm shrink-0 no-scrollbar">
+            <button onclick="filterTickets('All')" id="flt-All" class="filter-btn px-4 py-1.5 bg-primary text-white text-xs font-bold rounded-full whitespace-nowrap">All</button>
+            <button onclick="filterTickets('Monitoring')" id="flt-Monitoring" class="filter-btn px-4 py-1.5 bg-slate-100 text-slate-600 text-xs font-bold rounded-full whitespace-nowrap">Monitoring</button>
+            <button onclick="filterTickets('Assigned')" id="flt-Assigned" class="filter-btn px-4 py-1.5 bg-slate-100 text-slate-600 text-xs font-bold rounded-full whitespace-nowrap">Assigned</button>
+            <button onclick="filterTickets('Working')" id="flt-Working" class="filter-btn px-4 py-1.5 bg-slate-100 text-slate-600 text-xs font-bold rounded-full whitespace-nowrap">Working</button>
+            <button onclick="filterTickets('Resolved')" id="flt-Resolved" class="filter-btn px-4 py-1.5 bg-slate-100 text-slate-600 text-xs font-bold rounded-full whitespace-nowrap">Resolved</button>
+        </div>
+
+        <!-- Ticket Cards Container -->
+        <div id="ticketList" class="flex-grow overflow-y-auto px-4 py-4 space-y-3 pb-24">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TICKET DETAIL MODAL (FULL SCREEN)          -->
+    <!-- ========================================== -->
+    <div id="detailView" class="fixed inset-0 bg-surface z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Header -->
+        <div class="bg-white px-4 py-4 flex items-center gap-4 shadow-sm z-10 sticky top-0 pb-safe">
+            <button onclick="closeDetail()" class="text-xl text-slate-600 active:scale-75 transition-transform px-2"><i class="fa-solid fa-arrow-left"></i></button>
+            <h1 class="text-lg font-bold text-slate-900" id="detailId">INC-000000</h1>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-grow overflow-y-auto px-5 py-6 space-y-6">
+            
+            <div>
+                <span id="detailPriority" class="text-[10px] font-bold px-2 py-1 rounded bg-slate-200">PRIORITY</span>
+                <h2 id="detailSubject" class="text-xl font-bold text-slate-900 mt-2">Loading Subject...</h2>
+                <p id="detailDate" class="text-xs text-slate-500 mt-1">Date</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 space-y-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-blue-50 text-primary flex items-center justify-center"><i class="fa-solid fa-user"></i></div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-bold uppercase">Requester</p>
+                        <p class="text-sm font-bold text-slate-800" id="detailName">Name</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-blue-50 text-primary flex items-center justify-center"><i class="fa-solid fa-building"></i></div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-bold uppercase">Company</p>
+                        <p class="text-sm font-bold text-slate-800" id="detailCompany">Company</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-blue-50 text-primary flex items-center justify-center"><i class="fa-solid fa-phone"></i></div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-bold uppercase">Contact</p>
+                        <p class="text-sm font-bold text-slate-800" id="detailContact">Phone</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+                <p class="text-xs text-slate-400 font-bold uppercase mb-2">Description</p>
+                <p id="detailDescription" class="text-sm text-slate-700 whitespace-pre-wrap leading-relaxed">Loading description...</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 mb-8">
+                <p class="text-xs text-slate-400 font-bold uppercase mb-2">Update Status</p>
+                <select id="updateStatusSelect" class="w-full bg-surface border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm font-bold outline-none mb-3">
+                    <option value="Monitoring">Monitoring</option>
+                    <option value="Assigned">Assigned</option>
+                    <option value="Working">Working</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+                <button onclick="saveStatusUpdate()" id="saveStatusBtn" class="w-full bg-slate-900 text-white font-bold py-3 rounded-xl active:scale-95 transition-transform flex justify-center items-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Sync to Database
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logic Script -->
+    <script>
+        // ==========================================
+        // CONFIGURATION - MUST MATCH YOUR WEB PORTAL
+        // ==========================================
+        const API_URL = "https://script.google.com/macros/s/AKfycby5BAy5xGwTsJ3iMYd7zF1CXLHBl1tI8h23BxSZXmf88JO9oEe4zvgdpeRldNKW8oI/exec";
+        
+        // IT Credentials
+        const VALID_USER = "vaibhav@spreadtechnical.com";
+        const IT_PASS = "Support@1999";
+        
+        let allTickets = [];
+        let currentTicketId = null;
+
+        // View Management
+        function switchView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+        }
+
+        // Authentication
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('username').value.trim().toLowerCase();
+            const p = document.getElementById('password').value;
+            
+            if ((u === VALID_USER || u === "support@spreadtechnical.com") && p === IT_PASS) {
+                switchView('dashboardView');
+                fetchTickets();
+            } else {
+                alert("Invalid mobile credentials.");
+            }
+        }
+
+        function logout() {
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            switchView('loginView');
+            allTickets = [];
+            document.getElementById('ticketList').innerHTML = '';
+        }
+
+        // Data Fetching
+        async function fetchTickets() {
+            const list = document.getElementById('ticketList');
+            const syncStatus = document.getElementById('syncStatus');
+            
+            syncStatus.innerText = "Syncing...";
+            syncStatus.classList.add('animate-pulse');
+            
+            if(allTickets.length === 0) {
+                list.innerHTML = `<div class="flex justify-center items-center h-32"><i class="fa-solid fa-circle-notch fa-spin text-2xl text-primary"></i></div>`;
+            }
+
+            try {
+                const res = await fetch(API_URL);
+                allTickets = await res.json();
+                allTickets.reverse(); // Newest first
+                filterTickets('All'); // Render
+                
+                const now = new Date();
+                syncStatus.innerText = `Updated ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+                syncStatus.classList.remove('animate-pulse');
+            } catch (err) {
+                syncStatus.innerText = "Sync Failed";
+                syncStatus.classList.remove('animate-pulse');
+                if(allTickets.length === 0) {
+                    list.innerHTML = `<div class="text-center text-rose-500 mt-10"><i class="fa-solid fa-wifi mb-2 text-2xl"></i><br>Connection Error</div>`;
+                }
+            }
+        }
+
+        // Filtering
+        function filterTickets(status) {
+            // Update filter buttons UI
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-600');
+            });
+            const activeBtn = document.getElementById(`flt-${status}`);
+            if(activeBtn) {
+                activeBtn.classList.remove('bg-slate-100', 'text-slate-600');
+                activeBtn.classList.add('bg-primary', 'text-white');
+            }
+
+            // Filter Data
+            const filtered = status === 'All' ? allTickets : allTickets.filter(t => t.status === status);
+            renderList(filtered);
+        }
+
+        // Rendering the Card List
+        function renderList(tickets) {
+            const list = document.getElementById('ticketList');
+            if (tickets.length === 0) {
+                list.innerHTML = `<div class="text-center text-slate-400 mt-10"><i class="fa-solid fa-inbox text-3xl mb-2"></i><br>No tickets found.</div>`;
+                return;
+            }
+
+            list.innerHTML = '';
+            tickets.forEach(t => {
+                // Priority color coding
+                let pColor = 'bg-emerald-100 text-emerald-700';
+                if(t.priority === 'Medium') pColor = 'bg-amber-100 text-amber-700';
+                if(t.priority === 'High') pColor = 'bg-rose-100 text-rose-700';
+
+                // Status indicator
+                let sIcon = 'fa-eye text-amber-500';
+                if(t.status === 'Assigned') sIcon = 'fa-user-check text-blue-500';
+                if(t.status === 'Working') sIcon = 'fa-gears text-indigo-500';
+                if(t.status === 'Resolved') sIcon = 'fa-check-circle text-emerald-500';
+
+                const cardHTML = `
+                    <div onclick="openDetail('${t.id}')" class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 active:bg-slate-50 transition-colors">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-[10px] font-bold ${pColor} px-2 py-0.5 rounded uppercase">${t.priority}</span>
+                            <span class="text-xs text-slate-400 flex items-center gap-1"><i class="fa-solid ${sIcon}"></i> ${t.status || 'Monitoring'}</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-sm leading-tight mb-1 truncate">${t.subject}</h3>
+                        <div class="flex justify-between items-end mt-3">
+                            <div>
+                                <p class="text-xs text-slate-500 font-bold">${t.company}</p>
+                                <p class="text-[10px] text-slate-400">${t.id} • ${t.name.split(' ')[0]}</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-slate-300 text-sm"></i>
+                        </div>
+                    </div>
+                `;
+                list.innerHTML += cardHTML;
+            });
+        }
+
+        // Open/Close Ticket Detail
+        function openDetail(id) {
+            const ticket = allTickets.find(t => t.id === id);
+            if(!ticket) return;
+
+            currentTicketId = id;
+            
+            // Populate Data
+            document.getElementById('detailId').innerText = ticket.id;
+            document.getElementById('detailSubject').innerText = ticket.subject;
+            document.getElementById('detailDate').innerText = ticket.date;
+            document.getElementById('detailName').innerText = ticket.name;
+            document.getElementById('detailCompany').innerText = ticket.company;
+            document.getElementById('detailContact').innerText = ticket.phone;
+            document.getElementById('detailDescription').innerText = ticket.description;
+            document.getElementById('updateStatusSelect').value = ticket.status || 'Monitoring';
+
+            // Priority Badge
+            const pBadge = document.getElementById('detailPriority');
+            pBadge.innerText = ticket.priority.toUpperCase();
+            pBadge.className = `text-[10px] font-bold px-2 py-1 rounded ${ticket.priority === 'High' ? 'bg-rose-100 text-rose-700' : (ticket.priority === 'Medium' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700')}`;
+
+            // Slide in modal
+            document.getElementById('detailView').style.transform = 'translateX(0)';
+        }
+
+        function closeDetail() {
+            document.getElementById('detailView').style.transform = 'translateX(100%)';
+            currentTicketId = null;
+        }
+
+        // Update Database Status
+        async function saveStatusUpdate() {
+            if(!currentTicketId) return;
+            const newStatus = document.getElementById('updateStatusSelect').value;
+            const btn = document.getElementById('saveStatusBtn');
+            const originalHtml = btn.innerHTML;
+
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Syncing...';
+            btn.disabled = true;
+
+            try {
+                // Send update payload to Google Script
+                await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ action: "update", id: currentTicketId, status: newStatus })
+                });
+
+                // Update local array so it reflects instantly on UI
+                const tIndex = allTickets.findIndex(t => t.id === currentTicketId);
+                if(tIndex !== -1) allTickets[tIndex].status = newStatus;
+
+                // Refresh currently viewed filter list
+                const activeFilter = document.querySelector('.filter-btn.bg-primary').innerText;
+                filterTickets(activeFilter);
+
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Saved!';
+                btn.classList.replace('bg-slate-900', 'bg-emerald-600');
+                
+                setTimeout(() => {
+                    closeDetail();
+                    btn.innerHTML = originalHtml;
+                    btn.classList.replace('bg-emerald-600', 'bg-slate-900');
+                    btn.disabled = false;
+                }, 1000);
+
+            } catch(e) {
+                btn.innerHTML = '<i class="fa-solid fa-xmark"></i> Failed';
+                btn.classList.replace('bg-slate-900', 'bg-rose-600');
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.classList.replace('bg-rose-600', 'bg-slate-900');
+                    btn.disabled = false;
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
