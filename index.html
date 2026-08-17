@@ -359,14 +359,14 @@
             }, 400);
         }
 
-        // Save Ticket (Direct to Google Apps Script)
+        // Save Ticket (Direct to Google Apps Script or LocalStorage)
         async function submitTicket(e) {
             e.preventDefault();
             const form = e.target;
             const submitBtn = document.getElementById('submitBtn');
             const originalBtnHtml = submitBtn.innerHTML;
             
-            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Saving & Notifying...</span>';
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Saving...</span>';
             submitBtn.disabled = true;
 
             const userEmail = document.getElementById('email').value.trim().toLowerCase();
@@ -386,12 +386,16 @@
 
             try {
                 if (DB_CONFIG.useDatabase) {
+                    if(DB_CONFIG.apiUrl.includes("YOUR_GOOGLE")) throw new Error("API URL not set");
+                    
+                    // Send to Google Sheet
                     await fetch(DB_CONFIG.apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify(ticketData)
                     });
                 } else {
+                    // Save locally if Database is turned off
                     let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
                     tickets.unshift(ticketData);
                     localStorage.setItem('spread_tickets', JSON.stringify(tickets));
@@ -404,7 +408,8 @@
                 switchView('track');
                 setTimeout(() => searchClientTickets(), 500);
             } catch (error) {
-                alert("Network connectivity issue. Please try again.");
+                console.error(error);
+                alert("Submission Failed. Please check your Database URL and Google Script permissions.");
             } finally {
                 submitBtn.innerHTML = originalBtnHtml;
                 submitBtn.disabled = false;
