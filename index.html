@@ -1,122 +1,314 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spread Technical - IT Support & NOC</title>
+    <title>Spread Technical - Enterprise IT Support & NOC</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts for Material Look -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: { sans: ['"Google Sans"', 'Roboto', 'sans-serif'], },
                     colors: {
                         m3: {
-                            primary: '#0b57d0', onPrimary: '#ffffff', primaryContainer: '#d3e3fd', onPrimaryContainer: '#041e49',
-                            surface: '#f8fafd', surfaceContainerLow: '#f0f4f8', surfaceContainer: '#eceef4',
-                            surfaceContainerHigh: '#e1e3e8', outline: '#74777f',
+                            // Light Theme Colors
+                            primary: '#0b57d0', 
+                            onPrimary: '#ffffff', 
+                            primaryContainer: '#d3e3fd', 
+                            onPrimaryContainer: '#041e49',
+                            surface: '#f8fafd', 
+                            surfaceContainerLow: '#f0f4f8', 
+                            surfaceContainer: '#eceef4',
+                            surfaceContainerHigh: '#e1e3e8', 
+                            outline: '#74777f',
+                            // Dark Theme Colors
+                            darkPrimary: '#a8c7fa',
+                            darkOnPrimary: '#062e6f',
+                            darkPrimaryContainer: '#0842a0',
+                            darkOnPrimaryContainer: '#d3e3fd',
+                            darkSurface: '#111318',
+                            darkSurfaceContainerLow: '#191c20',
+                            darkSurfaceContainer: '#1e2025',
+                            darkSurfaceContainerHigh: '#282a2f',
+                            darkOutline: '#8e918f'
                         }
                     },
                     boxShadow: {
                         'm3-1': '0px 1px 2px 0px rgba(0,0,0,0.3), 0px 1px 3px 1px rgba(0,0,0,0.15)',
                         'm3-2': '0px 1px 2px 0px rgba(0,0,0,0.3), 0px 2px 6px 2px rgba(0,0,0,0.15)',
                         'm3-3': '0px 1px 3px 0px rgba(0,0,0,0.3), 0px 4px 8px 3px rgba(0,0,0,0.15)',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.4s cubic-bezier(0.2, 0, 0, 1)',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slight': 'bounceSlight 2s infinite'
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        bounceSlight: { '0%, 100%': { transform: 'translateY(-5%)' }, '50%': { transform: 'translateY(0)' } }
                     }
                 }
             }
         }
     </script>
+    
     <style>
-        body { background-color: #f8fafd; }
+        /* Base Styles & Scrollbars */
+        body { 
+            background-color: #f8fafd; 
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body { 
+            background-color: #111318; 
+            color: #e1e3e8;
+        }
+        
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #f0f4f8; }
+        .dark ::-webkit-scrollbar-track { background: #191c20; }
         ::-webkit-scrollbar-thumb { background: #c2c7cf; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #44474e; }
         ::-webkit-scrollbar-thumb:hover { background: #74777f; }
 
-        /* Material 3 Transitions */
+        /* View Section Transitions */
         .view-section {
-            display: none; opacity: 0; transform: translateY(15px) scale(0.99);
+            display: none; 
+            opacity: 0; 
+            transform: translateY(15px) scale(0.99);
             transition: opacity 0.4s cubic-bezier(0.2, 0, 0, 1), transform 0.4s cubic-bezier(0.2, 0, 0, 1);
         }
-        .view-section.active { display: block; opacity: 1; transform: translateY(0) scale(1); }
+        .view-section.active { 
+            display: block; 
+            opacity: 1; 
+            transform: translateY(0) scale(1); 
+        }
 
-        /* Pure CSS Floating Labels for M3 */
-        .m3-input-wrapper { position: relative; display: flex; flex-direction: column; }
+        /* Material 3 Input Styling */
+        .m3-input-wrapper { 
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+            width: 100%;
+        }
         .m3-input {
-            width: 100%; background-color: #f0f4f8; border-bottom: 1px solid #74777f; border-radius: 4px 4px 0 0;
-            padding: 24px 16px 8px 48px; font-size: 1rem; color: #1f1f1f; transition: all 0.2s ease; outline: none;
+            width: 100%; 
+            background-color: #f0f4f8; 
+            border-bottom: 1px solid #74777f; 
+            border-radius: 4px 4px 0 0;
+            padding: 24px 16px 8px 48px; 
+            font-size: 1rem; 
+            color: #1f1f1f; 
+            transition: all 0.2s ease; 
+            outline: none;
         }
-        .m3-input:focus { background-color: #d3e3fd; border-bottom: 2px solid #0b57d0; }
+        .dark .m3-input {
+            background-color: #191c20;
+            border-bottom: 1px solid #8e918f;
+            color: #e1e3e8;
+        }
+        .m3-input:focus { 
+            background-color: #d3e3fd; 
+            border-bottom: 2px solid #0b57d0; 
+        }
+        .dark .m3-input:focus {
+            background-color: #0842a0;
+            border-bottom: 2px solid #a8c7fa;
+        }
         .m3-label {
-            position: absolute; left: 48px; top: 16px; font-size: 0.95rem; color: #44474e;
-            pointer-events: none; transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1) all; font-weight: 500;
+            position: absolute; 
+            left: 48px; 
+            top: 16px; 
+            font-size: 0.95rem; 
+            color: #44474e;
+            pointer-events: none; 
+            transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1) all; 
+            font-weight: 500;
         }
-        .m3-input:focus ~ .m3-label, .m3-input:not(:placeholder-shown) ~ .m3-label { top: 6px; font-size: 0.7rem; color: #0b57d0; }
+        .dark .m3-label { color: #8e918f; }
+        
+        .m3-input:focus ~ .m3-label, 
+        .m3-input:not(:placeholder-shown) ~ .m3-label { 
+            top: 6px; 
+            font-size: 0.7rem; 
+            color: #0b57d0; 
+        }
+        .dark .m3-input:focus ~ .m3-label, 
+        .dark .m3-input:not(:placeholder-shown) ~ .m3-label { color: #a8c7fa; }
+        
         select.m3-input ~ .m3-label { top: 6px; font-size: 0.7rem; color: #44474e; }
-        select.m3-input:focus ~ .m3-label { color: #0b57d0; }
-        .input-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #44474e; font-size: 1.1rem; z-index: 10; }
+        .dark select.m3-input ~ .m3-label { color: #8e918f; }
+        
+        .input-icon { 
+            position: absolute; 
+            left: 16px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            color: #44474e; 
+            font-size: 1.1rem; 
+            z-index: 10; 
+        }
+        .dark .input-icon { color: #8e918f; }
+
+        /* Custom KPI Cards */
+        .kpi-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Floating Chat Widget */
+        #chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+        }
+        #chat-window {
+            display: none;
+            flex-direction: column;
+            width: 350px;
+            height: 450px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.2);
+            transform-origin: bottom right;
+            animation: slideUp 0.3s ease-out;
+        }
+        .chat-message {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .chat-bot {
+            background-color: #f0f4f8;
+            color: #1f1f1f;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .dark .chat-bot { background-color: #1e2025; color: #e1e3e8; }
+        .chat-user {
+            background-color: #0b57d0;
+            color: #ffffff;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .dark .chat-user { background-color: #a8c7fa; color: #041e49; }
+
+        /* Accordion for KB */
+        .kb-item-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+        .kb-item.active .kb-item-content {
+            max-height: 500px;
+            padding-bottom: 16px;
+        }
+        .kb-item.active .kb-icon {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="text-slate-800 flex flex-col min-h-screen">
 
     <!-- Top App Bar -->
-    <header class="bg-m3-surface sticky top-0 z-50 shadow-sm border-b border-m3-surfaceContainerHigh">
+    <header class="bg-m3-surface dark:bg-m3-darkSurface sticky top-0 z-50 shadow-sm border-b border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh transition-colors duration-300">
         <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-m3-primaryContainer text-m3-primary rounded-full flex items-center justify-center text-2xl shadow-sm">
+            
+            <!-- Brand Logo & Title -->
+            <div class="flex items-center gap-4 cursor-pointer" onclick="switchView('portal')">
+                <div class="w-12 h-12 bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer text-m3-primary dark:text-m3-darkPrimary rounded-full flex items-center justify-center text-2xl shadow-sm transition-colors duration-300">
                     <i class="fa-solid fa-server"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl md:text-2xl font-bold text-slate-900 leading-tight">Spread Technical</h1>
-                    <p class="text-sm font-medium text-m3-primary">Enterprise Support</p>
+                    <h1 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white leading-tight">Spread Technical</h1>
+                    <p class="text-sm font-medium text-m3-primary dark:text-m3-darkPrimary">Enterprise IT Solutions</p>
                 </div>
             </div>
 
-            <div class="hidden md:flex bg-m3-surfaceContainerLow p-1.5 rounded-full border border-m3-surfaceContainerHigh shadow-inner">
-                <button onclick="switchView('portal')" id="nav-portal" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-m3-primaryContainer text-m3-onPrimaryContainer flex items-center gap-2 shadow-sm">
+            <!-- Main Desktop Navigation -->
+            <div class="hidden lg:flex bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow p-1.5 rounded-full border border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh shadow-inner gap-1 transition-colors duration-300">
+                <button onclick="switchView('portal')" id="nav-portal" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2">
                     <i class="fa-solid fa-plus"></i> Raise Ticket
                 </button>
-                <button onclick="switchView('track')" id="nav-track" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh hover:text-slate-900 flex items-center gap-2">
+                <button onclick="switchView('track')" id="nav-track" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2">
                     <i class="fa-solid fa-satellite-dish"></i> Track Request
                 </button>
-                <button onclick="switchView('login')" id="nav-login" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh hover:text-slate-900 flex items-center gap-2">
+                <button onclick="switchView('kb')" id="nav-kb" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-book-open"></i> Knowledge Base
+                </button>
+                <button onclick="switchView('health')" id="nav-health" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-heart-pulse"></i> System Health
+                </button>
+                <button onclick="switchView('login')" id="nav-login" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2">
                     <i class="fa-solid fa-shield-halved"></i> Staff Login
                 </button>
             </div>
             
-            <button class="md:hidden w-12 h-12 text-slate-700 flex items-center justify-center rounded-full hover:bg-m3-surfaceContainerHigh">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
+            <!-- Utilities (Dark Mode + Mobile Menu) -->
+            <div class="flex items-center gap-2">
+                <button onclick="toggleDarkMode()" class="w-10 h-10 text-slate-600 dark:text-slate-300 flex items-center justify-center rounded-full hover:bg-m3-surfaceContainerHigh dark:hover:bg-m3-darkSurfaceContainerHigh transition-colors duration-300">
+                    <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
+                </button>
+                <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 text-slate-700 dark:text-slate-300 flex items-center justify-center rounded-full hover:bg-m3-surfaceContainerHigh dark:hover:bg-m3-darkSurfaceContainerHigh transition-colors duration-300">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- Visual IT Showcase Header -->
-    <div id="heroBanner" class="bg-m3-surfaceContainerLow pt-10 pb-14 px-4 sm:px-6 lg:px-8 border-b border-m3-surfaceContainerHigh transition-all duration-500">
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="fixed inset-0 bg-black/50 z-40 hidden opacity-0 transition-opacity duration-300">
+        <div class="absolute right-0 top-0 bottom-0 w-64 bg-m3-surface dark:bg-m3-darkSurface shadow-2xl p-6 transform translate-x-full transition-transform duration-300 flex flex-col gap-4" id="mobileMenuContent">
+            <div class="flex justify-end mb-4">
+                <button onclick="toggleMobileMenu()" class="text-slate-500 dark:text-slate-400 text-2xl"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <button onclick="switchView('portal'); toggleMobileMenu()" class="text-left font-semibold text-lg text-slate-800 dark:text-white py-2 border-b border-slate-200 dark:border-slate-800"><i class="fa-solid fa-plus w-6"></i> Raise Ticket</button>
+            <button onclick="switchView('track'); toggleMobileMenu()" class="text-left font-semibold text-lg text-slate-800 dark:text-white py-2 border-b border-slate-200 dark:border-slate-800"><i class="fa-solid fa-satellite-dish w-6"></i> Track Request</button>
+            <button onclick="switchView('kb'); toggleMobileMenu()" class="text-left font-semibold text-lg text-slate-800 dark:text-white py-2 border-b border-slate-200 dark:border-slate-800"><i class="fa-solid fa-book-open w-6"></i> Knowledge Base</button>
+            <button onclick="switchView('health'); toggleMobileMenu()" class="text-left font-semibold text-lg text-slate-800 dark:text-white py-2 border-b border-slate-200 dark:border-slate-800"><i class="fa-solid fa-heart-pulse w-6"></i> System Health</button>
+            <button onclick="switchView('login'); toggleMobileMenu()" class="text-left font-semibold text-lg text-slate-800 dark:text-white py-2 border-b border-slate-200 dark:border-slate-800"><i class="fa-solid fa-shield-halved w-6"></i> Staff Login</button>
+        </div>
+    </div>
+
+    <!-- Visual IT Showcase Header (Hero Banner) -->
+    <div id="heroBanner" class="bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow pt-10 pb-14 px-4 sm:px-6 lg:px-8 border-b border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh transition-colors duration-500">
         <div class="max-w-[1400px] mx-auto">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">IT Command Center</h2>
-                <p class="text-slate-600 text-base md:text-lg max-w-3xl mx-auto font-medium">Fast, reliable, and secure IT infrastructure management. Log your incident below and our Network Operations Center will take it from here.</p>
+            <div class="text-center mb-10 animate-fade-in">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">IT Command Center</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-base md:text-lg max-w-3xl mx-auto font-medium">Fast, reliable, and secure IT infrastructure management. Log your incident below and our Dubai-based NOC will dispatch an engineer immediately.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-                <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 animate-slide-up">
+                <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group cursor-pointer" onclick="switchView('portal')">
                     <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Workstations" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6">
                         <span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-laptop text-m3-primaryContainer mr-3 text-xl"></i>Endpoints & OS</span>
                     </div>
                 </div>
-                <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group">
+                <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group cursor-pointer" onclick="switchView('portal')">
                     <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" alt="Networks" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6">
                         <span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-network-wired text-m3-primaryContainer mr-3 text-xl"></i>Network Routing</span>
                     </div>
                 </div>
-                <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group">
+                <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group cursor-pointer" onclick="switchView('portal')">
                     <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="Servers" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6">
                         <span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-server text-m3-primaryContainer mr-3 text-xl"></i>Cloud & Servers</span>
@@ -126,35 +318,67 @@
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Main Dynamic Content Container -->
     <main class="flex-grow max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full -mt-8 relative z-10">
         
-        <!-- RAISE TICKET VIEW -->
+        <!-- ========================================== -->
+        <!-- VIEW 1: RAISE TICKET (PORTAL)              -->
+        <!-- ========================================== -->
         <div id="portalView" class="view-section active max-w-5xl mx-auto">
-            <div class="bg-white rounded-[32px] shadow-m3-3 overflow-hidden">
-                <div class="p-8 md:p-10 border-b border-m3-surfaceContainerHigh flex items-center justify-between bg-white">
+            <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-3 overflow-hidden transition-colors duration-300">
+                <div class="p-8 md:p-10 border-b border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh flex items-center justify-between">
                     <div>
-                        <h2 class="text-3xl font-bold text-slate-900">Raise IT Ticket</h2>
-                        <p class="text-base text-slate-500 mt-2 font-medium">Direct synchronization to Spread Technical Live Database.</p>
+                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Raise IT Ticket</h2>
+                        <p class="text-base text-slate-500 dark:text-slate-400 mt-2 font-medium">Direct synchronization to Spread Technical Live Database.</p>
                     </div>
-                    <div class="hidden sm:flex w-16 h-16 bg-m3-surfaceContainerLow rounded-full items-center justify-center text-m3-primary text-3xl shadow-inner">
+                    <div class="hidden sm:flex w-16 h-16 bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow rounded-full items-center justify-center text-m3-primary dark:text-m3-darkPrimary text-3xl shadow-inner">
                         <i class="fa-solid fa-clipboard-list"></i>
                     </div>
                 </div>
 
                 <form id="ticketForm" onsubmit="submitTicket(event)" class="p-8 md:p-10 space-y-8">
+                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="m3-input-wrapper"><i class="fa-solid fa-user input-icon"></i><input type="text" name="name" id="name" required class="m3-input" placeholder=" "><span class="m3-label">Full Name *</span></div>
-                        <div class="m3-input-wrapper"><i class="fa-solid fa-building input-icon"></i><input type="text" name="company_name" id="company" required class="m3-input" placeholder=" "><span class="m3-label">Company Name *</span></div>
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-user input-icon"></i>
+                            <input type="text" name="name" id="name" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Full Name *</span>
+                        </div>
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-building input-icon"></i>
+                            <input type="text" name="company_name" id="company" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Company Name *</span>
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="m3-input-wrapper"><i class="fa-solid fa-phone input-icon"></i><input type="tel" name="phone" id="phone" required class="m3-input" placeholder=" "><span class="m3-label">Contact Number *</span></div>
-                        <div class="m3-input-wrapper"><i class="fa-solid fa-envelope input-icon"></i><input type="email" name="email" id="email" required class="m3-input" placeholder=" "><span class="m3-label">Email Address *</span></div>
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-phone input-icon"></i>
+                            <input type="tel" name="phone" id="phone" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Contact Number *</span>
+                        </div>
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-envelope input-icon"></i>
+                            <input type="email" name="email" id="email" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Email Address *</span>
+                        </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="m3-input-wrapper"><i class="fa-solid fa-gauge-high input-icon"></i>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-laptop-code input-icon"></i>
+                            <select name="device_type" id="deviceType" class="m3-input appearance-none cursor-pointer">
+                                <option value="Laptop/Desktop" selected>Laptop / Desktop</option>
+                                <option value="Mobile/Tablet">Mobile / Tablet</option>
+                                <option value="Printer/Scanner">Printer / Scanner</option>
+                                <option value="Network/Wi-Fi">Network / Wi-Fi</option>
+                                <option value="Software/App">Software / Application</option>
+                                <option value="Server/Cloud">Server / Cloud Infrastructure</option>
+                            </select>
+                            <span class="m3-label">Category</span>
+                        </div>
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-gauge-high input-icon"></i>
                             <select name="priority" id="priority" class="m3-input appearance-none cursor-pointer">
                                 <option value="Low">Low - General Request</option>
                                 <option value="Medium" selected>Medium - Operation Impaired</option>
@@ -162,24 +386,35 @@
                             </select>
                             <span class="m3-label">Priority Level</span>
                         </div>
-                        <div class="m3-input-wrapper"><i class="fa-solid fa-tag input-icon"></i><input type="text" name="ticket_subject" id="ticketSubject" required class="m3-input" placeholder=" "><span class="m3-label">Issue Subject *</span></div>
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-barcode input-icon"></i>
+                            <input type="text" name="asset_tag" id="assetTag" class="m3-input" placeholder=" ">
+                            <span class="m3-label">Asset Tag (Optional)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="m3-input-wrapper">
+                        <i class="fa-solid fa-tag input-icon"></i>
+                        <input type="text" name="ticket_subject" id="ticketSubject" required class="m3-input" placeholder=" ">
+                        <span class="m3-label">Issue Subject *</span>
                     </div>
 
                     <div class="flex flex-col gap-2 mt-2">
-                        <label for="message" class="text-sm font-bold text-slate-700 px-1">Detailed Description *</label>
+                        <label for="message" class="text-sm font-bold text-slate-700 dark:text-slate-300 px-1">Detailed Description *</label>
                         <div class="relative">
-                            <i class="fa-solid fa-align-left absolute left-4 top-4 text-slate-500 text-[1.1rem]"></i>
-                            <textarea name="message" id="message" rows="5" required class="w-full bg-[#f0f4f8] border-b border-[#74777f] rounded-t-[4px] pl-12 pr-4 py-4 text-base text-[#1f1f1f] focus:bg-[#d3e3fd] focus:border-b-2 focus:border-[#0b57d0] transition-all outline-none resize-none" placeholder="Provide hostnames, exact error messages, or steps leading up to the issue..."></textarea>
+                            <i class="fa-solid fa-align-left absolute left-4 top-4 text-slate-500 dark:text-slate-400 text-[1.1rem]"></i>
+                            <textarea name="message" id="message" rows="5" required class="w-full bg-[#f0f4f8] dark:bg-[#191c20] border-b border-[#74777f] dark:border-[#8e918f] rounded-t-[4px] pl-12 pr-4 py-4 text-base text-[#1f1f1f] dark:text-[#e1e3e8] focus:bg-[#d3e3fd] dark:focus:bg-[#0842a0] focus:border-b-2 focus:border-[#0b57d0] dark:focus:border-[#a8c7fa] transition-all outline-none resize-none" placeholder="Provide hostnames, IP addresses, exact error messages, or steps leading up to the issue..."></textarea>
                         </div>
                     </div>
 
-                    <div class="bg-m3-surfaceContainerLow p-5 rounded-[16px] border border-dashed border-m3-outline mt-2">
-                        <label class="block text-sm font-bold text-slate-700 mb-2"><i class="fa-solid fa-paperclip mr-2 text-m3-primary"></i>Attach Screenshot/Log (Optional)</label>
-                        <input type="file" name="attachment" accept="image/*,.pdf,.log" class="w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-m3-primaryContainer file:text-m3-onPrimaryContainer hover:file:bg-indigo-200 cursor-pointer transition-colors"/>
+                    <div class="bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow p-5 rounded-[16px] border border-dashed border-m3-outline dark:border-m3-darkOutline mt-2">
+                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2"><i class="fa-solid fa-paperclip mr-2 text-m3-primary dark:text-m3-darkPrimary"></i>Attach Screenshot/Log (Optional)</label>
+                        <input type="file" name="attachment" accept="image/*,.pdf,.log" class="w-full text-sm text-slate-500 dark:text-slate-400 file:mr-4 file:py-2.5 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-m3-primaryContainer dark:file:bg-m3-darkPrimaryContainer file:text-m3-onPrimaryContainer dark:file:text-m3-darkOnPrimaryContainer hover:file:bg-indigo-200 dark:hover:file:bg-indigo-900 cursor-pointer transition-colors"/>
                     </div>
 
-                    <div class="pt-4 flex justify-end">
-                        <button type="submit" id="submitBtn" class="bg-m3-primary text-white font-bold text-base px-10 py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all duration-300 flex items-center gap-3">
+                    <div class="pt-4 flex justify-between items-center">
+                        <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm hidden md:block"><i class="fa-solid fa-shield-check mr-1"></i> Data submitted is encrypted and strictly accessible only by Spread Technical authorized personnel.</p>
+                        <button type="submit" id="submitBtn" class="bg-m3-primary dark:bg-m3-darkPrimary text-white dark:text-m3-darkOnPrimary font-bold text-base px-10 py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all duration-300 flex items-center gap-3 w-full md:w-auto justify-center">
                             <i class="fa-solid fa-paper-plane"></i> <span>Submit Ticket</span>
                         </button>
                     </div>
@@ -187,100 +422,362 @@
             </div>
         </div>
 
-        <!-- TRACK TICKET VIEW -->
+        <!-- ========================================== -->
+        <!-- VIEW 2: TRACK TICKET                       -->
+        <!-- ========================================== -->
         <div id="trackView" class="view-section max-w-5xl mx-auto">
-            <div class="bg-white rounded-[32px] shadow-m3-2 p-8 md:p-10 mb-8 flex flex-col lg:flex-row gap-6 items-center justify-between">
+            <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-2 p-8 md:p-10 mb-8 flex flex-col lg:flex-row gap-6 items-center justify-between transition-colors duration-300">
                 <div>
-                    <h2 class="text-3xl font-bold text-slate-900 flex items-center gap-4">
-                        <div class="w-14 h-14 bg-m3-primaryContainer text-m3-primary rounded-full flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-satellite-dish"></i></div>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-4">
+                        <div class="w-14 h-14 bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer text-m3-primary dark:text-m3-darkPrimary rounded-full flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-satellite-dish"></i></div>
                         Track Status
                     </h2>
-                    <p class="text-slate-500 mt-3 text-base font-medium">Enter your registered email to pull data from the live database.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mt-3 text-base font-medium">Enter your registered email to pull data from the live database.</p>
                 </div>
                 
                 <div class="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
                     <div class="relative min-w-[300px]">
-                        <i class="fa-solid fa-envelope absolute left-5 top-1/2 transform -translate-y-1/2 text-slate-500"></i>
-                        <input type="email" id="trackEmailInput" class="w-full pl-12 pr-5 py-4 bg-m3-surfaceContainerLow border border-m3-surfaceContainerHigh rounded-full focus:outline-none focus:border-m3-primary text-base font-medium transition-colors" placeholder="Your Email Address...">
+                        <i class="fa-solid fa-envelope absolute left-5 top-1/2 transform -translate-y-1/2 text-slate-500 dark:text-slate-400"></i>
+                        <input type="email" id="trackEmailInput" class="w-full pl-12 pr-5 py-4 bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow border border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh text-slate-900 dark:text-white rounded-full focus:outline-none focus:border-m3-primary dark:focus:border-m3-darkPrimary text-base font-medium transition-colors" placeholder="Your Email Address...">
                     </div>
-                    <button onclick="searchClientTickets()" class="bg-m3-primaryContainer text-m3-onPrimaryContainer hover:bg-[#b5cffb] font-bold px-8 py-4 rounded-full transition-all shadow-sm text-base">
+                    <button onclick="searchClientTickets()" class="bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer text-m3-onPrimaryContainer dark:text-m3-darkOnPrimaryContainer hover:bg-[#b5cffb] dark:hover:bg-[#0a53c8] font-bold px-8 py-4 rounded-full transition-all shadow-sm text-base">
                         Search Logs
                     </button>
                 </div>
             </div>
-            <div id="trackingResults" class="space-y-6"></div>
+            
+            <div id="trackingResults" class="space-y-6">
+                <!-- Initial State -->
+                <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-sm border border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh p-10 text-center transition-colors duration-300">
+                    <div class="text-slate-300 dark:text-slate-600 text-5xl mb-4"><i class="fa-solid fa-timeline"></i></div>
+                    <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200">Awaiting Search</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-base font-medium mt-1">Enter your email above to fetch your ticket history.</p>
+                </div>
+            </div>
         </div>
 
-        <!-- STAFF LOGIN VIEW -->
+        <!-- ========================================== -->
+        <!-- VIEW 3: KNOWLEDGE BASE (NEW)               -->
+        <!-- ========================================== -->
+        <div id="kbView" class="view-section max-w-5xl mx-auto">
+            <div class="bg-m3-primary text-white rounded-[32px] p-10 mb-8 text-center shadow-m3-2 bg-gradient-to-br from-[#0b57d0] to-[#0842a0]">
+                <h2 class="text-3xl font-bold mb-3"><i class="fa-solid fa-book-open-reader mr-2"></i> Self-Service Knowledge Base</h2>
+                <p class="text-m3-primaryContainer text-lg max-w-2xl mx-auto">Find quick solutions to common IT issues regarding Microsoft 365, Network Security, and active directory systems.</p>
+                
+                <div class="mt-8 relative max-w-2xl mx-auto">
+                    <i class="fa-solid fa-search absolute left-5 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="kbSearchInput" onkeyup="filterKB()" class="w-full pl-12 pr-5 py-4 bg-white text-slate-900 rounded-full focus:outline-none shadow-inner text-base font-medium" placeholder="Search for 'VPN', 'Password', 'Printer'...">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4" id="kbContainer">
+                <!-- KB Item 1 -->
+                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
+                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
+                        <span><i class="fa-brands fa-microsoft text-blue-500 mr-2"></i> How to reset my Microsoft 365 / Office 365 Password?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400">
+                        <ol class="list-decimal pl-5 space-y-2 mb-4">
+                            <li>Navigate to the Microsoft Online Password Reset portal: <code>passwordreset.microsoftonline.com</code>.</li>
+                            <li>Enter your corporate Spread Technical email address.</li>
+                            <li>Complete the CAPTCHA and select "Next".</li>
+                            <li>Choose your verification method (Authenticator App, SMS, or Alternate Email).</li>
+                            <li>Enter the code and create a new strong password.</li>
+                        </ol>
+                        <p class="text-sm bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 p-3 rounded-lg border border-blue-200 dark:border-blue-800/50"><strong>Note:</strong> Password must be at least 12 characters, include a number and special character. It may take up to 15 minutes to sync with local Active Directory.</p>
+                    </div>
+                </div>
+
+                <!-- KB Item 2 -->
+                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
+                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
+                        <span><i class="fa-solid fa-shield-halved text-emerald-500 mr-2"></i> Cisco / Sophos VPN Connection Issues</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400">
+                        <p class="mb-3">If you are unable to connect to the corporate VPN from outside the UAE office, verify the following:</p>
+                        <ul class="list-disc pl-5 space-y-2 mb-4">
+                            <li>Ensure you are connected to a stable internet connection.</li>
+                            <li>Open the Sophos Connect / Cisco AnyConnect client.</li>
+                            <li>Verify the gateway address is correct as per your onboarding documentation.</li>
+                            <li>If authentication fails, ensure your Multi-Factor Authentication (MFA) token is approved promptly.</li>
+                            <li>If it says "Certificate Validation Failure", please raise a ticket for IT to push the latest certificate via Group Policy.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- KB Item 3 -->
+                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
+                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
+                        <span><i class="fa-solid fa-print text-slate-500 mr-2"></i> Network Printer is Offline or Not Responding</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400">
+                        <ul class="list-disc pl-5 space-y-2 mb-4">
+                            <li>Check the physical printer to ensure it has paper, toner, and no paper jams.</li>
+                            <li>Verify the printer shows an active IP address on its display panel.</li>
+                            <li>On your Windows PC, go to Settings > Devices > Printers & Scanners.</li>
+                            <li>Find the printer, click "Manage" and run the "Troubleshooter".</li>
+                            <li>If the issue persists, clear the print spooler: Open Command Prompt as Admin, type <code>net stop spooler</code>, then <code>net start spooler</code>.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- KB Item 4 -->
+                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
+                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
+                        <span><i class="fa-solid fa-cloud text-cyan-500 mr-2"></i> SharePoint / OneDrive Sync Issues</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400">
+                        <p class="mb-3">If files are not syncing to Azure Cloud / SharePoint:</p>
+                        <ul class="list-disc pl-5 space-y-2 mb-4">
+                            <li>Look at the blue cloud icon in your Windows system tray (bottom right).</li>
+                            <li>If there is a red 'X', click it to view sync conflicts. Usually, this means a file is open in another program or has invalid characters in the file name.</li>
+                            <li>If the icon is gray, you are signed out. Click it to sign back in with your M365 credentials.</li>
+                            <li>To force a sync, right-click the cloud icon, click Settings, go to Account tab, click "Unlink this PC", and then sign in again to rebuild the connection.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- No Results KB Message -->
+            <div id="kbNoResults" class="hidden text-center p-10 bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm mt-4">
+                <i class="fa-solid fa-ghost text-4xl text-slate-300 dark:text-slate-600 mb-3"></i>
+                <h3 class="text-xl font-bold text-slate-700 dark:text-slate-300">No articles found</h3>
+                <p class="text-slate-500 mt-2">Try adjusting your search terms or raise a ticket.</p>
+                <button onclick="document.getElementById('kbSearchInput').value=''; filterKB();" class="mt-4 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-400">Clear Search</button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 4: SYSTEM HEALTH (NEW)                -->
+        <!-- ========================================== -->
+        <div id="healthView" class="view-section max-w-5xl mx-auto">
+            <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-2 p-8 md:p-10 mb-8 transition-colors duration-300">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                    <div>
+                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                            <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-heart-pulse"></i></div>
+                            Network & Service Health
+                        </h2>
+                        <p class="text-slate-500 dark:text-slate-400 mt-2 font-medium">Live monitoring for Spread Technical UAE Datacenter & Cloud Services.</p>
+                    </div>
+                    <div class="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50 px-4 py-2 rounded-lg flex items-center gap-2">
+                        <span class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
+                        <span class="text-sm font-bold text-emerald-700 dark:text-emerald-400">All Systems Operational</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="healthServicesContainer">
+                    <!-- Javascript will populate these -->
+                </div>
+
+                <div class="mt-8 p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
+                    <p><i class="fa-solid fa-clock-rotate-left mr-2"></i> Last updated: <span id="healthLastUpdate" class="font-bold">Just now</span>. Next automated ping in <span id="healthNextPing" class="font-mono text-m3-primary dark:text-m3-darkPrimary">60</span>s.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 5: STAFF LOGIN                        -->
+        <!-- ========================================== -->
         <div id="loginView" class="view-section max-w-md mx-auto mt-12">
-            <div class="bg-white rounded-[32px] shadow-m3-3 overflow-hidden text-center p-10">
-                <div class="w-20 h-20 bg-m3-surfaceContainer text-m3-primary rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner"><i class="fa-solid fa-fingerprint"></i></div>
-                <h2 class="text-2xl font-bold text-slate-900">IT Authentication</h2>
-                <p class="text-base text-slate-500 mt-2 mb-10 font-medium">Secure NOC Dashboard Access</p>
+            <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-3 overflow-hidden text-center p-10 transition-colors duration-300">
+                <div class="w-20 h-20 bg-m3-surfaceContainer dark:bg-m3-darkSurfaceContainer text-m3-primary dark:text-m3-darkPrimary rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner">
+                    <i class="fa-solid fa-fingerprint"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">IT Authentication</h2>
+                <p class="text-base text-slate-500 dark:text-slate-400 mt-2 mb-8 font-medium">Secure NOC Dashboard Access</p>
                 
                 <form onsubmit="handleITLogin(event)" class="space-y-6 text-left">
-                    <div class="m3-input-wrapper"><i class="fa-solid fa-envelope input-icon"></i><input type="email" id="itUsername" required class="m3-input" placeholder=" "><span class="m3-label">Staff Email</span></div>
-                    <div class="m3-input-wrapper"><i class="fa-solid fa-lock input-icon"></i><input type="password" id="itPassword" required class="m3-input" placeholder=" "><span class="m3-label">Master Password</span></div>
-                    <button type="submit" class="w-full bg-m3-primary text-white font-bold text-lg py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all mt-8">Authenticate</button>
+                    <div class="m3-input-wrapper">
+                        <i class="fa-solid fa-envelope input-icon"></i>
+                        <input type="email" id="itUsername" required class="m3-input" placeholder=" ">
+                        <span class="m3-label">Staff Email</span>
+                    </div>
+                    <div class="m3-input-wrapper">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="itPassword" required class="m3-input" placeholder=" ">
+                        <span class="m3-label">Master Password</span>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" onclick="alert('Please contact IT Systems Administrator (Vaibhav Patel) to reset your master credentials.')" class="text-sm font-semibold text-m3-primary dark:text-m3-darkPrimary hover:underline">Forgot Password?</button>
+                    </div>
+                    <button type="submit" class="w-full bg-m3-primary dark:bg-m3-darkPrimary text-white dark:text-m3-darkOnPrimary font-bold text-lg py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all mt-4">
+                        Authenticate
+                    </button>
                 </form>
             </div>
         </div>
 
-        <!-- IT TEAM DASHBOARD -->
+        <!-- ========================================== -->
+        <!-- VIEW 6: IT TEAM DASHBOARD                  -->
+        <!-- ========================================== -->
         <div id="dashboardView" class="view-section w-full max-w-[1600px] mx-auto">
-            <div class="bg-white rounded-[32px] shadow-m3-3 overflow-hidden border border-m3-surfaceContainerHigh">
-                <div class="bg-m3-surfaceContainerLow p-6 lg:p-8 border-b border-m3-surfaceContainerHigh flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <div class="flex items-center gap-5">
-                        <div class="w-14 h-14 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center text-2xl shadow-inner"><i class="fa-solid fa-sliders"></i></div>
+            
+            <!-- Dashboard KPIs -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="kpi-card bg-white dark:bg-m3-darkSurface p-6 rounded-2xl shadow-m3-1 border border-slate-100 dark:border-slate-800 flex items-center justify-between transition-colors">
+                    <div>
+                        <p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Tickets</p>
+                        <h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiTotal">0</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl"><i class="fa-solid fa-layer-group"></i></div>
+                </div>
+                <div class="kpi-card bg-white dark:bg-m3-darkSurface p-6 rounded-2xl shadow-m3-1 border border-slate-100 dark:border-slate-800 flex items-center justify-between transition-colors">
+                    <div>
+                        <p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Open / Monitoring</p>
+                        <h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiOpen">0</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl"><i class="fa-solid fa-eye"></i></div>
+                </div>
+                <div class="kpi-card bg-white dark:bg-m3-darkSurface p-6 rounded-2xl shadow-m3-1 border border-slate-100 dark:border-slate-800 flex items-center justify-between transition-colors">
+                    <div>
+                        <p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">In Progress</p>
+                        <h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiWorking">0</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl"><i class="fa-solid fa-gears"></i></div>
+                </div>
+                <div class="kpi-card bg-white dark:bg-m3-darkSurface p-6 rounded-2xl shadow-m3-1 border border-slate-100 dark:border-slate-800 flex items-center justify-between transition-colors">
+                    <div>
+                        <p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Resolved</p>
+                        <h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiResolved">0</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl"><i class="fa-solid fa-check-double"></i></div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Table -->
+            <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-3 overflow-hidden border border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh transition-colors duration-300">
+                <div class="bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow p-6 lg:p-8 border-b border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh flex flex-col xl:flex-row justify-between items-center gap-4 transition-colors">
+                    <div class="flex items-center gap-5 w-full xl:w-auto">
+                        <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full flex items-center justify-center text-2xl shadow-inner"><i class="fa-solid fa-sliders"></i></div>
                         <div>
-                            <h2 class="text-2xl font-bold text-slate-900">NOC Command Center</h2>
-                            <p class="text-base text-emerald-600 font-bold mt-1"><i class="fa-solid fa-link"></i> Live Database Connected</p>
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">NOC Command Center</h2>
+                            <p class="text-base text-emerald-600 dark:text-emerald-400 font-bold mt-1"><i class="fa-solid fa-user-tie mr-1"></i> Admin: Vaibhav Patel</p>
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="fetchTicketsForDashboard()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm"><i class="fa-solid fa-rotate-right mr-1"></i> Refresh Data</button>
-                        <button onclick="toggleFullscreen()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm hidden md:flex items-center gap-2"><i class="fa-solid fa-expand"></i> Fullscreen</button>
-                        <button onclick="logoutDashboard()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm">Sign Out</button>
+                    
+                    <!-- Dashboard Filters & Controls -->
+                    <div class="flex flex-wrap items-center gap-3 w-full xl:w-auto justify-end">
+                        <div class="relative bg-white dark:bg-m3-darkSurface rounded-full border border-slate-200 dark:border-slate-700 px-3 py-1 flex items-center shadow-sm">
+                            <i class="fa-solid fa-search text-slate-400 ml-2"></i>
+                            <input type="text" id="dashSearch" onkeyup="filterDashboard()" class="bg-transparent border-none outline-none text-sm px-3 py-1 text-slate-700 dark:text-white w-40 focus:w-60 transition-all" placeholder="Search ID, Name...">
+                        </div>
+                        <select id="dashStatusFilter" onchange="filterDashboard()" class="bg-white dark:bg-m3-darkSurface border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-white rounded-full px-4 py-2 text-sm font-semibold shadow-sm outline-none">
+                            <option value="All">All Statuses</option>
+                            <option value="Monitoring">Monitoring</option>
+                            <option value="Assigned">Assigned</option>
+                            <option value="Working">Working</option>
+                            <option value="Resolved">Resolved</option>
+                        </select>
+                        <button onclick="exportToCSV()" class="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition shadow-sm flex items-center gap-2">
+                            <i class="fa-solid fa-file-csv"></i> Export
+                        </button>
+                        <button onclick="fetchTicketsForDashboard()" class="bg-white dark:bg-m3-darkSurface border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm" title="Refresh Data">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </button>
+                        <button onclick="toggleFullscreen()" class="bg-white dark:bg-m3-darkSurface border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm hidden md:flex items-center gap-2">
+                            <i class="fa-solid fa-expand"></i> Fullscreen
+                        </button>
+                        <button onclick="logoutDashboard()" class="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-700 transition shadow-sm">
+                            Sign Out
+                        </button>
                     </div>
                 </div>
 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse min-w-[1000px]">
+                <div class="overflow-x-auto min-h-[400px]">
+                    <table class="w-full text-left border-collapse min-w-[1200px]" id="dashboardTable">
                         <thead>
-                            <tr class="bg-m3-surfaceContainer text-slate-600 text-xs uppercase tracking-widest border-b border-m3-surfaceContainerHigh">
+                            <tr class="bg-m3-surfaceContainer dark:bg-m3-darkSurfaceContainer text-slate-600 dark:text-slate-400 text-xs uppercase tracking-widest border-b border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh">
                                 <th class="p-5 font-bold w-48">Incident ID & Date</th>
                                 <th class="p-5 font-bold w-1/4">Requester Info</th>
                                 <th class="p-5 font-bold w-1/3">Issue Scope & Description</th>
                                 <th class="p-5 font-bold w-32">Priority</th>
-                                <th class="p-5 font-bold w-48">State Action (Syncs to DB)</th>
+                                <th class="p-5 font-bold w-48 text-center">State Action</th>
                             </tr>
                         </thead>
-                        <tbody id="dashboardTableBody" class="divide-y divide-slate-200 text-sm"></tbody>
+                        <tbody id="dashboardTableBody" class="divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+                            <!-- Populated by JS -->
+                        </tbody>
                     </table>
                 </div>
+                
+                <!-- Pagination Footer -->
+                <div class="bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow p-4 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-sm text-slate-500 dark:text-slate-400">
+                    <span id="tableRecordCount">Showing 0 records</span>
+                    <div class="flex gap-2">
+                        <button class="px-3 py-1 bg-white dark:bg-m3-darkSurface border border-slate-200 dark:border-slate-700 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50" disabled><i class="fa-solid fa-chevron-left"></i> Prev</button>
+                        <button class="px-3 py-1 bg-white dark:bg-m3-darkSurface border border-slate-200 dark:border-slate-700 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50" disabled>Next <i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 flex justify-end">
+                <button onclick="clearDashboard()" class="text-rose-500 hover:text-rose-700 text-xs font-bold transition flex items-center gap-1">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Flush Local Cache (Danger)
+                </button>
             </div>
         </div>
 
     </main>
 
+    <!-- Floating Chat Widget -->
+    <div id="chat-widget">
+        <!-- Chat Window -->
+        <div id="chat-window" class="bg-white dark:bg-m3-darkSurface border border-slate-200 dark:border-slate-700 flex flex-col mb-4">
+            <div class="bg-m3-primary dark:bg-m3-darkPrimary p-4 text-white dark:text-m3-darkOnPrimary flex justify-between items-center shadow-md">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"><i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <h4 class="font-bold text-sm">Spread IT Assistant</h4>
+                        <p class="text-[10px] opacity-80">Online - Automated</p>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="hover:bg-white/20 w-8 h-8 rounded-full transition"><i class="fa-solid fa-times"></i></button>
+            </div>
+            
+            <div id="chat-messages" class="flex-grow p-4 overflow-y-auto flex flex-col gap-2 bg-slate-50 dark:bg-slate-900/50">
+                <div class="text-xs text-center text-slate-400 dark:text-slate-500 mb-2">Today</div>
+                <div class="chat-message chat-bot shadow-sm">
+                    Hello! I'm the Spread Technical virtual assistant. How can I help you today?
+                </div>
+                <!-- Messages injected here -->
+            </div>
+            
+            <div class="p-3 bg-white dark:bg-m3-darkSurface border-t border-slate-200 dark:border-slate-700 flex gap-2">
+                <input type="text" id="chatInput" onkeypress="handleChatKey(event)" class="flex-grow bg-slate-100 dark:bg-slate-800 border-none rounded-full px-4 py-2 text-sm text-slate-800 dark:text-white outline-none focus:ring-1 focus:ring-m3-primary" placeholder="Type a message...">
+                <button onclick="sendChatMessage()" class="w-10 h-10 bg-m3-primary dark:bg-m3-darkPrimary text-white dark:text-m3-darkOnPrimary rounded-full flex items-center justify-center hover:scale-105 transition shadow-sm"><i class="fa-solid fa-paper-plane text-sm"></i></button>
+            </div>
+        </div>
+        
+        <!-- Chat Bubble Toggle -->
+        <button onclick="toggleChat()" id="chat-toggle-btn" class="w-16 h-16 bg-m3-primary dark:bg-m3-darkPrimary text-white dark:text-m3-darkOnPrimary rounded-full shadow-m3-3 flex items-center justify-center text-2xl hover:scale-110 transition-transform duration-300 animate-bounce-slight absolute right-0 bottom-0">
+            <i class="fa-solid fa-messages"></i>
+        </button>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-m3-surfaceContainer border-t border-m3-surfaceContainerHigh py-8 mt-auto relative z-20">
-        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600 gap-4">
-            <p class="font-bold">&copy; 2026 Spread Technical. All rights reserved.</p>
+    <footer class="bg-m3-surfaceContainer dark:bg-m3-darkSurfaceContainer border-t border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh py-8 mt-auto relative z-20 transition-colors duration-300">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600 dark:text-slate-400 gap-4">
+            <p class="font-bold">&copy; 2026 Spread Technical FZE. All rights reserved.</p>
             <div class="flex flex-wrap justify-center gap-6 font-medium">
-                <a href="tel:+971588421560" class="flex items-center gap-2 hover:text-m3-primary transition"><div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-m3-primary"><i class="fa-solid fa-phone"></i></div> +971 58 842 1560</a>
-                <a href="mailto:vaibhav@spreadtechnical.com" class="flex items-center gap-2 hover:text-m3-primary transition"><div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-m3-primary"><i class="fa-solid fa-envelope"></i></div> vaibhav@spreadtechnical.com</a>
+                <a href="#" class="hover:text-m3-primary dark:hover:text-m3-darkPrimary transition"><i class="fa-solid fa-location-dot mr-1"></i> Dubai, UAE</a>
+                <a href="tel:+971588421560" class="flex items-center gap-2 hover:text-m3-primary dark:hover:text-m3-darkPrimary transition"><div class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center shadow-sm text-m3-primary dark:text-m3-darkPrimary"><i class="fa-solid fa-phone"></i></div> +971 58 842 1560</a>
+                <a href="mailto:vaibhav@spreadtechnical.com" class="flex items-center gap-2 hover:text-m3-primary dark:hover:text-m3-darkPrimary transition"><div class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center shadow-sm text-m3-primary dark:text-m3-darkPrimary"><i class="fa-solid fa-envelope"></i></div> vaibhav@spreadtechnical.com</a>
             </div>
         </div>
     </footer>
 
     <!-- ========================================== -->
-    <!-- LOGIC SCRIPT (DIRECT GOOGLE SHEET API + SEQUENTIAL IDs) -->
+    <!-- JAVASCRIPT LOGIC                           -->
     <!-- ========================================== -->
     <script>
         // === CONFIGURATION ===
         const DB_CONFIG = {
-            useDatabase: false, // Make this TRUE after you deploy your Google Apps Script
+            useDatabase: false, // Make TRUE after deploying Google Apps Script
             apiUrl: "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE" 
         };
 
@@ -289,28 +786,259 @@
         let isITLoggedIn = false;
         const STATUS_FLOW = ["Monitoring", "Assigned", "Working", "Resolved"];
 
-        // Navigation
+        // Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            // Setup input floats
+            document.querySelectorAll('.m3-input').forEach(input => {
+                input.addEventListener('blur', (e) => { 
+                    if(e.target.value.trim() !== "") { e.target.classList.add('has-val'); } 
+                    else { e.target.classList.remove('has-val'); } 
+                });
+            });
+            
+            // Check system preference for dark mode
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('theme-icon').className = 'fa-solid fa-sun text-lg';
+            }
+            
+            // Initialize Health Dashboard
+            initSystemHealth();
+            
+            // Set date
+            setInterval(() => {
+                const now = new Date();
+                // Dubai Timezone approximation if needed, sticking to local for simplicity in UI display
+            }, 1000);
+        });
+
+        // ==========================================
+        // UI & NAVIGATION LOGIC
+        // ==========================================
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fa-solid fa-moon text-lg';
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fa-solid fa-sun text-lg';
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const content = document.getElementById('mobileMenuContent');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0');
+                    content.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                menu.classList.add('opacity-0');
+                content.classList.add('translate-x-full');
+                setTimeout(() => menu.classList.add('hidden'), 300);
+            }
+        }
+
         function switchView(viewName) {
             const views = document.querySelectorAll('.view-section');
-            const btns = { 'portal': document.getElementById('nav-portal'), 'track': document.getElementById('nav-track'), 'login': document.getElementById('nav-login') };
+            const btns = document.querySelectorAll('.nav-btn');
             const hero = document.getElementById('heroBanner');
-            if(viewName === 'portal') hero.style.display = 'block'; else hero.style.display = 'none';
+            
+            if(viewName === 'portal') hero.style.display = 'block'; 
+            else hero.style.display = 'none';
 
-            views.forEach(v => { v.classList.remove('active'); setTimeout(() => { if(!v.classList.contains('active')) v.style.display = 'none'; }, 400); });
-            Object.values(btns).forEach(b => { if(b) b.className = "px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh hover:text-slate-900 flex items-center gap-2"; });
+            views.forEach(v => { 
+                v.classList.remove('active'); 
+                setTimeout(() => { if(!v.classList.contains('active')) v.style.display = 'none'; }, 400); 
+            });
+            
+            btns.forEach(b => { 
+                b.className = "nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:bg-m3-surfaceContainerHigh dark:hover:bg-m3-darkSurfaceContainerHigh flex items-center gap-2"; 
+            });
 
             setTimeout(() => {
+                let targetView = viewName + 'View';
                 if (viewName === 'login') {
-                    if (isITLoggedIn) { document.getElementById('dashboardView').style.display = 'block'; setTimeout(() => document.getElementById('dashboardView').classList.add('active'), 50); fetchTicketsForDashboard(); } 
-                    else { document.getElementById('loginView').style.display = 'block'; setTimeout(() => document.getElementById('loginView').classList.add('active'), 50); }
-                } else {
-                    document.getElementById(viewName + 'View').style.display = 'block'; setTimeout(() => document.getElementById(viewName + 'View').classList.add('active'), 50);
+                    if (isITLoggedIn) { 
+                        targetView = 'dashboardView'; 
+                        fetchTicketsForDashboard(); 
+                    }
                 }
-                if(btns[viewName]) btns[viewName].className = "px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-m3-primaryContainer text-m3-onPrimaryContainer flex items-center gap-2 shadow-sm";
+                
+                const viewEl = document.getElementById(targetView);
+                if(viewEl) {
+                    viewEl.style.display = 'block'; 
+                    setTimeout(() => viewEl.classList.add('active'), 50);
+                }
+
+                const activeBtn = document.getElementById('nav-' + viewName);
+                if(activeBtn) {
+                    activeBtn.className = "nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer text-m3-onPrimaryContainer dark:text-m3-darkOnPrimaryContainer flex items-center gap-2 shadow-sm";
+                }
             }, 400);
         }
 
-        // GENERATE SEQUENTIAL TICKET ID (Starts from 1000001)
+        function toggleFullscreen() { 
+            if (!document.fullscreenElement) { 
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                }); 
+            } else { 
+                document.exitFullscreen(); 
+            } 
+        }
+
+        // ==========================================
+        // KNOWLEDGE BASE LOGIC
+        // ==========================================
+
+        function toggleKB(btn) {
+            const item = btn.parentElement;
+            // Close others
+            document.querySelectorAll('.kb-item').forEach(el => {
+                if(el !== item) el.classList.remove('active');
+            });
+            item.classList.toggle('active');
+        }
+
+        function filterKB() {
+            const input = document.getElementById('kbSearchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.kb-item');
+            let found = false;
+
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    item.style.display = "block";
+                    found = true;
+                } else {
+                    item.style.display = "none";
+                    item.classList.remove('active');
+                }
+            });
+
+            document.getElementById('kbNoResults').style.display = found ? 'none' : 'block';
+        }
+
+        // ==========================================
+        // SYSTEM HEALTH DASHBOARD LOGIC
+        // ==========================================
+
+        const systemServices = [
+            { name: "Active Directory (UAE OUs)", status: "Operational", uptime: "99.99%", ping: 12 },
+            { name: "Microsoft 365 Exchange", status: "Operational", uptime: "99.98%", ping: 45 },
+            { name: "Azure Virtual Desktop", status: "Operational", uptime: "99.95%", ping: 28 },
+            { name: "Sophos XG Firewall (HQ)", status: "Operational", uptime: "100%", ping: 5 },
+            { name: "Cisco Core Switches", status: "Operational", uptime: "100%", ping: 2 },
+            { name: "SharePoint Document Storage", status: "Degraded", uptime: "98.50%", ping: 150 }
+        ];
+
+        function initSystemHealth() {
+            const container = document.getElementById('healthServicesContainer');
+            container.innerHTML = '';
+            
+            systemServices.forEach(srv => {
+                const isOp = srv.status === "Operational";
+                const colorClass = isOp ? "text-emerald-500" : "text-amber-500";
+                const bgClass = isOp ? "bg-emerald-50 dark:bg-emerald-900/10 border-emerald-200 dark:border-emerald-800/30" : "bg-amber-50 dark:bg-amber-900/10 border-amber-200 dark:border-amber-800/30";
+                const icon = isOp ? "fa-check-circle" : "fa-triangle-exclamation";
+
+                container.innerHTML += `
+                    <div class="border rounded-2xl p-5 ${bgClass} transition-colors duration-300">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-bold text-slate-800 dark:text-slate-200">${srv.name}</h4>
+                            <span class="${colorClass} font-bold text-sm flex items-center gap-1"><i class="fa-solid ${icon}"></i> ${srv.status}</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 font-mono">
+                            <span>Uptime: ${srv.uptime}</span>
+                            <span>Latency: ${srv.ping}ms</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 mt-3 rounded-full overflow-hidden">
+                            <div class="h-full ${isOp ? 'bg-emerald-500' : 'bg-amber-500'} rounded-full" style="width: ${srv.uptime}"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Simulate ping update
+            let countdown = 60;
+            setInterval(() => {
+                countdown--;
+                if(countdown <= 0) {
+                    countdown = 60;
+                    document.getElementById('healthLastUpdate').innerText = new Date().toLocaleTimeString();
+                    // Randomize pings slightly for effect
+                    initSystemHealth(); // Re-render
+                }
+                const el = document.getElementById('healthNextPing');
+                if(el) el.innerText = countdown;
+            }, 1000);
+        }
+
+        // ==========================================
+        // CHAT BOT LOGIC
+        // ==========================================
+
+        function toggleChat() {
+            const win = document.getElementById('chat-window');
+            const btn = document.getElementById('chat-toggle-btn');
+            if (win.style.display === 'flex') {
+                win.style.display = 'none';
+                btn.style.transform = 'scale(1)';
+            } else {
+                win.style.display = 'flex';
+                btn.style.transform = 'scale(0)';
+            }
+        }
+
+        function handleChatKey(e) {
+            if (e.key === 'Enter') sendChatMessage();
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            addChatBubble(text, 'user');
+            input.value = '';
+
+            // Simple bot logic
+            setTimeout(() => {
+                let response = "I'm a virtual assistant. Your query has been noted. For technical issues, please use the 'Raise Ticket' portal.";
+                const lower = text.toLowerCase();
+                
+                if(lower.includes("password") || lower.includes("reset")) {
+                    response = "For password resets, please check our Knowledge Base or navigate to passwordreset.microsoftonline.com.";
+                } else if (lower.includes("vpn") || lower.includes("connect")) {
+                    response = "VPN issues are common. Ensure your Sophos/Cisco client has the correct gateway. Need an engineer? Raise a ticket.";
+                } else if (lower.includes("hello") || lower.includes("hi")) {
+                    response = "Hello! Welcome to Spread Technical Support. How can I assist your IT needs?";
+                }
+
+                addChatBubble(response, 'bot');
+            }, 1000);
+        }
+
+        function addChatBubble(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.className = `chat-message ${sender === 'user' ? 'chat-user' : 'chat-bot'} shadow-sm animate-slide-up`;
+            div.innerText = text;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+
+        // ==========================================
+        // TICKET LOGIC (DB & LOCAL)
+        // ==========================================
+
         async function getNextTicketId() {
             let nextId = 1000001;
             try {
@@ -330,11 +1058,10 @@
                         if(max >= 1000001) nextId = max + 1;
                     }
                 }
-            } catch(e) { console.warn("Failed to fetch past IDs, starting at default."); }
+            } catch(e) { console.warn("Failed to fetch past IDs"); }
             return 'INC-' + nextId;
         }
 
-        // Save Ticket (Direct to Google Apps Script or LocalStorage)
         async function submitTicket(e) {
             e.preventDefault();
             const form = e.target;
@@ -345,7 +1072,7 @@
             submitBtn.disabled = true;
 
             const userEmail = document.getElementById('email').value.trim().toLowerCase();
-            const generatedId = await getNextTicketId(); // Fetches sequential ID
+            const generatedId = await getNextTicketId(); 
             
             const ticketData = {
                 id: generatedId,
@@ -353,6 +1080,8 @@
                 company: document.getElementById('company').value,
                 phone: document.getElementById('phone').value,
                 email: userEmail,
+                device: document.getElementById('deviceType').value,
+                asset: document.getElementById('assetTag').value || 'N/A',
                 priority: document.getElementById('priority').value,
                 subject: document.getElementById('ticketSubject').value,
                 description: document.getElementById('message').value,
@@ -363,8 +1092,6 @@
             try {
                 if (DB_CONFIG.useDatabase) {
                     if(DB_CONFIG.apiUrl.includes("YOUR_GOOGLE")) throw new Error("API URL not set");
-                    
-                    // Direct Send to Google Apps Script
                     await fetch(DB_CONFIG.apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -384,56 +1111,120 @@
                 setTimeout(() => searchClientTickets(), 500);
             } catch (error) {
                 console.error(error);
-                alert("Submission Failed. If Database is ON, check your Google Apps Script URL & Permissions.");
+                alert("Submission Failed. If Database is ON, check your URL & Permissions.");
             } finally {
                 submitBtn.innerHTML = originalBtnHtml;
                 submitBtn.disabled = false;
             }
         }
 
-        // Fetch & Render Dashboard
+        // ==========================================
+        // DASHBOARD & EXPORT LOGIC
+        // ==========================================
+
+        function handleITLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('itUsername').value.trim().toLowerCase();
+            const p = document.getElementById('itPassword').value;
+            if (VALID_USERS.includes(u) && p === IT_PASS) {
+                isITLoggedIn = true;
+                document.getElementById('itUsername').value = ''; 
+                document.getElementById('itPassword').value = '';
+                switchView('login');
+            } else { alert("Authentication Failed. Invalid Credentials."); }
+        }
+
+        function logoutDashboard() { isITLoggedIn = false; switchView('login'); }
+
+        let cachedDashboardTickets = []; // Store for filtering
+
         async function fetchTicketsForDashboard() {
             const tbody = document.getElementById('dashboardTableBody');
-            tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-medium text-lg"><i class="fa-solid fa-circle-notch fa-spin text-m3-primary mr-3"></i> Syncing from Database...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-medium text-lg"><i class="fa-solid fa-circle-notch fa-spin text-m3-primary mr-3"></i> Syncing Data...</td></tr>`;
 
             let tickets = [];
             if (DB_CONFIG.useDatabase) {
                 try {
                     const res = await fetch(DB_CONFIG.apiUrl);
                     tickets = await res.json();
-                    tickets.reverse(); // Display newest tickets at the top
+                    tickets.reverse(); 
                 } catch (err) {
-                    tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-rose-500 font-medium text-lg">Error connecting to Spreadsheet API.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-rose-500 font-medium text-lg">Error connecting to DB.</td></tr>`;
                     return;
                 }
             } else {
                 tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
             }
 
+            cachedDashboardTickets = tickets;
+            renderKPIs(tickets);
             renderDashboardTable(tickets);
+        }
+
+        function renderKPIs(tickets) {
+            const total = tickets.length;
+            const open = tickets.filter(t => t.status === "Monitoring" || t.status === "Assigned").length;
+            const working = tickets.filter(t => t.status === "Working").length;
+            const resolved = tickets.filter(t => t.status === "Resolved").length;
+
+            document.getElementById('kpiTotal').innerText = total;
+            document.getElementById('kpiOpen').innerText = open;
+            document.getElementById('kpiWorking').innerText = working;
+            document.getElementById('kpiResolved').innerText = resolved;
+        }
+
+        function filterDashboard() {
+            const query = document.getElementById('dashSearch').value.toLowerCase();
+            const statusFilter = document.getElementById('dashStatusFilter').value;
+            
+            const filtered = cachedDashboardTickets.filter(t => {
+                const matchesSearch = t.id.toLowerCase().includes(query) || t.name.toLowerCase().includes(query) || t.subject.toLowerCase().includes(query);
+                const matchesStatus = statusFilter === 'All' || t.status === statusFilter;
+                return matchesSearch && matchesStatus;
+            });
+
+            renderDashboardTable(filtered);
         }
 
         function renderDashboardTable(tickets) {
             const tbody = document.getElementById('dashboardTableBody');
+            document.getElementById('tableRecordCount').innerText = `Showing ${tickets.length} records`;
+
             if (tickets.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-medium text-lg">Database empty. No active tickets.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 dark:text-slate-400 font-medium text-lg">No records found.</td></tr>`;
                 return;
             }
             tbody.innerHTML = '';
             tickets.forEach(t => {
                 let curStat = t.status || "Monitoring";
-                let selectHTML = `<select onchange="updateTicketStatus('${t.id}', this.value, this)" class="bg-m3-surfaceContainerHigh border border-slate-300 text-slate-800 text-sm rounded-full px-4 py-2 outline-none focus:ring-2 focus:ring-m3-primary font-bold cursor-pointer shadow-sm w-full max-w-[180px]">`;
+                let selectHTML = `<select onchange="updateTicketStatus('${t.id}', this.value, this)" class="bg-m3-surfaceContainerHigh dark:bg-m3-darkSurfaceContainerHigh border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white text-sm rounded-full px-4 py-2 outline-none focus:ring-2 focus:ring-m3-primary font-bold cursor-pointer shadow-sm w-full max-w-[180px]">`;
                 STATUS_FLOW.forEach(s => { selectHTML += `<option value="${s}" ${curStat === s ? 'selected' : ''}>${s}</option>`; });
                 selectHTML += `</select>`;
-                let priorityStyle = t.priority === 'High' ? 'text-rose-700 bg-rose-100 border-rose-200' : (t.priority === 'Medium' ? 'text-amber-700 bg-amber-100 border-amber-200' : 'text-emerald-700 bg-emerald-100 border-emerald-200');
+                
+                let priorityStyle = t.priority === 'High' ? 'text-rose-700 bg-rose-100 border-rose-200 dark:bg-rose-900/30 dark:text-rose-400' : 
+                                   (t.priority === 'Medium' ? 'text-amber-700 bg-amber-100 border-amber-200 dark:bg-amber-900/30 dark:text-amber-400' : 'text-emerald-700 bg-emerald-100 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400');
 
                 tbody.innerHTML += `
-                    <tr class="hover:bg-slate-50 transition border-b border-slate-100 align-top">
-                        <td class="p-5"><div class="font-bold text-m3-primary text-sm font-mono bg-m3-primaryContainer inline-block px-2 py-0.5 rounded">${t.id}</div><div class="text-xs text-slate-500 font-medium mt-2">${t.date}</div></td>
-                        <td class="p-5"><div class="font-bold text-slate-900 text-base">${t.company}</div><div class="text-sm text-slate-600 font-medium mt-1">${t.name}</div><div class="text-xs text-slate-400 mt-1">${t.email}<br>${t.phone}</div></td>
-                        <td class="p-5"><div class="font-bold text-slate-800 text-base mb-1">${t.subject}</div><div class="text-sm text-slate-600 font-medium whitespace-pre-wrap max-h-[100px] overflow-y-auto pr-2">${t.description}</div></td>
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition border-b border-slate-100 dark:border-slate-800 align-top">
+                        <td class="p-5">
+                            <div class="font-bold text-m3-primary dark:text-m3-darkPrimary text-sm font-mono bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer inline-block px-2 py-0.5 rounded">${t.id}</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-2 whitespace-nowrap">${t.date}</div>
+                        </td>
+                        <td class="p-5">
+                            <div class="font-bold text-slate-900 dark:text-white text-base">${t.company}</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-300 font-medium mt-1">${t.name}</div>
+                            <div class="text-xs text-slate-400 mt-1">${t.email}<br>${t.phone}</div>
+                        </td>
+                        <td class="p-5">
+                            <div class="font-bold text-slate-800 dark:text-slate-200 text-base mb-1">${t.subject}</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400 font-medium whitespace-pre-wrap max-h-[100px] overflow-y-auto pr-2">${t.description}</div>
+                            ${t.device ? `<div class="mt-2 text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 inline-block px-2 py-1 rounded">Dev: ${t.device} | Asset: ${t.asset || 'N/A'}</div>` : ''}
+                        </td>
                         <td class="p-5"><span class="px-3 py-1.5 rounded-full text-xs font-bold border shadow-sm ${priorityStyle}">${t.priority}</span></td>
-                        <td class="p-5">${selectHTML}<span class="text-[10px] block mt-2 text-slate-400 update-msg hidden">Saved to Sheet ✅</span></td>
+                        <td class="p-5 text-center">
+                            ${selectHTML}
+                            <span class="text-[10px] block mt-2 text-slate-400 update-msg hidden">Saved ✅</span>
+                        </td>
                     </tr>
                 `;
             });
@@ -442,8 +1233,8 @@
         async function updateTicketStatus(ticketId, newStatus, selectElement) {
             const msgSpan = selectElement.nextElementSibling;
             msgSpan.classList.remove('hidden');
-            msgSpan.innerText = "Syncing to Sheet...";
-            msgSpan.className = "text-[10px] block mt-2 text-amber-500 update-msg font-bold";
+            msgSpan.innerText = "Syncing...";
+            msgSpan.className = "text-[10px] block mt-2 text-amber-500 update-msg font-bold animate-pulse";
 
             if (DB_CONFIG.useDatabase) {
                 try {
@@ -454,7 +1245,10 @@
                     });
                     msgSpan.innerText = "Saved to Sheet ✅";
                     msgSpan.className = "text-[10px] block mt-2 text-emerald-500 update-msg font-bold";
-                } catch(err) { msgSpan.innerText = "Error Saving ❌"; msgSpan.className = "text-[10px] block mt-2 text-rose-500 update-msg font-bold"; }
+                } catch(err) { 
+                    msgSpan.innerText = "Error Saving ❌"; 
+                    msgSpan.className = "text-[10px] block mt-2 text-rose-500 update-msg font-bold"; 
+                }
             } else {
                 let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
                 let index = tickets.findIndex(t => t.id === ticketId);
@@ -465,13 +1259,50 @@
                     msgSpan.className = "text-[10px] block mt-2 text-emerald-500 update-msg font-bold";
                 }
             }
+            
+            // Update local cache & KPIs
+            let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId);
+            if(cachedIndex !== -1) cachedDashboardTickets[cachedIndex].status = newStatus;
+            renderKPIs(cachedDashboardTickets);
+
             setTimeout(() => { msgSpan.classList.add('hidden'); }, 3000);
         }
+
+        function exportToCSV() {
+            if(cachedDashboardTickets.length === 0) { alert("No data to export."); return; }
+            
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "ID,Date,Name,Company,Email,Phone,Device,Asset Tag,Priority,Subject,Status\n";
+            
+            cachedDashboardTickets.forEach(t => {
+                let row = `"${t.id}","${t.date}","${t.name}","${t.company}","${t.email}","${t.phone}","${t.device || ''}","${t.asset || ''}","${t.priority}","${t.subject}","${t.status || 'Monitoring'}"`;
+                csvContent += row + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Spread_Tech_Tickets_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function clearDashboard() {
+            if (confirm("DANGER: Are you sure you want to clear the local ticket database? (This does not delete cloud Google Sheet data)")) {
+                localStorage.removeItem('spread_tickets');
+                fetchTicketsForDashboard();
+            }
+        }
+
+        // ==========================================
+        // CLIENT TRACKING LOGIC
+        // ==========================================
 
         async function searchClientTickets() {
             const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase();
             const container = document.getElementById('trackingResults');
-            container.innerHTML = `<div class="text-center p-10"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i><p>Scanning Database...</p></div>`;
+            container.innerHTML = `<div class="text-center p-10"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i><p class="text-slate-500 dark:text-slate-400">Scanning Database...</p></div>`;
             if (!queryEmail) return;
 
             let tickets = [];
@@ -482,17 +1313,17 @@
 
             const filtered = tickets.filter(t => t.email.trim().toLowerCase() === queryEmail);
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="bg-white rounded-[32px] shadow-sm border border-m3-surfaceContainerHigh p-10 text-center"><div class="text-slate-300 text-5xl mb-4"><i class="fa-solid fa-box-open"></i></div><h3 class="text-xl font-bold text-slate-800">No Tickets Found</h3><p class="text-slate-500 text-base font-medium mt-1">No records match <b>${queryEmail}</b>.</p></div>`;
+                container.innerHTML = `<div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-sm border border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh p-10 text-center"><div class="text-slate-300 dark:text-slate-600 text-5xl mb-4"><i class="fa-solid fa-box-open"></i></div><h3 class="text-xl font-bold text-slate-800 dark:text-slate-200">No Tickets Found</h3><p class="text-slate-500 dark:text-slate-400 text-base font-medium mt-1">No records match <b>${queryEmail}</b>.</p></div>`;
                 return;
             }
 
             container.innerHTML = '';
             filtered.forEach(t => {
-                let badge = t.priority === 'High' ? '<span class="bg-rose-100 text-rose-700 px-4 py-1.5 rounded-full text-xs font-bold border border-rose-200 shadow-sm">HIGH PRIORITY</span>' : (t.priority === 'Medium' ? '<span class="bg-amber-100 text-amber-700 px-4 py-1.5 rounded-full text-xs font-bold border border-amber-200 shadow-sm">MEDIUM</span>' : '<span class="bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-full text-xs font-bold border border-emerald-200 shadow-sm">LOW</span>');
+                let badge = t.priority === 'High' ? '<span class="bg-rose-100 text-rose-700 px-4 py-1.5 rounded-full text-xs font-bold border border-rose-200 shadow-sm dark:bg-rose-900/30 dark:text-rose-400">HIGH PRIORITY</span>' : (t.priority === 'Medium' ? '<span class="bg-amber-100 text-amber-700 px-4 py-1.5 rounded-full text-xs font-bold border border-amber-200 shadow-sm dark:bg-amber-900/30 dark:text-amber-400">MEDIUM</span>' : '<span class="bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-full text-xs font-bold border border-emerald-200 shadow-sm dark:bg-emerald-900/30 dark:text-emerald-400">LOW</span>');
                 container.innerHTML += `
-                    <div class="bg-white rounded-[32px] shadow-m3-2 border border-slate-100 p-8 sm:p-10 mb-6">
-                        <div class="flex justify-between items-center mb-6 border-b border-slate-100 pb-6">
-                            <div><div class="flex items-center gap-3 mb-2"><span class="text-sm font-mono font-bold text-m3-primary bg-m3-primaryContainer px-3 py-1 rounded-md shadow-sm">${t.id}</span>${badge}</div><h3 class="text-2xl font-bold text-slate-900">${t.subject}</h3><p class="text-sm text-slate-500 font-medium mt-1">Logged on ${t.date}</p></div>
+                    <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-2 border border-slate-100 dark:border-slate-800 p-8 sm:p-10 mb-6 transition-colors duration-300">
+                        <div class="flex justify-between items-center mb-6 border-b border-slate-100 dark:border-slate-800 pb-6">
+                            <div><div class="flex items-center gap-3 mb-2"><span class="text-sm font-mono font-bold text-m3-primary dark:text-m3-darkPrimary bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer px-3 py-1 rounded-md shadow-sm">${t.id}</span>${badge}</div><h3 class="text-2xl font-bold text-slate-900 dark:text-white">${t.subject}</h3><p class="text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">Logged on ${t.date}</p></div>
                         </div>
                         ${getProgressBarHTML(t.status || 'Monitoring')}
                     </div>
@@ -502,38 +1333,19 @@
 
         function getProgressBarHTML(currentStatus) {
             let currentIndex = STATUS_FLOW.indexOf(currentStatus); if (currentIndex === -1) currentIndex = 0;
-            let html = `<div class="w-full py-8 mt-4"><div class="flex items-center justify-between relative px-6 md:px-10"><div class="absolute left-10 right-10 top-1/2 transform -translate-y-1/2 h-2 bg-m3-surfaceContainerHigh z-0 rounded-full shadow-inner"></div>`;
+            let html = `<div class="w-full py-8 mt-4"><div class="flex items-center justify-between relative px-6 md:px-10"><div class="absolute left-10 right-10 top-1/2 transform -translate-y-1/2 h-2 bg-m3-surfaceContainerHigh dark:bg-m3-darkSurfaceContainerHigh z-0 rounded-full shadow-inner"></div>`;
             let activeWidth = (currentIndex / (STATUS_FLOW.length - 1)) * 100;
-            html += `<div class="absolute left-10 top-1/2 transform -translate-y-1/2 h-2 bg-m3-primary z-0 transition-all duration-700 ease-in-out rounded-full shadow-md" style="width: calc(${activeWidth}% - 2.5rem);"></div>`;
+            html += `<div class="absolute left-10 top-1/2 transform -translate-y-1/2 h-2 bg-m3-primary dark:bg-m3-darkPrimary z-0 transition-all duration-700 ease-in-out rounded-full shadow-md" style="width: calc(${activeWidth}% - 2.5rem);"></div>`;
 
             STATUS_FLOW.forEach((step, index) => {
                 let isCompleted = index <= currentIndex; let isCurrent = index === currentIndex;
-                let circleClass = isCompleted ? "bg-m3-primary text-white scale-110 shadow-lg" : "bg-white border-[3px] border-m3-surfaceContainerHigh text-slate-400";
-                let textClass = isCurrent ? "text-m3-primary font-extrabold text-[13px]" : (isCompleted ? "text-slate-800 font-bold" : "text-slate-400 font-semibold");
+                let circleClass = isCompleted ? "bg-m3-primary dark:bg-m3-darkPrimary text-white dark:text-m3-darkOnPrimary scale-110 shadow-lg border-white dark:border-slate-900" : "bg-white dark:bg-m3-darkSurface border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh text-slate-400";
+                let textClass = isCurrent ? "text-m3-primary dark:text-m3-darkPrimary font-extrabold text-[13px]" : (isCompleted ? "text-slate-800 dark:text-slate-200 font-bold" : "text-slate-400 dark:text-slate-500 font-semibold");
                 let icon = isCompleted ? '<i class="fa-solid fa-check text-base"></i>' : `<span class="text-sm font-bold">${index + 1}</span>`;
-                html += `<div class="relative z-10 flex flex-col items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 ${circleClass} border-4 border-white">${icon}</div><span class="absolute top-14 text-xs text-center w-28 -ml-14 left-1/2 ${textClass} uppercase tracking-wider">${step}</span></div>`;
+                html += `<div class="relative z-10 flex flex-col items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 ${circleClass} border-4">${icon}</div><span class="absolute top-14 text-xs text-center w-28 -ml-14 left-1/2 ${textClass} uppercase tracking-wider">${step}</span></div>`;
             });
             return html += `</div></div>`;
         }
-
-        function handleITLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('itUsername').value.trim().toLowerCase();
-            const p = document.getElementById('itPassword').value;
-            if (VALID_USERS.includes(u) && p === IT_PASS) {
-                isITLoggedIn = true;
-                document.getElementById('itUsername').value = ''; document.getElementById('itPassword').value = '';
-                switchView('login');
-            } else { alert("Authentication Failed. Invalid Credentials."); }
-        }
-
-        function logoutDashboard() { isITLoggedIn = false; switchView('login'); }
-        function toggleFullscreen() { if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); } else { document.exitFullscreen(); } }
-        
-        // Input float fix
-        document.querySelectorAll('.m3-input').forEach(input => {
-            input.addEventListener('blur', (e) => { if(e.target.value.trim() !== "") { e.target.classList.add('has-val'); } else { e.target.classList.remove('has-val'); } });
-        });
     </script>
 </body>
 </html>
