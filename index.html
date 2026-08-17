@@ -1080,8 +1080,8 @@
                 company: document.getElementById('company').value,
                 phone: document.getElementById('phone').value,
                 email: userEmail,
-                device: document.getElementById('deviceType').value,
-                asset: document.getElementById('assetTag').value || 'N/A',
+                device: document.getElementById('deviceType').value,      // <-- MUST HAVE THIS
+                asset: document.getElementById('assetTag').value || 'N/A', // <-- MUST HAVE THIS
                 priority: document.getElementById('priority').value,
                 subject: document.getElementById('ticketSubject').value,
                 description: document.getElementById('message').value,
