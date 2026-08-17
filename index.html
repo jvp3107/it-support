@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
+    <!-- Google Fonts for Material Look -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -38,12 +38,14 @@
         ::-webkit-scrollbar-thumb { background: #c2c7cf; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #74777f; }
 
+        /* Material 3 Transitions */
         .view-section {
             display: none; opacity: 0; transform: translateY(15px) scale(0.99);
             transition: opacity 0.4s cubic-bezier(0.2, 0, 0, 1), transform 0.4s cubic-bezier(0.2, 0, 0, 1);
         }
         .view-section.active { display: block; opacity: 1; transform: translateY(0) scale(1); }
 
+        /* Pure CSS Floating Labels for M3 */
         .m3-input-wrapper { position: relative; display: flex; flex-direction: column; }
         .m3-input {
             width: 100%; background-color: #f0f4f8; border-bottom: 1px solid #74777f; border-radius: 4px 4px 0 0;
@@ -62,10 +64,13 @@
 </head>
 <body class="text-slate-800 flex flex-col min-h-screen">
 
+    <!-- Top App Bar (Material 3) -->
     <header class="bg-m3-surface sticky top-0 z-50 shadow-sm border-b border-m3-surfaceContainerHigh">
         <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-m3-primaryContainer text-m3-primary rounded-full flex items-center justify-center text-2xl shadow-sm"><i class="fa-solid fa-server"></i></div>
+                <div class="w-12 h-12 bg-m3-primaryContainer text-m3-primary rounded-full flex items-center justify-center text-2xl shadow-sm">
+                    <i class="fa-solid fa-server"></i>
+                </div>
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold text-slate-900 leading-tight">Spread Technical</h1>
                     <p class="text-sm font-medium text-m3-primary">Enterprise Support</p>
@@ -73,70 +78,115 @@
             </div>
 
             <div class="hidden md:flex bg-m3-surfaceContainerLow p-1.5 rounded-full border border-m3-surfaceContainerHigh shadow-inner">
-                <button onclick="switchView('portal')" id="nav-portal" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-m3-primaryContainer text-m3-onPrimaryContainer flex items-center gap-2 shadow-sm"><i class="fa-solid fa-plus"></i> Raise Ticket</button>
-                <button onclick="switchView('track')" id="nav-track" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh hover:text-slate-900 flex items-center gap-2"><i class="fa-solid fa-satellite-dish"></i> Track Request</button>
-                <button onclick="switchView('login')" id="nav-login" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh hover:text-slate-900 flex items-center gap-2"><i class="fa-solid fa-shield-halved"></i> Staff Login</button>
+                <button onclick="switchView('portal')" id="nav-portal" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-m3-primaryContainer text-m3-onPrimaryContainer flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-plus"></i> Raise Ticket
+                </button>
+                <button onclick="switchView('track')" id="nav-track" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh hover:text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-satellite-dish"></i> Track Request
+                </button>
+                <button onclick="switchView('login')" id="nav-login" class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 hover:bg-m3-surfaceContainerHigh hover:text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved"></i> Staff Login
+                </button>
             </div>
+            
+            <button class="md:hidden w-12 h-12 text-slate-700 flex items-center justify-center rounded-full hover:bg-m3-surfaceContainerHigh">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
         </div>
     </header>
 
+    <!-- Visual IT Showcase Header -->
     <div id="heroBanner" class="bg-m3-surfaceContainerLow pt-10 pb-14 px-4 sm:px-6 lg:px-8 border-b border-m3-surfaceContainerHigh transition-all duration-500">
         <div class="max-w-[1400px] mx-auto">
             <div class="text-center mb-10">
                 <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">IT Command Center</h2>
                 <p class="text-slate-600 text-base md:text-lg max-w-3xl mx-auto font-medium">Fast, reliable, and secure IT infrastructure management. Log your incident below and our Network Operations Center will take it from here.</p>
             </div>
+            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
                 <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group">
                     <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Workstations" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6"><span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-laptop text-m3-primaryContainer mr-3 text-xl"></i>Endpoints & OS</span></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6">
+                        <span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-laptop text-m3-primaryContainer mr-3 text-xl"></i>Endpoints & OS</span>
+                    </div>
                 </div>
                 <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group">
                     <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" alt="Networks" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6"><span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-network-wired text-m3-primaryContainer mr-3 text-xl"></i>Network Routing</span></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6">
+                        <span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-network-wired text-m3-primaryContainer mr-3 text-xl"></i>Network Routing</span>
+                    </div>
                 </div>
                 <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group">
                     <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="Servers" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6"><span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-server text-m3-primaryContainer mr-3 text-xl"></i>Cloud & Servers</span></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6">
+                        <span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-server text-m3-primaryContainer mr-3 text-xl"></i>Cloud & Servers</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Main Content -->
     <main class="flex-grow max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full -mt-8 relative z-10">
         
-        <!-- RAISE TICKET -->
+        <!-- ========================================== -->
+        <!-- VIEW 1: RAISE TICKET (PORTAL) -->
+        <!-- ========================================== -->
         <div id="portalView" class="view-section active max-w-5xl mx-auto">
             <div class="bg-white rounded-[32px] shadow-m3-3 overflow-hidden">
                 <div class="p-8 md:p-10 border-b border-m3-surfaceContainerHigh flex items-center justify-between bg-white">
                     <div>
                         <h2 class="text-3xl font-bold text-slate-900">Raise IT Ticket</h2>
-                        <p class="text-base text-slate-500 mt-2 font-medium">Data will sync securely to the central spreadsheet database.</p>
+                        <p class="text-base text-slate-500 mt-2 font-medium">Direct synchronization to Spread Technical Live Database.</p>
                     </div>
-                    <div class="hidden sm:flex w-16 h-16 bg-m3-surfaceContainerLow rounded-full items-center justify-center text-m3-primary text-3xl shadow-inner"><i class="fa-solid fa-clipboard-list"></i></div>
+                    <div class="hidden sm:flex w-16 h-16 bg-m3-surfaceContainerLow rounded-full items-center justify-center text-m3-primary text-3xl shadow-inner">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>
                 </div>
 
                 <form id="ticketForm" onsubmit="submitTicket(event)" class="p-8 md:p-10 space-y-8">
-                    <input type="hidden" name="access_key" value="d139da4f-b123-4cbd-b224-013a92892d4e">
-                    <input type="hidden" name="subject" value="🚨 New IT Incident Logged">
-                    <input type="hidden" name="from_name" value="Spread IT Portal">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-user input-icon"></i>
+                            <input type="text" name="name" id="name" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Full Name *</span>
+                        </div>
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-building input-icon"></i>
+                            <input type="text" name="company_name" id="company" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Company Name *</span>
+                        </div>
+                    </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="m3-input-wrapper"><i class="fa-solid fa-user input-icon"></i><input type="text" name="name" id="name" required class="m3-input" placeholder=" "><span class="m3-label">Full Name *</span></div>
-                        <div class="m3-input-wrapper"><i class="fa-solid fa-building input-icon"></i><input type="text" name="company_name" id="company" required class="m3-input" placeholder=" "><span class="m3-label">Company Name *</span></div>
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-phone input-icon"></i>
+                            <input type="tel" name="phone" id="phone" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Contact Number *</span>
+                        </div>
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-envelope input-icon"></i>
+                            <input type="email" name="email" id="email" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Email Address *</span>
+                        </div>
                     </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="m3-input-wrapper"><i class="fa-solid fa-phone input-icon"></i><input type="tel" name="phone" id="phone" required class="m3-input" placeholder=" "><span class="m3-label">Contact Number *</span></div>
-                        <div class="m3-input-wrapper"><i class="fa-solid fa-envelope input-icon"></i><input type="email" name="email" id="email" required class="m3-input" placeholder=" "><span class="m3-label">Email Address *</span></div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="m3-input-wrapper"><i class="fa-solid fa-gauge-high input-icon"></i>
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-gauge-high input-icon"></i>
                             <select name="priority" id="priority" class="m3-input appearance-none cursor-pointer">
-                                <option value="Low">Low - General Request</option><option value="Medium" selected>Medium - Operation Impaired</option><option value="High">High - System Down / Urgent</option>
+                                <option value="Low">Low - General Request</option>
+                                <option value="Medium" selected>Medium - Operation Impaired</option>
+                                <option value="High">High - System Down / Urgent</option>
                             </select>
                             <span class="m3-label">Priority Level</span>
                         </div>
-                        <div class="m3-input-wrapper"><i class="fa-solid fa-tag input-icon"></i><input type="text" name="ticket_subject" id="ticketSubject" required class="m3-input" placeholder=" "><span class="m3-label">Issue Subject *</span></div>
+                        <div class="m3-input-wrapper">
+                            <i class="fa-solid fa-tag input-icon"></i>
+                            <input type="text" name="ticket_subject" id="ticketSubject" required class="m3-input" placeholder=" ">
+                            <span class="m3-label">Issue Subject *</span>
+                        </div>
                     </div>
 
                     <div class="flex flex-col gap-2 mt-2">
@@ -149,7 +199,7 @@
 
                     <div class="bg-m3-surfaceContainerLow p-5 rounded-[16px] border border-dashed border-m3-outline mt-2">
                         <label class="block text-sm font-bold text-slate-700 mb-2"><i class="fa-solid fa-paperclip mr-2 text-m3-primary"></i>Attach Screenshot/Log (Optional)</label>
-                        <input type="file" name="attachment" accept="image/*,.pdf,.log" class="w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-m3-primaryContainer file:text-m3-onPrimaryContainer hover:file:bg-indigo-200 cursor-pointer"/>
+                        <input type="file" name="attachment" accept="image/*,.pdf,.log" class="w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-m3-primaryContainer file:text-m3-onPrimaryContainer hover:file:bg-indigo-200 cursor-pointer transition-colors"/>
                     </div>
 
                     <div class="pt-4 flex justify-end">
@@ -161,39 +211,65 @@
             </div>
         </div>
 
-        <!-- TRACK TICKET -->
+        <!-- ========================================== -->
+        <!-- VIEW 2: TRACK TICKET -->
+        <!-- ========================================== -->
         <div id="trackView" class="view-section max-w-5xl mx-auto">
             <div class="bg-white rounded-[32px] shadow-m3-2 p-8 md:p-10 mb-8 flex flex-col lg:flex-row gap-6 items-center justify-between">
                 <div>
-                    <h2 class="text-3xl font-bold text-slate-900 flex items-center gap-4"><div class="w-14 h-14 bg-m3-primaryContainer text-m3-primary rounded-full flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-satellite-dish"></i></div> Track Status</h2>
-                    <p class="text-slate-500 mt-3 text-base font-medium">Enter your registered email to pull data from the spreadsheet database.</p>
+                    <h2 class="text-3xl font-bold text-slate-900 flex items-center gap-4">
+                        <div class="w-14 h-14 bg-m3-primaryContainer text-m3-primary rounded-full flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-satellite-dish"></i></div>
+                        Track Status
+                    </h2>
+                    <p class="text-slate-500 mt-3 text-base font-medium">Enter your registered email to pull data from the live database.</p>
                 </div>
+                
                 <div class="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
                     <div class="relative min-w-[300px]">
                         <i class="fa-solid fa-envelope absolute left-5 top-1/2 transform -translate-y-1/2 text-slate-500"></i>
                         <input type="email" id="trackEmailInput" class="w-full pl-12 pr-5 py-4 bg-m3-surfaceContainerLow border border-m3-surfaceContainerHigh rounded-full focus:outline-none focus:border-m3-primary text-base font-medium transition-colors" placeholder="Your Email Address...">
                     </div>
-                    <button onclick="searchClientTickets()" class="bg-m3-primaryContainer text-m3-onPrimaryContainer hover:bg-[#b5cffb] font-bold px-8 py-4 rounded-full transition-all shadow-sm text-base">Search Logs</button>
+                    <button onclick="searchClientTickets()" class="bg-m3-primaryContainer text-m3-onPrimaryContainer hover:bg-[#b5cffb] font-bold px-8 py-4 rounded-full transition-all shadow-sm text-base">
+                        Search Logs
+                    </button>
                 </div>
             </div>
+
             <div id="trackingResults" class="space-y-6"></div>
         </div>
 
-        <!-- STAFF LOGIN -->
+        <!-- ========================================== -->
+        <!-- VIEW 3: STAFF LOGIN -->
+        <!-- ========================================== -->
         <div id="loginView" class="view-section max-w-md mx-auto mt-12">
             <div class="bg-white rounded-[32px] shadow-m3-3 overflow-hidden text-center p-10">
-                <div class="w-20 h-20 bg-m3-surfaceContainer text-m3-primary rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner"><i class="fa-solid fa-fingerprint"></i></div>
+                <div class="w-20 h-20 bg-m3-surfaceContainer text-m3-primary rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner">
+                    <i class="fa-solid fa-fingerprint"></i>
+                </div>
                 <h2 class="text-2xl font-bold text-slate-900">IT Authentication</h2>
                 <p class="text-base text-slate-500 mt-2 mb-10 font-medium">Secure NOC Dashboard Access</p>
+                
                 <form onsubmit="handleITLogin(event)" class="space-y-6 text-left">
-                    <div class="m3-input-wrapper"><i class="fa-solid fa-envelope input-icon"></i><input type="email" id="itUsername" required class="m3-input" placeholder=" "><span class="m3-label">Staff Email</span></div>
-                    <div class="m3-input-wrapper"><i class="fa-solid fa-lock input-icon"></i><input type="password" id="itPassword" required class="m3-input" placeholder=" "><span class="m3-label">Master Password</span></div>
-                    <button type="submit" class="w-full bg-m3-primary text-white font-bold text-lg py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all mt-8">Authenticate</button>
+                    <div class="m3-input-wrapper">
+                        <i class="fa-solid fa-envelope input-icon"></i>
+                        <input type="email" id="itUsername" required class="m3-input" placeholder=" ">
+                        <span class="m3-label">Staff Email</span>
+                    </div>
+                    <div class="m3-input-wrapper">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="itPassword" required class="m3-input" placeholder=" ">
+                        <span class="m3-label">Master Password</span>
+                    </div>
+                    <button type="submit" class="w-full bg-m3-primary text-white font-bold text-lg py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all mt-8">
+                        Authenticate
+                    </button>
                 </form>
             </div>
         </div>
 
-        <!-- IT DASHBOARD -->
+        <!-- ========================================== -->
+        <!-- VIEW 4: IT TEAM DASHBOARD -->
+        <!-- ========================================== -->
         <div id="dashboardView" class="view-section w-full max-w-[1600px] mx-auto">
             <div class="bg-white rounded-[32px] shadow-m3-3 overflow-hidden border border-m3-surfaceContainerHigh">
                 <div class="bg-m3-surfaceContainerLow p-6 lg:p-8 border-b border-m3-surfaceContainerHigh flex flex-col sm:flex-row justify-between items-center gap-4">
@@ -201,13 +277,19 @@
                         <div class="w-14 h-14 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center text-2xl shadow-inner"><i class="fa-solid fa-sliders"></i></div>
                         <div>
                             <h2 class="text-2xl font-bold text-slate-900">NOC Command Center</h2>
-                            <p class="text-base text-emerald-600 font-bold mt-1"><i class="fa-solid fa-link"></i> Linked to Live Database</p>
+                            <p class="text-base text-emerald-600 font-bold mt-1"><i class="fa-solid fa-link"></i> Live Database Connected</p>
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="fetchTicketsForDashboard()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm"><i class="fa-solid fa-rotate-right mr-1"></i> Refresh Data</button>
-                        <button onclick="toggleFullscreen()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm hidden md:flex items-center gap-2"><i class="fa-solid fa-expand"></i> Fullscreen</button>
-                        <button onclick="logoutDashboard()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm">Sign Out</button>
+                        <button onclick="fetchTicketsForDashboard()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Refresh Data
+                        </button>
+                        <button onclick="toggleFullscreen()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm hidden md:flex items-center gap-2">
+                            <i class="fa-solid fa-expand"></i> Fullscreen
+                        </button>
+                        <button onclick="logoutDashboard()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm">
+                            Sign Out
+                        </button>
                     </div>
                 </div>
 
@@ -229,14 +311,26 @@
         </div>
 
     </main>
-    <!-- Logic Script -->
+
+    <!-- Footer -->
+    <footer class="bg-m3-surfaceContainer border-t border-m3-surfaceContainerHigh py-8 mt-auto relative z-20">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600 gap-4">
+            <p class="font-bold">&copy; 2026 Spread Technical. All rights reserved.</p>
+            <div class="flex flex-wrap justify-center gap-6 font-medium">
+                <a href="tel:+971588421560" class="flex items-center gap-2 hover:text-m3-primary transition"><div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-m3-primary"><i class="fa-solid fa-phone"></i></div> +971 58 842 1560</a>
+                <a href="mailto:vaibhav@spreadtechnical.com" class="flex items-center gap-2 hover:text-m3-primary transition"><div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-m3-primary"><i class="fa-solid fa-envelope"></i></div> vaibhav@spreadtechnical.com</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC (DIRECT GOOGLE SHEET API) -->
+    <!-- ========================================== -->
     <script>
-        // ==========================================
-        // DIRECT GOOGLE SHEETS API CONFIGURATION
-        // ==========================================
+        // CONFIGURATION: Connect your Google Apps Script URL here
         const DB_CONFIG = {
-            useDatabase: true, // Activated!
-            apiUrl: "https://script.google.com/macros/s/AKfycby5BAy5xGwTsJ3iMYd7zF1CXLHBl1tI8h23BxSZXmf88JO9oEe4zvgdpeRldNKW8oI/exec" // <-- Paste your URL here
+            useDatabase: true, // Change to true once you paste your Apps Script URL below
+            apiUrl: "https://script.google.com/macros/s/AKfycbyrbRbf9CbiQGh25hnbuKIEI806vfbndkSTCVWApXc/dev" 
         };
 
         const VALID_USERS = ["vaibhav@spreadtechnical.com", "support@spreadtechnical.com"];
@@ -265,17 +359,16 @@
             }, 400);
         }
 
-        // Save Ticket (Direct Google Sheets & Web3Forms)
+        // Save Ticket (Direct to Google Apps Script)
         async function submitTicket(e) {
             e.preventDefault();
             const form = e.target;
             const submitBtn = document.getElementById('submitBtn');
             const originalBtnHtml = submitBtn.innerHTML;
             
-            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Saving to Live DB...</span>';
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Saving & Notifying...</span>';
             submitBtn.disabled = true;
 
-            const formData = new FormData(form);
             const userEmail = document.getElementById('email').value.trim().toLowerCase();
             
             const ticketData = {
@@ -292,14 +385,9 @@
             };
 
             try {
-                // 1. Send Email Notification
-                fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData }); // Sent asynchronously 
-
-                // 2. Save Direct to Google Sheet
                 if (DB_CONFIG.useDatabase) {
                     await fetch(DB_CONFIG.apiUrl, {
                         method: 'POST',
-                        // Must use text/plain to bypass Google's strict CORS rules for API posts
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify(ticketData)
                     });
@@ -316,7 +404,7 @@
                 switchView('track');
                 setTimeout(() => searchClientTickets(), 500);
             } catch (error) {
-                alert("Network connectivity issue.");
+                alert("Network connectivity issue. Please try again.");
             } finally {
                 submitBtn.innerHTML = originalBtnHtml;
                 submitBtn.disabled = false;
@@ -379,7 +467,6 @@
 
             if (DB_CONFIG.useDatabase) {
                 try {
-                    // Update external Google Sheet DB
                     await fetch(DB_CONFIG.apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -463,7 +550,11 @@
 
         function logoutDashboard() { isITLoggedIn = false; switchView('login'); }
         function toggleFullscreen() { if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); } else { document.exitFullscreen(); } }
+        
+        // Input fix
+        document.querySelectorAll('.m3-input').forEach(input => {
+            input.addEventListener('blur', (e) => { if(e.target.value.trim() !== "") { e.target.classList.add('has-val'); } else { e.target.classList.remove('has-val'); } });
+        });
     </script>
-
-    </body>
+</body>
 </html>
