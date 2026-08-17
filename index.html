@@ -64,7 +64,7 @@
 </head>
 <body class="text-slate-800 flex flex-col min-h-screen">
 
-    <!-- Top App Bar (Material 3) -->
+    <!-- Top App Bar -->
     <header class="bg-m3-surface sticky top-0 z-50 shadow-sm border-b border-m3-surfaceContainerHigh">
         <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
             <div class="flex items-center gap-4">
@@ -129,9 +129,7 @@
     <!-- Main Content -->
     <main class="flex-grow max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full -mt-8 relative z-10">
         
-        <!-- ========================================== -->
-        <!-- VIEW 1: RAISE TICKET (PORTAL) -->
-        <!-- ========================================== -->
+        <!-- RAISE TICKET VIEW -->
         <div id="portalView" class="view-section active max-w-5xl mx-auto">
             <div class="bg-white rounded-[32px] shadow-m3-3 overflow-hidden">
                 <div class="p-8 md:p-10 border-b border-m3-surfaceContainerHigh flex items-center justify-between bg-white">
@@ -145,36 +143,18 @@
                 </div>
 
                 <form id="ticketForm" onsubmit="submitTicket(event)" class="p-8 md:p-10 space-y-8">
-                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="m3-input-wrapper">
-                            <i class="fa-solid fa-user input-icon"></i>
-                            <input type="text" name="name" id="name" required class="m3-input" placeholder=" ">
-                            <span class="m3-label">Full Name *</span>
-                        </div>
-                        <div class="m3-input-wrapper">
-                            <i class="fa-solid fa-building input-icon"></i>
-                            <input type="text" name="company_name" id="company" required class="m3-input" placeholder=" ">
-                            <span class="m3-label">Company Name *</span>
-                        </div>
+                        <div class="m3-input-wrapper"><i class="fa-solid fa-user input-icon"></i><input type="text" name="name" id="name" required class="m3-input" placeholder=" "><span class="m3-label">Full Name *</span></div>
+                        <div class="m3-input-wrapper"><i class="fa-solid fa-building input-icon"></i><input type="text" name="company_name" id="company" required class="m3-input" placeholder=" "><span class="m3-label">Company Name *</span></div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="m3-input-wrapper">
-                            <i class="fa-solid fa-phone input-icon"></i>
-                            <input type="tel" name="phone" id="phone" required class="m3-input" placeholder=" ">
-                            <span class="m3-label">Contact Number *</span>
-                        </div>
-                        <div class="m3-input-wrapper">
-                            <i class="fa-solid fa-envelope input-icon"></i>
-                            <input type="email" name="email" id="email" required class="m3-input" placeholder=" ">
-                            <span class="m3-label">Email Address *</span>
-                        </div>
+                        <div class="m3-input-wrapper"><i class="fa-solid fa-phone input-icon"></i><input type="tel" name="phone" id="phone" required class="m3-input" placeholder=" "><span class="m3-label">Contact Number *</span></div>
+                        <div class="m3-input-wrapper"><i class="fa-solid fa-envelope input-icon"></i><input type="email" name="email" id="email" required class="m3-input" placeholder=" "><span class="m3-label">Email Address *</span></div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="m3-input-wrapper">
-                            <i class="fa-solid fa-gauge-high input-icon"></i>
+                        <div class="m3-input-wrapper"><i class="fa-solid fa-gauge-high input-icon"></i>
                             <select name="priority" id="priority" class="m3-input appearance-none cursor-pointer">
                                 <option value="Low">Low - General Request</option>
                                 <option value="Medium" selected>Medium - Operation Impaired</option>
@@ -182,11 +162,7 @@
                             </select>
                             <span class="m3-label">Priority Level</span>
                         </div>
-                        <div class="m3-input-wrapper">
-                            <i class="fa-solid fa-tag input-icon"></i>
-                            <input type="text" name="ticket_subject" id="ticketSubject" required class="m3-input" placeholder=" ">
-                            <span class="m3-label">Issue Subject *</span>
-                        </div>
+                        <div class="m3-input-wrapper"><i class="fa-solid fa-tag input-icon"></i><input type="text" name="ticket_subject" id="ticketSubject" required class="m3-input" placeholder=" "><span class="m3-label">Issue Subject *</span></div>
                     </div>
 
                     <div class="flex flex-col gap-2 mt-2">
@@ -211,9 +187,7 @@
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 2: TRACK TICKET -->
-        <!-- ========================================== -->
+        <!-- TRACK TICKET VIEW -->
         <div id="trackView" class="view-section max-w-5xl mx-auto">
             <div class="bg-white rounded-[32px] shadow-m3-2 p-8 md:p-10 mb-8 flex flex-col lg:flex-row gap-6 items-center justify-between">
                 <div>
@@ -234,42 +208,25 @@
                     </button>
                 </div>
             </div>
-
             <div id="trackingResults" class="space-y-6"></div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 3: STAFF LOGIN -->
-        <!-- ========================================== -->
+        <!-- STAFF LOGIN VIEW -->
         <div id="loginView" class="view-section max-w-md mx-auto mt-12">
             <div class="bg-white rounded-[32px] shadow-m3-3 overflow-hidden text-center p-10">
-                <div class="w-20 h-20 bg-m3-surfaceContainer text-m3-primary rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner">
-                    <i class="fa-solid fa-fingerprint"></i>
-                </div>
+                <div class="w-20 h-20 bg-m3-surfaceContainer text-m3-primary rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner"><i class="fa-solid fa-fingerprint"></i></div>
                 <h2 class="text-2xl font-bold text-slate-900">IT Authentication</h2>
                 <p class="text-base text-slate-500 mt-2 mb-10 font-medium">Secure NOC Dashboard Access</p>
                 
                 <form onsubmit="handleITLogin(event)" class="space-y-6 text-left">
-                    <div class="m3-input-wrapper">
-                        <i class="fa-solid fa-envelope input-icon"></i>
-                        <input type="email" id="itUsername" required class="m3-input" placeholder=" ">
-                        <span class="m3-label">Staff Email</span>
-                    </div>
-                    <div class="m3-input-wrapper">
-                        <i class="fa-solid fa-lock input-icon"></i>
-                        <input type="password" id="itPassword" required class="m3-input" placeholder=" ">
-                        <span class="m3-label">Master Password</span>
-                    </div>
-                    <button type="submit" class="w-full bg-m3-primary text-white font-bold text-lg py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all mt-8">
-                        Authenticate
-                    </button>
+                    <div class="m3-input-wrapper"><i class="fa-solid fa-envelope input-icon"></i><input type="email" id="itUsername" required class="m3-input" placeholder=" "><span class="m3-label">Staff Email</span></div>
+                    <div class="m3-input-wrapper"><i class="fa-solid fa-lock input-icon"></i><input type="password" id="itPassword" required class="m3-input" placeholder=" "><span class="m3-label">Master Password</span></div>
+                    <button type="submit" class="w-full bg-m3-primary text-white font-bold text-lg py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all mt-8">Authenticate</button>
                 </form>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 4: IT TEAM DASHBOARD -->
-        <!-- ========================================== -->
+        <!-- IT TEAM DASHBOARD -->
         <div id="dashboardView" class="view-section w-full max-w-[1600px] mx-auto">
             <div class="bg-white rounded-[32px] shadow-m3-3 overflow-hidden border border-m3-surfaceContainerHigh">
                 <div class="bg-m3-surfaceContainerLow p-6 lg:p-8 border-b border-m3-surfaceContainerHigh flex flex-col sm:flex-row justify-between items-center gap-4">
@@ -281,15 +238,9 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="fetchTicketsForDashboard()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm">
-                            <i class="fa-solid fa-rotate-right mr-1"></i> Refresh Data
-                        </button>
-                        <button onclick="toggleFullscreen()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm hidden md:flex items-center gap-2">
-                            <i class="fa-solid fa-expand"></i> Fullscreen
-                        </button>
-                        <button onclick="logoutDashboard()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm">
-                            Sign Out
-                        </button>
+                        <button onclick="fetchTicketsForDashboard()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm"><i class="fa-solid fa-rotate-right mr-1"></i> Refresh Data</button>
+                        <button onclick="toggleFullscreen()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm hidden md:flex items-center gap-2"><i class="fa-solid fa-expand"></i> Fullscreen</button>
+                        <button onclick="logoutDashboard()" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 transition shadow-sm">Sign Out</button>
                     </div>
                 </div>
 
@@ -324,13 +275,13 @@
     </footer>
 
     <!-- ========================================== -->
-    <!-- JAVASCRIPT LOGIC (DIRECT GOOGLE SHEET API) -->
+    <!-- LOGIC SCRIPT (DIRECT GOOGLE SHEET API + SEQUENTIAL IDs) -->
     <!-- ========================================== -->
     <script>
-        // CONFIGURATION: Connect your Google Apps Script URL here
+        // === CONFIGURATION ===
         const DB_CONFIG = {
-            useDatabase: true, // Change to true once you paste your Apps Script URL below
-            apiUrl: "https://script.google.com/macros/s/AKfycby5BAy5xGwTsJ3iMYd7zF1CXLHBl1tI8h23BxSZXmf88JO9oEe4zvgdpeRldNKW8oI/exec" 
+            useDatabase: false, // Make this TRUE after you deploy your Google Apps Script
+            apiUrl: "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE" 
         };
 
         const VALID_USERS = ["vaibhav@spreadtechnical.com", "support@spreadtechnical.com"];
@@ -359,6 +310,30 @@
             }, 400);
         }
 
+        // GENERATE SEQUENTIAL TICKET ID (Starts from 1000001)
+        async function getNextTicketId() {
+            let nextId = 1000001;
+            try {
+                if (DB_CONFIG.useDatabase) {
+                    const res = await fetch(DB_CONFIG.apiUrl);
+                    const tickets = await res.json();
+                    if(tickets && tickets.length > 0) {
+                        const ids = tickets.map(t => parseInt(String(t.id).replace(/\D/g, '')) || 0);
+                        const max = Math.max(...ids);
+                        if(max >= 1000001) nextId = max + 1;
+                    }
+                } else {
+                    const tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
+                    if(tickets.length > 0) {
+                        const ids = tickets.map(t => parseInt(String(t.id).replace(/\D/g, '')) || 0);
+                        const max = Math.max(...ids);
+                        if(max >= 1000001) nextId = max + 1;
+                    }
+                }
+            } catch(e) { console.warn("Failed to fetch past IDs, starting at default."); }
+            return 'INC-' + nextId;
+        }
+
         // Save Ticket (Direct to Google Apps Script or LocalStorage)
         async function submitTicket(e) {
             e.preventDefault();
@@ -366,13 +341,14 @@
             const submitBtn = document.getElementById('submitBtn');
             const originalBtnHtml = submitBtn.innerHTML;
             
-            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Saving...</span>';
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Generating ID & Saving...</span>';
             submitBtn.disabled = true;
 
             const userEmail = document.getElementById('email').value.trim().toLowerCase();
+            const generatedId = await getNextTicketId(); // Fetches sequential ID
             
             const ticketData = {
-                id: 'INC-' + Math.floor(100000 + Math.random() * 900000),
+                id: generatedId,
                 name: document.getElementById('name').value,
                 company: document.getElementById('company').value,
                 phone: document.getElementById('phone').value,
@@ -388,14 +364,13 @@
                 if (DB_CONFIG.useDatabase) {
                     if(DB_CONFIG.apiUrl.includes("YOUR_GOOGLE")) throw new Error("API URL not set");
                     
-                    // Send to Google Sheet
+                    // Direct Send to Google Apps Script
                     await fetch(DB_CONFIG.apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify(ticketData)
                     });
                 } else {
-                    // Save locally if Database is turned off
                     let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
                     tickets.unshift(ticketData);
                     localStorage.setItem('spread_tickets', JSON.stringify(tickets));
@@ -409,7 +384,7 @@
                 setTimeout(() => searchClientTickets(), 500);
             } catch (error) {
                 console.error(error);
-                alert("Submission Failed. Please check your Database URL and Google Script permissions.");
+                alert("Submission Failed. If Database is ON, check your Google Apps Script URL & Permissions.");
             } finally {
                 submitBtn.innerHTML = originalBtnHtml;
                 submitBtn.disabled = false;
@@ -419,7 +394,7 @@
         // Fetch & Render Dashboard
         async function fetchTicketsForDashboard() {
             const tbody = document.getElementById('dashboardTableBody');
-            tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-medium text-lg"><i class="fa-solid fa-circle-notch fa-spin text-m3-primary mr-3"></i> Syncing from Google Sheet...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-medium text-lg"><i class="fa-solid fa-circle-notch fa-spin text-m3-primary mr-3"></i> Syncing from Database...</td></tr>`;
 
             let tickets = [];
             if (DB_CONFIG.useDatabase) {
@@ -458,7 +433,7 @@
                         <td class="p-5"><div class="font-bold text-slate-900 text-base">${t.company}</div><div class="text-sm text-slate-600 font-medium mt-1">${t.name}</div><div class="text-xs text-slate-400 mt-1">${t.email}<br>${t.phone}</div></td>
                         <td class="p-5"><div class="font-bold text-slate-800 text-base mb-1">${t.subject}</div><div class="text-sm text-slate-600 font-medium whitespace-pre-wrap max-h-[100px] overflow-y-auto pr-2">${t.description}</div></td>
                         <td class="p-5"><span class="px-3 py-1.5 rounded-full text-xs font-bold border shadow-sm ${priorityStyle}">${t.priority}</span></td>
-                        <td class="p-5">${selectHTML}<span class="text-[10px] block mt-2 text-slate-400 update-msg hidden">Saved to Google Sheet ✅</span></td>
+                        <td class="p-5">${selectHTML}<span class="text-[10px] block mt-2 text-slate-400 update-msg hidden">Saved to Sheet ✅</span></td>
                     </tr>
                 `;
             });
@@ -496,7 +471,7 @@
         async function searchClientTickets() {
             const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase();
             const container = document.getElementById('trackingResults');
-            container.innerHTML = `<div class="text-center p-10"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i><p>Scanning Live Database...</p></div>`;
+            container.innerHTML = `<div class="text-center p-10"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i><p>Scanning Database...</p></div>`;
             if (!queryEmail) return;
 
             let tickets = [];
@@ -525,7 +500,6 @@
             });
         }
 
-        // M3 Progress Stepper HTML
         function getProgressBarHTML(currentStatus) {
             let currentIndex = STATUS_FLOW.indexOf(currentStatus); if (currentIndex === -1) currentIndex = 0;
             let html = `<div class="w-full py-8 mt-4"><div class="flex items-center justify-between relative px-6 md:px-10"><div class="absolute left-10 right-10 top-1/2 transform -translate-y-1/2 h-2 bg-m3-surfaceContainerHigh z-0 rounded-full shadow-inner"></div>`;
@@ -556,7 +530,7 @@
         function logoutDashboard() { isITLoggedIn = false; switchView('login'); }
         function toggleFullscreen() { if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); } else { document.exitFullscreen(); } }
         
-        // Input fix
+        // Input float fix
         document.querySelectorAll('.m3-input').forEach(input => {
             input.addEventListener('blur', (e) => { if(e.target.value.trim() !== "") { e.target.classList.add('has-val'); } else { e.target.classList.remove('has-val'); } });
         });
