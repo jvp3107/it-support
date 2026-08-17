@@ -837,7 +837,7 @@
         async function submitTicket(e) {
             e.preventDefault();
             const submitBtn = document.getElementById('submitBtn'); const originalBtnHtml = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Saving...</span>'; submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Uploading & Saving...</span>'; submitBtn.disabled = true;
 
             const userEmail = document.getElementById('email').value.trim().toLowerCase();
             const generatedId = await getNextTicketId(); 
@@ -845,6 +845,31 @@
             const countryCode = document.getElementById('countryCode').value;
             const phoneNumber = document.getElementById('phone_number').value.trim();
             const fullPhone = `${countryCode} ${phoneNumber}`;
+
+            // --- FILE UPLOAD HANDLER ---
+            const fileInput = document.querySelector('input[type="file"][name="attachment"]');
+            let fileData = null, fileName = null, fileMimeType = null;
+            
+            if (fileInput && fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                
+                // Optional: Stop files larger than 5MB to prevent freezing
+                if(file.size > 5 * 1024 * 1024) {
+                    alert("File is too large! Please select a file under 5MB.");
+                    submitBtn.innerHTML = originalBtnHtml; submitBtn.disabled = false;
+                    return;
+                }
+                
+                fileName = file.name;
+                fileMimeType = file.type;
+                
+                // Convert file to Base64
+                fileData = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                    reader.readAsDataURL(file);
+                });
+            }
             
             const ticketData = {
                 id: generatedId,
@@ -858,7 +883,11 @@
                 subject: document.getElementById('ticketSubject').value,
                 description: document.getElementById('message').value,
                 date: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }),
-                status: "Monitoring"
+                status: "Monitoring",
+                // Attach the encoded file data
+                fileData: fileData,
+                fileName: fileName,
+                fileMimeType: fileMimeType
             };
 
             try {
