@@ -3,197 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Support Portal & Team Dashboard</title>
+    <title>Spread Technical - IT Support</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scrollbar for better UI */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .glass-header { background: rgba(67, 56, 202, 0.95); backdrop-filter: blur(10px); }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- Header Section -->
-    <header class="bg-indigo-700 text-white shadow-md">
-        <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center space-x-3 mb-4 md:mb-0">
-                <div class="bg-white text-indigo-700 p-2.5 rounded-lg shadow">
-                    <i class="fa-solid fa-headset text-2xl"></i>
+    <!-- Navbar -->
+    <nav class="glass-header sticky top-0 z-50 shadow-lg border-b border-indigo-500">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white text-indigo-700 w-10 h-10 flex items-center justify-center rounded-xl shadow-md">
+                    <i class="fa-solid fa-layer-group text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-bold">IT Support Desk</h1>
-                    <p class="text-indigo-200 text-sm">Enterprise Ticketing & Tracking Portal</p>
+                    <h1 class="text-xl font-bold text-white tracking-wide">Spread Technical</h1>
+                    <p class="text-indigo-200 text-xs uppercase tracking-wider font-semibold">IT Support Center</p>
                 </div>
             </div>
-            <!-- Navigation / View Toggle -->
-            <div class="flex items-center space-x-3">
-                <button onclick="switchView('portal')" id="portalBtn" class="bg-indigo-800 border border-indigo-500 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600">
-                    <i class="fa-solid fa-ticket mr-1.5"></i> Raise Ticket
+            
+            <!-- Navigation Buttons -->
+            <div class="flex bg-indigo-900/50 p-1 rounded-xl border border-indigo-500/30">
+                <button onclick="switchView('portal')" id="nav-portal" class="nav-btn active flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-white bg-indigo-600 shadow-md">
+                    <i class="fa-solid fa-ticket mr-2"></i> Raise Ticket
                 </button>
-                <button onclick="requestDashboardAccess()" id="dashboardBtn" class="bg-indigo-900/60 border border-indigo-700 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600">
-                    <i class="fa-solid fa-lock mr-1.5"></i> Support Dashboard <span id="badgeCount" class="ml-1 bg-rose-500 text-white text-xs px-1.5 py-0.5 rounded-full">0</span>
+                <button onclick="switchView('track')" id="nav-track" class="nav-btn flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-indigo-200 hover:text-white hover:bg-indigo-700/50">
+                    <i class="fa-solid fa-radar-polar mr-2"></i> Track Status
+                </button>
+                <button onclick="switchView('login')" id="nav-login" class="nav-btn flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-indigo-200 hover:text-white hover:bg-indigo-700/50">
+                    <i class="fa-solid fa-shield-halved mr-2"></i> IT Login
                 </button>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Main Container -->
-    <main class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-10 w-full">
         
+        <!-- ========================================== -->
         <!-- VIEW 1: CLIENT TICKET SUBMISSION PORTAL -->
-        <div id="portalView" class="max-w-3xl mx-auto space-y-6">
-            <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
-                <div class="flex items-center space-x-3 border-b border-slate-100 pb-4 mb-6">
-                    <div class="bg-indigo-50 text-indigo-600 p-2 rounded-lg">
-                        <i class="fa-solid fa-file-circle-plus text-lg"></i>
-                    </div>
+        <!-- ========================================== -->
+        <div id="portalView" class="view-section max-w-4xl mx-auto space-y-8 animate-fade-in">
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-indigo-50 to-white px-8 py-6 border-b border-slate-100 flex items-center space-x-4">
+                    <div class="bg-indigo-600 text-white p-3 rounded-full shadow-md shadow-indigo-200"><i class="fa-solid fa-headset text-xl"></i></div>
                     <div>
-                        <h2 class="text-xl font-bold text-slate-900">Raise a New Support Ticket</h2>
-                        <p class="text-xs text-slate-500">Fill out the form below. Requests are routed instantly to your support team.</p>
+                        <h2 class="text-2xl font-extrabold text-slate-800">Submit a Request</h2>
+                        <p class="text-sm text-slate-500">Provide details below. Our team will review and assign your ticket immediately.</p>
                     </div>
                 </div>
 
-                <form id="ticketForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" onsubmit="saveTicketLocally(event)" class="space-y-5">
-                    
+                <form id="ticketForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" onsubmit="saveTicketLocally(event)" class="p-8 space-y-6">
                     <!-- Web3Forms Config -->
                     <input type="hidden" name="access_key" value="d139da4f-b123-4cbd-b224-013a92892d4e">
                     <input type="hidden" name="subject" value="🚨 New IT Support Ticket Submitted">
                     <input type="hidden" name="from_name" value="IT Support Portal">
                     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <!-- Client Name -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="name">Your Name <span class="text-rose-500">*</span></label>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Your Name <span class="text-rose-500">*</span></label>
                             <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-user"></i></span>
-                                <input type="text" name="name" id="name" required class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="John Doe">
+                                <i class="fa-solid fa-user absolute left-4 top-3.5 text-slate-400"></i>
+                                <input type="text" name="name" id="name" required class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-sm" placeholder="John Doe">
                             </div>
                         </div>
-
-                        <!-- Company Name (Mandatory) -->
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="company">Company Name <span class="text-rose-500">*</span></label>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Company Name <span class="text-rose-500">*</span></label>
                             <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-building"></i></span>
-                                <input type="text" name="company_name" id="company" required class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="Acme Corporation">
+                                <i class="fa-solid fa-building absolute left-4 top-3.5 text-slate-400"></i>
+                                <input type="text" name="company_name" id="company" required class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-sm" placeholder="Acme Corp">
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <!-- Contact Number (Mandatory) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="phone">Contact Number <span class="text-rose-500">*</span></label>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Contact Number <span class="text-rose-500">*</span></label>
                             <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-phone"></i></span>
-                                <input type="tel" name="phone" id="phone" required class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="+971 50 000 0000">
+                                <i class="fa-solid fa-phone absolute left-4 top-3.5 text-slate-400"></i>
+                                <input type="tel" name="phone" id="phone" required class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-sm" placeholder="+971 50 000 0000">
                             </div>
                         </div>
-
-                        <!-- Email Address (Mandatory) -->
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="email">Email Address <span class="text-rose-500">*</span></label>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Email Address <span class="text-rose-500">*</span></label>
                             <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-envelope"></i></span>
-                                <input type="email" name="email" id="email" required class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="john@company.com">
+                                <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-400"></i>
+                                <input type="email" name="email" id="email" required class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-sm" placeholder="john@company.com">
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <!-- Priority Level -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="priority">Priority Level</label>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Priority Level</label>
                             <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-gauge"></i></span>
-                                <select name="priority" id="priority" class="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm bg-white">
+                                <i class="fa-solid fa-gauge-high absolute left-4 top-3.5 text-slate-400"></i>
+                                <select name="priority" id="priority" class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-sm appearance-none">
                                     <option value="Low">Low - General Inquiry</option>
                                     <option value="Medium" selected>Medium - Impaired Operation</option>
                                     <option value="High">High - System Down / Urgent</option>
                                 </select>
                             </div>
                         </div>
-
-                        <!-- Issue Subject -->
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="ticketSubject">Issue Subject <span class="text-rose-500">*</span></label>
-                            <input type="text" name="ticket_subject" id="ticketSubject" required class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="e.g., VPN Connection Error">
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Issue Subject <span class="text-rose-500">*</span></label>
+                            <input type="text" name="ticket_subject" id="ticketSubject" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-sm" placeholder="e.g., Network Failure">
                         </div>
                     </div>
 
-                    <!-- Description -->
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="message">Description <span class="text-rose-500">*</span></label>
-                        <textarea name="message" id="message" rows="4" required class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm resize-none" placeholder="Describe the problem in detail..."></textarea>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Description <span class="text-rose-500">*</span></label>
+                        <textarea name="message" id="message" rows="4" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-sm resize-none" placeholder="Provide detailed information about the issue..."></textarea>
                     </div>
 
-                    <!-- Screenshot Attachment -->
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Attach Screenshot (Optional)</label>
-                        <input type="file" name="attachment" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer border border-slate-300 rounded-lg p-1.5 bg-slate-50"/>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Attach Screenshot (Optional)</label>
+                        <input type="file" name="attachment" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-indigo-100 file:text-indigo-700 hover:file:bg-indigo-200 cursor-pointer border border-slate-200 rounded-xl p-2 bg-slate-50"/>
                     </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg shadow transition duration-200 flex items-center justify-center space-x-2">
+                    <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg shadow-indigo-300 transition-all duration-300 flex items-center justify-center space-x-2">
                         <i class="fa-solid fa-paper-plane"></i>
                         <span>Submit Ticket</span>
                     </button>
                 </form>
-            </section>
-
-            <!-- Direct Contact Footer Details -->
-            <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-                <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center space-x-2">
-                    <i class="fa-solid fa-address-book text-indigo-600"></i>
-                    <span>Direct IT Support Info</span>
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-600">
-                    <div class="flex items-center space-x-3">
-                        <div class="bg-slate-100 p-2 rounded-md text-indigo-600"><i class="fa-solid fa-phone"></i></div>
-                        <div>
-                            <p class="font-semibold text-slate-900">Phone</p>
-                            <a href="tel:+971588421560" class="text-indigo-600 hover:underline">+971 58 842 1560</a>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="bg-slate-100 p-2 rounded-md text-indigo-600"><i class="fa-solid fa-envelope"></i></div>
-                        <div>
-                            <p class="font-semibold text-slate-900">Email</p>
-                            <a href="mailto:vaibhav@spreadtechnical.com" class="text-indigo-600 hover:underline">vaibhav@spreadtechnical.com</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
 
-        <!-- VIEW 2: SUPPORT TEAM DASHBOARD (PASSWORD PROTECTED) -->
-        <div id="dashboardView" class="hidden space-y-6">
-            <div class="flex justify-between items-center bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                <div>
-                    <h2 class="text-xl font-bold text-slate-900">Support Team Ticket Dashboard</h2>
-                    <p class="text-xs text-slate-500">Live tracking log of all tickets initiated from this browser session.</p>
+        <!-- ========================================== -->
+        <!-- VIEW 2: CLIENT TICKET TRACKING (WITH PROGRESS) -->
+        <!-- ========================================== -->
+        <div id="trackView" class="view-section hidden max-w-5xl mx-auto space-y-8 animate-fade-in">
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-8 text-center max-w-2xl mx-auto">
+                <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl"><i class="fa-solid fa-magnifying-glass-location"></i></div>
+                <h2 class="text-2xl font-extrabold text-slate-800 mb-2">Track Your Tickets</h2>
+                <p class="text-sm text-slate-500 mb-6">Enter the email address used during submission to view live progress.</p>
+                
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-envelope absolute left-4 top-4 text-slate-400"></i>
+                        <input type="email" id="trackEmailInput" class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="Email Address...">
+                    </div>
+                    <button onclick="searchClientTickets()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3.5 rounded-xl transition-all shadow-md">
+                        Track
+                    </button>
                 </div>
-                <button onclick="clearDashboard()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 px-3 py-2 rounded-lg text-xs font-semibold transition border border-rose-200">
-                    <i class="fa-solid fa-trash-can mr-1"></i> Clear Local History
-                </button>
             </div>
 
-            <!-- Tickets Grid Table -->
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <!-- Tracking Results Container -->
+            <div id="trackingResults" class="space-y-6">
+                <!-- Javascript will inject Ticket Cards here -->
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 3: IT TEAM LOGIN -->
+        <!-- ========================================== -->
+        <div id="loginView" class="view-section hidden max-w-md mx-auto mt-10 animate-fade-in">
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+                <div class="bg-slate-800 p-8 text-center">
+                    <i class="fa-solid fa-user-shield text-4xl text-indigo-400 mb-3"></i>
+                    <h2 class="text-2xl font-bold text-white">IT Portal Login</h2>
+                    <p class="text-slate-400 text-xs mt-1">Authorized Support Personnel Only</p>
+                </div>
+                <form onsubmit="handleITLogin(event)" class="p-8 space-y-5">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Username</label>
+                        <input type="text" id="itUsername" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-indigo-500 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Password</label>
+                        <input type="password" id="itPassword" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-indigo-500 text-sm">
+                    </div>
+                    <button type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all mt-4">
+                        Secure Login
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 4: IT TEAM DASHBOARD -->
+        <!-- ========================================== -->
+        <div id="dashboardView" class="view-section hidden space-y-6 animate-fade-in w-full">
+            <div class="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200 gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-emerald-100 text-emerald-600 p-3 rounded-xl"><i class="fa-solid fa-server text-xl"></i></div>
+                    <div>
+                        <h2 class="text-xl font-extrabold text-slate-800">Support Control Center</h2>
+                        <p class="text-sm text-slate-500">Manage and update client tickets.</p>
+                    </div>
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="logoutDashboard()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-sm font-bold transition">
+                        Logout
+                    </button>
+                    <button onclick="clearDashboard()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 px-4 py-2.5 rounded-xl text-sm font-bold transition border border-rose-200">
+                        <i class="fa-solid fa-trash-can mr-1"></i> Clear Local DB
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tickets Table -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
+                    <table class="w-full text-left border-collapse whitespace-nowrap">
                         <thead>
-                            <tr class="bg-slate-100/75 text-slate-700 uppercase text-xs font-bold border-b border-slate-200">
-                                <th class="p-4">Ticket ID</th>
-                                <th class="p-4">Company / Client</th>
-                                <th class="p-4">Contact</th>
-                                <th class="p-4">Subject</th>
-                                <th class="p-4">Priority</th>
-                                <th class="p-4">Timestamp</th>
-                                <th class="p-4 text-center">Status</th>
+                            <tr class="bg-slate-800 text-white text-xs uppercase tracking-wider">
+                                <th class="p-4 font-semibold">ID & Date</th>
+                                <th class="p-4 font-semibold">Client Details</th>
+                                <th class="p-4 font-semibold">Issue</th>
+                                <th class="p-4 font-semibold">Priority</th>
+                                <th class="p-4 font-semibold">Current Status</th>
                             </tr>
                         </thead>
-                        <tbody id="dashboardTableBody" class="divide-y divide-slate-100 text-slate-700">
-                            <!-- Populated dynamically via JS -->
+                        <tbody id="dashboardTableBody" class="divide-y divide-slate-100 text-sm">
+                            <!-- Injected via JS -->
                         </tbody>
                     </table>
                 </div>
@@ -202,106 +237,221 @@
 
     </main>
 
-    <!-- Dashboard Password & View Management Script -->
+    <!-- Footer Footer Details -->
+    <footer class="bg-slate-900 text-slate-400 py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-sm">
+            <p>&copy; 2026 Spread Technical. All rights reserved.</p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="tel:+971588421560" class="hover:text-white transition"><i class="fa-solid fa-phone mr-1"></i> +971 58 842 1560</a>
+                <a href="mailto:vaibhav@spreadtechnical.com" class="hover:text-white transition"><i class="fa-solid fa-envelope mr-1"></i> vaibhav@spreadtechnical.com</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
     <script>
-        // CONFIG: Change your dashboard password here
-        const DASHBOARD_PASSWORD = "admin123";
+        // System Config
+        const IT_USER = "admin";
+        const IT_PASS = "admin123";
+        let isITLoggedIn = false;
 
-        function requestDashboardAccess() {
-            const enteredPassword = prompt("Enter password to access Support Dashboard:");
+        const STATUS_FLOW = ["Monitoring", "Assigned", "Working", "Resolved"];
+
+        // View Management
+        function switchView(viewName) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
             
-            if (enteredPassword === null) return; // Cancelled
+            // Reset Navbar Tabs
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-indigo-200 hover:text-white hover:bg-indigo-700/50";
+            });
 
-            if (enteredPassword === DASHBOARD_PASSWORD) {
-                switchView('dashboard');
-            } else {
-                alert("Incorrect password! Access denied.");
+            if (viewName === 'portal') {
+                document.getElementById('portalView').classList.remove('hidden');
+                document.getElementById('nav-portal').className = "nav-btn active flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-white bg-indigo-600 shadow-md";
+            } else if (viewName === 'track') {
+                document.getElementById('trackView').classList.remove('hidden');
+                document.getElementById('nav-track').className = "nav-btn active flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-white bg-indigo-600 shadow-md";
+            } else if (viewName === 'login') {
+                if (isITLoggedIn) {
+                    showDashboard();
+                } else {
+                    document.getElementById('loginView').classList.remove('hidden');
+                    document.getElementById('nav-login').className = "nav-btn active flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-white bg-indigo-600 shadow-md";
+                }
             }
         }
 
-        function switchView(view) {
-            const portal = document.getElementById('portalView');
-            const dashboard = document.getElementById('dashboardView');
-            const pBtn = document.getElementById('portalBtn');
-            const dBtn = document.getElementById('dashboardBtn');
-
-            if (view === 'portal') {
-                portal.classList.remove('hidden');
-                dashboard.classList.add('hidden');
-                pBtn.className = "bg-indigo-800 border border-indigo-500 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600";
-                dBtn.className = "bg-indigo-900/60 border border-indigo-700 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600";
-            } else {
-                portal.classList.add('hidden');
-                dashboard.classList.remove('hidden');
-                dBtn.className = "bg-indigo-800 border border-indigo-500 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600";
-                pBtn.className = "bg-indigo-900/60 border border-indigo-700 px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-600";
-                loadDashboardTickets();
-            }
-        }
-
+        // Ticket Submission
         function saveTicketLocally(e) {
             const ticket = {
                 id: 'TKT-' + Math.floor(100000 + Math.random() * 900000),
                 name: document.getElementById('name').value,
                 company: document.getElementById('company').value,
                 phone: document.getElementById('phone').value,
-                email: document.getElementById('email').value,
+                email: document.getElementById('email').value.trim().toLowerCase(),
                 priority: document.getElementById('priority').value,
                 subject: document.getElementById('ticketSubject').value,
                 description: document.getElementById('message').value,
-                date: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })
+                date: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }),
+                status: "Monitoring" // Initial Status
             };
 
-            let tickets = JSON.parse(localStorage.getItem('support_tickets_log')) || [];
+            let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
             tickets.unshift(ticket);
-            localStorage.setItem('support_tickets_log', JSON.stringify(tickets));
-            updateBadgeCount();
+            localStorage.setItem('spread_tickets', JSON.stringify(tickets));
         }
 
-        function loadDashboardTickets() {
-            const tickets = JSON.parse(localStorage.getItem('support_tickets_log')) || [];
+        // Tracker & Progress Bar Logic
+        function getProgressBarHTML(currentStatus) {
+            let currentIndex = STATUS_FLOW.indexOf(currentStatus);
+            if (currentIndex === -1) currentIndex = 0;
+
+            let html = `<div class="w-full py-6"><div class="flex items-center justify-between relative">`;
+            
+            // Background Line
+            html += `<div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-full h-1 bg-slate-200 z-0 rounded-full"></div>`;
+            
+            // Active Line
+            let activeWidth = (currentIndex / (STATUS_FLOW.length - 1)) * 100;
+            html += `<div class="absolute left-0 top-1/2 transform -translate-y-1/2 h-1 bg-indigo-600 z-0 transition-all duration-500 rounded-full" style="width: ${activeWidth}%;"></div>`;
+
+            // Steps
+            STATUS_FLOW.forEach((step, index) => {
+                let isCompleted = index <= currentIndex;
+                let isCurrent = index === currentIndex;
+                let circleClass = isCompleted ? "bg-indigo-600 text-white ring-4 ring-indigo-50" : "bg-white text-slate-400 border-2 border-slate-200";
+                let textClass = isCurrent ? "text-indigo-700 font-bold" : (isCompleted ? "text-slate-700 font-semibold" : "text-slate-400 font-medium");
+                let icon = isCompleted ? '<i class="fa-solid fa-check text-[10px]"></i>' : (index + 1);
+
+                html += `
+                    <div class="relative z-10 flex flex-col items-center group">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${circleClass} shadow-sm">
+                            ${icon}
+                        </div>
+                        <span class="absolute top-10 text-[10px] uppercase tracking-wider ${textClass} whitespace-nowrap">${step}</span>
+                    </div>
+                `;
+            });
+            html += `</div></div>`;
+            return html;
+        }
+
+        function searchClientTickets() {
+            const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase();
+            const container = document.getElementById('trackingResults');
+            container.innerHTML = '';
+
+            if (!queryEmail) { alert("Please enter an email address."); return; }
+
+            const tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
+            const filtered = tickets.filter(t => t.email === queryEmail);
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="text-center p-8 bg-white rounded-xl shadow-sm border border-slate-200 text-slate-500">No tickets found for <b>${queryEmail}</b></div>`;
+                return;
+            }
+
+            filtered.forEach(t => {
+                let badgeColor = t.priority === 'High' ? 'bg-rose-100 text-rose-700' : (t.priority === 'Medium' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700');
+                
+                container.innerHTML += `
+                    <div class="bg-white rounded-2xl shadow-md border border-slate-100 p-6">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 border-b border-slate-100 pb-4">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">${t.subject}</h3>
+                                <div class="text-xs text-slate-500 mt-1"><span class="font-bold text-indigo-600">${t.id}</span> &bull; Submitted: ${t.date}</div>
+                            </div>
+                            <span class="mt-2 md:mt-0 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${badgeColor}">${t.priority} Priority</span>
+                        </div>
+                        
+                        <!-- Progress Bar -->
+                        ${getProgressBarHTML(t.status || 'Monitoring')}
+                        
+                        <div class="mt-8 bg-slate-50 p-4 rounded-xl border border-slate-100 text-sm text-slate-600">
+                            <b>Description:</b> <br>${t.description}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // IT Dashboard Logic
+        function handleITLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('itUsername').value;
+            const p = document.getElementById('itPassword').value;
+            if (u === IT_USER && p === IT_PASS) {
+                isITLoggedIn = true;
+                document.getElementById('itUsername').value = '';
+                document.getElementById('itPassword').value = '';
+                showDashboard();
+            } else {
+                alert("Invalid Admin Credentials!");
+            }
+        }
+
+        function logoutDashboard() {
+            isITLoggedIn = false;
+            switchView('login');
+        }
+
+        function showDashboard() {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            document.getElementById('dashboardView').classList.remove('hidden');
+            document.getElementById('nav-login').className = "nav-btn active flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-white bg-indigo-600 shadow-md";
+            loadDashboardTable();
+        }
+
+        function changeTicketStatus(ticketId, newStatus) {
+            let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
+            let index = tickets.findIndex(t => t.id === ticketId);
+            if(index !== -1) {
+                tickets[index].status = newStatus;
+                localStorage.setItem('spread_tickets', JSON.stringify(tickets));
+                // Show tiny confirmation effect
+                loadDashboardTable();
+            }
+        }
+
+        function loadDashboardTable() {
+            const tickets = JSON.parse(localStorage.getItem('spread_tickets')) || [];
             const tbody = document.getElementById('dashboardTableBody');
             tbody.innerHTML = '';
 
             if (tickets.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400 text-sm">No support tickets recorded yet.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-500">No tickets found in database.</td></tr>`;
                 return;
             }
 
             tickets.forEach(t => {
-                let badgeColor = 'bg-slate-100 text-slate-700';
-                if (t.priority === 'High') badgeColor = 'bg-rose-50 text-rose-700 border border-rose-200';
-                if (t.priority === 'Medium') badgeColor = 'bg-amber-50 text-amber-700 border border-amber-200';
+                let curStat = t.status || "Monitoring";
+                
+                // Status Dropdown builder
+                let selectHTML = `<select onchange="changeTicketStatus('${t.id}', this.value)" class="bg-slate-50 border border-slate-200 text-sm rounded-lg px-2 py-1.5 outline-none focus:border-indigo-500 font-semibold cursor-pointer">`;
+                STATUS_FLOW.forEach(s => {
+                    selectHTML += `<option value="${s}" ${curStat === s ? 'selected' : ''}>${s}</option>`;
+                });
+                selectHTML += `</select>`;
 
-                const row = document.createElement('tr');
-                row.className = "hover:bg-slate-50 transition";
-                row.innerHTML = `
-                    <td class="p-4 font-bold text-indigo-600">${t.id}</td>
-                    <td class="p-4 font-semibold text-slate-900">${t.company}<br><span class="text-xs text-slate-400 font-normal">${t.name}</span></td>
-                    <td class="p-4 text-xs"><div><i class="fa-solid fa-phone mr-1 text-slate-400"></i>${t.phone}</div><div class="text-slate-400"><i class="fa-solid fa-envelope mr-1"></i>${t.email}</div></td>
-                    <td class="p-4 font-medium">${t.subject}</td>
-                    <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-semibold ${badgeColor}">${t.priority}</span></td>
-                    <td class="p-4 text-xs text-slate-500">${t.date}</td>
-                    <td class="p-4 text-center"><span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full text-xs font-bold">Open</span></td>
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-4"><div class="font-bold text-indigo-600">${t.id}</div><div class="text-xs text-slate-400 mt-0.5">${t.date}</div></td>
+                        <td class="p-4"><div class="font-bold text-slate-800">${t.company}</div><div class="text-xs text-slate-500 mt-0.5">${t.name} <br> ${t.email}</div></td>
+                        <td class="p-4 max-w-[200px] truncate font-medium text-slate-700" title="${t.description}">${t.subject}</td>
+                        <td class="p-4"><span class="bg-slate-100 text-slate-700 border border-slate-200 px-2 py-1 rounded text-xs font-bold">${t.priority}</span></td>
+                        <td class="p-4">${selectHTML}</td>
+                    </tr>
                 `;
-                tbody.appendChild(row);
             });
         }
 
-        function updateBadgeCount() {
-            const tickets = JSON.parse(localStorage.getItem('support_tickets_log')) || [];
-            document.getElementById('badgeCount').innerText = tickets.length;
-        }
-
         function clearDashboard() {
-            if (confirm("Are you sure you want to clear all recorded tickets from local history?")) {
-                localStorage.removeItem('support_tickets_log');
-                loadDashboardTickets();
-                updateBadgeCount();
+            if (confirm("WARNING: This will delete all ticket records. Proceed?")) {
+                localStorage.removeItem('spread_tickets');
+                loadDashboardTable();
             }
         }
-
-        window.onload = updateBadgeCount;
     </script>
 </body>
 </html>
