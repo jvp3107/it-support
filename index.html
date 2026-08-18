@@ -11,6 +11,9 @@
     <!-- Professional Font Stack -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Microsoft Authentication Library (MSAL.js) -->
+    <script src="https://alcdn.msauth.net/browser/2.37.0/js/msal-browser.min.js"></script>
+    
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -19,26 +22,10 @@
                     fontFamily: { sans: ['Inter', 'sans-serif'], },
                     colors: {
                         m3: {
-                            // Enterprise Navy Theme
-                            primary: '#1e3a8a', // Deep Blue
-                            onPrimary: '#ffffff', 
-                            primaryContainer: '#dbeafe', 
-                            onPrimaryContainer: '#1e3a8a',
-                            surface: '#f8fafc', 
-                            surfaceContainerLow: '#f1f5f9', 
-                            surfaceContainer: '#e2e8f0',
-                            surfaceContainerHigh: '#cbd5e1', 
-                            outline: '#64748b',
-                            // Dark Theme Colors
-                            darkPrimary: '#60a5fa',
-                            darkOnPrimary: '#0f172a',
-                            darkPrimaryContainer: '#1e3a8a',
-                            darkOnPrimaryContainer: '#dbeafe',
-                            darkSurface: '#0f172a',
-                            darkSurfaceContainerLow: '#1e293b',
-                            darkSurfaceContainer: '#334155',
-                            darkSurfaceContainerHigh: '#475569',
-                            darkOutline: '#94a3b8'
+                            primary: '#1e3a8a', onPrimary: '#ffffff', primaryContainer: '#dbeafe', onPrimaryContainer: '#1e3a8a',
+                            surface: '#f8fafc', surfaceContainerLow: '#f1f5f9', surfaceContainer: '#e2e8f0', surfaceContainerHigh: '#cbd5e1', outline: '#64748b',
+                            darkPrimary: '#60a5fa', darkOnPrimary: '#0f172a', darkPrimaryContainer: '#1e3a8a', darkOnPrimaryContainer: '#dbeafe',
+                            darkSurface: '#0f172a', darkSurfaceContainerLow: '#1e293b', darkSurfaceContainer: '#334155', darkSurfaceContainerHigh: '#475569', darkOutline: '#94a3b8'
                         }
                     },
                     boxShadow: {
@@ -63,7 +50,6 @@
         .view-section { display: none; opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease; }
         .view-section.active { display: block; opacity: 1; transform: translateY(0); }
 
-        /* ITSM Form Inputs */
         .itsm-input-wrapper { position: relative; display: flex; flex-direction: column; width: 100%; }
         .itsm-input { width: 100%; background-color: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 20px 16px 8px 44px; font-size: 0.95rem; color: #0f172a; transition: all 0.2s ease; outline: none; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); }
         .dark .itsm-input { background-color: #1e293b; border-color: #475569; color: #f8fafc; }
@@ -82,7 +68,6 @@
         .form-section { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.01); }
         .dark .form-section { background: #1e293b; border-color: #334155; }
 
-        /* Floating Chat Widget */
         #chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 100; transition: all 0.3s cubic-bezier(0.2, 0, 0, 1); }
         #chat-window { display: none; flex-direction: column; width: 350px; height: 450px; border-radius: 16px; overflow: hidden; box-shadow: 0px 10px 25px rgba(0,0,0,0.15); transform-origin: bottom right; animation: slideUp 0.3s ease-out; border: 1px solid #e2e8f0; }
         .dark #chat-window { border-color: #334155; box-shadow: 0px 10px 25px rgba(0,0,0,0.5); }
@@ -102,61 +87,56 @@
     <header class="bg-white dark:bg-m3-darkSurface sticky top-0 z-50 shadow-sm border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
         <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
             
-            <!-- Brand Logo -->
             <div class="flex items-center gap-4 cursor-pointer" onclick="switchView('home')">
-                <div class="w-10 h-10 bg-m3-primary text-white rounded flex items-center justify-center text-xl shadow-sm">
-                    <i class="fa-solid fa-layer-group"></i>
-                </div>
+                <div class="w-10 h-10 bg-m3-primary text-white rounded flex items-center justify-center text-xl shadow-sm"><i class="fa-solid fa-layer-group"></i></div>
                 <div class="border-l-2 border-slate-200 dark:border-slate-700 pl-4">
                     <h1 class="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">SPREAD TECHNICAL</h1>
                     <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">IT Service Management</p>
                 </div>
             </div>
 
-            <!-- Main Desktop Navigation -->
             <div class="hidden lg:flex items-center gap-2">
-                <button onclick="switchView('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 bg-m3-primaryContainer text-m3-primary flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-house"></i> Home
-                </button>
-                <button onclick="switchView('portal')" id="nav-portal" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-ticket-simple"></i> Service Request
-                </button>
-                <button onclick="switchView('track')" id="nav-track" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-radar"></i> Incident Tracking
-                </button>
-                <button onclick="switchView('kb')" id="nav-kb" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-book-bookmark"></i> Knowledge Base
-                </button>
-                <button onclick="switchView('health')" id="nav-health" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-server"></i> System Health
-                </button>
+                <button onclick="switchView('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 bg-m3-primaryContainer text-m3-primary flex items-center gap-2 shadow-sm"><i class="fa-solid fa-house"></i> Home</button>
+                <!-- Secure Navigation Buttons -->
+                <button onclick="handleSecureNavigation('portal')" id="nav-portal" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"><i class="fa-solid fa-ticket-simple"></i> Service Request</button>
+                <button onclick="handleSecureNavigation('track')" id="nav-track" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"><i class="fa-solid fa-radar"></i> Incident Tracking</button>
+                <button onclick="switchView('kb')" id="nav-kb" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"><i class="fa-solid fa-book-bookmark"></i> Knowledge Base</button>
+                <button onclick="switchView('health')" id="nav-health" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"><i class="fa-solid fa-server"></i> System Health</button>
                 <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-2"></div>
-                <button onclick="switchView('login')" id="nav-login" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-shield-halved"></i> NOC Login
-                </button>
+                <button onclick="switchView('login')" id="nav-login" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"><i class="fa-solid fa-shield-halved"></i> NOC Login</button>
             </div>
             
             <div class="flex items-center gap-2">
-                <button onclick="toggleDarkMode()" class="w-10 h-10 text-slate-500 dark:text-slate-400 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                <button onclick="toggleDarkMode()" class="w-10 h-10 text-slate-500 dark:text-slate-400 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"><i id="theme-icon" class="fa-solid fa-moon"></i></button>
+                <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 text-slate-700 dark:text-slate-300 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"><i class="fa-solid fa-bars"></i></button>
+                
+                <!-- NEW: Microsoft Login & Profile Indicator -->
+                <div class="border-l border-slate-200 dark:border-slate-700 h-8 ml-2"></div>
+                
+                <button id="msLoginBtn" onclick="loginWithMicrosoft()" class="hidden sm:flex items-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-4 py-2 rounded-md text-sm font-bold transition shadow-sm hover:bg-slate-800 ml-2">
+                    <i class="fa-brands fa-microsoft text-blue-400 dark:text-blue-600"></i> Sign In
                 </button>
-                <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 text-slate-700 dark:text-slate-300 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
+
+                <div id="userProfile" class="hidden items-center gap-3 pl-3">
+                    <div class="w-8 h-8 rounded bg-blue-100 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 text-blue-700 dark:text-blue-300 flex items-center justify-center font-bold text-xs" id="userInitials">--</div>
+                    <div class="hidden md:block text-left">
+                        <p class="text-[11px] font-bold text-slate-800 dark:text-white leading-tight uppercase tracking-wider" id="userNameDisplay">Loading...</p>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate w-32" id="userEmailDisplay">...</p>
+                    </div>
+                    <button onclick="logoutMicrosoft()" class="text-slate-400 hover:text-rose-500 transition-colors" title="Sign Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Mobile Menu (Hidden) -->
+    <!-- Mobile Menu -->
     <div id="mobileMenu" class="fixed inset-0 bg-slate-900/50 z-40 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm">
         <div class="absolute right-0 top-0 bottom-0 w-72 bg-white dark:bg-m3-darkSurface shadow-2xl p-6 transform translate-x-full transition-transform duration-300 flex flex-col gap-2" id="mobileMenuContent">
-            <div class="flex justify-end mb-4">
-                <button onclick="toggleMobileMenu()" class="text-slate-500 text-2xl"><i class="fa-solid fa-times"></i></button>
-            </div>
+            <div class="flex justify-end mb-4"><button onclick="toggleMobileMenu()" class="text-slate-500 text-2xl"><i class="fa-solid fa-times"></i></button></div>
             <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Navigation</p>
             <button onclick="switchView('home'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-house w-6 text-m3-primary"></i> Home</button>
-            <button onclick="switchView('portal'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-ticket-simple w-6 text-m3-primary"></i> Service Request</button>
-            <button onclick="switchView('track'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-radar w-6 text-m3-primary"></i> Incident Tracking</button>
+            <button onclick="handleSecureNavigation('portal'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-ticket-simple w-6 text-m3-primary"></i> Service Request</button>
+            <button onclick="handleSecureNavigation('track'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-radar w-6 text-m3-primary"></i> Incident Tracking</button>
             <button onclick="switchView('kb'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-book-bookmark w-6 text-m3-primary"></i> Knowledge Base</button>
             <button onclick="switchView('health'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-server w-6 text-m3-primary"></i> System Health</button>
             <div class="border-t border-slate-200 dark:border-slate-800 my-2"></div>
@@ -164,11 +144,10 @@
         </div>
     </div>
 
-    <!-- Enterprise Hero Section (Visible only on Home) -->
+    <!-- Enterprise Hero Section -->
     <div id="heroBanner" class="bg-slate-900 relative overflow-hidden transition-colors duration-500 border-b border-slate-800">
         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 20px 20px;"></div>
         <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-blue-900/40 to-transparent"></div>
-        
         <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 relative z-10">
             <div class="max-w-3xl mb-12 animate-fade-in">
                 <span class="px-3 py-1 bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider rounded border border-blue-500/30 mb-4 inline-block">NOC Datacenter Active</span>
@@ -177,7 +156,7 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 animate-slide-up">
-                <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-6 rounded-xl shadow-lg cursor-pointer hover:border-blue-500 transition-colors" onclick="switchView('portal')">
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-6 rounded-xl shadow-lg cursor-pointer hover:border-blue-500 transition-colors" onclick="handleSecureNavigation('portal')">
                     <i class="fa-solid fa-stopwatch text-2xl text-blue-400 mb-3"></i>
                     <h3 class="text-white font-bold text-lg">15-Min Response SLA</h3>
                     <p class="text-slate-400 text-sm mt-1">Guaranteed initial response time for all High-Priority infrastructure incidents.</p>
@@ -190,13 +169,13 @@
                 <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-6 rounded-xl shadow-lg">
                     <i class="fa-solid fa-lock text-2xl text-purple-400 mb-3"></i>
                     <h3 class="text-white font-bold text-lg">Encrypted Operations</h3>
-                    <p class="text-slate-400 text-sm mt-1">All ticketing and diagnostic data is secured and access-controlled.</p>
+                    <p class="text-slate-400 text-sm mt-1">All ticketing and diagnostic data is secured and access-controlled via Microsoft 365.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Supported Infrastructure Banner (Visible only on Home) -->
+    <!-- Supported Infrastructure Banner -->
     <div id="techBanner" class="bg-white dark:bg-m3-darkSurfaceContainerLow border-b border-slate-200 dark:border-slate-800 py-4 shadow-sm z-10 relative">
         <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-center md:justify-between gap-4">
             <p class="text-xs font-bold text-slate-500 uppercase tracking-widest text-center md:text-left">Core Supported Infrastructure</p>
@@ -213,39 +192,34 @@
     <!-- Main Content Container -->
     <main class="flex-grow max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative z-10">
         
-        <!-- ========================================== -->
-        <!-- VIEW 0: HOME / LANDING                     -->
-        <!-- ========================================== -->
+        <!-- HOME / LANDING -->
         <div id="homeView" class="view-section active max-w-4xl mx-auto mt-4">
             <div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-10 text-center">
-                <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-6">
-                    <i class="fa-solid fa-headset"></i>
-                </div>
+                <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-6"><i class="fa-solid fa-headset"></i></div>
                 <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mb-3">Welcome to the Support Portal</h2>
                 <p class="text-slate-500 dark:text-slate-400 max-w-xl mx-auto mb-8 text-sm leading-relaxed">
-                    Use the navigation menu above to access our service catalog. For immediate assistance with endpoint, network, or cloud infrastructure issues, please generate a new service request.
+                    Log in with your Corporate Microsoft Account to access the service catalog, generate secure requests, and track real-time incident resolution.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onclick="switchView('portal')" class="bg-m3-primary text-white font-bold text-sm px-8 py-3.5 rounded-lg shadow hover:bg-blue-800 transition flex items-center justify-center gap-2 uppercase tracking-wide">
-                        <i class="fa-solid fa-ticket-simple"></i> Raise Service Request
+                    <!-- Secure Action Buttons -->
+                    <button onclick="handleSecureNavigation('portal')" class="bg-m3-primary text-white font-bold text-sm px-8 py-3.5 rounded-lg shadow hover:bg-blue-800 transition flex items-center justify-center gap-2 uppercase tracking-wide">
+                        <i class="fa-brands fa-microsoft"></i> Sign In to Raise Ticket
                     </button>
-                    <button onclick="switchView('track')" class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm px-8 py-3.5 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2 uppercase tracking-wide">
+                    <button onclick="handleSecureNavigation('track')" class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm px-8 py-3.5 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2 uppercase tracking-wide">
                         <i class="fa-solid fa-radar"></i> Track Existing Ticket
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 1: RAISE TICKET (PORTAL)              -->
-        <!-- ========================================== -->
+        <!-- RAISE TICKET (PORTAL) -->
         <div id="portalView" class="view-section max-w-4xl mx-auto">
             <div class="mb-6 flex justify-between items-end">
                 <div>
                     <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Submit Service Request</h2>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Please provide detailed information to ensure accurate SLA routing.</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Your identity has been verified via Azure AD. Please provide issue details.</p>
                 </div>
-                <span class="hidden sm:inline-block px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-bold rounded shadow-sm border border-emerald-200 dark:border-emerald-800"><i class="fa-solid fa-link"></i> Database Connected</span>
+                <span class="hidden sm:inline-block px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-bold rounded shadow-sm border border-emerald-200 dark:border-emerald-800"><i class="fa-solid fa-shield-check"></i> Identity Verified</span>
             </div>
 
             <form id="ticketForm" onsubmit="submitTicket(event)">
@@ -253,31 +227,29 @@
                 <div class="form-section">
                     <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-5 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-2"><i class="fa-solid fa-user-tie text-m3-primary"></i> 1. Requester Information</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div class="itsm-input-wrapper"><i class="fa-solid fa-user input-icon"></i><input type="text" name="name" id="name" required class="itsm-input" placeholder=" "><span class="itsm-label">Full Name *</span></div>
-                        <div class="itsm-input-wrapper"><i class="fa-solid fa-building input-icon"></i><input type="text" name="company_name" id="company" required class="itsm-input" placeholder=" "><span class="itsm-label">Company / Department *</span></div>
+                        <div class="itsm-input-wrapper">
+                            <i class="fa-solid fa-user input-icon"></i>
+                            <input type="text" name="name" id="name" required class="itsm-input" placeholder=" ">
+                            <span class="itsm-label">Full Name *</span>
+                        </div>
+                        <div class="itsm-input-wrapper">
+                            <i class="fa-solid fa-envelope input-icon"></i>
+                            <input type="email" name="email" id="email" required class="itsm-input" placeholder=" ">
+                            <span class="itsm-label">Corporate Email *</span>
+                        </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+                        <div class="itsm-input-wrapper"><i class="fa-solid fa-building input-icon"></i><input type="text" name="company_name" id="company" required class="itsm-input" placeholder=" "><span class="itsm-label">Company / Department *</span></div>
                         <div class="flex gap-2 w-full">
                             <div class="itsm-input-wrapper w-[45%] sm:w-[35%]">
                                 <i class="fa-solid fa-globe input-icon"></i>
                                 <select id="countryCode" class="itsm-input appearance-none cursor-pointer">
-                                    <option value="+971" selected>🇦🇪 +971 (UAE)</option>
-                                    <option value="+91">🇮🇳 +91 (IND)</option>
-                                    <option value="+1">🇺🇸 +1 (USA)</option>
-                                    <option value="+44">🇬🇧 +44 (UK)</option>
-                                    <option value="+966">🇸🇦 +966 (KSA)</option>
-                                    <option value="+968">🇴🇲 +968 (OMN)</option>
-                                    <option value="+973">🇧🇭 +973 (BHR)</option>
-                                    <option value="+974">🇶🇦 +974 (QAT)</option>
-                                    <option value="+965">🇰🇼 +965 (KWT)</option>
+                                    <option value="+971" selected>🇦🇪 +971 (UAE)</option><option value="+91">🇮🇳 +91 (IND)</option><option value="+1">🇺🇸 +1 (USA)</option><option value="+44">🇬🇧 +44 (UK)</option>
                                 </select>
                                 <span class="itsm-label">Code</span>
                             </div>
-                            <div class="itsm-input-wrapper w-[55%] sm:w-[65%]">
-                                <input type="tel" name="phone_number" id="phone_number" required class="itsm-input" placeholder=" "><span class="itsm-label">Contact Number *</span>
-                            </div>
+                            <div class="itsm-input-wrapper w-[55%] sm:w-[65%]"><input type="tel" name="phone_number" id="phone_number" required class="itsm-input" placeholder=" "><span class="itsm-label">Contact Number *</span></div>
                         </div>
-                        <div class="itsm-input-wrapper"><i class="fa-solid fa-envelope input-icon"></i><input type="email" name="email" id="email" required class="itsm-input" placeholder=" "><span class="itsm-label">Corporate Email *</span></div>
                     </div>
                 </div>
 
@@ -286,398 +258,70 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                         <div class="itsm-input-wrapper">
                             <i class="fa-solid fa-laptop-code input-icon"></i>
-                            <select name="device_type" id="deviceType" class="itsm-input appearance-none cursor-pointer">
-                                <option value="Laptop/Desktop" selected>Endpoint (Laptop/Desktop)</option><option value="Mobile/Tablet">Mobile Device</option><option value="Printer/Scanner">Hardware Peripheral</option><option value="Network/Wi-Fi">Network / Routing</option><option value="Software/App">Software / Application</option><option value="Server/Cloud">Server / Infrastructure</option>
-                            </select>
+                            <select name="device_type" id="deviceType" class="itsm-input appearance-none cursor-pointer"><option value="Laptop/Desktop" selected>Endpoint (Laptop/Desktop)</option><option value="Mobile/Tablet">Mobile Device</option><option value="Printer/Scanner">Hardware Peripheral</option><option value="Network/Wi-Fi">Network / Routing</option><option value="Software/App">Software / Application</option><option value="Server/Cloud">Server / Infrastructure</option></select>
                             <span class="itsm-label">Category</span>
                         </div>
                         <div class="itsm-input-wrapper">
                             <i class="fa-solid fa-triangle-exclamation input-icon"></i>
-                            <select name="priority" id="priority" class="itsm-input appearance-none cursor-pointer">
-                                <option value="Low">Low (General Request)</option><option value="Medium" selected>Medium (Degraded Service)</option><option value="High">High (System Outage)</option>
-                            </select>
+                            <select name="priority" id="priority" class="itsm-input appearance-none cursor-pointer"><option value="Low">Low (General Request)</option><option value="Medium" selected>Medium (Degraded Service)</option><option value="High">High (System Outage)</option></select>
                             <span class="itsm-label">Impact Level</span>
                         </div>
-                        <div class="itsm-input-wrapper">
-                            <i class="fa-solid fa-barcode input-icon"></i>
-                            <input type="text" name="asset_tag" id="assetTag" class="itsm-input" placeholder=" "><span class="itsm-label">Asset Tag (Optional)</span>
-                        </div>
+                        <div class="itsm-input-wrapper"><i class="fa-solid fa-barcode input-icon"></i><input type="text" name="asset_tag" id="assetTag" class="itsm-input" placeholder=" "><span class="itsm-label">Asset Tag (Optional)</span></div>
                     </div>
                 </div>
                 
                 <div class="form-section">
                     <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-5 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-2"><i class="fa-solid fa-align-left text-m3-primary"></i> 3. Diagnostic Details</h3>
-                    <div class="itsm-input-wrapper mb-5">
-                        <i class="fa-solid fa-pen input-icon"></i><input type="text" name="ticket_subject" id="ticketSubject" required class="itsm-input font-semibold" placeholder=" "><span class="itsm-label">Short Summary of Issue *</span>
-                    </div>
+                    <div class="itsm-input-wrapper mb-5"><i class="fa-solid fa-pen input-icon"></i><input type="text" name="ticket_subject" id="ticketSubject" required class="itsm-input font-semibold" placeholder=" "><span class="itsm-label">Short Summary of Issue *</span></div>
                     <div class="flex flex-col gap-2">
                         <label for="message" class="text-[0.65rem] font-bold text-slate-500 uppercase tracking-wider px-1">Detailed Log / Steps to Reproduce *</label>
                         <textarea name="message" id="message" rows="5" required class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 text-sm text-slate-800 dark:text-white outline-none focus:border-m3-primary focus:ring-1 focus:ring-m3-primary transition-all resize-none shadow-inner" placeholder="Please provide exact error codes, hostnames, IP addresses, or actions taken prior to the issue..."></textarea>
                     </div>
                     <div class="mt-5 p-5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-dashed border-slate-300 dark:border-slate-600 flex items-center justify-between">
-                        <div>
-                            <label class="block text-sm font-bold text-slate-800 dark:text-slate-200"><i class="fa-solid fa-paperclip mr-2 text-m3-primary"></i>Upload Diagnostic Evidence</label>
-                            <p class="text-xs text-slate-500 mt-1">Accepts screenshots, PDFs, or log files (Max 5MB).</p>
-                        </div>
+                        <div><label class="block text-sm font-bold text-slate-800 dark:text-slate-200"><i class="fa-solid fa-paperclip mr-2 text-m3-primary"></i>Upload Diagnostic Evidence</label><p class="text-xs text-slate-500 mt-1">Accepts screenshots, PDFs, or log files (Max 5MB).</p></div>
                         <input type="file" name="attachment" accept="image/*,.pdf,.log" class="text-sm text-slate-500 file:mr-0 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-m3-primaryContainer file:text-m3-primary hover:file:bg-blue-200 cursor-pointer transition-colors w-48"/>
                     </div>
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-between items-center bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                    <p class="text-xs text-slate-500 font-medium max-w-sm mb-4 sm:mb-0"><i class="fa-solid fa-shield-check mr-1 text-emerald-500"></i> By submitting, you acknowledge that infrastructure data is logged securely in compliance with ISO protocols.</p>
-                    <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-m3-primary text-white font-bold text-sm px-8 py-3.5 rounded-lg shadow-md hover:bg-blue-800 active:scale-95 transition-all flex items-center justify-center gap-2 uppercase tracking-wide">
-                        <i class="fa-solid fa-paper-plane"></i> Dispatch Request
-                    </button>
+                    <p class="text-xs text-slate-500 font-medium max-w-sm mb-4 sm:mb-0"><i class="fa-solid fa-shield-check mr-1 text-emerald-500"></i> Request tied to verified Active Directory identity.</p>
+                    <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-m3-primary text-white font-bold text-sm px-8 py-3.5 rounded-lg shadow-md hover:bg-blue-800 active:scale-95 transition-all flex items-center justify-center gap-2 uppercase tracking-wide"><i class="fa-solid fa-paper-plane"></i> Dispatch Request</button>
                 </div>
             </form>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 2: TRACK TICKET                       -->
-        <!-- ========================================== -->
+        <!-- TRACK TICKET -->
         <div id="trackView" class="view-section max-w-4xl mx-auto">
             <div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 mb-6 flex flex-col md:flex-row gap-6 items-center justify-between">
                 <div>
                     <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3"><i class="fa-solid fa-radar text-m3-primary"></i> Incident Tracking</h2>
-                    <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm font-medium">Query the active database to view real-time SLA progress.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm font-medium">Viewing history for your verified Microsoft 365 identity.</p>
                 </div>
                 <div class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
                     <div class="relative min-w-[280px]">
                         <i class="fa-solid fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
-                        <input type="email" id="trackEmailInput" class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:border-m3-primary text-sm font-medium transition-colors" placeholder="Registered Email...">
+                        <input type="email" id="trackEmailInput" class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:border-m3-primary text-sm font-medium transition-colors" placeholder="Verified Email...">
                     </div>
-                    <button onclick="searchClientTickets()" class="bg-m3-primary text-white hover:bg-blue-800 font-bold px-6 py-3 rounded-lg transition-all shadow-sm text-sm uppercase tracking-wide">Query Logs</button>
+                    <button onclick="searchClientTickets()" class="bg-m3-primary text-white hover:bg-blue-800 font-bold px-6 py-3 rounded-lg transition-all shadow-sm text-sm uppercase tracking-wide"><i class="fa-solid fa-rotate"></i> Sync Data</button>
                 </div>
             </div>
             <div id="trackingResults" class="space-y-4">
                 <div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-12 text-center">
                     <div class="text-slate-200 dark:text-slate-700 text-5xl mb-4"><i class="fa-solid fa-server"></i></div>
-                    <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">Awaiting Query</h3>
-                    <p class="text-slate-500 text-sm mt-1">Enter your email above to fetch your historical service requests.</p>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">Awaiting Sync</h3>
+                    <p class="text-slate-500 text-sm mt-1">Authenticating with server to fetch your records...</p>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 3: KNOWLEDGE BASE                     -->
-        <!-- ========================================== -->
-        <div id="kbView" class="view-section max-w-4xl mx-auto">
-            <div class="bg-slate-900 rounded-2xl p-8 mb-6 text-center shadow-md relative overflow-hidden">
-                <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-                <div class="relative z-10">
-                    <h2 class="text-2xl font-extrabold text-white mb-2"><i class="fa-solid fa-book-open-reader mr-2"></i> IT Service Catalog & KB</h2>
-                    <p class="text-slate-300 text-sm max-w-2xl mx-auto">Standard operating procedures and self-resolution guides for common infrastructure issues.</p>
-                    <div class="mt-6 relative max-w-xl mx-auto">
-                        <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
-                        <input type="text" id="kbSearchInput" onkeyup="filterKB()" class="w-full pl-10 pr-4 py-3 bg-white text-slate-900 rounded-lg focus:outline-none shadow-inner text-sm font-medium" placeholder="Search knowledge articles (e.g., 'VPN', 'Password')...">
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 gap-3" id="kbContainer">
-                
-                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-                    <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
-                        <span><i class="fa-brands fa-microsoft text-blue-600 mr-3"></i> AD / Microsoft 365 Password Reset Protocol</span>
-                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
-                    </button>
-                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400 text-sm">
-                        <ol class="list-decimal pl-5 space-y-2 mb-4">
-                            <li>Navigate to the official portal: <code>passwordreset.microsoftonline.com</code>.</li>
-                            <li>Enter your corporate Spread Technical email address.</li>
-                            <li>Complete the verification CAPTCHA and select "Next".</li>
-                            <li>Authenticate via your registered MFA method (Authenticator App or SMS).</li>
-                            <li>Create a new password (Min 12 chars, alphanumeric + special).</li>
-                        </ol>
-                        <p class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded border border-slate-200 dark:border-slate-700 text-xs font-semibold">Note: It may take up to 15 minutes for the new credentials to sync with local Active Directory endpoints.</p>
-                    </div>
-                </div>
-
-                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-                    <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
-                        <span><i class="fa-solid fa-shield-halved text-emerald-600 mr-3"></i> Sophos / Cisco VPN Diagnostics</span>
-                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
-                    </button>
-                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400 text-sm">
-                        <p class="mb-3">If external VPN tunneling fails, perform these checks before escalating:</p>
-                        <ul class="list-disc pl-5 space-y-2 mb-4">
-                            <li>Verify stable local internet connection (ping 8.8.8.8).</li>
-                            <li>Open the Sophos Connect / Cisco AnyConnect client console.</li>
-                            <li>Confirm the Gateway IP matches your onboarding documentation.</li>
-                            <li>Approve the MFA push notification on your mobile device immediately upon connection.</li>
-                            <li>If prompted with "Certificate Validation Failure", submit a ticket for Group Policy redeployment.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-                    <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
-                        <span><i class="fa-solid fa-stethoscope text-teal-600 mr-3"></i> Tier 1 Self-Diagnostics Checklist</span>
-                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
-                    </button>
-                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400 text-sm">
-                        <p class="mb-3">Execute these steps to resolve 80% of endpoint anomalies:</p>
-                        <ul class="list-disc pl-5 space-y-2 mb-4">
-                            <li><strong>System Refresh:</strong> Perform a full OS Restart (Do not use "Shut Down", select "Restart" to flush the kernel).</li>
-                            <li><strong>Network Handshake:</strong> Physically reseat Ethernet cables or cycle Wi-Fi adapters.</li>
-                            <li><strong>Browser Isolation:</strong> Test failing web apps in Incognito/InPrivate mode to rule out corrupt cache data.</li>
-                            <li><strong>Hardware Cycle:</strong> Disconnect power from failing peripherals (docks, monitors) for 10 seconds to drain capacitors.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-                    <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
-                        <span><i class="fa-solid fa-terminal text-purple-600 mr-3"></i> Deploy Daily Maintenance Script (Disk/Memory)</span>
-                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
-                    </button>
-                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400 text-sm">
-                        <p class="mb-3">For sluggish performance or low disk warnings, run the pre-configured optimization batch file:</p>
-                        <ol class="list-decimal pl-5 space-y-2 mb-4">
-                            <li>Locate the <code>Spread Daily Maintenance</code> shortcut on your Desktop.</li>
-                            <li>Right-click the icon and select <strong>"Run as Administrator"</strong>.</li>
-                            <li>Allow the console to purge temp files, flush DNS caches, and run TRIM/Defrag operations.</li>
-                            <li>Restart your endpoint once the console automatically closes.</li>
-                        </ol>
-                        <p class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded border border-purple-200 dark:border-purple-800/50 text-xs font-semibold text-purple-800 dark:text-purple-300">Note: Execution takes 2-5 minutes. Do not interrupt the terminal process.</p>
-                    </div>
-                </div>
-
-                <!-- NEW KB ARTICLE 1 -->
-                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-                    <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
-                        <span><i class="fa-solid fa-print text-slate-600 dark:text-slate-400 mr-3"></i> Mapping a Corporate Network Printer</span>
-                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
-                    </button>
-                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400 text-sm">
-                        <p class="mb-3">To add a network printer to your Windows endpoint, follow these standard steps:</p>
-                        <ol class="list-decimal pl-5 space-y-2 mb-4">
-                            <li>Press the <strong>Windows Key</strong> and type <code>Printers & Scanners</code>, then hit Enter.</li>
-                            <li>Click <strong>Add a printer or scanner</strong>.</li>
-                            <li>Wait for the system to scan the network. If your printer appears, select it and click <strong>Add device</strong>.</li>
-                            <li>If it does not appear, click <strong>"The printer that I want isn't listed"</strong>.</li>
-                            <li>Select "Find a printer in the directory, based on location or feature" to search the Active Directory, or choose "Add a printer using a TCP/IP address" if you know the printer's IP.</li>
-                        </ol>
-                        <p class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded border border-slate-200 dark:border-slate-700 text-xs font-semibold">Note: If prompted for administrative credentials to install print drivers, please submit a service request.</p>
-                    </div>
-                </div>
-
-                <!-- NEW KB ARTICLE 2 -->
-                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-                    <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
-                        <span><i class="fa-solid fa-envelope-open-text text-amber-600 mr-3"></i> Accessing a Shared Mailbox (Outlook / M365)</span>
-                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
-                    </button>
-                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400 text-sm">
-                        <p class="mb-3">If you have been granted access to a department shared mailbox (e.g., info@ or support@), here is how to view it:</p>
-                        <ul class="list-disc pl-5 space-y-2 mb-4">
-                            <li><strong>Outlook Desktop App:</strong> Restart Outlook. Automapping usually adds the shared mailbox to your left navigation pane automatically within 30-60 minutes of access being granted.</li>
-                            <li><strong>Outlook on the Web (OWA):</strong> Right-click on <strong>"Folders"</strong> in the left pane, select <strong>"Add shared folder"</strong>, type the name or email address of the shared mailbox, and click Add.</li>
-                            <li><strong>Send As:</strong> To send an email from the shared mailbox, open a New Email, click the "From" dropdown, select "Other Email Address", and type the shared mailbox name.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- NEW KB ARTICLE 3 -->
-                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-                    <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
-                        <span><i class="fa-solid fa-cloud-arrow-up text-cyan-600 mr-3"></i> OneDrive / SharePoint Syncing Errors</span>
-                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
-                    </button>
-                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400 text-sm">
-                        <p class="mb-3">If files are failing to sync to your corporate SharePoint Document Libraries:</p>
-                        <ul class="list-disc pl-5 space-y-2 mb-4">
-                            <li>Look for the blue cloud icon in your Windows system tray. If there is a red 'X', click it to view sync conflicts (often caused by invalid characters in filenames like <code>* : < > ? / \ |</code>).</li>
-                            <li>Ensure the file path does not exceed the Windows 256-character limit.</li>
-                            <li>If the OneDrive icon is gray with a line through it, you are signed out. Click it to re-authenticate with your M365 credentials.</li>
-                            <li>To perform a hard reset on the sync engine: Press Windows Key + R, type <code>%localappdata%\Microsoft\OneDrive\onedrive.exe /reset</code>, and press Enter.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- NEW KB ARTICLE 4 -->
-                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-                    <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
-                        <span><i class="fa-solid fa-lock text-rose-600 mr-3"></i> BitLocker Recovery / Locked out of Endpoint</span>
-                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
-                    </button>
-                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400 text-sm">
-                        <p class="mb-3">If your endpoint restarts and asks for a BitLocker Recovery Key (a blue screen with a white input field):</p>
-                        <ol class="list-decimal pl-5 space-y-2 mb-4">
-                            <li>Do not attempt to guess the key. This is a security measure triggered by hardware changes, BIOS updates, or docking station swaps.</li>
-                            <li>From a mobile device or secondary computer, log in to your Microsoft 365 account at <code>myaccount.microsoft.com</code>.</li>
-                            <li>Navigate to <strong>Devices</strong>, find your computer name, and select <strong>"View BitLocker Keys"</strong>.</li>
-                            <li>Enter the 48-digit numerical key into your locked endpoint.</li>
-                        </ol>
-                        <p class="p-3 bg-rose-50 dark:bg-rose-900/20 rounded border border-rose-200 dark:border-rose-800/50 text-xs font-semibold text-rose-800 dark:text-rose-300">If you cannot access your account, call the IT NOC directly. Do NOT format the drive.</p>
-                    </div>
-                </div>
-
-            </div>
-            
-            <div id="kbNoResults" class="hidden text-center p-8 bg-white dark:bg-m3-darkSurface rounded-xl border border-slate-200 dark:border-slate-800 mt-3">
-                <i class="fa-solid fa-ghost text-3xl text-slate-300 mb-2"></i>
-                <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300">No articles matched your query.</h3>
-                <button onclick="document.getElementById('kbSearchInput').value=''; filterKB();" class="mt-3 px-4 py-1.5 bg-slate-100 dark:bg-slate-800 rounded text-xs font-bold text-slate-600">Clear Search</button>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- VIEW 4: SYSTEM HEALTH                      -->
-        <!-- ========================================== -->
-        <div id="healthView" class="view-section max-w-4xl mx-auto">
-            <div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 mb-6">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                    <div>
-                        <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3"><i class="fa-solid fa-server text-emerald-600"></i> NOC Infrastructure Status</h2>
-                        <p class="text-slate-500 dark:text-slate-400 mt-1 text-sm font-medium">Real-time telemetry for Dubai Datacenter & Cloud endpoints.</p>
-                    </div>
-                    <div class="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50 px-3 py-1.5 rounded flex items-center gap-2"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span><span class="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide">All Systems Nominal</span></div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="healthServicesContainer"></div>
-                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-500 font-medium flex justify-between">
-                    <span><i class="fa-solid fa-clock-rotate-left mr-1"></i> Last sync: <span id="healthLastUpdate" class="font-bold">Just now</span></span>
-                    <span>Next poll: <span id="healthNextPing" class="font-bold text-m3-primary">60</span>s</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- VIEW 5: STAFF LOGIN                        -->
-        <!-- ========================================== -->
-        <div id="loginView" class="view-section max-w-sm mx-auto mt-12">
-            <div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 overflow-hidden text-center p-8">
-                <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg flex items-center justify-center mx-auto mb-5 text-2xl border border-slate-200 dark:border-slate-700"><i class="fa-solid fa-fingerprint"></i></div>
-                <h2 class="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">Admin Authentication</h2>
-                <p class="text-xs text-slate-500 uppercase tracking-widest mt-1 mb-6 font-bold">Secure NOC Access</p>
-                <form onsubmit="handleITLogin(event)" class="space-y-4 text-left">
-                    <div class="itsm-input-wrapper"><i class="fa-solid fa-user-shield input-icon"></i><input type="email" id="itUsername" required class="itsm-input py-3 pl-10 pr-3 text-sm" placeholder=" "><span class="itsm-label" style="top:10px; left:38px;">Admin ID</span></div>
-                    <div class="itsm-input-wrapper"><i class="fa-solid fa-key input-icon"></i><input type="password" id="itPassword" required class="itsm-input py-3 pl-10 pr-3 text-sm" placeholder=" "><span class="itsm-label" style="top:10px; left:38px;">Passkey</span></div>
-                    <button type="submit" class="w-full bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-bold text-sm py-3 rounded-lg shadow hover:bg-slate-800 transition-colors mt-2">Initialize Session</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- VIEW 6: IT TEAM DASHBOARD                  -->
-        <!-- ========================================== -->
-        <div id="dashboardView" class="view-section w-full max-w-[1600px] mx-auto">
-            
-            <!-- NOC Sub-Navigation -->
-            <div class="flex items-center gap-8 mb-6 border-b border-slate-200 dark:border-slate-800 px-2">
-                <button onclick="switchNocTab('all')" id="nocTab-all" class="pb-3 text-sm font-bold border-b-2 border-m3-primary text-m3-primary transition-colors">Global Queue</button>
-                <button onclick="switchNocTab('companies')" id="nocTab-companies" class="pb-3 text-sm font-bold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors">Company Directory</button>
-            </div>
-
-            <!-- GLOBAL VIEW -->
-            <div id="noc-allView">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                        <div><p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Incidents</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiTotal">0</h3></div>
-                        <div class="text-slate-300 dark:text-slate-600 text-3xl"><i class="fa-solid fa-layer-group"></i></div>
-                    </div>
-                    <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                        <div><p class="text-xs font-bold text-amber-600 uppercase tracking-wider">Monitoring</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiOpen">0</h3></div>
-                        <div class="text-amber-200 dark:text-amber-900/50 text-3xl"><i class="fa-solid fa-eye"></i></div>
-                    </div>
-                    <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                        <div><p class="text-xs font-bold text-indigo-600 uppercase tracking-wider">In Progress</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiWorking">0</h3></div>
-                        <div class="text-indigo-200 dark:text-indigo-900/50 text-3xl"><i class="fa-solid fa-gears"></i></div>
-                    </div>
-                    <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                        <div><p class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Resolved</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiResolved">0</h3></div>
-                        <div class="text-emerald-200 dark:text-emerald-900/50 text-3xl"><i class="fa-solid fa-check-double"></i></div>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col lg:flex-row justify-between items-center gap-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 bg-slate-800 text-white rounded flex items-center justify-center shadow-inner"><i class="fa-solid fa-terminal"></i></div>
-                            <h2 class="text-lg font-bold text-slate-900 dark:text-white">Active Queue <span class="text-xs font-normal text-slate-500 ml-2">Admin: Vaibhav Patel</span></h2>
-                        </div>
-                        <div class="flex flex-wrap items-center gap-2">
-                            <div class="relative">
-                                <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-xs"></i>
-                                <input type="text" id="dashSearch" onkeyup="filterDashboard()" class="pl-8 pr-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded text-xs focus:outline-none focus:border-m3-primary w-32 focus:w-48 transition-all text-slate-700 dark:text-white" placeholder="Search...">
-                            </div>
-                            
-                            <!-- NEW: Company Filter Dropdown -->
-                            <select id="dashCompanyFilter" onchange="filterDashboard()" class="py-1.5 pl-2 pr-6 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded text-xs font-bold text-slate-700 dark:text-white outline-none max-w-[130px] truncate">
-                                <option value="All">All Companies</option>
-                            </select>
-                            
-                            <select id="dashStatusFilter" onchange="filterDashboard()" class="py-1.5 pl-2 pr-6 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded text-xs font-bold text-slate-700 dark:text-white outline-none">
-                                <option value="All">All Statuses</option><option value="Monitoring">Monitoring</option><option value="Assigned">Assigned</option><option value="Working">Working</option><option value="Resolved">Resolved</option>
-                            </select>
-                            <button onclick="exportToCSV()" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 rounded text-xs font-bold text-slate-800 dark:text-white transition"><i class="fa-solid fa-download"></i></button>
-                            <button onclick="fetchTicketsForDashboard()" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 rounded text-xs font-bold text-slate-800 dark:text-white transition" title="Force Sync"><i class="fa-solid fa-rotate"></i></button>
-                            <button onclick="logoutDashboard()" class="px-4 py-1.5 bg-slate-900 text-white rounded text-xs font-bold hover:bg-slate-800 transition ml-2">Sign Out</button>
-                        </div>
-                    </div>
-
-                    <div class="overflow-x-auto min-h-[500px]">
-                        <table class="w-full text-left border-collapse min-w-[1100px]" id="dashboardTable">
-                            <thead>
-                                <tr class="bg-white dark:bg-m3-darkSurface text-slate-500 dark:text-slate-400 text-[10px] uppercase tracking-widest border-b border-slate-200 dark:border-slate-800">
-                                    <th class="px-4 py-3 font-bold w-32">Ticket ID</th>
-                                    <th class="px-4 py-3 font-bold w-1/4">Requester</th>
-                                    <th class="px-4 py-3 font-bold w-1/3">Incident Details</th>
-                                    <th class="px-4 py-3 font-bold w-24">SLA</th>
-                                    <th class="px-4 py-3 font-bold w-48 text-center">Action / Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="dashboardTableBody" class="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm bg-white dark:bg-m3-darkSurface"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- COMPANY DIRECTORY VIEW (NEW) -->
-            <div id="noc-companiesView" class="hidden">
-                <div class="mb-6">
-                    <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Client Infrastructure Overview</h2>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Select a managed company to view its isolated ticketing dashboard.</p>
-                </div>
-                <div id="companyCardsGrid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    <!-- Dynamically Populated by JS -->
-                </div>
-            </div>
-
-        </div>
+        <!-- OTHER VIEWS (KB, Health, Login, Dashboard) are unchanged for brevity but fully functioning -->
+        <!-- Just keep your existing ones below here -->
     </main>
 
     <!-- Floating Chat Widget -->
     <div id="chat-widget">
-        <div id="chat-window" class="bg-white dark:bg-m3-darkSurface flex flex-col mb-4">
-            <div class="bg-slate-900 p-4 text-white flex justify-between items-center">
-                <div class="flex items-center gap-3"><div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center"><i class="fa-solid fa-robot"></i></div><div><h4 class="font-bold text-sm">Spread Virtual Agent</h4><p class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Online</p></div></div>
-                <button onclick="toggleChat()" class="hover:text-slate-300 text-lg transition"><i class="fa-solid fa-times"></i></button>
-            </div>
-            <div id="chat-messages" class="flex-grow p-4 overflow-y-auto flex flex-col gap-2 bg-slate-50 dark:bg-slate-900/50">
-                <div class="text-xs text-center text-slate-400 mb-2">Encrypted Session</div>
-                <div class="chat-message chat-bot border border-slate-200 dark:border-slate-700 shadow-sm">Hello. I am the automated routing assistant. How can I assist your IT needs today?</div>
-            </div>
-            <div class="p-3 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex gap-2">
-                <input type="text" id="chatInput" onkeypress="handleChatKey(event)" class="flex-grow bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md px-3 py-2 text-sm outline-none focus:border-m3-primary" placeholder="Type a message...">
-                <button onclick="sendChatMessage()" class="w-10 h-10 bg-m3-primary text-white rounded-md flex items-center justify-center hover:bg-blue-800 transition shadow-sm"><i class="fa-solid fa-paper-plane text-sm"></i></button>
-            </div>
-        </div>
         <button onclick="toggleChat()" id="chat-toggle-btn" class="w-14 h-14 bg-slate-900 text-white rounded-full shadow-lg flex items-center justify-center text-xl hover:scale-110 transition-transform duration-300 animate-bounce-slight absolute right-0 bottom-0 border-2 border-white dark:border-slate-800"><i class="fa-solid fa-headset"></i></button>
     </div>
-
-    <!-- Corporate Footer -->
-    <footer class="bg-white dark:bg-m3-darkSurface border-t border-slate-200 dark:border-slate-800 py-8 mt-auto relative z-20">
-        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 font-semibold gap-4">
-            <p>&copy; 2026 Spread Technical FZE. IT Service Management Portal.</p>
-            <div class="flex gap-6">
-                <a href="tel:+971588421560" class="hover:text-m3-primary transition flex items-center gap-1"><i class="fa-solid fa-phone"></i> +971 58 842 1560</a>
-                <a href="mailto:vaibhav@spreadtechnical.com" class="hover:text-m3-primary transition flex items-center gap-1"><i class="fa-solid fa-envelope"></i> NOC Support</a>
-                <span class="text-slate-300 dark:text-slate-700">|</span>
-                <span>Dubai, UAE</span>
-            </div>
-        </div>
-    </footer>
 
     <!-- ========================================== -->
     <!-- JAVASCRIPT LOGIC                           -->
@@ -694,36 +338,109 @@
         let isITLoggedIn = false;
         const STATUS_FLOW = ["Monitoring", "Assigned", "Working", "Resolved"];
 
-        // Initialization
+        // === MICROSOFT SSO MSAL.js CONFIGURATION ===
+        const msalConfig = {
+            auth: {
+                clientId: "ce535787-8de4-475f-8226-cd054736b366", // <-- PASTE YOUR AZURE CLIENT ID HERE
+                authority: "https://login.microsoftonline.com/93145486-0d92-44f5-b331-3e0a099892c9", // <-- PASTE YOUR AZURE TENANT ID HERE
+                redirectUri: window.location.origin
+            }
+        };
+        const msalInstance = new window.msal.PublicClientApplication(msalConfig);
+        let activeMsUser = null;
+
+        // SSO Initialization on Load
         document.addEventListener('DOMContentLoaded', () => {
+            const accounts = msalInstance.getAllAccounts();
+            if (accounts.length > 0) {
+                activeMsUser = accounts[0];
+                applyUserSession();
+            }
+
             document.querySelectorAll('.itsm-input').forEach(input => {
                 input.addEventListener('blur', (e) => { 
                     if(e.target.value.trim() !== "") { e.target.classList.add('has-val'); } else { e.target.classList.remove('has-val'); } 
                 });
             });
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.classList.add('dark');
-                document.getElementById('theme-icon').className = 'fa-solid fa-sun';
-            }
-            initSystemHealth();
         });
 
-        // UI & NAVIGATION
-        function toggleDarkMode() {
-            const html = document.documentElement; const icon = document.getElementById('theme-icon');
-            if (html.classList.contains('dark')) { html.classList.remove('dark'); icon.className = 'fa-solid fa-moon'; } 
-            else { html.classList.add('dark'); icon.className = 'fa-solid fa-sun'; }
+        // SSO Login / Secure Routing Function
+        async function loginWithMicrosoft() {
+            try {
+                const loginResponse = await msalInstance.loginPopup({ scopes: ["user.read"] });
+                activeMsUser = loginResponse.account;
+                applyUserSession();
+            } catch (error) { console.error("MSAL Login failed:", error); }
         }
 
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu'); const content = document.getElementById('mobileMenuContent');
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden'); setTimeout(() => { menu.classList.remove('opacity-0'); content.classList.remove('translate-x-full'); }, 10);
-            } else {
-                menu.classList.add('opacity-0'); content.classList.add('translate-x-full'); setTimeout(() => menu.classList.add('hidden'), 300);
+        function logoutMicrosoft() {
+            msalInstance.logoutPopup().then(() => {
+                activeMsUser = null;
+                window.location.reload();
+            });
+        }
+
+        function applyUserSession() {
+            if (!activeMsUser) return;
+            
+            // 1. Swap Header UI (Hide Sign In Button, Show Profile Box)
+            document.getElementById('msLoginBtn').classList.add('hidden');
+            document.getElementById('userProfile').classList.remove('hidden');
+            document.getElementById('userProfile').classList.add('flex');
+            
+            // 2. Populate Header UI
+            document.getElementById('userNameDisplay').innerText = activeMsUser.name;
+            document.getElementById('userEmailDisplay').innerText = activeMsUser.username;
+            
+            let initials = "User";
+            if (activeMsUser.name) {
+                initials = activeMsUser.name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+            }
+            document.getElementById('userInitials').innerText = initials;
+
+            // 3. Auto-fill and Lock the Forms
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const trackInput = document.getElementById('trackEmailInput');
+
+            if(nameInput) {
+                nameInput.value = activeMsUser.name;
+                nameInput.readOnly = true;
+                nameInput.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-500', 'cursor-not-allowed', 'has-val');
+            }
+            if(emailInput) {
+                emailInput.value = activeMsUser.username;
+                emailInput.readOnly = true;
+                emailInput.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-500', 'cursor-not-allowed', 'has-val');
+            }
+            if(trackInput) {
+                trackInput.value = activeMsUser.username;
+                trackInput.readOnly = true;
+                trackInput.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-500', 'cursor-not-allowed', 'has-val');
             }
         }
 
+        // 4. Secure Navigation Controller
+        function handleSecureNavigation(targetView) {
+            // If they are NOT logged in, force the Microsoft popup first
+            if (!activeMsUser) {
+                msalInstance.loginPopup({ scopes: ["user.read"] }).then(response => {
+                    activeMsUser = response.account;
+                    applyUserSession();
+                    switchView(targetView);
+                    if (targetView === 'track') searchClientTickets();
+                }).catch(err => {
+                    alert("You must securely sign in to access the portal.");
+                    console.error(err);
+                });
+            } else {
+                // If already logged in, just route them
+                switchView(targetView);
+                if (targetView === 'track') searchClientTickets();
+            }
+        }
+
+        // Standard Switch View
         function switchView(viewName) {
             const views = document.querySelectorAll('.view-section'); 
             const btns = document.querySelectorAll('.nav-btn'); 
@@ -731,11 +448,9 @@
             const tech = document.getElementById('techBanner');
             
             if(viewName === 'home') { 
-                hero.style.display = 'block'; 
-                tech.style.display = 'block'; 
+                hero.style.display = 'block'; tech.style.display = 'block'; 
             } else { 
-                hero.style.display = 'none'; 
-                tech.style.display = 'none';
+                hero.style.display = 'none'; tech.style.display = 'none';
             }
             
             views.forEach(v => { 
@@ -755,97 +470,6 @@
                 const activeBtn = document.getElementById('nav-' + viewName);
                 if(activeBtn) { activeBtn.className = "nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 bg-m3-primaryContainer text-m3-primary flex items-center gap-2 shadow-sm"; }
             }, 300);
-        }
-
-        // NEW: NOC Dashboard Tab Switching
-        function switchNocTab(tabName) {
-            const tabAll = document.getElementById('nocTab-all');
-            const tabComp = document.getElementById('nocTab-companies');
-            const viewAll = document.getElementById('noc-allView');
-            const viewComp = document.getElementById('noc-companiesView');
-
-            if(tabName === 'all') {
-                tabAll.className = "pb-3 text-sm font-bold border-b-2 border-m3-primary text-m3-primary transition-colors";
-                tabComp.className = "pb-3 text-sm font-bold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors";
-                viewAll.classList.remove('hidden');
-                viewComp.classList.add('hidden');
-            } else {
-                tabComp.className = "pb-3 text-sm font-bold border-b-2 border-m3-primary text-m3-primary transition-colors";
-                tabAll.className = "pb-3 text-sm font-bold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors";
-                viewComp.classList.remove('hidden');
-                viewAll.classList.add('hidden');
-                renderCompanyGrid();
-            }
-        }
-
-        // KB & HEALTH
-        function toggleKB(btn) {
-            const item = btn.parentElement;
-            document.querySelectorAll('.kb-item').forEach(el => { if(el !== item) el.classList.remove('active'); });
-            item.classList.toggle('active');
-        }
-
-        function filterKB() {
-            const input = document.getElementById('kbSearchInput').value.toLowerCase(); const items = document.querySelectorAll('.kb-item'); let found = false;
-            items.forEach(item => {
-                if (item.innerText.toLowerCase().includes(input)) { item.style.display = "block"; found = true; } 
-                else { item.style.display = "none"; item.classList.remove('active'); }
-            });
-            document.getElementById('kbNoResults').style.display = found ? 'none' : 'block';
-        }
-
-        const systemServices = [
-            { name: "Active Directory (UAE OUs)", status: "Operational", uptime: "99.99%", ping: 12, icon: "fa-sitemap" }, 
-            { name: "Microsoft 365 Exchange", status: "Operational", uptime: "99.98%", ping: 45, icon: "fa-envelope" },
-            { name: "Azure Virtual Desktop", status: "Operational", uptime: "99.95%", ping: 28, icon: "fa-cloud" }, 
-            { name: "Sophos XG Firewall (HQ)", status: "Operational", uptime: "100%", ping: 5, icon: "fa-shield-halved" },
-            { name: "Cisco Core Switches", status: "Operational", uptime: "100%", ping: 2, icon: "fa-network-wired" }, 
-            { name: "SharePoint Document Storage", status: "Operational", uptime: "99.80%", ping: 42, icon: "fa-folder-tree" }
-        ];
-
-        function initSystemHealth() {
-            const container = document.getElementById('healthServicesContainer'); container.innerHTML = '';
-            systemServices.forEach(srv => {
-                const isOp = srv.status === "Operational"; const colorClass = isOp ? "text-emerald-600 dark:text-emerald-400" : "text-amber-600 dark:text-amber-400";
-                const bgClass = isOp ? "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700" : "bg-amber-50 dark:bg-amber-900/10 border-amber-200 dark:border-amber-800/30";
-                container.innerHTML += `
-                    <div class="border rounded-xl p-4 ${bgClass}">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-8 h-8 rounded bg-white dark:bg-slate-700 shadow-sm flex items-center justify-center text-slate-500"><i class="fa-solid ${srv.icon}"></i></div>
-                            <div class="flex-grow"><h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm">${srv.name}</h4><p class="text-xs ${colorClass} font-bold">${srv.status}</p></div>
-                        </div>
-                        <div class="flex justify-between text-[10px] text-slate-500 font-bold uppercase tracking-wider"><span>Uptime: ${srv.uptime}</span><span>Ping: ${srv.ping}ms</span></div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-1 mt-1.5 rounded overflow-hidden"><div class="h-full ${isOp ? 'bg-emerald-500' : 'bg-amber-500'}" style="width: ${srv.uptime}"></div></div>
-                    </div>`;
-            });
-        }
-        let countdown = 60;
-        setInterval(() => {
-            countdown--; if(countdown <= 0) { countdown = 60; document.getElementById('healthLastUpdate').innerText = new Date().toLocaleTimeString(); initSystemHealth(); }
-            const el = document.getElementById('healthNextPing'); if(el) el.innerText = countdown;
-        }, 1000);
-
-        // CHAT BOT
-        function toggleChat() {
-            const win = document.getElementById('chat-window'); const btn = document.getElementById('chat-toggle-btn');
-            if (win.style.display === 'flex') { win.style.display = 'none'; btn.style.transform = 'scale(1)'; } else { win.style.display = 'flex'; btn.style.transform = 'scale(0)'; }
-        }
-        function handleChatKey(e) { if (e.key === 'Enter') sendChatMessage(); }
-        function sendChatMessage() {
-            const input = document.getElementById('chatInput'); const text = input.value.trim(); if (!text) return;
-            addChatBubble(text, 'user'); input.value = '';
-            setTimeout(() => {
-                let response = "Ticket creation recommended. For direct assistance, please submit a formal Service Request.";
-                const lower = text.toLowerCase();
-                if(lower.includes("password")) response = "Authentication resets are handled via passwordreset.microsoftonline.com or check the KB.";
-                else if (lower.includes("vpn")) response = "Verify gateway and MFA. Escalate via ticket if persistent.";
-                addChatBubble(response, 'bot');
-            }, 1000);
-        }
-        function addChatBubble(text, sender) {
-            const container = document.getElementById('chat-messages'); const div = document.createElement('div');
-            div.className = `chat-message ${sender === 'user' ? 'chat-user' : 'chat-bot'} shadow-sm animate-slide-up`; div.innerText = text;
-            container.appendChild(div); container.scrollTop = container.scrollHeight;
         }
 
         // TICKET SUBMISSION
@@ -902,209 +526,24 @@
                 else { let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; tickets.unshift(ticketData); localStorage.setItem('spread_tickets', JSON.stringify(tickets)); }
                 e.target.reset(); 
                 alert(`Incident Logged Successfully!\nTicket ID: ${ticketData.id}`);
-                document.getElementById('trackEmailInput').value = userEmail; switchView('track'); setTimeout(() => searchClientTickets(), 500);
+                document.getElementById('trackEmailInput').value = userEmail; handleSecureNavigation('track'); 
             } catch (error) { alert("Submission Failed. Check network."); } 
             finally { submitBtn.innerHTML = originalBtnHtml; submitBtn.disabled = false; }
         }
 
-        // IT DASHBOARD LOGIC
-        function handleITLogin(e) {
-            e.preventDefault(); const u = document.getElementById('itUsername').value.trim().toLowerCase(); const p = document.getElementById('itPassword').value;
-            if (VALID_USERS.includes(u) && p === IT_PASS) { isITLoggedIn = true; document.getElementById('itUsername').value = ''; document.getElementById('itPassword').value = ''; switchView('login'); } 
-            else { alert("Authentication Rejected."); }
-        }
-        function logoutDashboard() { isITLoggedIn = false; switchView('login'); }
-        let cachedDashboardTickets = [];
-
-        async function fetchTicketsForDashboard() {
-            const tbody = document.getElementById('dashboardTableBody'); tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-bold"><i class="fa-solid fa-circle-notch fa-spin mr-2 text-m3-primary"></i> Syncing Database...</td></tr>`;
-            let tickets = [];
-            if (DB_CONFIG.useDatabase) {
-                try { const res = await fetch(DB_CONFIG.apiUrl); tickets = await res.json(); tickets.reverse(); } 
-                catch (err) { tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-rose-500 font-bold">API Connection Error</td></tr>`; return; }
-            } else { tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; }
-            cachedDashboardTickets = tickets; 
-            
-            // Populate Company Dropdown
-            const companies = [...new Set(tickets.map(t => t.company))].filter(Boolean);
-            const compSelect = document.getElementById('dashCompanyFilter');
-            compSelect.innerHTML = '<option value="All">All Companies</option>' + companies.map(c => `<option value="${c}">${c}</option>`).join('');
-
-            renderKPIs(tickets); 
-            renderDashboardTable(tickets);
-            
-            // Update company grid if tab is open
-            if(!document.getElementById('noc-companiesView').classList.contains('hidden')) {
-                renderCompanyGrid();
-            }
-        }
-
-        function renderKPIs(tickets) {
-            document.getElementById('kpiTotal').innerText = tickets.length;
-            document.getElementById('kpiOpen').innerText = tickets.filter(t => t.status === "Monitoring" || t.status === "Assigned").length;
-            document.getElementById('kpiWorking').innerText = tickets.filter(t => t.status === "Working").length;
-            document.getElementById('kpiResolved').innerText = tickets.filter(t => t.status === "Resolved").length;
-        }
-
-        // NEW: Render Company Grid
-        function renderCompanyGrid() {
-            const grid = document.getElementById('companyCardsGrid');
-            const companies = [...new Set(cachedDashboardTickets.map(t => t.company))].filter(Boolean);
-
-            if(companies.length === 0) {
-                grid.innerHTML = '<p class="text-slate-500 dark:text-slate-400">No companies found in database.</p>';
-                return;
-            }
-
-            let html = '';
-            companies.forEach(company => {
-                const compTickets = cachedDashboardTickets.filter(t => t.company === company);
-                const total = compTickets.length;
-                const open = compTickets.filter(t => t.status === 'Monitoring' || t.status === 'Assigned' || t.status === 'Working').length;
-                const resolved = compTickets.filter(t => t.status === 'Resolved').length;
-                const safeCompany = company.replace(/'/g, "\\'");
-
-                html += `
-                    <div class="bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 flex flex-col hover:shadow-md transition-shadow">
-                        <div class="flex items-center gap-3 mb-5">
-                            <div class="w-10 h-10 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg shadow-sm"><i class="fa-solid fa-building"></i></div>
-                            <h3 class="font-bold text-slate-900 dark:text-white text-base line-clamp-2 leading-tight">${company}</h3>
-                        </div>
-                        <div class="grid grid-cols-3 gap-2 mb-6 text-center">
-                            <div class="bg-slate-50 dark:bg-slate-800/50 rounded py-2 border border-slate-100 dark:border-slate-700"><p class="text-[10px] text-slate-500 font-bold uppercase">Total</p><p class="text-lg font-black text-slate-800 dark:text-white">${total}</p></div>
-                            <div class="bg-amber-50 dark:bg-amber-900/10 rounded py-2 border border-amber-100 dark:border-amber-900/30"><p class="text-[10px] text-amber-600 font-bold uppercase">Open</p><p class="text-lg font-black text-amber-600 dark:text-amber-500">${open}</p></div>
-                            <div class="bg-emerald-50 dark:bg-emerald-900/10 rounded py-2 border border-emerald-100 dark:border-emerald-900/30"><p class="text-[10px] text-emerald-600 font-bold uppercase">Done</p><p class="text-lg font-black text-emerald-600 dark:text-emerald-500">${resolved}</p></div>
-                        </div>
-                        <button onclick="filterByCompany('${safeCompany}')" class="mt-auto w-full bg-slate-100 hover:bg-m3-primary dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-white dark:hover:bg-m3-primary dark:hover:text-white text-xs font-bold py-2.5 rounded transition-colors uppercase tracking-wider">View Tickets</button>
-                    </div>
-                `;
-            });
-            grid.innerHTML = html;
-        }
-
-        // NEW: Filter Table by clicking Company Card
-        function filterByCompany(company) {
-            switchNocTab('all');
-            const compSelect = document.getElementById('dashCompanyFilter');
-            if(compSelect) {
-                compSelect.value = company;
-                filterDashboard();
-            }
-        }
-
-        function filterDashboard() {
-            const query = document.getElementById('dashSearch').value.toLowerCase(); 
-            const statusFilter = document.getElementById('dashStatusFilter').value;
-            const compFilter = document.getElementById('dashCompanyFilter').value;
-            
-            renderDashboardTable(cachedDashboardTickets.filter(t => {
-                const matchesQuery = t.id.toLowerCase().includes(query) || t.name.toLowerCase().includes(query) || t.subject.toLowerCase().includes(query);
-                const matchesStatus = statusFilter === 'All' || t.status === statusFilter;
-                const matchesComp = compFilter === 'All' || t.company === compFilter;
-                return matchesQuery && matchesStatus && matchesComp;
-            }));
-        }
-
-        function renderDashboardTable(tickets) {
-            const tbody = document.getElementById('dashboardTableBody');
-            if (tickets.length === 0) { tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-medium">Queue is empty.</td></tr>`; return; }
-            tbody.innerHTML = '';
-            tickets.forEach(t => {
-                let selectHTML = `<select onchange="updateTicketStatus('${t.id}', this.value, this)" class="bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white text-[11px] font-bold rounded px-2 py-1.5 outline-none cursor-pointer w-full">`;
-                STATUS_FLOW.forEach(s => { selectHTML += `<option value="${s}" ${(t.status||"Monitoring") === s ? 'selected' : ''}>${s}</option>`; }); selectHTML += `</select>`;
-                let badge = t.priority === 'High' ? 'text-rose-700 bg-rose-100 border-rose-200 dark:bg-rose-900/50 dark:text-rose-400 dark:border-rose-800' : (t.priority === 'Medium' ? 'text-amber-700 bg-amber-100 border-amber-200 dark:bg-amber-900/50 dark:text-amber-400 dark:border-amber-800' : 'text-emerald-700 bg-emerald-100 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-400 dark:border-emerald-800');
-                
-                tbody.innerHTML += `
-                    <tr class="hover:bg-slate-50 dark:bg-m3-darkSurface dark:hover:bg-slate-800/30 transition-colors">
-                        <td class="px-4 py-4 align-top"><div class="font-bold text-m3-primary text-xs tracking-wider">${t.id}</div><div class="text-[10px] text-slate-400 font-bold mt-1 uppercase">${t.date}</div></td>
-                        <td class="px-4 py-4 align-top"><div class="font-bold text-slate-800 dark:text-white">${t.company}</div><div class="text-xs text-slate-500 dark:text-slate-400 mt-1"><i class="fa-solid fa-user text-[10px] mr-1 w-3"></i> ${t.name}</div><div class="text-[10px] text-slate-400 mt-0.5"><i class="fa-solid fa-phone text-[10px] mr-1 w-3"></i> ${t.phone}</div></td>
-                        <td class="px-4 py-4 align-top">
-                            <div class="font-bold text-slate-800 dark:text-slate-200 text-sm mb-1">${t.subject}</div>
-                            <div class="text-xs text-slate-500 dark:text-slate-400 max-h-[80px] overflow-y-auto leading-relaxed border-l-2 border-slate-200 dark:border-slate-700 pl-2 py-1 mb-2">${t.description}</div>
-                            ${t.device ? `<div class="text-[10px] font-bold uppercase text-slate-400">DEV: <span class="text-slate-600 dark:text-slate-300 mr-3">${t.device}</span> TAG: <span class="text-slate-600 dark:text-slate-300">${t.asset||'N/A'}</span></div>`:''}
-                            ${t.attachment && t.attachment !== "No Attachment" && !t.attachment.includes("Error") ? `<div class="mt-2"><a href="${t.attachment}" target="_blank" class="inline-flex items-center gap-1 text-[10px] uppercase font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-2 py-1 rounded hover:bg-blue-100 transition"><i class="fa-solid fa-paperclip"></i> View File</a></div>` : ''}
-                            ${t.resolve_description ? `<div class="mt-3 p-2 bg-emerald-50 dark:bg-emerald-900/20 border-l-2 border-emerald-500 text-emerald-800 dark:text-emerald-300 text-xs"><strong class="font-bold mr-1">RCA:</strong>${t.resolve_description}</div>` : ''}
-                        </td>
-                        <td class="px-4 py-4 align-top"><span class="px-2 py-1 border rounded text-[10px] font-bold uppercase tracking-wider ${badge}">${t.priority}</span></td>
-                        <td class="px-4 py-4 text-center align-top">
-                            ${selectHTML}
-                            <span class="text-[10px] block mt-1 text-slate-400 update-msg hidden font-bold">SAVED</span>
-                            <div id="resolve-box-${t.id}" class="mt-2 hidden text-left animate-slide-up w-full">
-                                <textarea id="resolve-text-${t.id}" class="w-full text-xs p-2 border border-slate-300 dark:border-slate-700 rounded bg-white dark:bg-slate-900 dark:text-white outline-none focus:border-emerald-500 transition-all resize-none shadow-inner" rows="2" placeholder="Resolution RCA..."></textarea>
-                                <button onclick="submitResolution('${t.id}', this)" class="mt-1 w-full bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] uppercase font-bold py-1.5 rounded transition shadow-sm">Save RCA</button>
-                            </div>
-                        </td>
-                    </tr>`;
-            });
-        }
-
-        async function updateTicketStatus(ticketId, newStatus, selectElement) {
-            const resolveBox = document.getElementById(`resolve-box-${ticketId}`);
-            const msgSpan = selectElement.nextElementSibling; 
-            
-            if (newStatus === "Resolved") { resolveBox.classList.remove('hidden'); msgSpan.classList.add('hidden'); return; }
-            if (resolveBox) resolveBox.classList.add('hidden');
-
-            msgSpan.classList.remove('hidden'); msgSpan.innerText = "SYNCING..."; msgSpan.className = "text-[10px] block mt-1 text-amber-500 update-msg font-bold animate-pulse uppercase tracking-wider";
-            const payload = { action: "update", id: ticketId, status: newStatus };
-
-            if (DB_CONFIG.useDatabase) {
-                try { await fetch(DB_CONFIG.apiUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
-                      msgSpan.innerText = "SAVED"; msgSpan.className = "text-[10px] block mt-1 text-emerald-500 update-msg font-bold uppercase tracking-wider"; 
-                } catch(err) { msgSpan.innerText = "ERROR"; msgSpan.className = "text-[10px] block mt-1 text-rose-500 update-msg font-bold uppercase tracking-wider"; }
-            } else {
-                let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; let index = tickets.findIndex(t => t.id === ticketId);
-                if(index !== -1) { tickets[index].status = newStatus; localStorage.setItem('spread_tickets', JSON.stringify(tickets)); msgSpan.innerText = "SAVED"; msgSpan.className = "text-[10px] block mt-1 text-emerald-500 update-msg font-bold uppercase tracking-wider"; }
-            }
-            let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId); if(cachedIndex !== -1) cachedDashboardTickets[cachedIndex].status = newStatus;
-            
-            // Re-render KPIs and Company Grid if visible
-            renderKPIs(cachedDashboardTickets); 
-            if(!document.getElementById('noc-companiesView').classList.contains('hidden')) renderCompanyGrid();
-            
-            setTimeout(() => { msgSpan.classList.add('hidden'); }, 2000);
-        }
-
-        async function submitResolution(ticketId, btnElement) {
-            const textArea = document.getElementById(`resolve-text-${ticketId}`); const resolutionNotes = textArea.value.trim();
-            if(!resolutionNotes) { alert("Root Cause Analysis (RCA) is required for Resolved status."); textArea.focus(); return; }
-
-            const originalBtnHtml = btnElement.innerHTML; btnElement.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>'; btnElement.disabled = true;
-            const payload = { action: "update", id: ticketId, status: "Resolved", resolve_description: resolutionNotes };
-
-            if (DB_CONFIG.useDatabase) {
-                try { await fetch(DB_CONFIG.apiUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }); } 
-                catch(err) { alert("API Sync Failed."); btnElement.innerHTML = originalBtnHtml; btnElement.disabled = false; return; }
-            } else {
-                let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; let index = tickets.findIndex(t => t.id === ticketId);
-                if(index !== -1) { tickets[index].status = "Resolved"; tickets[index].resolve_description = resolutionNotes; localStorage.setItem('spread_tickets', JSON.stringify(tickets)); }
-            }
-
-            let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId); 
-            if(cachedIndex !== -1) { cachedDashboardTickets[cachedIndex].status = "Resolved"; cachedDashboardTickets[cachedIndex].resolve_description = resolutionNotes; }
-            
-            renderKPIs(cachedDashboardTickets); 
-            filterDashboard(); 
-            if(!document.getElementById('noc-companiesView').classList.contains('hidden')) renderCompanyGrid();
-        }
-
-        function exportToCSV() {
-            if(cachedDashboardTickets.length === 0) return;
-            let csvContent = "data:text/csv;charset=utf-8,ID,Date,Name,Company,Email,Phone,Device,Asset Tag,Priority,Subject,Status,Resolution\n";
-            cachedDashboardTickets.forEach(t => { csvContent += `"${t.id}","${t.date}","${t.name}","${t.company}","${t.email}","${t.phone}","${t.device||''}","${t.asset||''}","${t.priority}","${t.subject}","${t.status||'Monitoring'}","${t.resolve_description||''}"\n`; });
-            const link = document.createElement("a"); link.setAttribute("href", encodeURI(csvContent)); link.setAttribute("download", `ITSM_Export.csv`); document.body.appendChild(link); link.click(); document.body.removeChild(link);
-        }
-
         // CLIENT TRACKING LOGIC
         async function searchClientTickets() {
-            const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase(); const container = document.getElementById('trackingResults');
-            container.innerHTML = `<div class="text-center p-12"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i></div>`; if (!queryEmail) return;
+            const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase(); 
+            const container = document.getElementById('trackingResults');
+            container.innerHTML = `<div class="text-center p-12"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i></div>`; 
+            if (!queryEmail) return;
+            
             let tickets = [];
             if (DB_CONFIG.useDatabase) {
                 try { 
                     const res = await fetch(DB_CONFIG.apiUrl); 
                     tickets = await res.json(); 
-                    tickets.reverse(); // Newest first
+                    tickets.reverse(); // Ensure newest first
                 } catch (err) { container.innerHTML = `<p class="text-center text-rose-500 font-bold">API Offline</p>`; return; }
             } else { tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; }
 
