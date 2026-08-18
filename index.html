@@ -250,7 +250,6 @@
 
             <form id="ticketForm" onsubmit="submitTicket(event)">
                 
-                <!-- Section 1: Requester -->
                 <div class="form-section">
                     <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-5 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-2"><i class="fa-solid fa-user-tie text-m3-primary"></i> 1. Requester Information</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -282,7 +281,6 @@
                     </div>
                 </div>
 
-                <!-- Section 2: Classification -->
                 <div class="form-section">
                     <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-5 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-2"><i class="fa-solid fa-tags text-m3-primary"></i> 2. Incident Classification</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -307,7 +305,6 @@
                     </div>
                 </div>
                 
-                <!-- Section 3: Details -->
                 <div class="form-section">
                     <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-5 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-2"><i class="fa-solid fa-align-left text-m3-primary"></i> 3. Diagnostic Details</h3>
                     <div class="itsm-input-wrapper mb-5">
@@ -446,6 +443,7 @@
                     </div>
                 </div>
 
+                <!-- NEW KB ARTICLE 1 -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
                     <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
                         <span><i class="fa-solid fa-print text-slate-600 dark:text-slate-400 mr-3"></i> Mapping a Corporate Network Printer</span>
@@ -464,6 +462,7 @@
                     </div>
                 </div>
 
+                <!-- NEW KB ARTICLE 2 -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
                     <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
                         <span><i class="fa-solid fa-envelope-open-text text-amber-600 mr-3"></i> Accessing a Shared Mailbox (Outlook / M365)</span>
@@ -479,6 +478,7 @@
                     </div>
                 </div>
 
+                <!-- NEW KB ARTICLE 3 -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
                     <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
                         <span><i class="fa-solid fa-cloud-arrow-up text-cyan-600 mr-3"></i> OneDrive / SharePoint Syncing Errors</span>
@@ -495,6 +495,7 @@
                     </div>
                 </div>
 
+                <!-- NEW KB ARTICLE 4 -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
                     <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
                         <span><i class="fa-solid fa-lock text-rose-600 mr-3"></i> BitLocker Recovery / Locked out of Endpoint</span>
@@ -562,64 +563,87 @@
         <!-- ========================================== -->
         <div id="dashboardView" class="view-section w-full max-w-[1600px] mx-auto">
             
-            <!-- Dashboard KPIs -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                    <div><p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Incidents</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiTotal">0</h3></div>
-                    <div class="text-slate-300 dark:text-slate-600 text-3xl"><i class="fa-solid fa-layer-group"></i></div>
-                </div>
-                <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                    <div><p class="text-xs font-bold text-amber-600 uppercase tracking-wider">Monitoring</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiOpen">0</h3></div>
-                    <div class="text-amber-200 dark:text-amber-900/50 text-3xl"><i class="fa-solid fa-eye"></i></div>
-                </div>
-                <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                    <div><p class="text-xs font-bold text-indigo-600 uppercase tracking-wider">In Progress</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiWorking">0</h3></div>
-                    <div class="text-indigo-200 dark:text-indigo-900/50 text-3xl"><i class="fa-solid fa-gears"></i></div>
-                </div>
-                <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                    <div><p class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Resolved</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiResolved">0</h3></div>
-                    <div class="text-emerald-200 dark:text-emerald-900/50 text-3xl"><i class="fa-solid fa-check-double"></i></div>
-                </div>
+            <!-- NOC Sub-Navigation -->
+            <div class="flex items-center gap-8 mb-6 border-b border-slate-200 dark:border-slate-800 px-2">
+                <button onclick="switchNocTab('all')" id="nocTab-all" class="pb-3 text-sm font-bold border-b-2 border-m3-primary text-m3-primary transition-colors">Global Queue</button>
+                <button onclick="switchNocTab('companies')" id="nocTab-companies" class="pb-3 text-sm font-bold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors">Company Directory</button>
             </div>
 
-            <div class="bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-                <!-- Toolbar -->
-                <div class="bg-slate-50 dark:bg-slate-800/50 p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col lg:flex-row justify-between items-center gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 bg-slate-800 text-white rounded flex items-center justify-center shadow-inner"><i class="fa-solid fa-terminal"></i></div>
-                        <h2 class="text-lg font-bold text-slate-900 dark:text-white">Active Queue <span class="text-xs font-normal text-slate-500 ml-2">Admin: Vaibhav Patel</span></h2>
+            <!-- GLOBAL VIEW -->
+            <div id="noc-allView">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                        <div><p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Incidents</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiTotal">0</h3></div>
+                        <div class="text-slate-300 dark:text-slate-600 text-3xl"><i class="fa-solid fa-layer-group"></i></div>
                     </div>
-                    
-                    <div class="flex flex-wrap items-center gap-2">
-                        <div class="relative">
-                            <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-xs"></i>
-                            <input type="text" id="dashSearch" onkeyup="filterDashboard()" class="pl-8 pr-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded text-xs focus:outline-none focus:border-m3-primary w-40 focus:w-56 transition-all text-slate-700 dark:text-white" placeholder="Search ID, Name...">
+                    <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                        <div><p class="text-xs font-bold text-amber-600 uppercase tracking-wider">Monitoring</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiOpen">0</h3></div>
+                        <div class="text-amber-200 dark:text-amber-900/50 text-3xl"><i class="fa-solid fa-eye"></i></div>
+                    </div>
+                    <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                        <div><p class="text-xs font-bold text-indigo-600 uppercase tracking-wider">In Progress</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiWorking">0</h3></div>
+                        <div class="text-indigo-200 dark:text-indigo-900/50 text-3xl"><i class="fa-solid fa-gears"></i></div>
+                    </div>
+                    <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                        <div><p class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Resolved</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiResolved">0</h3></div>
+                        <div class="text-emerald-200 dark:text-emerald-900/50 text-3xl"><i class="fa-solid fa-check-double"></i></div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col lg:flex-row justify-between items-center gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-slate-800 text-white rounded flex items-center justify-center shadow-inner"><i class="fa-solid fa-terminal"></i></div>
+                            <h2 class="text-lg font-bold text-slate-900 dark:text-white">Active Queue <span class="text-xs font-normal text-slate-500 ml-2">Admin: Vaibhav Patel</span></h2>
                         </div>
-                        <select id="dashStatusFilter" onchange="filterDashboard()" class="py-1.5 pl-2 pr-6 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded text-xs font-bold text-slate-700 dark:text-white outline-none">
-                            <option value="All">All Statuses</option><option value="Monitoring">Monitoring</option><option value="Assigned">Assigned</option><option value="Working">Working</option><option value="Resolved">Resolved</option>
-                        </select>
-                        <button onclick="exportToCSV()" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 rounded text-xs font-bold text-slate-800 dark:text-white transition"><i class="fa-solid fa-download"></i> CSV</button>
-                        <button onclick="fetchTicketsForDashboard()" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 rounded text-xs font-bold text-slate-800 dark:text-white transition" title="Force Sync"><i class="fa-solid fa-rotate"></i></button>
-                        <button onclick="logoutDashboard()" class="px-4 py-1.5 bg-slate-900 text-white rounded text-xs font-bold hover:bg-slate-800 transition ml-2">Sign Out</button>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <div class="relative">
+                                <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-xs"></i>
+                                <input type="text" id="dashSearch" onkeyup="filterDashboard()" class="pl-8 pr-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded text-xs focus:outline-none focus:border-m3-primary w-32 focus:w-48 transition-all text-slate-700 dark:text-white" placeholder="Search...">
+                            </div>
+                            
+                            <!-- NEW: Company Filter Dropdown -->
+                            <select id="dashCompanyFilter" onchange="filterDashboard()" class="py-1.5 pl-2 pr-6 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded text-xs font-bold text-slate-700 dark:text-white outline-none max-w-[130px] truncate">
+                                <option value="All">All Companies</option>
+                            </select>
+                            
+                            <select id="dashStatusFilter" onchange="filterDashboard()" class="py-1.5 pl-2 pr-6 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded text-xs font-bold text-slate-700 dark:text-white outline-none">
+                                <option value="All">All Statuses</option><option value="Monitoring">Monitoring</option><option value="Assigned">Assigned</option><option value="Working">Working</option><option value="Resolved">Resolved</option>
+                            </select>
+                            <button onclick="exportToCSV()" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 rounded text-xs font-bold text-slate-800 dark:text-white transition"><i class="fa-solid fa-download"></i></button>
+                            <button onclick="fetchTicketsForDashboard()" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 rounded text-xs font-bold text-slate-800 dark:text-white transition" title="Force Sync"><i class="fa-solid fa-rotate"></i></button>
+                            <button onclick="logoutDashboard()" class="px-4 py-1.5 bg-slate-900 text-white rounded text-xs font-bold hover:bg-slate-800 transition ml-2">Sign Out</button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto min-h-[500px]">
+                        <table class="w-full text-left border-collapse min-w-[1100px]" id="dashboardTable">
+                            <thead>
+                                <tr class="bg-white dark:bg-m3-darkSurface text-slate-500 dark:text-slate-400 text-[10px] uppercase tracking-widest border-b border-slate-200 dark:border-slate-800">
+                                    <th class="px-4 py-3 font-bold w-32">Ticket ID</th>
+                                    <th class="px-4 py-3 font-bold w-1/4">Requester</th>
+                                    <th class="px-4 py-3 font-bold w-1/3">Incident Details</th>
+                                    <th class="px-4 py-3 font-bold w-24">SLA</th>
+                                    <th class="px-4 py-3 font-bold w-48 text-center">Action / Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboardTableBody" class="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm bg-white dark:bg-m3-darkSurface"></tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
 
-                <!-- Table -->
-                <div class="overflow-x-auto min-h-[500px]">
-                    <table class="w-full text-left border-collapse min-w-[1100px]" id="dashboardTable">
-                        <thead>
-                            <tr class="bg-white dark:bg-m3-darkSurface text-slate-500 dark:text-slate-400 text-[10px] uppercase tracking-widest border-b border-slate-200 dark:border-slate-800">
-                                <th class="px-4 py-3 font-bold w-32">Ticket ID</th>
-                                <th class="px-4 py-3 font-bold w-1/4">Requester</th>
-                                <th class="px-4 py-3 font-bold w-1/3">Incident Details</th>
-                                <th class="px-4 py-3 font-bold w-24">SLA</th>
-                                <th class="px-4 py-3 font-bold w-48 text-center">Action / Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="dashboardTableBody" class="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm bg-white dark:bg-m3-darkSurface"></tbody>
-                    </table>
+            <!-- COMPANY DIRECTORY VIEW (NEW) -->
+            <div id="noc-companiesView" class="hidden">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Client Infrastructure Overview</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Select a managed company to view its isolated ticketing dashboard.</p>
+                </div>
+                <div id="companyCardsGrid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Dynamically Populated by JS -->
                 </div>
             </div>
+
         </div>
     </main>
 
@@ -662,7 +686,7 @@
         // === CONFIGURATION ===
         const DB_CONFIG = {
             useDatabase: true, 
-            apiUrl: "https://script.google.com/macros/s/AKfycbzd5S9WQxFP9MUrXW1YWXCXybc2NZ1ZIazMRm2V3wrquxdOeWXtRnAJRrGoyck2sxny/exec" 
+            apiUrl: "https://script.google.com/macros/s/AKfycby5BAy5xGwTsJ3iMYd7zF1CXLHBl1tI8h23BxSZXmf88JO9oEe4zvgdpeRldNKW8oI/exec" 
         };
 
         const VALID_USERS = ["vaibhav@spreadtechnical.com", "support@spreadtechnical.com"];
@@ -731,6 +755,27 @@
                 const activeBtn = document.getElementById('nav-' + viewName);
                 if(activeBtn) { activeBtn.className = "nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 bg-m3-primaryContainer text-m3-primary flex items-center gap-2 shadow-sm"; }
             }, 300);
+        }
+
+        // NEW: NOC Dashboard Tab Switching
+        function switchNocTab(tabName) {
+            const tabAll = document.getElementById('nocTab-all');
+            const tabComp = document.getElementById('nocTab-companies');
+            const viewAll = document.getElementById('noc-allView');
+            const viewComp = document.getElementById('noc-companiesView');
+
+            if(tabName === 'all') {
+                tabAll.className = "pb-3 text-sm font-bold border-b-2 border-m3-primary text-m3-primary transition-colors";
+                tabComp.className = "pb-3 text-sm font-bold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors";
+                viewAll.classList.remove('hidden');
+                viewComp.classList.add('hidden');
+            } else {
+                tabComp.className = "pb-3 text-sm font-bold border-b-2 border-m3-primary text-m3-primary transition-colors";
+                tabAll.className = "pb-3 text-sm font-bold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors";
+                viewComp.classList.remove('hidden');
+                viewAll.classList.add('hidden');
+                renderCompanyGrid();
+            }
         }
 
         // KB & HEALTH
@@ -878,7 +923,20 @@
                 try { const res = await fetch(DB_CONFIG.apiUrl); tickets = await res.json(); tickets.reverse(); } 
                 catch (err) { tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-rose-500 font-bold">API Connection Error</td></tr>`; return; }
             } else { tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; }
-            cachedDashboardTickets = tickets; renderKPIs(tickets); renderDashboardTable(tickets);
+            cachedDashboardTickets = tickets; 
+            
+            // Populate Company Dropdown
+            const companies = [...new Set(tickets.map(t => t.company))].filter(Boolean);
+            const compSelect = document.getElementById('dashCompanyFilter');
+            compSelect.innerHTML = '<option value="All">All Companies</option>' + companies.map(c => `<option value="${c}">${c}</option>`).join('');
+
+            renderKPIs(tickets); 
+            renderDashboardTable(tickets);
+            
+            // Update company grid if tab is open
+            if(!document.getElementById('noc-companiesView').classList.contains('hidden')) {
+                renderCompanyGrid();
+            }
         }
 
         function renderKPIs(tickets) {
@@ -888,10 +946,62 @@
             document.getElementById('kpiResolved').innerText = tickets.filter(t => t.status === "Resolved").length;
         }
 
+        // NEW: Render Company Grid
+        function renderCompanyGrid() {
+            const grid = document.getElementById('companyCardsGrid');
+            const companies = [...new Set(cachedDashboardTickets.map(t => t.company))].filter(Boolean);
+
+            if(companies.length === 0) {
+                grid.innerHTML = '<p class="text-slate-500 dark:text-slate-400">No companies found in database.</p>';
+                return;
+            }
+
+            let html = '';
+            companies.forEach(company => {
+                const compTickets = cachedDashboardTickets.filter(t => t.company === company);
+                const total = compTickets.length;
+                const open = compTickets.filter(t => t.status === 'Monitoring' || t.status === 'Assigned' || t.status === 'Working').length;
+                const resolved = compTickets.filter(t => t.status === 'Resolved').length;
+                const safeCompany = company.replace(/'/g, "\\'");
+
+                html += `
+                    <div class="bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 flex flex-col hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-10 h-10 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg shadow-sm"><i class="fa-solid fa-building"></i></div>
+                            <h3 class="font-bold text-slate-900 dark:text-white text-base line-clamp-2 leading-tight">${company}</h3>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 mb-6 text-center">
+                            <div class="bg-slate-50 dark:bg-slate-800/50 rounded py-2 border border-slate-100 dark:border-slate-700"><p class="text-[10px] text-slate-500 font-bold uppercase">Total</p><p class="text-lg font-black text-slate-800 dark:text-white">${total}</p></div>
+                            <div class="bg-amber-50 dark:bg-amber-900/10 rounded py-2 border border-amber-100 dark:border-amber-900/30"><p class="text-[10px] text-amber-600 font-bold uppercase">Open</p><p class="text-lg font-black text-amber-600 dark:text-amber-500">${open}</p></div>
+                            <div class="bg-emerald-50 dark:bg-emerald-900/10 rounded py-2 border border-emerald-100 dark:border-emerald-900/30"><p class="text-[10px] text-emerald-600 font-bold uppercase">Done</p><p class="text-lg font-black text-emerald-600 dark:text-emerald-500">${resolved}</p></div>
+                        </div>
+                        <button onclick="filterByCompany('${safeCompany}')" class="mt-auto w-full bg-slate-100 hover:bg-m3-primary dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-white dark:hover:bg-m3-primary dark:hover:text-white text-xs font-bold py-2.5 rounded transition-colors uppercase tracking-wider">View Tickets</button>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+        }
+
+        // NEW: Filter Table by clicking Company Card
+        function filterByCompany(company) {
+            switchNocTab('all');
+            const compSelect = document.getElementById('dashCompanyFilter');
+            if(compSelect) {
+                compSelect.value = company;
+                filterDashboard();
+            }
+        }
+
         function filterDashboard() {
-            const query = document.getElementById('dashSearch').value.toLowerCase(); const statusFilter = document.getElementById('dashStatusFilter').value;
+            const query = document.getElementById('dashSearch').value.toLowerCase(); 
+            const statusFilter = document.getElementById('dashStatusFilter').value;
+            const compFilter = document.getElementById('dashCompanyFilter').value;
+            
             renderDashboardTable(cachedDashboardTickets.filter(t => {
-                return (t.id.toLowerCase().includes(query) || t.name.toLowerCase().includes(query)) && (statusFilter === 'All' || t.status === statusFilter);
+                const matchesQuery = t.id.toLowerCase().includes(query) || t.name.toLowerCase().includes(query) || t.subject.toLowerCase().includes(query);
+                const matchesStatus = statusFilter === 'All' || t.status === statusFilter;
+                const matchesComp = compFilter === 'All' || t.company === compFilter;
+                return matchesQuery && matchesStatus && matchesComp;
             }));
         }
 
@@ -947,7 +1057,12 @@
                 if(index !== -1) { tickets[index].status = newStatus; localStorage.setItem('spread_tickets', JSON.stringify(tickets)); msgSpan.innerText = "SAVED"; msgSpan.className = "text-[10px] block mt-1 text-emerald-500 update-msg font-bold uppercase tracking-wider"; }
             }
             let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId); if(cachedIndex !== -1) cachedDashboardTickets[cachedIndex].status = newStatus;
-            renderKPIs(cachedDashboardTickets); setTimeout(() => { msgSpan.classList.add('hidden'); }, 2000);
+            
+            // Re-render KPIs and Company Grid if visible
+            renderKPIs(cachedDashboardTickets); 
+            if(!document.getElementById('noc-companiesView').classList.contains('hidden')) renderCompanyGrid();
+            
+            setTimeout(() => { msgSpan.classList.add('hidden'); }, 2000);
         }
 
         async function submitResolution(ticketId, btnElement) {
@@ -967,7 +1082,10 @@
 
             let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId); 
             if(cachedIndex !== -1) { cachedDashboardTickets[cachedIndex].status = "Resolved"; cachedDashboardTickets[cachedIndex].resolve_description = resolutionNotes; }
-            renderKPIs(cachedDashboardTickets); filterDashboard(); 
+            
+            renderKPIs(cachedDashboardTickets); 
+            filterDashboard(); 
+            if(!document.getElementById('noc-companiesView').classList.contains('hidden')) renderCompanyGrid();
         }
 
         function exportToCSV() {
@@ -979,35 +1097,19 @@
 
         // CLIENT TRACKING LOGIC
         async function searchClientTickets() {
-            const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase(); 
-            const container = document.getElementById('trackingResults');
-            
-            container.innerHTML = `<div class="text-center p-12"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i></div>`; 
-            if (!queryEmail) return;
-            
+            const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase(); const container = document.getElementById('trackingResults');
+            container.innerHTML = `<div class="text-center p-12"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i></div>`; if (!queryEmail) return;
             let tickets = [];
             if (DB_CONFIG.useDatabase) {
                 try { 
                     const res = await fetch(DB_CONFIG.apiUrl); 
                     tickets = await res.json(); 
-                    
-                    // NEW: Reverse the array so the most recently submitted tickets show up first
-                    tickets.reverse(); 
-                } 
-                catch (err) { 
-                    container.innerHTML = `<p class="text-center text-rose-500 font-bold">API Offline</p>`; 
-                    return; 
-                }
-            } else { 
-                tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; 
-            }
+                    tickets.reverse(); // Newest first
+                } catch (err) { container.innerHTML = `<p class="text-center text-rose-500 font-bold">API Offline</p>`; return; }
+            } else { tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; }
 
             const filtered = tickets.filter(t => t.email.trim().toLowerCase() === queryEmail);
-            
-            if (filtered.length === 0) { 
-                container.innerHTML = `<div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-12 text-center"><h3 class="text-lg font-bold">No active records found.</h3></div>`; 
-                return; 
-            }
+            if (filtered.length === 0) { container.innerHTML = `<div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-12 text-center"><h3 class="text-lg font-bold">No active records found.</h3></div>`; return; }
 
             container.innerHTML = '';
             filtered.forEach(t => {
@@ -1015,65 +1117,7 @@
                 container.innerHTML += `
                     <div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 mb-4">
                         <div class="flex justify-between items-start mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
-                            <div>
-                                <div class="flex items-center gap-3 mb-2">
-                                    <span class="text-xs font-mono font-bold text-m3-primary bg-m3-primaryContainer px-2 py-1 rounded">${t.id}</span>${badge}
-                                </div>
-                                <h3 class="text-xl font-bold text-slate-800 dark:text-white">${t.subject}</h3>
-                                <p class="text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Logged: ${t.date}</p>
-                            </div>
-                        </div>
-                        ${t.resolve_description ? `<div class="mb-6 p-4 bg-slate-50 dark:bg-slate-800/50 border-l-4 border-emerald-500 rounded-r-lg text-slate-700 dark:text-slate-300 text-sm"><strong class="block mb-1 text-emerald-600 dark:text-emerald-400 uppercase text-xs tracking-wider">IT Resolution (RCA):</strong>${t.resolve_description}</div>` : ''}
-                        ${getProgressBarHTML(t.status || 'Monitoring')}
-                    </div>`;
-            });
-        }
-        
-        // CLIENT TRACKING LOGIC
-        async function searchClientTickets() {
-            const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase(); 
-            const container = document.getElementById('trackingResults');
-            
-            container.innerHTML = `<div class="text-center p-12"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i></div>`; 
-            if (!queryEmail) return;
-            
-            let tickets = [];
-            if (DB_CONFIG.useDatabase) {
-                try { 
-                    const res = await fetch(DB_CONFIG.apiUrl); 
-                    tickets = await res.json(); 
-                    
-                    // NEW: Reverse the array so the most recently submitted tickets show up first
-                    tickets.reverse(); 
-                } 
-                catch (err) { 
-                    container.innerHTML = `<p class="text-center text-rose-500 font-bold">API Offline</p>`; 
-                    return; 
-                }
-            } else { 
-                tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; 
-            }
-
-            const filtered = tickets.filter(t => t.email.trim().toLowerCase() === queryEmail);
-            
-            if (filtered.length === 0) { 
-                container.innerHTML = `<div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-12 text-center"><h3 class="text-lg font-bold">No active records found.</h3></div>`; 
-                return; 
-            }
-
-            container.innerHTML = '';
-            filtered.forEach(t => {
-                let badge = t.priority === 'High' ? '<span class="bg-rose-100 text-rose-700 border-rose-200 px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider dark:bg-rose-900/50 dark:text-rose-400">HIGH PRIORITY</span>' : (t.priority === 'Medium' ? '<span class="bg-amber-100 text-amber-700 border-amber-200 px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider dark:bg-amber-900/50 dark:text-amber-400">MEDIUM</span>' : '<span class="bg-emerald-100 text-emerald-700 border-emerald-200 px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider dark:bg-emerald-900/50 dark:text-emerald-400">LOW</span>');
-                container.innerHTML += `
-                    <div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 mb-4">
-                        <div class="flex justify-between items-start mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
-                            <div>
-                                <div class="flex items-center gap-3 mb-2">
-                                    <span class="text-xs font-mono font-bold text-m3-primary bg-m3-primaryContainer px-2 py-1 rounded">${t.id}</span>${badge}
-                                </div>
-                                <h3 class="text-xl font-bold text-slate-800 dark:text-white">${t.subject}</h3>
-                                <p class="text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Logged: ${t.date}</p>
-                            </div>
+                            <div><div class="flex items-center gap-3 mb-2"><span class="text-xs font-mono font-bold text-m3-primary bg-m3-primaryContainer px-2 py-1 rounded">${t.id}</span>${badge}</div><h3 class="text-xl font-bold text-slate-800 dark:text-white">${t.subject}</h3><p class="text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Logged: ${t.date}</p></div>
                         </div>
                         ${t.resolve_description ? `<div class="mb-6 p-4 bg-slate-50 dark:bg-slate-800/50 border-l-4 border-emerald-500 rounded-r-lg text-slate-700 dark:text-slate-300 text-sm"><strong class="block mb-1 text-emerald-600 dark:text-emerald-400 uppercase text-xs tracking-wider">IT Resolution (RCA):</strong>${t.resolve_description}</div>` : ''}
                         ${getProgressBarHTML(t.status || 'Monitoring')}
