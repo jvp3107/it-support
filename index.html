@@ -319,21 +319,62 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 gap-4" id="kbContainer">
-                <!-- KB Items -->
+                
+                <!-- KB Item 1: M365 Password -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
-                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)"><span><i class="fa-brands fa-microsoft text-blue-500 mr-2"></i> How to reset my Microsoft 365 Password?</span><i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i></button>
+                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
+                        <span><i class="fa-brands fa-microsoft text-blue-500 mr-2"></i> How to reset my Microsoft 365 / Office 365 Password?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
+                    </button>
                     <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400">
-                        <ol class="list-decimal pl-5 space-y-2 mb-4"><li>Navigate to <code>passwordreset.microsoftonline.com</code>.</li><li>Enter corporate email.</li><li>Follow MFA prompts to reset.</li></ol>
+                        <ol class="list-decimal pl-5 space-y-2 mb-4">
+                            <li>Navigate to the Microsoft Online Password Reset portal: <code>passwordreset.microsoftonline.com</code>.</li>
+                            <li>Enter your corporate Spread Technical email address.</li>
+                            <li>Complete the CAPTCHA and select "Next".</li>
+                            <li>Choose your verification method (Authenticator App, SMS, or Alternate Email).</li>
+                            <li>Enter the code and create a new strong password.</li>
+                        </ol>
+                        <p class="text-sm bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 p-3 rounded-lg border border-blue-200 dark:border-blue-800/50"><strong>Note:</strong> Password must be at least 12 characters, include a number and special character. It may take up to 15 minutes to sync with local Active Directory.</p>
                     </div>
                 </div>
+
+                <!-- KB Item 2: VPN Issues -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
-                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)"><span><i class="fa-solid fa-shield-halved text-emerald-500 mr-2"></i> Cisco / Sophos VPN Issues</span><i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i></button>
+                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
+                        <span><i class="fa-solid fa-shield-halved text-emerald-500 mr-2"></i> Cisco / Sophos VPN Connection Issues</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
+                    </button>
                     <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400">
-                        <ul class="list-disc pl-5 space-y-2 mb-4"><li>Ensure internet is stable.</li><li>Verify gateway address.</li><li>Approve MFA prompt quickly.</li></ul>
+                        <p class="mb-3">If you are unable to connect to the corporate VPN from outside the UAE office, verify the following:</p>
+                        <ul class="list-disc pl-5 space-y-2 mb-4">
+                            <li>Ensure you are connected to a stable internet connection.</li>
+                            <li>Open the Sophos Connect / Cisco AnyConnect client.</li>
+                            <li>Verify the gateway address is correct as per your onboarding documentation.</li>
+                            <li>If authentication fails, ensure your Multi-Factor Authentication (MFA) token is approved promptly.</li>
+                            <li>If it says "Certificate Validation Failure", please raise a ticket for IT to push the latest certificate via Group Policy.</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-            <!-- KB Item 3: System Health & Maintenance Script -->
+
+                <!-- KB Item 3: Basic Self-Diagnostics (NEW) -->
+                <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
+                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
+                        <span><i class="fa-solid fa-stethoscope text-teal-500 mr-2"></i> Basic Self-Diagnostics (Try these first!)</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400">
+                        <p class="mb-3">Before submitting a ticket, please run through this quick diagnostic checklist. It resolves 80% of common IT issues:</p>
+                        <ul class="list-disc pl-5 space-y-3 mb-4">
+                            <li><strong>The Golden Rule (Restart):</strong> Save your work and completely restart your computer. (Do not just click "Shut Down" and turn back on; you must explicitly click <strong>Restart</strong> to refresh the Windows kernel).</li>
+                            <li><strong>Network Check:</strong> Verify your Wi-Fi is connected, or check that your Ethernet cable is securely clicked into your PC and the wall port. Try opening a neutral website like <code>google.com</code> to verify internet access.</li>
+                            <li><strong>Browser Glitches:</strong> If a specific website or cloud portal (like SharePoint) isn't loading correctly, try opening it in an <strong>Incognito / Private Window</strong>. If it works there, you need to clear your browser cache.</li>
+                            <li><strong>Hardware & Cables:</strong> If a monitor, printer, or dock isn't working, physically unplug its power and data cables, wait 10 seconds, and plug them firmly back in.</li>
+                            <li><strong>Pending Updates:</strong> Go to Windows Start > Settings > Update & Security and check if your PC is pending a critical restart for driver updates.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- KB Item 4: Maintenance Script -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
                     <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
                         <span><i class="fa-solid fa-broom text-purple-500 mr-2"></i> Slow PC or Low Disk Space (Daily Maintenance Script)</span>
@@ -342,7 +383,7 @@
                     <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400">
                         <p class="mb-3">If your computer is running slowly or warning you about low storage, you can safely run the automated system diagnostics and cleanup tool before raising a ticket:</p>
                         <ol class="list-decimal pl-5 space-y-2 mb-4">
-                            <li>Click the Windows Start Menu and type <code>Spread Daily Maintenance</code>.</li>
+                            <li>Locate the <code>Spread Daily Maintenance</code> shortcut on your Desktop.</li>
                             <li>Right-click the script and select <strong>"Run as Administrator"</strong>.</li>
                             <li>The console will open and automatically begin clearing temporary user logs, resetting system caches, and performing a quick system health track.</li>
                             <li>Wait for the console window to close automatically, then restart your PC.</li>
@@ -352,6 +393,8 @@
                         </p>
                     </div>
                 </div>
+
+            </div> <!-- End of kbContainer -->
             <div id="kbNoResults" class="hidden text-center p-10 bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm mt-4">
                 <i class="fa-solid fa-ghost text-4xl text-slate-300 dark:text-slate-600 mb-3"></i>
                 <h3 class="text-xl font-bold text-slate-700 dark:text-slate-300">No articles found</h3>
