@@ -19,26 +19,12 @@
                     fontFamily: { sans: ['"Google Sans"', 'Roboto', 'sans-serif'], },
                     colors: {
                         m3: {
-                            // Light Theme Colors
-                            primary: '#0b57d0', 
-                            onPrimary: '#ffffff', 
-                            primaryContainer: '#d3e3fd', 
-                            onPrimaryContainer: '#041e49',
-                            surface: '#f8fafd', 
-                            surfaceContainerLow: '#f0f4f8', 
-                            surfaceContainer: '#eceef4',
-                            surfaceContainerHigh: '#e1e3e8', 
-                            outline: '#74777f',
-                            // Dark Theme Colors
-                            darkPrimary: '#a8c7fa',
-                            darkOnPrimary: '#062e6f',
-                            darkPrimaryContainer: '#0842a0',
-                            darkOnPrimaryContainer: '#d3e3fd',
-                            darkSurface: '#111318',
-                            darkSurfaceContainerLow: '#191c20',
-                            darkSurfaceContainer: '#1e2025',
-                            darkSurfaceContainerHigh: '#282a2f',
-                            darkOutline: '#8e918f'
+                            primary: '#0b57d0', onPrimary: '#ffffff', primaryContainer: '#d3e3fd', onPrimaryContainer: '#041e49',
+                            surface: '#f8fafd', surfaceContainerLow: '#f0f4f8', surfaceContainer: '#eceef4',
+                            surfaceContainerHigh: '#e1e3e8', outline: '#74777f',
+                            darkPrimary: '#a8c7fa', darkOnPrimary: '#062e6f', darkPrimaryContainer: '#0842a0',
+                            darkOnPrimaryContainer: '#d3e3fd', darkSurface: '#111318', darkSurfaceContainerLow: '#191c20',
+                            darkSurfaceContainer: '#1e2025', darkSurfaceContainerHigh: '#282a2f', darkOutline: '#8e918f'
                         }
                     },
                     boxShadow: {
@@ -63,15 +49,8 @@
     </script>
     
     <style>
-        /* Base Styles & Scrollbars */
-        body { 
-            background-color: #f8fafd; 
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .dark body { 
-            background-color: #111318; 
-            color: #e1e3e8;
-        }
+        body { background-color: #f8fafd; transition: background-color 0.3s ease, color 0.3s ease; }
+        .dark body { background-color: #111318; color: #e1e3e8; }
         
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #f0f4f8; }
@@ -80,149 +59,40 @@
         .dark ::-webkit-scrollbar-thumb { background: #44474e; }
         ::-webkit-scrollbar-thumb:hover { background: #74777f; }
 
-        /* View Section Transitions */
-        .view-section {
-            display: none; 
-            opacity: 0; 
-            transform: translateY(15px) scale(0.99);
-            transition: opacity 0.4s cubic-bezier(0.2, 0, 0, 1), transform 0.4s cubic-bezier(0.2, 0, 0, 1);
-        }
-        .view-section.active { 
-            display: block; 
-            opacity: 1; 
-            transform: translateY(0) scale(1); 
-        }
+        .view-section { display: none; opacity: 0; transform: translateY(15px) scale(0.99); transition: opacity 0.4s cubic-bezier(0.2, 0, 0, 1), transform 0.4s cubic-bezier(0.2, 0, 0, 1); }
+        .view-section.active { display: block; opacity: 1; transform: translateY(0) scale(1); }
 
-        /* Material 3 Input Styling */
-        .m3-input-wrapper { 
-            position: relative; 
-            display: flex; 
-            flex-direction: column; 
-            width: 100%;
-        }
-        .m3-input {
-            width: 100%; 
-            background-color: #f0f4f8; 
-            border-bottom: 1px solid #74777f; 
-            border-radius: 4px 4px 0 0;
-            padding: 24px 16px 8px 48px; 
-            font-size: 1rem; 
-            color: #1f1f1f; 
-            transition: all 0.2s ease; 
-            outline: none;
-        }
-        .dark .m3-input {
-            background-color: #191c20;
-            border-bottom: 1px solid #8e918f;
-            color: #e1e3e8;
-        }
-        .m3-input:focus { 
-            background-color: #d3e3fd; 
-            border-bottom: 2px solid #0b57d0; 
-        }
-        .dark .m3-input:focus {
-            background-color: #0842a0;
-            border-bottom: 2px solid #a8c7fa;
-        }
-        .m3-label {
-            position: absolute; 
-            left: 48px; 
-            top: 16px; 
-            font-size: 0.95rem; 
-            color: #44474e;
-            pointer-events: none; 
-            transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1) all; 
-            font-weight: 500;
-        }
+        .m3-input-wrapper { position: relative; display: flex; flex-direction: column; width: 100%; }
+        .m3-input { width: 100%; background-color: #f0f4f8; border-bottom: 1px solid #74777f; border-radius: 4px 4px 0 0; padding: 24px 16px 8px 48px; font-size: 1rem; color: #1f1f1f; transition: all 0.2s ease; outline: none; }
+        .dark .m3-input { background-color: #191c20; border-bottom: 1px solid #8e918f; color: #e1e3e8; }
+        .m3-input:focus { background-color: #d3e3fd; border-bottom: 2px solid #0b57d0; }
+        .dark .m3-input:focus { background-color: #0842a0; border-bottom: 2px solid #a8c7fa; }
+        .m3-label { position: absolute; left: 48px; top: 16px; font-size: 0.95rem; color: #44474e; pointer-events: none; transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1) all; font-weight: 500; }
         .dark .m3-label { color: #8e918f; }
         
-        .m3-input:focus ~ .m3-label, 
-        .m3-input:not(:placeholder-shown) ~ .m3-label { 
-            top: 6px; 
-            font-size: 0.7rem; 
-            color: #0b57d0; 
-        }
-        .dark .m3-input:focus ~ .m3-label, 
-        .dark .m3-input:not(:placeholder-shown) ~ .m3-label { color: #a8c7fa; }
+        .m3-input:focus ~ .m3-label, .m3-input:not(:placeholder-shown) ~ .m3-label { top: 6px; font-size: 0.7rem; color: #0b57d0; }
+        .dark .m3-input:focus ~ .m3-label, .dark .m3-input:not(:placeholder-shown) ~ .m3-label { color: #a8c7fa; }
         
         select.m3-input ~ .m3-label { top: 6px; font-size: 0.7rem; color: #44474e; }
         .dark select.m3-input ~ .m3-label { color: #8e918f; }
         
-        .input-icon { 
-            position: absolute; 
-            left: 16px; 
-            top: 50%; 
-            transform: translateY(-50%); 
-            color: #44474e; 
-            font-size: 1.1rem; 
-            z-index: 10; 
-        }
+        .input-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #44474e; font-size: 1.1rem; z-index: 10; }
         .dark .input-icon { color: #8e918f; }
 
-        /* Custom KPI Cards */
-        .kpi-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .kpi-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-        }
+        .kpi-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .kpi-card:hover { transform: translateY(-5px); box-shadow: 0px 4px 12px rgba(0,0,0,0.1); }
 
-        /* Floating Chat Widget */
-        #chat-widget {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 100;
-            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-        }
-        #chat-window {
-            display: none;
-            flex-direction: column;
-            width: 350px;
-            height: 450px;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0px 8px 24px rgba(0,0,0,0.2);
-            transform-origin: bottom right;
-            animation: slideUp 0.3s ease-out;
-        }
-        .chat-message {
-            max-width: 80%;
-            padding: 10px 14px;
-            border-radius: 16px;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-        .chat-bot {
-            background-color: #f0f4f8;
-            color: #1f1f1f;
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-        }
+        #chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 100; transition: all 0.3s cubic-bezier(0.2, 0, 0, 1); }
+        #chat-window { display: none; flex-direction: column; width: 350px; height: 450px; border-radius: 24px; overflow: hidden; box-shadow: 0px 8px 24px rgba(0,0,0,0.2); transform-origin: bottom right; animation: slideUp 0.3s ease-out; }
+        .chat-message { max-width: 80%; padding: 10px 14px; border-radius: 16px; margin-bottom: 10px; font-size: 0.9rem; line-height: 1.4; }
+        .chat-bot { background-color: #f0f4f8; color: #1f1f1f; align-self: flex-start; border-bottom-left-radius: 4px; }
         .dark .chat-bot { background-color: #1e2025; color: #e1e3e8; }
-        .chat-user {
-            background-color: #0b57d0;
-            color: #ffffff;
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
-        }
+        .chat-user { background-color: #0b57d0; color: #ffffff; align-self: flex-end; border-bottom-right-radius: 4px; }
         .dark .chat-user { background-color: #a8c7fa; color: #041e49; }
 
-        /* Accordion for KB */
-        .kb-item-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease;
-        }
-        .kb-item.active .kb-item-content {
-            max-height: 500px;
-            padding-bottom: 16px;
-        }
-        .kb-item.active .kb-icon {
-            transform: rotate(180deg);
-        }
+        .kb-item-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; }
+        .kb-item.active .kb-item-content { max-height: 500px; padding-bottom: 16px; }
+        .kb-item.active .kb-icon { transform: rotate(180deg); }
     </style>
 </head>
 <body class="text-slate-800 flex flex-col min-h-screen">
@@ -230,8 +100,6 @@
     <!-- Top App Bar -->
     <header class="bg-m3-surface dark:bg-m3-darkSurface sticky top-0 z-50 shadow-sm border-b border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh transition-colors duration-300">
         <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
-            
-            <!-- Brand Logo & Title -->
             <div class="flex items-center gap-4 cursor-pointer" onclick="switchView('portal')">
                 <div class="w-12 h-12 bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer text-m3-primary dark:text-m3-darkPrimary rounded-full flex items-center justify-center text-2xl shadow-sm transition-colors duration-300">
                     <i class="fa-solid fa-server"></i>
@@ -242,26 +110,24 @@
                 </div>
             </div>
 
-            <!-- Main Desktop Navigation -->
             <div class="hidden lg:flex bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow p-1.5 rounded-full border border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh shadow-inner gap-1 transition-colors duration-300">
-                <button onclick="switchView('portal')" id="nav-portal" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2">
+                <button onclick="switchView('portal')" id="nav-portal" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer text-m3-onPrimaryContainer dark:text-m3-darkOnPrimaryContainer flex items-center gap-2 shadow-sm">
                     <i class="fa-solid fa-plus"></i> Raise Ticket
                 </button>
-                <button onclick="switchView('track')" id="nav-track" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2">
+                <button onclick="switchView('track')" id="nav-track" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:bg-m3-surfaceContainerHigh dark:hover:bg-m3-darkSurfaceContainerHigh flex items-center gap-2">
                     <i class="fa-solid fa-satellite-dish"></i> Track Request
                 </button>
-                <button onclick="switchView('kb')" id="nav-kb" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2">
+                <button onclick="switchView('kb')" id="nav-kb" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:bg-m3-surfaceContainerHigh dark:hover:bg-m3-darkSurfaceContainerHigh flex items-center gap-2">
                     <i class="fa-solid fa-book-open"></i> Knowledge Base
                 </button>
-                <button onclick="switchView('health')" id="nav-health" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2">
+                <button onclick="switchView('health')" id="nav-health" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:bg-m3-surfaceContainerHigh dark:hover:bg-m3-darkSurfaceContainerHigh flex items-center gap-2">
                     <i class="fa-solid fa-heart-pulse"></i> System Health
                 </button>
-                <button onclick="switchView('login')" id="nav-login" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2">
+                <button onclick="switchView('login')" id="nav-login" class="nav-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:bg-m3-surfaceContainerHigh dark:hover:bg-m3-darkSurfaceContainerHigh flex items-center gap-2">
                     <i class="fa-solid fa-shield-halved"></i> Staff Login
                 </button>
             </div>
             
-            <!-- Utilities (Dark Mode + Mobile Menu) -->
             <div class="flex items-center gap-2">
                 <button onclick="toggleDarkMode()" class="w-10 h-10 text-slate-600 dark:text-slate-300 flex items-center justify-center rounded-full hover:bg-m3-surfaceContainerHigh dark:hover:bg-m3-darkSurfaceContainerHigh transition-colors duration-300">
                     <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
@@ -287,43 +153,34 @@
         </div>
     </div>
 
-    <!-- Visual IT Showcase Header (Hero Banner) -->
+    <!-- Visual IT Showcase Header -->
     <div id="heroBanner" class="bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow pt-10 pb-14 px-4 sm:px-6 lg:px-8 border-b border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh transition-colors duration-500">
         <div class="max-w-[1400px] mx-auto">
             <div class="text-center mb-10 animate-fade-in">
                 <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">IT Command Center</h2>
-                <p class="text-slate-600 dark:text-slate-400 text-base md:text-lg max-w-3xl mx-auto font-medium">Fast, reliable, and secure IT infrastructure management. Log your incident below and our Dubai-based NOC will dispatch an engineer immediately.</p>
+                <p class="text-slate-600 dark:text-slate-400 text-base md:text-lg max-w-3xl mx-auto font-medium">Fast, reliable, and secure IT infrastructure management. Log your incident below and our NOC will assist you immediately.</p>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 animate-slide-up">
                 <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group cursor-pointer" onclick="switchView('portal')">
                     <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Workstations" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6">
-                        <span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-laptop text-m3-primaryContainer mr-3 text-xl"></i>Endpoints & OS</span>
-                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6"><span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-laptop text-m3-primaryContainer mr-3 text-xl"></i>Endpoints & OS</span></div>
                 </div>
                 <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group cursor-pointer" onclick="switchView('portal')">
                     <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" alt="Networks" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6">
-                        <span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-network-wired text-m3-primaryContainer mr-3 text-xl"></i>Network Routing</span>
-                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6"><span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-network-wired text-m3-primaryContainer mr-3 text-xl"></i>Network Routing</span></div>
                 </div>
                 <div class="rounded-[28px] overflow-hidden shadow-m3-2 relative h-56 lg:h-72 group cursor-pointer" onclick="switchView('portal')">
                     <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="Servers" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6">
-                        <span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-server text-m3-primaryContainer mr-3 text-xl"></i>Cloud & Servers</span>
-                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-6"><span class="text-white text-lg font-bold tracking-wide"><i class="fa-solid fa-server text-m3-primaryContainer mr-3 text-xl"></i>Cloud & Servers</span></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Main Dynamic Content Container -->
+    <!-- Main Content Container -->
     <main class="flex-grow max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full -mt-8 relative z-10">
         
-        <!-- ========================================== -->
-        <!-- VIEW 1: RAISE TICKET (PORTAL)              -->
-        <!-- ========================================== -->
+        <!-- RAISE TICKET (PORTAL) -->
         <div id="portalView" class="view-section active max-w-5xl mx-auto">
             <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-3 overflow-hidden transition-colors duration-300">
                 <div class="p-8 md:p-10 border-b border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh flex items-center justify-between">
@@ -337,22 +194,12 @@
                 </div>
 
                 <form id="ticketForm" onsubmit="submitTicket(event)" class="p-8 md:p-10 space-y-8">
-                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="m3-input-wrapper">
-                            <i class="fa-solid fa-user input-icon"></i>
-                            <input type="text" name="name" id="name" required class="m3-input" placeholder=" ">
-                            <span class="m3-label">Full Name *</span>
-                        </div>
-                        <div class="m3-input-wrapper">
-                            <i class="fa-solid fa-building input-icon"></i>
-                            <input type="text" name="company_name" id="company" required class="m3-input" placeholder=" ">
-                            <span class="m3-label">Company Name *</span>
-                        </div>
+                        <div class="m3-input-wrapper"><i class="fa-solid fa-user input-icon"></i><input type="text" name="name" id="name" required class="m3-input" placeholder=" "><span class="m3-label">Full Name *</span></div>
+                        <div class="m3-input-wrapper"><i class="fa-solid fa-building input-icon"></i><input type="text" name="company_name" id="company" required class="m3-input" placeholder=" "><span class="m3-label">Company Name *</span></div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- Dual Input for Country Code + Phone -->
                         <div class="flex gap-2 w-full">
                             <div class="m3-input-wrapper w-[45%] sm:w-[35%]">
                                 <i class="fa-solid fa-globe input-icon" style="font-size: 1rem; left: 12px;"></i>
@@ -367,7 +214,6 @@
                                     <option value="+974">🇶🇦 +974 (QAT)</option>
                                     <option value="+965">🇰🇼 +965 (KWT)</option>
                                     <option value="-" disabled>───────</option>
-                                    <!-- Full Country List -->
                                     <option value="+93">🇦🇫 +93</option><option value="+355">🇦🇱 +355</option><option value="+213">🇩🇿 +213</option><option value="+376">🇦🇩 +376</option><option value="+244">🇦🇴 +244</option><option value="+54">🇦🇷 +54</option><option value="+374">🇦🇲 +374</option><option value="+61">🇦🇺 +61</option><option value="+43">🇦🇹 +43</option><option value="+994">🇦🇿 +994</option><option value="+880">🇧🇩 +880</option><option value="+375">🇧🇾 +375</option><option value="+32">🇧🇪 +32</option><option value="+501">🇧🇿 +501</option><option value="+229">🇧🇯 +229</option><option value="+975">🇧🇹 +975</option><option value="+591">🇧🇴 +591</option><option value="+387">🇧🇦 +387</option><option value="+267">🇧🇼 +267</option><option value="+55">🇧🇷 +55</option><option value="+673">🇧🇳 +673</option><option value="+359">🇧🇬 +359</option><option value="+226">🇧🇫 +226</option><option value="+257">🇧🇮 +257</option><option value="+855">🇰🇭 +855</option><option value="+237">🇨🇲 +237</option><option value="+238">🇨🇻 +238</option><option value="+236">🇨🇫 +236</option><option value="+235">🇹🇩 +235</option><option value="+56">🇨🇱 +56</option><option value="+86">🇨🇳 +86</option><option value="+57">🇨🇴 +57</option><option value="+269">🇰🇲 +269</option><option value="+242">🇨🇬 +242</option><option value="+506">🇨🇷 +506</option><option value="+385">🇭🇷 +385</option><option value="+53">🇨🇺 +53</option><option value="+357">🇨🇾 +357</option><option value="+420">🇨🇿 +420</option><option value="+45">🇩🇰 +45</option><option value="+253">🇩🇯 +253</option><option value="+1809">🇩🇴 +1809</option><option value="+593">🇪🇨 +593</option><option value="+20">🇪🇬 +20</option><option value="+503">🇸🇻 +503</option><option value="+240">🇬🇶 +240</option><option value="+291">🇪🇷 +291</option><option value="+372">🇪🇪 +372</option><option value="+251">🇪🇹 +251</option><option value="+679">🇫🇯 +679</option><option value="+358">🇫🇮 +358</option><option value="+33">🇫🇷 +33</option><option value="+241">🇬🇦 +241</option><option value="+220">🇬🇲 +220</option><option value="+995">🇬🇪 +995</option><option value="+49">🇩🇪 +49</option><option value="+233">🇬🇭 +233</option><option value="+30">🇬🇷 +30</option><option value="+502">🇬🇹 +502</option><option value="+224">🇬🇳 +224</option><option value="+245">🇬🇼 +245</option><option value="+592">🇬🇾 +592</option><option value="+509">🇭🇹 +509</option><option value="+504">🇭🇳 +504</option><option value="+36">🇭🇺 +36</option><option value="+354">🇮🇸 +354</option><option value="+62">🇮🇩 +62</option><option value="+98">🇮🇷 +98</option><option value="+964">🇮🇶 +964</option><option value="+353">🇮🇪 +353</option><option value="+972">🇮🇱 +972</option><option value="+39">🇮🇹 +39</option><option value="+225">🇨🇮 +225</option><option value="+1876">🇯🇲 +1876</option><option value="+81">🇯🇵 +81</option><option value="+962">🇯🇴 +962</option><option value="+7">🇰🇿 +7</option><option value="+254">🇰🇪 +254</option><option value="+686">🇰🇮 +686</option><option value="+996">🇰🇬 +996</option><option value="+856">🇱🇦 +856</option><option value="+371">🇱🇻 +371</option><option value="+961">🇱🇧 +961</option><option value="+266">🇱🇸 +266</option><option value="+231">🇱🇷 +231</option><option value="+218">🇱🇾 +218</option><option value="+423">🇱🇮 +423</option><option value="+370">🇱🇹 +370</option><option value="+352">🇱🇺 +352</option><option value="+261">🇲🇬 +261</option><option value="+265">🇲🇼 +265</option><option value="+60">🇲🇾 +60</option><option value="+960">🇲🇻 +960</option><option value="+223">🇲🇱 +223</option><option value="+356">🇲🇹 +356</option><option value="+692">🇲🇭 +692</option><option value="+222">🇲🇷 +222</option><option value="+230">🇲🇺 +230</option><option value="+52">🇲🇽 +52</option><option value="+691">🇫🇲 +691</option><option value="+373">🇲🇩 +373</option><option value="+377">🇲🇨 +377</option><option value="+976">🇲🇳 +976</option><option value="+382">🇲🇪 +382</option><option value="+212">🇲🇦 +212</option><option value="+258">🇲🇿 +258</option><option value="+95">🇲🇲 +95</option><option value="+264">🇳🇦 +264</option><option value="+674">🇳🇷 +674</option><option value="+977">🇳🇵 +977</option><option value="+31">🇳🇱 +31</option><option value="+64">🇳🇿 +64</option><option value="+505">🇳🇮 +505</option><option value="+227">🇳🇪 +227</option><option value="+234">🇳🇬 +234</option><option value="+850">🇰🇵 +850</option><option value="+47">🇳🇴 +47</option><option value="+92">🇵🇰 +92</option><option value="+680">🇵🇼 +680</option><option value="+507">🇵🇦 +507</option><option value="+675">🇵🇬 +675</option><option value="+595">🇵🇾 +595</option><option value="+51">🇵🇪 +51</option><option value="+63">🇵🇭 +63</option><option value="+48">🇵🇱 +48</option><option value="+351">🇵🇹 +351</option><option value="+40">🇷🇴 +40</option><option value="+7">🇷🇺 +7</option><option value="+250">🇷🇼 +250</option><option value="+685">🇼🇸 +685</option><option value="+378">🇸🇲 +378</option><option value="+239">🇸🇹 +239</option><option value="+221">🇸🇳 +221</option><option value="+381">🇷🇸 +381</option><option value="+248">🇸🇨 +248</option><option value="+232">🇸🇱 +232</option><option value="+65">🇸🇬 +65</option><option value="+421">🇸🇰 +421</option><option value="+386">🇸🇮 +386</option><option value="+677">🇸🇧 +677</option><option value="+252">🇸🇴 +252</option><option value="+27">🇿🇦 +27</option><option value="+82">🇰🇷 +82</option><option value="+211">🇸🇸 +211</option><option value="+34">🇪🇸 +34</option><option value="+94">🇱🇰 +94</option><option value="+249">🇸🇩 +249</option><option value="+597">🇸🇷 +597</option><option value="+268">🇸🇿 +268</option><option value="+46">🇸🇪 +46</option><option value="+41">🇨🇭 +41</option><option value="+963">🇸🇾 +963</option><option value="+886">🇹🇼 +886</option><option value="+992">🇹🇯 +992</option><option value="+255">🇹🇿 +255</option><option value="+66">🇹🇭 +66</option><option value="+228">🇹🇬 +228</option><option value="+676">🇹🇴 +676</option><option value="+1868">🇹🇹 +1868</option><option value="+216">🇹🇳 +216</option><option value="+90">🇹🇷 +90</option><option value="+993">🇹🇲 +993</option><option value="+688">🇹🇻 +688</option><option value="+256">🇺🇬 +256</option><option value="+380">🇺🇦 +380</option><option value="+598">🇺🇾 +598</option><option value="+998">🇺🇿 +998</option><option value="+678">🇻🇺 +678</option><option value="+379">🇻🇦 +379</option><option value="+58">🇻🇪 +58</option><option value="+84">🇻🇳 +84</option><option value="+967">🇾🇪 +967</option><option value="+260">🇿🇲 +260</option><option value="+263">🇿🇼 +263</option>
                                 </select>
                                 <span class="m3-label" style="left: 36px;">Code</span>
@@ -389,21 +235,14 @@
                         <div class="m3-input-wrapper">
                             <i class="fa-solid fa-laptop-code input-icon"></i>
                             <select name="device_type" id="deviceType" class="m3-input appearance-none cursor-pointer">
-                                <option value="Laptop/Desktop" selected>Laptop / Desktop</option>
-                                <option value="Mobile/Tablet">Mobile / Tablet</option>
-                                <option value="Printer/Scanner">Printer / Scanner</option>
-                                <option value="Network/Wi-Fi">Network / Wi-Fi</option>
-                                <option value="Software/App">Software / Application</option>
-                                <option value="Server/Cloud">Server / Cloud Infrastructure</option>
+                                <option value="Laptop/Desktop" selected>Laptop / Desktop</option><option value="Mobile/Tablet">Mobile / Tablet</option><option value="Printer/Scanner">Printer / Scanner</option><option value="Network/Wi-Fi">Network / Wi-Fi</option><option value="Software/App">Software / Application</option><option value="Server/Cloud">Server / Cloud Infrastructure</option>
                             </select>
                             <span class="m3-label">Category</span>
                         </div>
                         <div class="m3-input-wrapper">
                             <i class="fa-solid fa-gauge-high input-icon"></i>
                             <select name="priority" id="priority" class="m3-input appearance-none cursor-pointer">
-                                <option value="Low">Low - General Request</option>
-                                <option value="Medium" selected>Medium - Operation Impaired</option>
-                                <option value="High">High - System Down / Urgent</option>
+                                <option value="Low">Low - General Request</option><option value="Medium" selected>Medium - Operation Impaired</option><option value="High">High - System Down / Urgent</option>
                             </select>
                             <span class="m3-label">Priority Level</span>
                         </div>
@@ -434,7 +273,7 @@
                     </div>
 
                     <div class="pt-4 flex justify-between items-center">
-                        <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm hidden md:block"><i class="fa-solid fa-shield-check mr-1"></i> Data submitted is encrypted and strictly accessible only by Spread Technical authorized personnel.</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm hidden md:block"><i class="fa-solid fa-shield-check mr-1"></i> Data submitted is encrypted and accessible only by Spread Technical authorized personnel.</p>
                         <button type="submit" id="submitBtn" class="bg-m3-primary dark:bg-m3-darkPrimary text-white dark:text-m3-darkOnPrimary font-bold text-base px-10 py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all duration-300 flex items-center gap-3 w-full md:w-auto justify-center">
                             <i class="fa-solid fa-paper-plane"></i> <span>Submit Ticket</span>
                         </button>
@@ -443,32 +282,24 @@
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 2: TRACK TICKET                       -->
-        <!-- ========================================== -->
+        <!-- TRACK TICKET -->
         <div id="trackView" class="view-section max-w-5xl mx-auto">
             <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-2 p-8 md:p-10 mb-8 flex flex-col lg:flex-row gap-6 items-center justify-between transition-colors duration-300">
                 <div>
                     <h2 class="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-4">
-                        <div class="w-14 h-14 bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer text-m3-primary dark:text-m3-darkPrimary rounded-full flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-satellite-dish"></i></div>
-                        Track Status
+                        <div class="w-14 h-14 bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer text-m3-primary dark:text-m3-darkPrimary rounded-full flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-satellite-dish"></i></div> Track Status
                     </h2>
                     <p class="text-slate-500 dark:text-slate-400 mt-3 text-base font-medium">Enter your registered email to pull data from the live database.</p>
                 </div>
-                
                 <div class="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
                     <div class="relative min-w-[300px]">
                         <i class="fa-solid fa-envelope absolute left-5 top-1/2 transform -translate-y-1/2 text-slate-500 dark:text-slate-400"></i>
                         <input type="email" id="trackEmailInput" class="w-full pl-12 pr-5 py-4 bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow border border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh text-slate-900 dark:text-white rounded-full focus:outline-none focus:border-m3-primary dark:focus:border-m3-darkPrimary text-base font-medium transition-colors" placeholder="Your Email Address...">
                     </div>
-                    <button onclick="searchClientTickets()" class="bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer text-m3-onPrimaryContainer dark:text-m3-darkOnPrimaryContainer hover:bg-[#b5cffb] dark:hover:bg-[#0a53c8] font-bold px-8 py-4 rounded-full transition-all shadow-sm text-base">
-                        Search Logs
-                    </button>
+                    <button onclick="searchClientTickets()" class="bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer text-m3-onPrimaryContainer dark:text-m3-darkOnPrimaryContainer hover:bg-[#b5cffb] dark:hover:bg-[#0a53c8] font-bold px-8 py-4 rounded-full transition-all shadow-sm text-base">Search Logs</button>
                 </div>
             </div>
-            
             <div id="trackingResults" class="space-y-6">
-                <!-- Initial State -->
                 <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-sm border border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh p-10 text-center transition-colors duration-300">
                     <div class="text-slate-300 dark:text-slate-600 text-5xl mb-4"><i class="fa-solid fa-timeline"></i></div>
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200">Awaiting Search</h3>
@@ -477,128 +308,72 @@
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 3: KNOWLEDGE BASE                     -->
-        <!-- ========================================== -->
+        <!-- KNOWLEDGE BASE -->
         <div id="kbView" class="view-section max-w-5xl mx-auto">
             <div class="bg-m3-primary text-white rounded-[32px] p-10 mb-8 text-center shadow-m3-2 bg-gradient-to-br from-[#0b57d0] to-[#0842a0]">
                 <h2 class="text-3xl font-bold mb-3"><i class="fa-solid fa-book-open-reader mr-2"></i> Self-Service Knowledge Base</h2>
                 <p class="text-m3-primaryContainer text-lg max-w-2xl mx-auto">Find quick solutions to common IT issues regarding Microsoft 365, Network Security, and active directory systems.</p>
-                
                 <div class="mt-8 relative max-w-2xl mx-auto">
                     <i class="fa-solid fa-search absolute left-5 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
                     <input type="text" id="kbSearchInput" onkeyup="filterKB()" class="w-full pl-12 pr-5 py-4 bg-white text-slate-900 rounded-full focus:outline-none shadow-inner text-base font-medium" placeholder="Search for 'VPN', 'Password', 'Printer'...">
                 </div>
             </div>
-
             <div class="grid grid-cols-1 gap-4" id="kbContainer">
+                <!-- KB Items -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
-                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
-                        <span><i class="fa-brands fa-microsoft text-blue-500 mr-2"></i> How to reset my Microsoft 365 / Office 365 Password?</span>
-                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
-                    </button>
+                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)"><span><i class="fa-brands fa-microsoft text-blue-500 mr-2"></i> How to reset my Microsoft 365 Password?</span><i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i></button>
                     <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400">
-                        <ol class="list-decimal pl-5 space-y-2 mb-4">
-                            <li>Navigate to the Microsoft Online Password Reset portal: <code>passwordreset.microsoftonline.com</code>.</li>
-                            <li>Enter your corporate Spread Technical email address.</li>
-                            <li>Complete the CAPTCHA and select "Next".</li>
-                            <li>Choose your verification method (Authenticator App, SMS, or Alternate Email).</li>
-                            <li>Enter the code and create a new strong password.</li>
-                        </ol>
-                        <p class="text-sm bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 p-3 rounded-lg border border-blue-200 dark:border-blue-800/50"><strong>Note:</strong> Password must be at least 12 characters, include a number and special character. It may take up to 15 minutes to sync with local Active Directory.</p>
+                        <ol class="list-decimal pl-5 space-y-2 mb-4"><li>Navigate to <code>passwordreset.microsoftonline.com</code>.</li><li>Enter corporate email.</li><li>Follow MFA prompts to reset.</li></ol>
                     </div>
                 </div>
-
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden">
-                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)">
-                        <span><i class="fa-solid fa-shield-halved text-emerald-500 mr-2"></i> Cisco / Sophos VPN Connection Issues</span>
-                        <i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i>
-                    </button>
+                    <button class="w-full text-left px-6 py-5 flex justify-between items-center font-bold text-lg text-slate-800 dark:text-white" onclick="toggleKB(this)"><span><i class="fa-solid fa-shield-halved text-emerald-500 mr-2"></i> Cisco / Sophos VPN Issues</span><i class="fa-solid fa-chevron-down text-slate-400 kb-icon transition-transform duration-300"></i></button>
                     <div class="kb-item-content px-6 text-slate-600 dark:text-slate-400">
-                        <p class="mb-3">If you are unable to connect to the corporate VPN from outside the UAE office, verify the following:</p>
-                        <ul class="list-disc pl-5 space-y-2 mb-4">
-                            <li>Ensure you are connected to a stable internet connection.</li>
-                            <li>Open the Sophos Connect / Cisco AnyConnect client.</li>
-                            <li>Verify the gateway address is correct as per your onboarding documentation.</li>
-                            <li>If authentication fails, ensure your Multi-Factor Authentication (MFA) token is approved promptly.</li>
-                            <li>If it says "Certificate Validation Failure", please raise a ticket for IT to push the latest certificate via Group Policy.</li>
-                        </ul>
+                        <ul class="list-disc pl-5 space-y-2 mb-4"><li>Ensure internet is stable.</li><li>Verify gateway address.</li><li>Approve MFA prompt quickly.</li></ul>
                     </div>
                 </div>
             </div>
-            
             <div id="kbNoResults" class="hidden text-center p-10 bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm mt-4">
                 <i class="fa-solid fa-ghost text-4xl text-slate-300 dark:text-slate-600 mb-3"></i>
                 <h3 class="text-xl font-bold text-slate-700 dark:text-slate-300">No articles found</h3>
-                <p class="text-slate-500 mt-2">Try adjusting your search terms or raise a ticket.</p>
                 <button onclick="document.getElementById('kbSearchInput').value=''; filterKB();" class="mt-4 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-400">Clear Search</button>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 4: SYSTEM HEALTH                      -->
-        <!-- ========================================== -->
+        <!-- SYSTEM HEALTH -->
         <div id="healthView" class="view-section max-w-5xl mx-auto">
             <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-2 p-8 md:p-10 mb-8 transition-colors duration-300">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                     <div>
-                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
-                            <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-heart-pulse"></i></div>
-                            Network & Service Health
-                        </h2>
+                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3"><div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-heart-pulse"></i></div> Network & Service Health</h2>
                         <p class="text-slate-500 dark:text-slate-400 mt-2 font-medium">Live monitoring for Spread Technical UAE Datacenter & Cloud Services.</p>
                     </div>
-                    <div class="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50 px-4 py-2 rounded-lg flex items-center gap-2">
-                        <span class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
-                        <span class="text-sm font-bold text-emerald-700 dark:text-emerald-400">All Systems Operational</span>
-                    </div>
+                    <div class="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50 px-4 py-2 rounded-lg flex items-center gap-2"><span class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span><span class="text-sm font-bold text-emerald-700 dark:text-emerald-400">All Systems Operational</span></div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="healthServicesContainer"></div>
-
                 <div class="mt-8 p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
-                    <p><i class="fa-solid fa-clock-rotate-left mr-2"></i> Last updated: <span id="healthLastUpdate" class="font-bold">Just now</span>. Next automated ping in <span id="healthNextPing" class="font-mono text-m3-primary dark:text-m3-darkPrimary">60</span>s.</p>
+                    <p><i class="fa-solid fa-clock-rotate-left mr-2"></i> Last updated: <span id="healthLastUpdate" class="font-bold">Just now</span>. Next ping in <span id="healthNextPing" class="font-mono text-m3-primary dark:text-m3-darkPrimary">60</span>s.</p>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 5: STAFF LOGIN                        -->
-        <!-- ========================================== -->
+        <!-- STAFF LOGIN -->
         <div id="loginView" class="view-section max-w-md mx-auto mt-12">
             <div class="bg-white dark:bg-m3-darkSurface rounded-[32px] shadow-m3-3 overflow-hidden text-center p-10 transition-colors duration-300">
-                <div class="w-20 h-20 bg-m3-surfaceContainer dark:bg-m3-darkSurfaceContainer text-m3-primary dark:text-m3-darkPrimary rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner">
-                    <i class="fa-solid fa-fingerprint"></i>
-                </div>
+                <div class="w-20 h-20 bg-m3-surfaceContainer dark:bg-m3-darkSurfaceContainer text-m3-primary dark:text-m3-darkPrimary rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner"><i class="fa-solid fa-fingerprint"></i></div>
                 <h2 class="text-2xl font-bold text-slate-900 dark:text-white">IT Authentication</h2>
                 <p class="text-base text-slate-500 dark:text-slate-400 mt-2 mb-8 font-medium">Secure NOC Dashboard Access</p>
-                
                 <form onsubmit="handleITLogin(event)" class="space-y-6 text-left">
-                    <div class="m3-input-wrapper">
-                        <i class="fa-solid fa-envelope input-icon"></i>
-                        <input type="email" id="itUsername" required class="m3-input" placeholder=" ">
-                        <span class="m3-label">Staff Email</span>
-                    </div>
-                    <div class="m3-input-wrapper">
-                        <i class="fa-solid fa-lock input-icon"></i>
-                        <input type="password" id="itPassword" required class="m3-input" placeholder=" ">
-                        <span class="m3-label">Master Password</span>
-                    </div>
-                    <div class="flex justify-end">
-                        <button type="button" onclick="alert('Please contact IT Systems Administrator (Vaibhav Patel) to reset your master credentials.')" class="text-sm font-semibold text-m3-primary dark:text-m3-darkPrimary hover:underline">Forgot Password?</button>
-                    </div>
-                    <button type="submit" class="w-full bg-m3-primary dark:bg-m3-darkPrimary text-white dark:text-m3-darkOnPrimary font-bold text-lg py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all mt-4">
-                        Authenticate
-                    </button>
+                    <div class="m3-input-wrapper"><i class="fa-solid fa-envelope input-icon"></i><input type="email" id="itUsername" required class="m3-input" placeholder=" "><span class="m3-label">Staff Email</span></div>
+                    <div class="m3-input-wrapper"><i class="fa-solid fa-lock input-icon"></i><input type="password" id="itPassword" required class="m3-input" placeholder=" "><span class="m3-label">Master Password</span></div>
+                    <div class="flex justify-end"><button type="button" onclick="alert('Please contact IT Systems Administrator to reset credentials.')" class="text-sm font-semibold text-m3-primary dark:text-m3-darkPrimary hover:underline">Forgot Password?</button></div>
+                    <button type="submit" class="w-full bg-m3-primary dark:bg-m3-darkPrimary text-white dark:text-m3-darkOnPrimary font-bold text-lg py-4 rounded-full shadow-m3-1 hover:shadow-m3-2 transition-all mt-4">Authenticate</button>
                 </form>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 6: IT TEAM DASHBOARD                  -->
-        <!-- ========================================== -->
+        <!-- IT TEAM DASHBOARD -->
         <div id="dashboardView" class="view-section w-full max-w-[1600px] mx-auto">
-            
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                 <div class="kpi-card bg-white dark:bg-m3-darkSurface p-6 rounded-2xl shadow-m3-1 border border-slate-100 dark:border-slate-800 flex items-center justify-between transition-colors">
                     <div><p class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Tickets</p><h3 class="text-3xl font-black text-slate-800 dark:text-white mt-1" id="kpiTotal">0</h3></div>
@@ -622,23 +397,17 @@
                 <div class="bg-m3-surfaceContainerLow dark:bg-m3-darkSurfaceContainerLow p-6 lg:p-8 border-b border-m3-surfaceContainerHigh dark:border-m3-darkSurfaceContainerHigh flex flex-col xl:flex-row justify-between items-center gap-4 transition-colors">
                     <div class="flex items-center gap-5 w-full xl:w-auto">
                         <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full flex items-center justify-center text-2xl shadow-inner"><i class="fa-solid fa-sliders"></i></div>
-                        <div>
-                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">NOC Command Center</h2>
-                            <p class="text-base text-emerald-600 dark:text-emerald-400 font-bold mt-1"><i class="fa-solid fa-user-tie mr-1"></i> Admin: Vaibhav Patel</p>
-                        </div>
+                        <div><h2 class="text-2xl font-bold text-slate-900 dark:text-white">NOC Command Center</h2><p class="text-base text-emerald-600 dark:text-emerald-400 font-bold mt-1"><i class="fa-solid fa-user-tie mr-1"></i> Admin: Vaibhav Patel</p></div>
                     </div>
-                    
                     <div class="flex flex-wrap items-center gap-3 w-full xl:w-auto justify-end">
                         <div class="relative bg-white dark:bg-m3-darkSurface rounded-full border border-slate-200 dark:border-slate-700 px-3 py-1 flex items-center shadow-sm">
-                            <i class="fa-solid fa-search text-slate-400 ml-2"></i>
-                            <input type="text" id="dashSearch" onkeyup="filterDashboard()" class="bg-transparent border-none outline-none text-sm px-3 py-1 text-slate-700 dark:text-white w-40 focus:w-60 transition-all" placeholder="Search ID, Name...">
+                            <i class="fa-solid fa-search text-slate-400 ml-2"></i><input type="text" id="dashSearch" onkeyup="filterDashboard()" class="bg-transparent border-none outline-none text-sm px-3 py-1 text-slate-700 dark:text-white w-40 focus:w-60 transition-all" placeholder="Search ID, Name...">
                         </div>
                         <select id="dashStatusFilter" onchange="filterDashboard()" class="bg-white dark:bg-m3-darkSurface border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-white rounded-full px-4 py-2 text-sm font-semibold shadow-sm outline-none">
                             <option value="All">All Statuses</option><option value="Monitoring">Monitoring</option><option value="Assigned">Assigned</option><option value="Working">Working</option><option value="Resolved">Resolved</option>
                         </select>
                         <button onclick="exportToCSV()" class="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition shadow-sm flex items-center gap-2"><i class="fa-solid fa-file-csv"></i> Export</button>
-                        <button onclick="fetchTicketsForDashboard()" class="bg-white dark:bg-m3-darkSurface border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm" title="Refresh Data"><i class="fa-solid fa-rotate-right"></i></button>
-                        <button onclick="toggleFullscreen()" class="bg-white dark:bg-m3-darkSurface border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm hidden md:flex items-center gap-2"><i class="fa-solid fa-expand"></i> Fullscreen</button>
+                        <button onclick="fetchTicketsForDashboard()" class="bg-white dark:bg-m3-darkSurface border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm"><i class="fa-solid fa-rotate-right"></i></button>
                         <button onclick="logoutDashboard()" class="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-700 transition shadow-sm">Sign Out</button>
                     </div>
                 </div>
@@ -693,7 +462,7 @@
     <script>
         // === CONFIGURATION ===
         const DB_CONFIG = {
-            useDatabase: true, // Database is ACTIVE
+            useDatabase: true, 
             apiUrl: "https://script.google.com/macros/s/AKfycby5BAy5xGwTsJ3iMYd7zF1CXLHBl1tI8h23BxSZXmf88JO9oEe4zvgdpeRldNKW8oI/exec" 
         };
 
@@ -817,7 +586,7 @@
             container.appendChild(div); container.scrollTop = container.scrollHeight;
         }
 
-        // TICKET LOGIC & PHONE MERGING
+        // TICKET SUBMISSION
         async function getNextTicketId() {
             let nextId = 1000001;
             try {
@@ -846,24 +615,17 @@
             const phoneNumber = document.getElementById('phone_number').value.trim();
             const fullPhone = `${countryCode} ${phoneNumber}`;
 
-            // --- FILE UPLOAD HANDLER ---
             const fileInput = document.querySelector('input[type="file"][name="attachment"]');
             let fileData = null, fileName = null, fileMimeType = null;
             
             if (fileInput && fileInput.files.length > 0) {
                 const file = fileInput.files[0];
-                
-                // Optional: Stop files larger than 5MB to prevent freezing
                 if(file.size > 5 * 1024 * 1024) {
                     alert("File is too large! Please select a file under 5MB.");
                     submitBtn.innerHTML = originalBtnHtml; submitBtn.disabled = false;
                     return;
                 }
-                
-                fileName = file.name;
-                fileMimeType = file.type;
-                
-                // Convert file to Base64
+                fileName = file.name; fileMimeType = file.type;
                 fileData = await new Promise((resolve) => {
                     const reader = new FileReader();
                     reader.onloadend = () => resolve(reader.result.split(',')[1]);
@@ -872,22 +634,12 @@
             }
             
             const ticketData = {
-                id: generatedId,
-                name: document.getElementById('name').value,
-                company: document.getElementById('company').value,
-                phone: fullPhone, 
-                email: userEmail,
-                device: document.getElementById('deviceType').value,
-                asset: document.getElementById('assetTag').value || 'N/A',
-                priority: document.getElementById('priority').value,
-                subject: document.getElementById('ticketSubject').value,
-                description: document.getElementById('message').value,
-                date: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }),
-                status: "Monitoring",
-                // Attach the encoded file data
-                fileData: fileData,
-                fileName: fileName,
-                fileMimeType: fileMimeType
+                id: generatedId, name: document.getElementById('name').value, company: document.getElementById('company').value,
+                phone: fullPhone, email: userEmail, device: document.getElementById('deviceType').value,
+                asset: document.getElementById('assetTag').value || 'N/A', priority: document.getElementById('priority').value,
+                subject: document.getElementById('ticketSubject').value, description: document.getElementById('message').value,
+                date: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }), status: "Monitoring",
+                fileData: fileData, fileName: fileName, fileMimeType: fileMimeType
             };
 
             try {
@@ -957,10 +709,8 @@
                             
                             ${t.device ? `<div class="mt-2 text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-500 px-2 py-1 inline-block rounded">Dev: ${t.device} | Asset: ${t.asset||'N/A'}</div>`:''}
                             
-                            <!-- Display Attachment Link if it exists -->
                             ${t.attachment && t.attachment !== "No Attachment" && !t.attachment.includes("Error") ? `<div class="mt-2"><a href="${t.attachment}" target="_blank" class="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline"><i class="fa-solid fa-paperclip"></i> View Attached File</a></div>` : ''}
                             
-                            <!-- Display Resolution Description if it is resolved -->
                             ${t.resolve_description ? `<div class="mt-3 p-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50 rounded-lg text-emerald-800 dark:text-emerald-300 text-xs"><strong class="block mb-1"><i class="fa-solid fa-wrench"></i> Resolution Notes:</strong>${t.resolve_description}</div>` : ''}
                         </td>
                         <td class="p-5"><span class="px-3 py-1.5 rounded-full text-xs font-bold border shadow-sm ${badge}">${t.priority}</span></td>
@@ -968,7 +718,6 @@
                             ${selectHTML}
                             <span class="text-[10px] block mt-2 text-slate-400 update-msg hidden">Saved ✅</span>
                             
-                            <!-- NEW: Inline Resolution Textbox (Hidden by default) -->
                             <div id="resolve-box-${t.id}" class="mt-3 hidden text-left animate-slide-up w-full max-w-[180px] mx-auto">
                                 <textarea id="resolve-text-${t.id}" class="w-full text-xs p-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-slate-50 dark:bg-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-emerald-500 transition-all resize-none shadow-inner" rows="3" placeholder="How was this fixed?"></textarea>
                                 <button onclick="submitResolution('${t.id}', this)" class="mt-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 rounded-full transition-colors shadow-sm"><i class="fa-solid fa-check mr-1"></i> Save Note</button>
@@ -982,112 +731,51 @@
             const resolveBox = document.getElementById(`resolve-box-${ticketId}`);
             const msgSpan = selectElement.nextElementSibling; 
             
-            // If they select "Resolved", show the textbox and STOP (Wait for them to type and save)
-            if (newStatus === "Resolved") {
-                resolveBox.classList.remove('hidden');
-                msgSpan.classList.add('hidden');
-                return; 
-            }
-            
-            // If they change to anything else, hide the box and immediately save the status
+            if (newStatus === "Resolved") { resolveBox.classList.remove('hidden'); msgSpan.classList.add('hidden'); return; }
             if (resolveBox) resolveBox.classList.add('hidden');
 
-            msgSpan.classList.remove('hidden'); 
-            msgSpan.innerText = "Syncing..."; 
-            msgSpan.className = "text-[10px] block mt-2 text-amber-500 update-msg font-bold animate-pulse";
+            msgSpan.classList.remove('hidden'); msgSpan.innerText = "Syncing..."; msgSpan.className = "text-[10px] block mt-2 text-amber-500 update-msg font-bold animate-pulse";
             
             const payload = { action: "update", id: ticketId, status: newStatus };
 
             if (DB_CONFIG.useDatabase) {
                 try { 
                     await fetch(DB_CONFIG.apiUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
-                    msgSpan.innerText = "Saved to Sheet ✅"; 
-                    msgSpan.className = "text-[10px] block mt-2 text-emerald-500 update-msg font-bold"; 
-                } catch(err) { 
-                    msgSpan.innerText = "Error Saving ❌"; 
-                    msgSpan.className = "text-[10px] block mt-2 text-rose-500 update-msg font-bold"; 
-                }
+                    msgSpan.innerText = "Saved to Sheet ✅"; msgSpan.className = "text-[10px] block mt-2 text-emerald-500 update-msg font-bold"; 
+                } catch(err) { msgSpan.innerText = "Error Saving ❌"; msgSpan.className = "text-[10px] block mt-2 text-rose-500 update-msg font-bold"; }
             } else {
-                let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; 
-                let index = tickets.findIndex(t => t.id === ticketId);
-                if(index !== -1) { 
-                    tickets[index].status = newStatus; 
-                    localStorage.setItem('spread_tickets', JSON.stringify(tickets)); 
-                    msgSpan.innerText = "Saved Locally ✅"; 
-                    msgSpan.className = "text-[10px] block mt-2 text-emerald-500 update-msg font-bold"; 
-                }
+                let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; let index = tickets.findIndex(t => t.id === ticketId);
+                if(index !== -1) { tickets[index].status = newStatus; localStorage.setItem('spread_tickets', JSON.stringify(tickets)); msgSpan.innerText = "Saved Locally ✅"; msgSpan.className = "text-[10px] block mt-2 text-emerald-500 update-msg font-bold"; }
             }
-            
-            let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId); 
-            if(cachedIndex !== -1) cachedDashboardTickets[cachedIndex].status = newStatus;
-            
-            renderKPIs(cachedDashboardTickets);
-            setTimeout(() => { msgSpan.classList.add('hidden'); }, 3000);
+            let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId); if(cachedIndex !== -1) cachedDashboardTickets[cachedIndex].status = newStatus;
+            renderKPIs(cachedDashboardTickets); setTimeout(() => { msgSpan.classList.add('hidden'); }, 3000);
         }
 
-        // NEW: Function triggered when IT Admin clicks "Save Note" inside the row
         async function submitResolution(ticketId, btnElement) {
             const textArea = document.getElementById(`resolve-text-${ticketId}`);
             const resolutionNotes = textArea.value.trim();
-            
-            if(!resolutionNotes) {
-                alert("Please enter how the ticket was resolved before saving.");
-                textArea.focus();
-                return;
-            }
+            if(!resolutionNotes) { alert("Please enter how the ticket was resolved before saving."); textArea.focus(); return; }
 
-            const originalBtnHtml = btnElement.innerHTML;
-            btnElement.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...';
-            btnElement.disabled = true;
-
+            const originalBtnHtml = btnElement.innerHTML; btnElement.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...'; btnElement.disabled = true;
             const payload = { action: "update", id: ticketId, status: "Resolved", resolve_description: resolutionNotes };
 
             if (DB_CONFIG.useDatabase) {
-                try { 
-                    await fetch(DB_CONFIG.apiUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
-                } catch(err) { 
-                    alert("Error saving resolution to database.");
-                    btnElement.innerHTML = originalBtnHtml;
-                    btnElement.disabled = false;
-                    return;
-                }
+                try { await fetch(DB_CONFIG.apiUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }); } 
+                catch(err) { alert("Error saving resolution to database."); btnElement.innerHTML = originalBtnHtml; btnElement.disabled = false; return; }
             } else {
-                let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; 
-                let index = tickets.findIndex(t => t.id === ticketId);
-                if(index !== -1) { 
-                    tickets[index].status = "Resolved";
-                    tickets[index].resolve_description = resolutionNotes;
-                    localStorage.setItem('spread_tickets', JSON.stringify(tickets)); 
-                }
+                let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; let index = tickets.findIndex(t => t.id === ticketId);
+                if(index !== -1) { tickets[index].status = "Resolved"; tickets[index].resolve_description = resolutionNotes; localStorage.setItem('spread_tickets', JSON.stringify(tickets)); }
             }
 
-            // Instantly update local UI
             let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId); 
-            if(cachedIndex !== -1) {
-                cachedDashboardTickets[cachedIndex].status = "Resolved";
-                cachedDashboardTickets[cachedIndex].resolve_description = resolutionNotes;
-            }
-            
-            renderKPIs(cachedDashboardTickets);
-            filterDashboard(); // Refreshes table to hide textbox and show the green note
+            if(cachedIndex !== -1) { cachedDashboardTickets[cachedIndex].status = "Resolved"; cachedDashboardTickets[cachedIndex].resolve_description = resolutionNotes; }
+            renderKPIs(cachedDashboardTickets); filterDashboard(); 
         }
-            
-            // Instantly update the local view so you can read the notes without refreshing
-            let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId); 
-            if(cachedIndex !== -1) {
-                cachedDashboardTickets[cachedIndex].status = newStatus;
-                if (newStatus === "Resolved") cachedDashboardTickets[cachedIndex].resolve_description = resolutionNotes;
-            }
-            renderKPIs(cachedDashboardTickets);
-            filterDashboard(); // Re-render table to show the notes
-            
-            setTimeout(() => { msgSpan.classList.add('hidden'); }, 3000);
-        }
-        
+
         function exportToCSV() {
             if(cachedDashboardTickets.length === 0) return;
-            let csvContent = "data:text/csv;charset=utf-8,ID,Date,Name,Company,Email,Phone,Device,Asset Tag,Priority,Subject,Status\n";
-            cachedDashboardTickets.forEach(t => { csvContent += `"${t.id}","${t.date}","${t.name}","${t.company}","${t.email}","${t.phone}","${t.device||''}","${t.asset||''}","${t.priority}","${t.subject}","${t.status||'Monitoring'}"\n`; });
+            let csvContent = "data:text/csv;charset=utf-8,ID,Date,Name,Company,Email,Phone,Device,Asset Tag,Priority,Subject,Status,Resolution\n";
+            cachedDashboardTickets.forEach(t => { csvContent += `"${t.id}","${t.date}","${t.name}","${t.company}","${t.email}","${t.phone}","${t.device||''}","${t.asset||''}","${t.priority}","${t.subject}","${t.status||'Monitoring'}","${t.resolve_description||''}"\n`; });
             const link = document.createElement("a"); link.setAttribute("href", encodeURI(csvContent)); link.setAttribute("download", `Tickets.csv`); document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
@@ -1112,6 +800,7 @@
                         <div class="flex justify-between items-center mb-6 border-b border-slate-100 dark:border-slate-800 pb-6">
                             <div><div class="flex items-center gap-3 mb-2"><span class="text-sm font-mono font-bold text-m3-primary dark:text-m3-darkPrimary bg-m3-primaryContainer dark:bg-m3-darkPrimaryContainer px-3 py-1 rounded-md">${t.id}</span>${badge}</div><h3 class="text-2xl font-bold dark:text-white">${t.subject}</h3><p class="text-sm text-slate-500 mt-1">Logged on ${t.date}</p></div>
                         </div>
+                        ${t.resolve_description ? `<div class="mb-6 p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50 rounded-xl text-emerald-800 dark:text-emerald-300 text-sm"><strong class="block mb-1"><i class="fa-solid fa-wrench"></i> Resolution Details from IT:</strong>${t.resolve_description}</div>` : ''}
                         ${getProgressBarHTML(t.status || 'Monitoring')}
                     </div>`;
             });
