@@ -613,7 +613,9 @@
             
             const countryCode = document.getElementById('countryCode').value;
             const phoneNumber = document.getElementById('phone_number').value.trim();
-            const fullPhone = `${countryCode} ${phoneNumber}`;
+
+            // Wrap the country code in parentheses to prevent Google Sheets from reading the "+" as a math formula
+            const fullPhone = `(${countryCode}) ${phoneNumber}`;
 
             const fileInput = document.querySelector('input[type="file"][name="attachment"]');
             let fileData = null, fileName = null, fileMimeType = null;
