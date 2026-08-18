@@ -103,7 +103,7 @@
         <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
             
             <!-- Brand Logo -->
-            <div class="flex items-center gap-4 cursor-pointer" onclick="switchView('portal')">
+            <div class="flex items-center gap-4 cursor-pointer" onclick="switchView('home')">
                 <div class="w-10 h-10 bg-m3-primary text-white rounded flex items-center justify-center text-xl shadow-sm">
                     <i class="fa-solid fa-layer-group"></i>
                 </div>
@@ -115,7 +115,10 @@
 
             <!-- Main Desktop Navigation -->
             <div class="hidden lg:flex items-center gap-2">
-                <button onclick="switchView('portal')" id="nav-portal" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 bg-m3-primaryContainer text-m3-primary flex items-center gap-2">
+                <button onclick="switchView('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 bg-m3-primaryContainer text-m3-primary flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-house"></i> Home
+                </button>
+                <button onclick="switchView('portal')" id="nav-portal" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
                     <i class="fa-solid fa-ticket-simple"></i> Service Request
                 </button>
                 <button onclick="switchView('track')" id="nav-track" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
@@ -151,6 +154,7 @@
                 <button onclick="toggleMobileMenu()" class="text-slate-500 text-2xl"><i class="fa-solid fa-times"></i></button>
             </div>
             <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Navigation</p>
+            <button onclick="switchView('home'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-house w-6 text-m3-primary"></i> Home</button>
             <button onclick="switchView('portal'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-ticket-simple w-6 text-m3-primary"></i> Service Request</button>
             <button onclick="switchView('track'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-radar w-6 text-m3-primary"></i> Incident Tracking</button>
             <button onclick="switchView('kb'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-book-bookmark w-6 text-m3-primary"></i> Knowledge Base</button>
@@ -160,7 +164,7 @@
         </div>
     </div>
 
-    <!-- Enterprise Hero Section -->
+    <!-- Enterprise Hero Section (Visible only on Home) -->
     <div id="heroBanner" class="bg-slate-900 relative overflow-hidden transition-colors duration-500 border-b border-slate-800">
         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 20px 20px;"></div>
         <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-blue-900/40 to-transparent"></div>
@@ -173,12 +177,12 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 animate-slide-up">
-                <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-6 rounded-xl shadow-lg">
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-6 rounded-xl shadow-lg cursor-pointer hover:border-blue-500 transition-colors" onclick="switchView('portal')">
                     <i class="fa-solid fa-stopwatch text-2xl text-blue-400 mb-3"></i>
                     <h3 class="text-white font-bold text-lg">15-Min Response SLA</h3>
                     <p class="text-slate-400 text-sm mt-1">Guaranteed initial response time for all High-Priority infrastructure incidents.</p>
                 </div>
-                <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-6 rounded-xl shadow-lg">
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-6 rounded-xl shadow-lg cursor-pointer hover:border-emerald-500 transition-colors" onclick="switchView('health')">
                     <i class="fa-solid fa-network-wired text-2xl text-emerald-400 mb-3"></i>
                     <h3 class="text-white font-bold text-lg">24/7 Monitoring</h3>
                     <p class="text-slate-400 text-sm mt-1">Proactive tracking of endpoint health, firewalls, and cloud service uptime.</p>
@@ -192,7 +196,7 @@
         </div>
     </div>
 
-    <!-- Supported Infrastructure Banner -->
+    <!-- Supported Infrastructure Banner (Visible only on Home) -->
     <div id="techBanner" class="bg-white dark:bg-m3-darkSurfaceContainerLow border-b border-slate-200 dark:border-slate-800 py-4 shadow-sm z-10 relative">
         <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-center md:justify-between gap-4">
             <p class="text-xs font-bold text-slate-500 uppercase tracking-widest text-center md:text-left">Core Supported Infrastructure</p>
@@ -210,9 +214,32 @@
     <main class="flex-grow max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative z-10">
         
         <!-- ========================================== -->
+        <!-- VIEW 0: HOME / LANDING                     -->
+        <!-- ========================================== -->
+        <div id="homeView" class="view-section active max-w-4xl mx-auto mt-4">
+            <div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-10 text-center">
+                <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-6">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mb-3">Welcome to the Support Portal</h2>
+                <p class="text-slate-500 dark:text-slate-400 max-w-xl mx-auto mb-8 text-sm leading-relaxed">
+                    Use the navigation menu above to access our service catalog. For immediate assistance with endpoint, network, or cloud infrastructure issues, please generate a new service request.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="switchView('portal')" class="bg-m3-primary text-white font-bold text-sm px-8 py-3.5 rounded-lg shadow hover:bg-blue-800 transition flex items-center justify-center gap-2 uppercase tracking-wide">
+                        <i class="fa-solid fa-ticket-simple"></i> Raise Service Request
+                    </button>
+                    <button onclick="switchView('track')" class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm px-8 py-3.5 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2 uppercase tracking-wide">
+                        <i class="fa-solid fa-radar"></i> Track Existing Ticket
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
         <!-- VIEW 1: RAISE TICKET (PORTAL)              -->
         <!-- ========================================== -->
-        <div id="portalView" class="view-section active max-w-4xl mx-auto">
+        <div id="portalView" class="view-section max-w-4xl mx-auto">
             <div class="mb-6 flex justify-between items-end">
                 <div>
                     <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Submit Service Request</h2>
@@ -419,7 +446,6 @@
                     </div>
                 </div>
 
-                <!-- NEW KB ARTICLE 1 -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
                     <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
                         <span><i class="fa-solid fa-print text-slate-600 dark:text-slate-400 mr-3"></i> Mapping a Corporate Network Printer</span>
@@ -438,7 +464,6 @@
                     </div>
                 </div>
 
-                <!-- NEW KB ARTICLE 2 -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
                     <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
                         <span><i class="fa-solid fa-envelope-open-text text-amber-600 mr-3"></i> Accessing a Shared Mailbox (Outlook / M365)</span>
@@ -454,7 +479,6 @@
                     </div>
                 </div>
 
-                <!-- NEW KB ARTICLE 3 -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
                     <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
                         <span><i class="fa-solid fa-cloud-arrow-up text-cyan-600 mr-3"></i> OneDrive / SharePoint Syncing Errors</span>
@@ -471,7 +495,6 @@
                     </div>
                 </div>
 
-                <!-- NEW KB ARTICLE 4 -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
                     <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
                         <span><i class="fa-solid fa-lock text-rose-600 mr-3"></i> BitLocker Recovery / Locked out of Endpoint</span>
@@ -538,6 +561,8 @@
         <!-- VIEW 6: IT TEAM DASHBOARD                  -->
         <!-- ========================================== -->
         <div id="dashboardView" class="view-section w-full max-w-[1600px] mx-auto">
+            
+            <!-- Dashboard KPIs -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div class="bg-white dark:bg-m3-darkSurface p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between">
                     <div><p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Incidents</p><h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1" id="kpiTotal">0</h3></div>
@@ -558,11 +583,13 @@
             </div>
 
             <div class="bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <!-- Toolbar -->
                 <div class="bg-slate-50 dark:bg-slate-800/50 p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col lg:flex-row justify-between items-center gap-4">
                     <div class="flex items-center gap-3">
                         <div class="w-8 h-8 bg-slate-800 text-white rounded flex items-center justify-center shadow-inner"><i class="fa-solid fa-terminal"></i></div>
                         <h2 class="text-lg font-bold text-slate-900 dark:text-white">Active Queue <span class="text-xs font-normal text-slate-500 ml-2">Admin: Vaibhav Patel</span></h2>
                     </div>
+                    
                     <div class="flex flex-wrap items-center gap-2">
                         <div class="relative">
                             <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-xs"></i>
@@ -577,6 +604,7 @@
                     </div>
                 </div>
 
+                <!-- Table -->
                 <div class="overflow-x-auto min-h-[500px]">
                     <table class="w-full text-left border-collapse min-w-[1100px]" id="dashboardTable">
                         <thead>
@@ -673,11 +701,27 @@
         }
 
         function switchView(viewName) {
-            const views = document.querySelectorAll('.view-section'); const btns = document.querySelectorAll('.nav-btn'); const hero = document.getElementById('heroBanner'); const tech = document.getElementById('techBanner');
-            if(viewName === 'portal') { hero.style.display = 'block'; tech.style.display = 'block'; } else { hero.style.display = 'none'; tech.style.display = 'none';}
+            const views = document.querySelectorAll('.view-section'); 
+            const btns = document.querySelectorAll('.nav-btn'); 
+            const hero = document.getElementById('heroBanner'); 
+            const tech = document.getElementById('techBanner');
             
-            views.forEach(v => { v.classList.remove('active'); setTimeout(() => { if(!v.classList.contains('active')) v.style.display = 'none'; }, 300); });
-            btns.forEach(b => { b.className = "nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"; });
+            if(viewName === 'home') { 
+                hero.style.display = 'block'; 
+                tech.style.display = 'block'; 
+            } else { 
+                hero.style.display = 'none'; 
+                tech.style.display = 'none';
+            }
+            
+            views.forEach(v => { 
+                v.classList.remove('active'); 
+                setTimeout(() => { if(!v.classList.contains('active')) v.style.display = 'none'; }, 300); 
+            });
+            
+            btns.forEach(b => { 
+                b.className = "nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"; 
+            });
 
             setTimeout(() => {
                 let targetView = viewName + 'View';
@@ -861,7 +905,7 @@
                 let badge = t.priority === 'High' ? 'text-rose-700 bg-rose-100 border-rose-200 dark:bg-rose-900/50 dark:text-rose-400 dark:border-rose-800' : (t.priority === 'Medium' ? 'text-amber-700 bg-amber-100 border-amber-200 dark:bg-amber-900/50 dark:text-amber-400 dark:border-amber-800' : 'text-emerald-700 bg-emerald-100 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-400 dark:border-emerald-800');
                 
                 tbody.innerHTML += `
-                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                    <tr class="hover:bg-slate-50 dark:bg-m3-darkSurface dark:hover:bg-slate-800/30 transition-colors">
                         <td class="px-4 py-4 align-top"><div class="font-bold text-m3-primary text-xs tracking-wider">${t.id}</div><div class="text-[10px] text-slate-400 font-bold mt-1 uppercase">${t.date}</div></td>
                         <td class="px-4 py-4 align-top"><div class="font-bold text-slate-800 dark:text-white">${t.company}</div><div class="text-xs text-slate-500 dark:text-slate-400 mt-1"><i class="fa-solid fa-user text-[10px] mr-1 w-3"></i> ${t.name}</div><div class="text-[10px] text-slate-400 mt-0.5"><i class="fa-solid fa-phone text-[10px] mr-1 w-3"></i> ${t.phone}</div></td>
                         <td class="px-4 py-4 align-top">
