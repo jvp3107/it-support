@@ -964,35 +964,39 @@
                             ${t.resolve_description ? `<div class="mt-3 p-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50 rounded-lg text-emerald-800 dark:text-emerald-300 text-xs"><strong class="block mb-1"><i class="fa-solid fa-wrench"></i> Resolution Notes:</strong>${t.resolve_description}</div>` : ''}
                         </td>
                         <td class="p-5"><span class="px-3 py-1.5 rounded-full text-xs font-bold border shadow-sm ${badge}">${t.priority}</span></td>
-                        <td class="p-5 text-center">${selectHTML}<span class="text-[10px] block mt-2 text-slate-400 update-msg hidden">Saved ✅</span></td>
+                        <td class="p-5 text-center align-top">
+                            ${selectHTML}
+                            <span class="text-[10px] block mt-2 text-slate-400 update-msg hidden">Saved ✅</span>
+                            
+                            <!-- NEW: Inline Resolution Textbox (Hidden by default) -->
+                            <div id="resolve-box-${t.id}" class="mt-3 hidden text-left animate-slide-up w-full max-w-[180px] mx-auto">
+                                <textarea id="resolve-text-${t.id}" class="w-full text-xs p-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-slate-50 dark:bg-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-emerald-500 transition-all resize-none shadow-inner" rows="3" placeholder="How was this fixed?"></textarea>
+                                <button onclick="submitResolution('${t.id}', this)" class="mt-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 rounded-full transition-colors shadow-sm"><i class="fa-solid fa-check mr-1"></i> Save Note</button>
+                            </div>
+                        </td>
                     </tr>`;
             });
         }
 
         async function updateTicketStatus(ticketId, newStatus, selectElement) {
-            let resolutionNotes = "";
-            
-            // Pop-up prompt if the IT Admin selects "Resolved"
-            if (newStatus === "Resolved") {
-                resolutionNotes = prompt("Please enter the resolution details for this ticket:\n(This will be saved to the database)");
-                
-                // If they click Cancel on the prompt, revert the dropdown
-                if (resolutionNotes === null) {
-                    let currentTicket = cachedDashboardTickets.find(t => t.id === ticketId);
-                    selectElement.value = currentTicket.status || "Monitoring";
-                    return; 
-                }
-            }
-
+            const resolveBox = document.getElementById(`resolve-box-${ticketId}`);
             const msgSpan = selectElement.nextElementSibling; 
+            
+            // If they select "Resolved", show the textbox and STOP (Wait for them to type and save)
+            if (newStatus === "Resolved") {
+                resolveBox.classList.remove('hidden');
+                msgSpan.classList.add('hidden');
+                return; 
+            }
+            
+            // If they change to anything else, hide the box and immediately save the status
+            if (resolveBox) resolveBox.classList.add('hidden');
+
             msgSpan.classList.remove('hidden'); 
             msgSpan.innerText = "Syncing..."; 
             msgSpan.className = "text-[10px] block mt-2 text-amber-500 update-msg font-bold animate-pulse";
             
             const payload = { action: "update", id: ticketId, status: newStatus };
-            if (newStatus === "Resolved") {
-                payload.resolve_description = resolutionNotes;
-            }
 
             if (DB_CONFIG.useDatabase) {
                 try { 
@@ -1008,12 +1012,65 @@
                 let index = tickets.findIndex(t => t.id === ticketId);
                 if(index !== -1) { 
                     tickets[index].status = newStatus; 
-                    if (newStatus === "Resolved") tickets[index].resolve_description = resolutionNotes;
                     localStorage.setItem('spread_tickets', JSON.stringify(tickets)); 
                     msgSpan.innerText = "Saved Locally ✅"; 
                     msgSpan.className = "text-[10px] block mt-2 text-emerald-500 update-msg font-bold"; 
                 }
             }
+            
+            let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId); 
+            if(cachedIndex !== -1) cachedDashboardTickets[cachedIndex].status = newStatus;
+            
+            renderKPIs(cachedDashboardTickets);
+            setTimeout(() => { msgSpan.classList.add('hidden'); }, 3000);
+        }
+
+        // NEW: Function triggered when IT Admin clicks "Save Note" inside the row
+        async function submitResolution(ticketId, btnElement) {
+            const textArea = document.getElementById(`resolve-text-${ticketId}`);
+            const resolutionNotes = textArea.value.trim();
+            
+            if(!resolutionNotes) {
+                alert("Please enter how the ticket was resolved before saving.");
+                textArea.focus();
+                return;
+            }
+
+            const originalBtnHtml = btnElement.innerHTML;
+            btnElement.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...';
+            btnElement.disabled = true;
+
+            const payload = { action: "update", id: ticketId, status: "Resolved", resolve_description: resolutionNotes };
+
+            if (DB_CONFIG.useDatabase) {
+                try { 
+                    await fetch(DB_CONFIG.apiUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+                } catch(err) { 
+                    alert("Error saving resolution to database.");
+                    btnElement.innerHTML = originalBtnHtml;
+                    btnElement.disabled = false;
+                    return;
+                }
+            } else {
+                let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; 
+                let index = tickets.findIndex(t => t.id === ticketId);
+                if(index !== -1) { 
+                    tickets[index].status = "Resolved";
+                    tickets[index].resolve_description = resolutionNotes;
+                    localStorage.setItem('spread_tickets', JSON.stringify(tickets)); 
+                }
+            }
+
+            // Instantly update local UI
+            let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId); 
+            if(cachedIndex !== -1) {
+                cachedDashboardTickets[cachedIndex].status = "Resolved";
+                cachedDashboardTickets[cachedIndex].resolve_description = resolutionNotes;
+            }
+            
+            renderKPIs(cachedDashboardTickets);
+            filterDashboard(); // Refreshes table to hide textbox and show the green note
+        }
             
             // Instantly update the local view so you can read the notes without refreshing
             let cachedIndex = cachedDashboardTickets.findIndex(t => t.id === ticketId); 
