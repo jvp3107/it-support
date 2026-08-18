@@ -979,16 +979,35 @@
 
         // CLIENT TRACKING LOGIC
         async function searchClientTickets() {
-            const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase(); const container = document.getElementById('trackingResults');
-            container.innerHTML = `<div class="text-center p-12"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i></div>`; if (!queryEmail) return;
+            const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase(); 
+            const container = document.getElementById('trackingResults');
+            
+            container.innerHTML = `<div class="text-center p-12"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i></div>`; 
+            if (!queryEmail) return;
+            
             let tickets = [];
             if (DB_CONFIG.useDatabase) {
-                try { const res = await fetch(DB_CONFIG.apiUrl); tickets = await res.json(); } 
-                catch (err) { container.innerHTML = `<p class="text-center text-rose-500 font-bold">API Offline</p>`; return; }
-            } else { tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; }
+                try { 
+                    const res = await fetch(DB_CONFIG.apiUrl); 
+                    tickets = await res.json(); 
+                    
+                    // NEW: Reverse the array so the most recently submitted tickets show up first
+                    tickets.reverse(); 
+                } 
+                catch (err) { 
+                    container.innerHTML = `<p class="text-center text-rose-500 font-bold">API Offline</p>`; 
+                    return; 
+                }
+            } else { 
+                tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; 
+            }
 
             const filtered = tickets.filter(t => t.email.trim().toLowerCase() === queryEmail);
-            if (filtered.length === 0) { container.innerHTML = `<div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-12 text-center"><h3 class="text-lg font-bold">No active records found.</h3></div>`; return; }
+            
+            if (filtered.length === 0) { 
+                container.innerHTML = `<div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-12 text-center"><h3 class="text-lg font-bold">No active records found.</h3></div>`; 
+                return; 
+            }
 
             container.innerHTML = '';
             filtered.forEach(t => {
@@ -996,7 +1015,65 @@
                 container.innerHTML += `
                     <div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 mb-4">
                         <div class="flex justify-between items-start mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
-                            <div><div class="flex items-center gap-3 mb-2"><span class="text-xs font-mono font-bold text-m3-primary bg-m3-primaryContainer px-2 py-1 rounded">${t.id}</span>${badge}</div><h3 class="text-xl font-bold text-slate-800 dark:text-white">${t.subject}</h3><p class="text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Logged: ${t.date}</p></div>
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="text-xs font-mono font-bold text-m3-primary bg-m3-primaryContainer px-2 py-1 rounded">${t.id}</span>${badge}
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800 dark:text-white">${t.subject}</h3>
+                                <p class="text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Logged: ${t.date}</p>
+                            </div>
+                        </div>
+                        ${t.resolve_description ? `<div class="mb-6 p-4 bg-slate-50 dark:bg-slate-800/50 border-l-4 border-emerald-500 rounded-r-lg text-slate-700 dark:text-slate-300 text-sm"><strong class="block mb-1 text-emerald-600 dark:text-emerald-400 uppercase text-xs tracking-wider">IT Resolution (RCA):</strong>${t.resolve_description}</div>` : ''}
+                        ${getProgressBarHTML(t.status || 'Monitoring')}
+                    </div>`;
+            });
+        }
+        
+        // CLIENT TRACKING LOGIC
+        async function searchClientTickets() {
+            const queryEmail = document.getElementById('trackEmailInput').value.trim().toLowerCase(); 
+            const container = document.getElementById('trackingResults');
+            
+            container.innerHTML = `<div class="text-center p-12"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-m3-primary mb-4"></i></div>`; 
+            if (!queryEmail) return;
+            
+            let tickets = [];
+            if (DB_CONFIG.useDatabase) {
+                try { 
+                    const res = await fetch(DB_CONFIG.apiUrl); 
+                    tickets = await res.json(); 
+                    
+                    // NEW: Reverse the array so the most recently submitted tickets show up first
+                    tickets.reverse(); 
+                } 
+                catch (err) { 
+                    container.innerHTML = `<p class="text-center text-rose-500 font-bold">API Offline</p>`; 
+                    return; 
+                }
+            } else { 
+                tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; 
+            }
+
+            const filtered = tickets.filter(t => t.email.trim().toLowerCase() === queryEmail);
+            
+            if (filtered.length === 0) { 
+                container.innerHTML = `<div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-12 text-center"><h3 class="text-lg font-bold">No active records found.</h3></div>`; 
+                return; 
+            }
+
+            container.innerHTML = '';
+            filtered.forEach(t => {
+                let badge = t.priority === 'High' ? '<span class="bg-rose-100 text-rose-700 border-rose-200 px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider dark:bg-rose-900/50 dark:text-rose-400">HIGH PRIORITY</span>' : (t.priority === 'Medium' ? '<span class="bg-amber-100 text-amber-700 border-amber-200 px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider dark:bg-amber-900/50 dark:text-amber-400">MEDIUM</span>' : '<span class="bg-emerald-100 text-emerald-700 border-emerald-200 px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider dark:bg-emerald-900/50 dark:text-emerald-400">LOW</span>');
+                container.innerHTML += `
+                    <div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 mb-4">
+                        <div class="flex justify-between items-start mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="text-xs font-mono font-bold text-m3-primary bg-m3-primaryContainer px-2 py-1 rounded">${t.id}</span>${badge}
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800 dark:text-white">${t.subject}</h3>
+                                <p class="text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Logged: ${t.date}</p>
+                            </div>
                         </div>
                         ${t.resolve_description ? `<div class="mb-6 p-4 bg-slate-50 dark:bg-slate-800/50 border-l-4 border-emerald-500 rounded-r-lg text-slate-700 dark:text-slate-300 text-sm"><strong class="block mb-1 text-emerald-600 dark:text-emerald-400 uppercase text-xs tracking-wider">IT Resolution (RCA):</strong>${t.resolve_description}</div>` : ''}
                         ${getProgressBarHTML(t.status || 'Monitoring')}
