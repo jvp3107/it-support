@@ -32,26 +32,10 @@
                     fontFamily: { sans: ['Inter', 'sans-serif'], },
                     colors: {
                         m3: {
-                            // Enterprise Navy Theme
-                            primary: '#1e3a8a', // Deep Blue
-                            onPrimary: '#ffffff', 
-                            primaryContainer: '#dbeafe', 
-                            onPrimaryContainer: '#1e3a8a',
-                            surface: '#f8fafc', 
-                            surfaceContainerLow: '#f1f5f9', 
-                            surfaceContainer: '#e2e8f0',
-                            surfaceContainerHigh: '#cbd5e1', 
-                            outline: '#64748b',
-                            // Dark Theme Colors
-                            darkPrimary: '#60a5fa',
-                            darkOnPrimary: '#0f172a',
-                            darkPrimaryContainer: '#1e3a8a',
-                            darkOnPrimaryContainer: '#dbeafe',
-                            darkSurface: '#0f172a',
-                            darkSurfaceContainerLow: '#1e293b',
-                            darkSurfaceContainer: '#334155',
-                            darkSurfaceContainerHigh: '#475569',
-                            darkOutline: '#94a3b8'
+                            primary: '#1e3a8a', onPrimary: '#ffffff', primaryContainer: '#dbeafe', onPrimaryContainer: '#1e3a8a',
+                            surface: '#f8fafc', surfaceContainerLow: '#f1f5f9', surfaceContainer: '#e2e8f0', surfaceContainerHigh: '#cbd5e1', outline: '#64748b',
+                            darkPrimary: '#60a5fa', darkOnPrimary: '#0f172a', darkPrimaryContainer: '#1e3a8a', darkOnPrimaryContainer: '#dbeafe',
+                            darkSurface: '#0f172a', darkSurfaceContainerLow: '#1e293b', darkSurfaceContainer: '#334155', darkSurfaceContainerHigh: '#475569', darkOutline: '#94a3b8'
                         }
                     },
                     boxShadow: {
@@ -76,7 +60,6 @@
         .view-section { display: none; opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease; }
         .view-section.active { display: block; opacity: 1; transform: translateY(0); }
 
-        /* ITSM Form Inputs */
         .itsm-input-wrapper { position: relative; display: flex; flex-direction: column; width: 100%; }
         .itsm-input { width: 100%; background-color: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 20px 16px 8px 44px; font-size: 0.95rem; color: #0f172a; transition: all 0.2s ease; outline: none; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); }
         .dark .itsm-input { background-color: #1e293b; border-color: #475569; color: #f8fafc; }
@@ -95,7 +78,6 @@
         .form-section { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.01); }
         .dark .form-section { background: #1e293b; border-color: #334155; }
 
-        /* Floating Chat Widget */
         #chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 100; transition: all 0.3s cubic-bezier(0.2, 0, 0, 1); }
         #chat-window { display: none; flex-direction: column; width: 350px; height: 450px; border-radius: 16px; overflow: hidden; box-shadow: 0px 10px 25px rgba(0,0,0,0.15); transform-origin: bottom right; animation: slideUp 0.3s ease-out; border: 1px solid #e2e8f0; }
         .dark #chat-window { border-color: #334155; box-shadow: 0px 10px 25px rgba(0,0,0,0.5); }
@@ -115,47 +97,27 @@
     <header class="bg-white dark:bg-m3-darkSurface sticky top-0 z-50 shadow-sm border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
         <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
             
-            <!-- Brand Logo -->
             <div class="flex items-center gap-4 cursor-pointer" onclick="switchView('home')">
-                <div class="w-10 h-10 bg-m3-primary text-white rounded flex items-center justify-center text-xl shadow-sm">
-                    <i class="fa-solid fa-layer-group"></i>
-                </div>
+                <div class="w-10 h-10 bg-m3-primary text-white rounded flex items-center justify-center text-xl shadow-sm"><i class="fa-solid fa-layer-group"></i></div>
                 <div class="border-l-2 border-slate-200 dark:border-slate-700 pl-4">
                     <h1 class="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">SPREAD TECHNICAL</h1>
                     <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">IT Service Management</p>
                 </div>
             </div>
 
-            <!-- Main Desktop Navigation -->
             <div class="hidden lg:flex items-center gap-2">
-                <button onclick="switchView('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 bg-m3-primaryContainer text-m3-primary flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-house"></i> Home
-                </button>
-                <button onclick="switchView('portal')" id="nav-portal" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-ticket-simple"></i> Service Request
-                </button>
-                <button onclick="switchView('track')" id="nav-track" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-radar"></i> Incident Tracking
-                </button>
-                <button onclick="switchView('kb')" id="nav-kb" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-book-bookmark"></i> Knowledge Base
-                </button>
-                <button onclick="switchView('health')" id="nav-health" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-server"></i> System Health
-                </button>
+                <button onclick="switchView('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 bg-m3-primaryContainer text-m3-primary flex items-center gap-2 shadow-sm"><i class="fa-solid fa-house"></i> Home</button>
+                <button onclick="switchView('portal')" id="nav-portal" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"><i class="fa-solid fa-ticket-simple"></i> Service Request</button>
+                <button onclick="switchView('track')" id="nav-track" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"><i class="fa-solid fa-radar"></i> Incident Tracking</button>
+                <button onclick="switchView('kb')" id="nav-kb" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"><i class="fa-solid fa-book-bookmark"></i> Knowledge Base</button>
+                <button onclick="switchView('health')" id="nav-health" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"><i class="fa-solid fa-server"></i> System Health</button>
                 <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-2"></div>
-                <button onclick="switchView('login')" id="nav-login" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-shield-halved"></i> NOC Login
-                </button>
+                <button onclick="switchView('login')" id="nav-login" class="nav-btn px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"><i class="fa-solid fa-shield-halved"></i> NOC Login</button>
             </div>
             
             <div class="flex items-center gap-2">
-                <button onclick="toggleDarkMode()" class="w-10 h-10 text-slate-500 dark:text-slate-400 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                    <i id="theme-icon" class="fa-solid fa-moon"></i>
-                </button>
-                <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 text-slate-700 dark:text-slate-300 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
+                <button onclick="toggleDarkMode()" class="w-10 h-10 text-slate-500 dark:text-slate-400 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"><i id="theme-icon" class="fa-solid fa-moon"></i></button>
+                <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 text-slate-700 dark:text-slate-300 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"><i class="fa-solid fa-bars"></i></button>
             </div>
         </div>
     </header>
@@ -163,9 +125,7 @@
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="fixed inset-0 bg-slate-900/50 z-40 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm">
         <div class="absolute right-0 top-0 bottom-0 w-72 bg-white dark:bg-m3-darkSurface shadow-2xl p-6 transform translate-x-full transition-transform duration-300 flex flex-col gap-2" id="mobileMenuContent">
-            <div class="flex justify-end mb-4">
-                <button onclick="toggleMobileMenu()" class="text-slate-500 text-2xl"><i class="fa-solid fa-times"></i></button>
-            </div>
+            <div class="flex justify-end mb-4"><button onclick="toggleMobileMenu()" class="text-slate-500 text-2xl"><i class="fa-solid fa-times"></i></button></div>
             <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Navigation</p>
             <button onclick="switchView('home'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-house w-6 text-m3-primary"></i> Home</button>
             <button onclick="switchView('portal'); toggleMobileMenu()" class="text-left font-semibold text-slate-800 dark:text-white py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"><i class="fa-solid fa-ticket-simple w-6 text-m3-primary"></i> Service Request</button>
@@ -256,7 +216,6 @@
 
             <form id="ticketForm" onsubmit="submitTicket(event)">
                 
-                <!-- Section 1 -->
                 <div class="form-section">
                     <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-5 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-2"><i class="fa-solid fa-user-tie text-m3-primary"></i> 1. Requester Information</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -269,7 +228,6 @@
                                 <i class="fa-solid fa-globe input-icon"></i>
                                 <select id="countryCode" class="itsm-input appearance-none cursor-pointer">
                                     <option value="+971" selected>🇦🇪 +971 (UAE)</option><option value="+91">🇮🇳 +91 (IND)</option><option value="+1">🇺🇸 +1 (USA)</option><option value="+44">🇬🇧 +44 (UK)</option>
-                                    <option value="+966">🇸🇦 +966 (KSA)</option><option value="+968">🇴🇲 +968 (OMN)</option><option value="+973">🇧🇭 +973 (BHR)</option><option value="+974">🇶🇦 +974 (QAT)</option>
                                 </select>
                                 <span class="itsm-label">Code</span>
                             </div>
@@ -279,26 +237,38 @@
                     </div>
                 </div>
 
-                <!-- Section 2 -->
                 <div class="form-section">
-                    <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-5 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-2"><i class="fa-solid fa-tags text-m3-primary"></i> 2. Incident Classification</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-5 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-2"><i class="fa-solid fa-tags text-m3-primary"></i> 2. Request Classification</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                        <!-- Request Type Selection -->
+                        <div class="itsm-input-wrapper">
+                            <i class="fa-solid fa-code-branch input-icon"></i>
+                            <select name="request_type" id="requestType" class="itsm-input appearance-none cursor-pointer" onchange="handleRequestTypeChange()">
+                                <option value="Incident" selected>Incident (Break/Fix)</option>
+                                <option value="Service">Service Request (New/Change)</option>
+                            </select>
+                            <span class="itsm-label">Request Type</span>
+                        </div>
+
+                        <!-- Dynamic Category -->
                         <div class="itsm-input-wrapper">
                             <i class="fa-solid fa-laptop-code input-icon"></i>
                             <select name="device_type" id="deviceType" class="itsm-input appearance-none cursor-pointer" onchange="handleCategoryChange()">
-                                <option value="Laptop/Desktop" selected>Endpoint (Laptop/Desktop)</option>
-                                <option value="Mobile/Tablet">Mobile Device</option>
-                                <option value="Printer/Scanner">Hardware Peripheral</option>
-                                <option value="Network/Wi-Fi">Network / Routing</option>
-                                <option value="Software/App">Software / Application</option>
-                                <option value="Server/Cloud">Server / Infrastructure</option>
-                                <option value="New Asset Setup">New Asset Setup (New Joinee)</option>
+                                <!-- Populated dynamically by JS -->
                             </select>
                             <span class="itsm-label">Category</span>
                         </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div class="itsm-input-wrapper">
                             <i class="fa-solid fa-triangle-exclamation input-icon"></i>
-                            <select name="priority" id="priority" class="itsm-input appearance-none cursor-pointer"><option value="Low">Low (General Request)</option><option value="Medium" selected>Medium (Degraded Service)</option><option value="High">High (System Outage)</option></select>
+                            <select name="priority" id="priority" class="itsm-input appearance-none cursor-pointer">
+                                <option value="Low">Low (General Request)</option>
+                                <option value="Medium" selected>Medium (Degraded Service)</option>
+                                <option value="High">High (System Outage)</option>
+                            </select>
                             <span class="itsm-label">Impact Level</span>
                         </div>
                         <div class="itsm-input-wrapper"><i class="fa-solid fa-barcode input-icon"></i><input type="text" name="asset_tag" id="assetTag" class="itsm-input" placeholder=" "><span class="itsm-label">Asset Tag (Optional)</span></div>
@@ -322,7 +292,6 @@
                     </div>
                 </div>
                 
-                <!-- Section 3 -->
                 <div class="form-section">
                     <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-5 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-2"><i class="fa-solid fa-align-left text-m3-primary"></i> 3. Diagnostic Details</h3>
                     <div class="itsm-input-wrapper mb-5"><i class="fa-solid fa-pen input-icon"></i><input type="text" name="ticket_subject" id="ticketSubject" required class="itsm-input font-semibold" placeholder=" "><span class="itsm-label">Short Summary of Issue *</span></div>
@@ -367,9 +336,7 @@
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 3: KNOWLEDGE BASE (ALL 8 ARTICLES)    -->
-        <!-- ========================================== -->
+        <!-- VIEW 3: KNOWLEDGE BASE -->
         <div id="kbView" class="view-section max-w-4xl mx-auto">
             <div class="bg-slate-900 rounded-2xl p-8 mb-6 text-center shadow-md relative overflow-hidden">
                 <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
@@ -384,7 +351,6 @@
             </div>
 
             <div class="grid grid-cols-1 gap-3" id="kbContainer">
-                
                 <!-- Article 1 -->
                 <div class="kb-item bg-white dark:bg-m3-darkSurface rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
                     <button class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-base text-slate-800 dark:text-white" onclick="toggleKB(this)">
@@ -536,9 +502,6 @@
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- VIEW 4: SYSTEM HEALTH                      -->
-        <!-- ========================================== -->
         <div id="healthView" class="view-section max-w-4xl mx-auto">
             <div class="bg-white dark:bg-m3-darkSurface rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 mb-6">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
@@ -737,6 +700,7 @@
                 document.getElementById('theme-icon').className = 'fa-solid fa-sun';
             }
             initSystemHealth();
+            handleRequestTypeChange(); // Initialize the dynamic category options
         });
 
         function toggleDarkMode() {
@@ -805,6 +769,34 @@
                 viewAll.classList.add('hidden');
                 renderCompanyGrid();
             }
+        }
+
+        // NEW: Handles Incident vs Service Request Toggling
+        function handleRequestTypeChange() {
+            const reqType = document.getElementById('requestType').value;
+            const catSelect = document.getElementById('deviceType');
+            
+            catSelect.innerHTML = '';
+            
+            if (reqType === 'Incident') {
+                catSelect.innerHTML = `
+                    <option value="Endpoint (Laptop/Desktop)" selected>Endpoint (Laptop/Desktop)</option>
+                    <option value="Mobile Device">Mobile Device</option>
+                    <option value="Hardware Peripheral">Hardware Peripheral</option>
+                    <option value="Network / Routing">Network / Routing</option>
+                    <option value="Software / Application">Software / Application</option>
+                    <option value="Server / Infrastructure">Server / Infrastructure</option>
+                `;
+            } else {
+                catSelect.innerHTML = `
+                    <option value="New Asset Setup" selected>New Asset Setup (New Joinee)</option>
+                    <option value="New Device Peripherals">New Device / Peripherals</option>
+                    <option value="Software/Access Request">Software / Access Request</option>
+                    <option value="General Service Request">General Service Request</option>
+                `;
+            }
+            // Trigger dynamic field display evaluation
+            handleCategoryChange();
         }
 
         function handleCategoryChange() {
@@ -921,8 +913,13 @@
             const phoneNumber = document.getElementById('phone_number').value.trim();
             const fullPhone = `(${countryCode}) ${phoneNumber}`; 
 
+            const reqType = document.getElementById('requestType').value;
             let finalDescription = document.getElementById('message').value;
             const category = document.getElementById('deviceType').value;
+            
+            // Format Description depending on Request Type
+            finalDescription = `[Type: ${reqType}]\n\n${finalDescription}`;
+            
             if(category === 'New Asset Setup') {
                 const jName = document.getElementById('joineeName').value;
                 const jLoc = document.getElementById('joineeLocation').value;
@@ -956,13 +953,14 @@
                 if (DB_CONFIG.useDatabase) { await fetch(DB_CONFIG.apiUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(ticketData) }); } 
                 else { let tickets = JSON.parse(localStorage.getItem('spread_tickets')) || []; tickets.unshift(ticketData); localStorage.setItem('spread_tickets', JSON.stringify(tickets)); }
                 e.target.reset(); 
-                document.getElementById('newJoineeFields').classList.add('hidden');
+                handleRequestTypeChange(); // Reset dynamic form fields
                 alert(`Incident Logged Successfully!\nTicket ID: ${ticketData.id}`);
                 document.getElementById('trackEmailInput').value = userEmail; switchView('track'); setTimeout(() => searchClientTickets(), 500);
             } catch (error) { alert("Submission Failed. Check network."); } 
             finally { submitBtn.innerHTML = originalBtnHtml; submitBtn.disabled = false; }
         }
 
+        // IT DASHBOARD LOGIC
         function handleITLogin(e) {
             e.preventDefault(); const u = document.getElementById('itUsername').value.trim().toLowerCase(); const p = document.getElementById('itPassword').value;
             if (VALID_USERS.includes(u) && p === IT_PASS) { isITLoggedIn = true; document.getElementById('itUsername').value = ''; document.getElementById('itPassword').value = ''; switchView('login'); } 
