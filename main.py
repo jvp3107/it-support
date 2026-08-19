@@ -25,8 +25,8 @@ app.add_middleware(
 TELEGRAM_BOT_TOKEN = "8680843182:AAH9S4IKmXquADKzanbNA7mVUU0VuMnZpeE"
 TELEGRAM_CHAT_ID = "712453173"
 
-GITHUB_TOKEN = "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN"
-GITHUB_REPO = "YourGitHubUsername/YourRepoName" # e.g., "vaibhav/itsm-db"
+GITHUB_TOKEN = "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"
+GITHUB_REPO = "jvp3107/itsm-db-itsupport" # e.g., "vaibhav/itsm-db"
 TICKETS_FILE = "tickets.json"
 USERS_FILE = "users.json"
 
