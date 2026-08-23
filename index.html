@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>Spread Technical | IT Service Management Portal</title>
+    <title>Spread Technical | Enterprise ITSM Portal</title>
     
-    <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,157 +14,67 @@
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/PptxGenJS/libs/pptxgen.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
-    <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { 
-                        sans: ['Inter', 'sans-serif'] 
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: { 
-                        m3: { 
-                            primary: '#005ac1', 
-                            onPrimary: '#ffffff', 
-                            primaryContainer: '#d8e2ff', 
-                            onPrimaryContainer: '#001a41',
-                            secondaryContainer: '#dde2f9', 
-                            onSecondaryContainer: '#141b2c', 
-                            tertiaryContainer: '#ffd8e4', 
-                            onTertiaryContainer: '#31111d',
-                            errorContainer: '#ffdad6', 
-                            onErrorContainer: '#410002', 
-                            successContainer: '#c4eed0', 
-                            onSuccessContainer: '#00210e',
-                            surface: '#0f172a', 
-                            surfaceVariant: '#1e293b', 
-                            darkSurface: '#0B1120', 
-                            darkSurfaceVariant: '#1e293b'
-                        } 
+                        wa: { bg: '#0b141a', me: '#005c4b', them: '#202c33', text: '#e9edef', sender: '#53bdeb' }
                     },
-                    animation: { 
-                        'slide-up': 'slideUp 0.4s ease-out forwards', 
-                        'fade-in': 'fadeIn 0.3s ease-out forwards' 
-                    },
+                    animation: { 'slide-up': 'slideUp 0.4s ease-out forwards', 'fade-in': 'fadeIn 0.3s ease-out forwards' },
                     keyframes: { 
-                        slideUp: { 
-                            '0%': { opacity: 0, transform: 'translateY(15px)' }, 
-                            '100%': { opacity: 1, transform: 'translateY(0)' } 
-                        }, 
-                        fadeIn: { 
-                            '0%': { opacity: 0 }, 
-                            '100%': { opacity: 1 } 
-                        } 
+                        slideUp: { '0%': { opacity: 0, transform: 'translateY(15px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } }, 
+                        fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } } 
                     }
                 }
             }
         }
     </script>
 
-    <!-- Custom Enterprise CSS Styles -->
     <style>
-        /* Enterprise Dark Mesh Background */
-        body { 
-            background: radial-gradient(circle at top right, #1e293b 0%, #0f172a 50%, #020617 100%);
-            background-attachment: fixed;
-            color: #f1f5f9; 
-        }
-
+        body { background: radial-gradient(circle at top right, #1e293b 0%, #0f172a 50%, #020617 100%); background-attachment: fixed; color: #f1f5f9; }
         button, input, select, textarea { outline: none !important; -webkit-tap-highlight-color: transparent; }
-        button:focus { outline: none !important; box-shadow: none !important; }
-
-        /* Deep Glassmorphism Panel Classes */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
-        }
-
-        .glass-header {
-            background: rgba(11, 17, 32, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .glass-surface {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Sleek Scrollbars */
+        .glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5); }
+        .glass-header { background: rgba(11, 17, 32, 0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .glass-surface { background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255, 255, 255, 0.05); }
         ::-webkit-scrollbar { width: 4px; height: 4px; } 
         ::-webkit-scrollbar-thumb { background: rgba(71, 85, 105, 0.8); border-radius: 10px; }
         ::-webkit-scrollbar-track { background: transparent; }
-
         .view-section { display: none; animation: fadeIn 0.3s ease-out; } 
         .view-section.active { display: block; }
         
-        /* Inputs */
         .itsm-input-wrapper { position: relative; display: flex; flex-direction: column; width: 100%; margin-bottom: 1rem; }
-        
-        .itsm-input { 
-            width: 100%; 
-            background: rgba(30, 41, 59, 0.6); 
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 12px; 
-            padding: 20px 16px 8px 44px; 
-            font-size: 0.95rem; 
-            outline: none; 
-            transition: 0.2s; 
-            color: white;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        .itsm-input:focus { 
-            border-color: #3b82f6; 
-            background: rgba(30, 41, 59, 0.9);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); 
-        }
-        
-        .itsm-label { 
-            position: absolute; left: 44px; top: 14px; font-size: 0.9rem; color: #94a3b8; 
-            pointer-events: none; transition: 0.2s font-weight: 500; 
-        }
-        
-        .itsm-input:focus ~ .itsm-label, 
-        .itsm-input.has-val ~ .itsm-label, 
-        .itsm-input:not(:placeholder-shown) ~ .itsm-label { 
-            top: 6px; font-size: 0.65rem; color: #60a5fa; font-weight: 600; text-transform: uppercase; 
-        }
-        
+        .itsm-input { width: 100%; background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 20px 16px 8px 44px; font-size: 0.95rem; transition: 0.2s; color: white; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+        .itsm-input:focus { border-color: #3b82f6; background: rgba(30, 41, 59, 0.9); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
+        .itsm-label { position: absolute; left: 44px; top: 14px; font-size: 0.9rem; color: #94a3b8; pointer-events: none; transition: 0.2s font-weight: 500; }
+        .itsm-input:focus ~ .itsm-label, .itsm-input.has-val ~ .itsm-label, .itsm-input:not(:placeholder-shown) ~ .itsm-label { top: 6px; font-size: 0.65rem; color: #60a5fa; font-weight: 600; text-transform: uppercase; }
         .input-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #64748b; }
         
-        /* Chat UI */
+        .chat-bg { background-color: #0b141a; background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); background-blend-mode: overlay; opacity: 0.95; }
         .chat-bubble-container { display: flex; width: 100%; margin-bottom: 12px; }
         .chat-bubble-container.me { justify-content: flex-end; }
         .chat-bubble-container.them { justify-content: flex-start; }
-        .chat-bubble { max-width: 80%; padding: 8px 12px; font-size: 0.85rem; position: relative; box-shadow: 0 1px 1.5px rgba(0,0,0,0.2); display: flex; flex-direction: column; }
-        .chat-bubble.me { background-color: #005c4b; color: #e9edef; border-radius: 12px 0 12px 12px; }
-        .chat-bubble.them { background-color: #202c33; color: #e9edef; border-radius: 0 12px 12px 12px; }
-        .chat-sender { font-size: 0.7rem; font-weight: bold; color: #60a5fa; margin-bottom: 2px; display: block; }
+        .chat-bubble { max-width: 82%; padding: 8px 12px; font-size: 0.85rem; position: relative; box-shadow: 0 1px 1.5px rgba(0,0,0,0.3); display: flex; flex-direction: column; }
+        .chat-bubble.me { background-color: #005c4b; color: #e9edef; border-radius: 10px 0 10px 10px; }
+        .chat-bubble.them { background-color: #202c33; color: #e9edef; border-radius: 0 10px 10px 10px; }
+        .chat-sender { font-size: 0.7rem; font-weight: 800; color: #53bdeb; margin-bottom: 3px; display: block; letter-spacing: 0.5px; text-transform: uppercase;}
         .chat-message-text { white-space: pre-wrap; word-wrap: break-word; line-height: 1.4; }
-        .chat-meta { font-size: 0.65rem; color: rgba(255,255,255,0.55); text-align: right; margin-top: 4px; display: block; }
+        .chat-meta { font-size: 0.65rem; color: rgba(255,255,255,0.6); text-align: right; margin-top: 4px; display: block; }
         
-        /* Enterprise Tab Buttons */
         .admin-nav-container { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255,255,255,0.05); border-radius: 9999px; padding: 6px; display: inline-flex; gap: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); }
         .ent-tab-btn { padding: 10px 24px; font-size: 0.875rem; font-weight: 700; border-radius: 9999px; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .ent-tab-active { background-color: #2563eb; color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
         .ent-tab-inactive { background-color: transparent; color: #94a3b8; }
         .ent-tab-inactive:hover { background-color: rgba(255,255,255,0.05); color: white; }
 
-        /* Custom Table Header */
         .table-header-custom { background-color: #1e293b; border-bottom: 2px solid #334155; }
         .table-header-custom th { position: sticky; top: 0; z-index: 10; cursor: pointer; user-select: none; }
         .table-header-custom th:hover { background-color: #334155; transition: 0.2s; }
         .sort-icon { opacity: 0.3; margin-left: 4px; font-size: 0.75rem; transition: 0.2s; }
         .sort-active { opacity: 1; color: #60a5fa; }
         
-        /* Pipeline Tracker */
         .pipeline-node { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; z-index: 2; transition: all 0.3s; }
         .pipeline-line { flex-grow: 1; height: 2px; background: rgba(203, 213, 225, 0.1); margin: 0 -4px; z-index: 1; transition: all 0.3s; }
         .node-active { background: #3b82f6; color: white; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2); }
@@ -181,8 +90,6 @@
     <!-- ========================================== -->
     <div id="ticketModalOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4 transition-opacity opacity-0 duration-300">
         <div id="ticketModal" class="glass-panel w-full max-w-5xl max-h-[90vh] rounded-[32px] flex flex-col overflow-hidden transform scale-95 transition-transform duration-300">
-            
-            <!-- Modal Header -->
             <div class="flex justify-between items-center p-6 border-b border-slate-700/50 glass-surface bg-slate-900/50">
                 <div class="w-full">
                     <h3 class="font-extrabold text-2xl text-blue-400 mb-1" id="modalRequesterName">User Name</h3>
@@ -194,26 +101,21 @@
                     <i class="fa-solid fa-times text-xl"></i>
                 </button>
             </div>
-
-            <!-- Modal Body -->
             <div class="flex-grow overflow-hidden flex flex-col lg:flex-row">
-                
-                <!-- Left Column: Ticket Details -->
                 <div class="w-full lg:w-3/5 p-6 overflow-y-auto border-r border-slate-700/50" id="modalTicketDetails">
                     <div class="mb-8">
                         <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-3">Ticket Lifecycle</p>
                         <div class="flex items-center" id="modalPipeline"></div>
                     </div>
-                    
                     <div class="mb-6 border-b border-slate-700/50 pb-6">
                         <h4 class="text-sm font-bold text-white mb-3">Subject: <span class="font-normal text-slate-300" id="modalSubject">Subject</span></h4>
                         <div class="flex flex-wrap gap-2 mb-4" id="modalBadges"></div>
                         <div class="glass-surface p-5 rounded-2xl bg-slate-800/50">
                             <p class="text-xs text-slate-300 whitespace-pre-wrap leading-relaxed" id="modalDescription"></p>
                         </div>
+                        <div id="modalAttachmentContainer" class="mt-4"></div>
                         <div id="modalRemoteContainer"></div>
                     </div>
-                    
                     <div class="grid grid-cols-2 gap-4 glass-surface p-4 rounded-2xl bg-slate-800/30">
                         <div>
                             <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Requester Contact</p>
@@ -226,24 +128,18 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Right Column: Live Chat (WhatsApp Style) -->
-                <div class="w-full lg:w-2/5 flex flex-col bg-slate-900/50 h-[50vh] lg:h-auto backdrop-blur-sm">
-                    <div class="p-4 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/30">
-                        <h4 class="font-bold text-sm text-slate-300 uppercase tracking-wider">
-                            <i class="fa-regular fa-comments mr-2 text-blue-400"></i>Communication Log
+                <div class="w-full lg:w-2/5 flex flex-col bg-slate-900/50 h-[50vh] lg:h-auto backdrop-blur-sm relative">
+                    <div class="p-4 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/80 absolute top-0 w-full z-10 shadow-md">
+                        <h4 class="font-bold text-sm text-slate-300 uppercase tracking-wider flex items-center">
+                            <i class="fa-brands fa-whatsapp mr-2 text-emerald-400 text-lg"></i> Live Chat
                         </h4>
                     </div>
-                    
-                    <div id="modalChatHistory" class="flex-grow overflow-y-auto p-4 flex flex-col scroll-smooth">
-                        <!-- Chats Injected Here -->
-                    </div>
-                    
-                    <div class="p-4 glass-surface border-t border-slate-700/50 bg-slate-900/80 mt-auto">
+                    <div id="modalChatHistory" class="flex-grow overflow-y-auto p-4 pt-16 flex flex-col scroll-smooth chat-bg pb-20"></div>
+                    <div class="p-4 glass-surface border-t border-slate-700/50 bg-slate-900/90 absolute bottom-0 w-full z-10 shadow-lg">
                         <div class="flex gap-2 relative">
                             <input type="hidden" id="modalActiveTicketId">
-                            <input type="text" id="modalChatInput" class="flex-grow px-5 py-3 text-sm border border-slate-600/50 bg-slate-800 rounded-full outline-none focus:border-blue-500 text-white transition-colors shadow-inner" placeholder="Type message...">
-                            <button onclick="postModalChatMessage()" id="modalChatSendBtn" class="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors shadow-lg active:scale-95 flex-shrink-0">
+                            <input type="text" id="modalChatInput" onkeypress="if(event.key === 'Enter') postModalChatMessage()" class="flex-grow px-5 py-3 text-sm border border-slate-600/50 bg-slate-800 rounded-full outline-none focus:border-emerald-500 text-white transition-colors shadow-inner" placeholder="Type a message...">
+                            <button onclick="postModalChatMessage()" id="modalChatSendBtn" class="bg-emerald-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-emerald-500 transition-colors shadow-lg active:scale-95 flex-shrink-0">
                                 <i class="fa-solid fa-paper-plane text-sm"></i>
                             </button>
                         </div>
@@ -253,131 +149,39 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- EDIT CORPORATE USER MODAL                  -->
-    <!-- ========================================== -->
+    <!-- Modals omitted for brevity, keeping exact same structure as before -->
     <div id="editCorpUserModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden flex items-center justify-center p-4 transition-opacity opacity-0 duration-300">
         <div class="glass-panel rounded-[32px] p-8 w-full max-w-sm transform scale-95 transition-transform duration-300" id="editCorpUserModalBox">
             <h3 class="font-bold text-lg mb-6 text-white"><i class="fa-solid fa-user-pen text-emerald-400 mr-2"></i>Edit Profile</h3>
             <input type="hidden" id="editCorpUserEmail">
-            
-            <div class="itsm-input-wrapper mb-4">
-                <i class="fa-solid fa-building input-icon"></i>
-                <select id="editCorpUserCompany" class="itsm-input appearance-none pl-10 cursor-pointer"></select>
-                <span class="itsm-label" style="left:44px;">Company</span>
-            </div>
-            
-            <div class="itsm-input-wrapper mb-4">
-                <i class="fa-solid fa-phone input-icon"></i>
-                <input type="tel" id="editCorpUserPhone" class="itsm-input pl-10" placeholder=" ">
-                <span class="itsm-label" style="left:44px;">Phone Number</span>
-            </div>
-
-            <div class="itsm-input-wrapper mb-4">
-                <i class="fa-solid fa-sitemap input-icon"></i>
-                <select id="editCorpUserManager" class="itsm-input appearance-none pl-10 cursor-pointer"></select>
-                <span class="itsm-label" style="left:44px;">Assign Manager</span>
-            </div>
-            
-            <div class="itsm-input-wrapper mb-4">
-                <i class="fa-solid fa-user-tag input-icon"></i>
-                <select id="editCorpUserRole" class="itsm-input appearance-none pl-10 cursor-pointer">
-                    <option value="Client">Standard Employee</option>
-                    <option value="Approver">Approver / Manager</option>
-                </select>
-                <span class="itsm-label" style="left:44px;">Role</span>
-            </div>
-            
-            <div class="flex justify-end gap-3 mt-8 border-t border-slate-700/50 pt-5">
-                <button onclick="closeEditCorpUserModal()" class="px-5 py-2.5 text-slate-300 font-bold glass-surface hover:bg-slate-700/60 rounded-full text-sm transition">Cancel</button>
-                <button onclick="saveCorpUserEdits(event)" class="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-full text-sm shadow-md hover:bg-blue-500 transition">Save Changes</button>
-            </div>
+            <div class="itsm-input-wrapper mb-4"><i class="fa-solid fa-building input-icon"></i><select id="editCorpUserCompany" class="itsm-input appearance-none pl-10 cursor-pointer"></select><span class="itsm-label" style="left:44px;">Company</span></div>
+            <div class="itsm-input-wrapper mb-4"><i class="fa-solid fa-phone input-icon"></i><input type="tel" id="editCorpUserPhone" class="itsm-input pl-10" placeholder=" "><span class="itsm-label" style="left:44px;">Phone Number</span></div>
+            <div class="itsm-input-wrapper mb-4"><i class="fa-solid fa-sitemap input-icon"></i><select id="editCorpUserManager" class="itsm-input appearance-none pl-10 cursor-pointer"></select><span class="itsm-label" style="left:44px;">Assign Manager</span></div>
+            <div class="itsm-input-wrapper mb-4"><i class="fa-solid fa-user-tag input-icon"></i><select id="editCorpUserRole" class="itsm-input appearance-none pl-10 cursor-pointer"><option value="Client">Standard Employee</option><option value="Approver">Approver / Manager</option></select><span class="itsm-label" style="left:44px;">Role</span></div>
+            <div class="flex justify-end gap-3 mt-8 border-t border-slate-700/50 pt-5"><button onclick="closeEditCorpUserModal()" class="px-5 py-2.5 text-slate-300 font-bold glass-surface hover:bg-slate-700/60 rounded-full text-sm transition">Cancel</button><button onclick="saveCorpUserEdits(event)" class="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-full text-sm shadow-md hover:bg-blue-500 transition">Save</button></div>
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- EDIT IT STAFF MODAL                        -->
-    <!-- ========================================== -->
     <div id="editITStaffModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden flex items-center justify-center p-4 transition-opacity opacity-0 duration-300">
         <div class="glass-panel rounded-[32px] p-8 w-full max-w-sm transform scale-95 transition-transform duration-300" id="editITStaffModalBox">
             <h3 class="font-bold text-lg mb-6 text-white"><i class="fa-solid fa-user-shield text-blue-400 mr-2"></i> Edit IT Staff</h3>
             <input type="hidden" id="editITStaffEmail">
-            
-            <div class="itsm-input-wrapper mb-4">
-                <i class="fa-solid fa-phone input-icon text-slate-400"></i>
-                <input type="tel" id="editITStaffPhone" class="itsm-input pl-10" placeholder=" ">
-                <span class="itsm-label" style="left:44px;">Phone Number</span>
-            </div>
-
-            <div class="itsm-input-wrapper mb-4">
-                <i class="fa-brands fa-telegram input-icon text-blue-400"></i>
-                <input type="text" id="editITStaffTelegram" class="itsm-input pl-10" placeholder=" ">
-                <span class="itsm-label" style="left:44px;">Telegram Chat ID</span>
-            </div>
-            
-            <div class="itsm-input-wrapper mb-4">
-                <i class="fa-solid fa-user-tag input-icon text-slate-400"></i>
-                <select id="editITStaffRole" class="itsm-input appearance-none pl-10 cursor-pointer">
-                    <option value="Tier 1 Support">Tier 1 Support</option>
-                    <option value="Master Admin">Master Admin</option>
-                </select>
-                <span class="itsm-label" style="left:44px;">Privilege Role</span>
-            </div>
-            
-            <div class="flex justify-end gap-3 mt-8 border-t border-slate-700/50 pt-5">
-                <button onclick="closeEditITStaffModal()" class="px-5 py-2.5 text-slate-300 font-bold glass-surface hover:bg-slate-700/60 rounded-full text-sm transition">Cancel</button>
-                <button onclick="saveITStaffEdits(event)" class="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-full text-sm shadow-md hover:bg-blue-500 transition">Update Staff</button>
-            </div>
+            <div class="itsm-input-wrapper mb-4"><i class="fa-solid fa-phone input-icon text-slate-400"></i><input type="tel" id="editITStaffPhone" class="itsm-input pl-10" placeholder=" "><span class="itsm-label" style="left:44px;">Phone Number</span></div>
+            <div class="itsm-input-wrapper mb-4"><i class="fa-brands fa-telegram input-icon text-blue-400"></i><input type="text" id="editITStaffTelegram" class="itsm-input pl-10" placeholder=" "><span class="itsm-label" style="left:44px;">Telegram Chat ID</span></div>
+            <div class="itsm-input-wrapper mb-4"><i class="fa-solid fa-user-tag input-icon text-slate-400"></i><select id="editITStaffRole" class="itsm-input appearance-none pl-10 cursor-pointer"><option value="Tier 1 Support">Tier 1 Support</option><option value="Master Admin">Master Admin</option></select><span class="itsm-label" style="left:44px;">Privilege Role</span></div>
+            <div class="flex justify-end gap-3 mt-8 border-t border-slate-700/50 pt-5"><button onclick="closeEditITStaffModal()" class="px-5 py-2.5 text-slate-300 font-bold glass-surface hover:bg-slate-700/60 rounded-full text-sm transition">Cancel</button><button onclick="saveITStaffEdits(event)" class="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-full text-sm shadow-md hover:bg-blue-500 transition">Update</button></div>
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- EDIT COMPANY MODAL                         -->
-    <!-- ========================================== -->
     <div id="editCompanyModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden flex items-center justify-center p-4 transition-opacity opacity-0 duration-300">
         <div class="glass-panel rounded-[32px] p-8 w-full max-w-md transform scale-95 transition-transform duration-300" id="editCompanyModalBox">
             <h3 class="font-bold text-lg mb-6 text-white"><i class="fa-solid fa-building text-blue-400 mr-2"></i> Edit Company Profile</h3>
-            
-            <div class="itsm-input-wrapper mb-4">
-                <i class="fa-solid fa-signature input-icon"></i>
-                <input type="text" id="editCompName" class="itsm-input pl-10 text-slate-400 bg-slate-800/30 cursor-not-allowed" readonly>
-                <span class="itsm-label" style="left:44px;">Company Registry Name</span>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4">
-                <div class="itsm-input-wrapper mb-4">
-                    <i class="fa-solid fa-globe input-icon"></i>
-                    <input type="text" id="editCompDomain" class="itsm-input pl-10" placeholder=" ">
-                    <span class="itsm-label" style="left:44px;">Primary Domain</span>
-                </div>
-                <div class="itsm-input-wrapper mb-4">
-                    <i class="fa-solid fa-phone input-icon"></i>
-                    <input type="text" id="editCompPhone" class="itsm-input pl-10" placeholder=" ">
-                    <span class="itsm-label" style="left:44px;">Office Phone</span>
-                </div>
-            </div>
-
-            <div class="itsm-input-wrapper mb-4">
-                <i class="fa-solid fa-location-dot input-icon"></i>
-                <input type="text" id="editCompAddress" class="itsm-input pl-10" placeholder=" ">
-                <span class="itsm-label" style="left:44px;">Office Address</span>
-            </div>
-
-            <div class="itsm-input-wrapper mb-4">
-                <i class="fa-solid fa-user-tie input-icon"></i>
-                <input type="text" id="editCompContact" class="itsm-input pl-10" placeholder=" ">
-                <span class="itsm-label" style="left:44px;">Primary IT Contact</span>
-            </div>
-
-            <div class="itsm-input-wrapper mb-4">
-                <textarea id="editCompNotes" rows="2" class="itsm-input py-4 rounded-[16px] pl-4" placeholder=" "></textarea>
-                <span class="itsm-label" style="left:16px;">Internal SLA / Routing Notes</span>
-            </div>
-            
-            <div class="flex justify-end gap-3 mt-6 border-t border-slate-700/50 pt-5">
-                <button onclick="closeEditCompanyModal()" class="px-5 py-2.5 text-slate-300 font-bold glass-surface hover:bg-slate-700/60 rounded-full text-sm transition">Cancel</button>
-                <button onclick="saveCompanyEdits(event)" id="btnSaveCompany" class="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-full text-sm shadow-md hover:bg-blue-500 transition">Save Profile</button>
-            </div>
+            <div class="itsm-input-wrapper mb-4"><i class="fa-solid fa-signature input-icon"></i><input type="text" id="editCompName" class="itsm-input pl-10 text-slate-400 bg-slate-800/30 cursor-not-allowed" readonly><span class="itsm-label" style="left:44px;">Company Registry Name</span></div>
+            <div class="grid grid-cols-2 gap-4"><div class="itsm-input-wrapper mb-4"><i class="fa-solid fa-globe input-icon"></i><input type="text" id="editCompDomain" class="itsm-input pl-10" placeholder=" "><span class="itsm-label" style="left:44px;">Primary Domain</span></div><div class="itsm-input-wrapper mb-4"><i class="fa-solid fa-phone input-icon"></i><input type="text" id="editCompPhone" class="itsm-input pl-10" placeholder=" "><span class="itsm-label" style="left:44px;">Office Phone</span></div></div>
+            <div class="itsm-input-wrapper mb-4"><i class="fa-solid fa-location-dot input-icon"></i><input type="text" id="editCompAddress" class="itsm-input pl-10" placeholder=" "><span class="itsm-label" style="left:44px;">Office Address</span></div>
+            <div class="itsm-input-wrapper mb-4"><i class="fa-solid fa-user-tie input-icon"></i><input type="text" id="editCompContact" class="itsm-input pl-10" placeholder=" "><span class="itsm-label" style="left:44px;">Primary IT Contact</span></div>
+            <div class="itsm-input-wrapper mb-4"><textarea id="editCompNotes" rows="2" class="itsm-input py-4 rounded-[16px] pl-4" placeholder=" "></textarea><span class="itsm-label" style="left:16px;">Internal SLA / Routing Notes</span></div>
+            <div class="flex justify-end gap-3 mt-6 border-t border-slate-700/50 pt-5"><button onclick="closeEditCompanyModal()" class="px-5 py-2.5 text-slate-300 font-bold glass-surface hover:bg-slate-700/60 rounded-full text-sm transition">Cancel</button><button onclick="saveCompanyEdits(event)" id="btnSaveCompany" class="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-full text-sm shadow-md hover:bg-blue-500 transition">Save Profile</button></div>
         </div>
     </div>
 
@@ -386,7 +190,6 @@
     <!-- ========================================== -->
     <header class="glass-header sticky top-0 z-40 shadow-md">
         <div class="max-w-[1600px] mx-auto px-4 h-20 flex justify-between items-center">
-            
             <div class="flex items-center gap-4">
                 <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center text-xl shadow-lg border border-blue-500/50">
                     <i class="fa-solid fa-layer-group"></i>
@@ -396,13 +199,11 @@
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">IT Service Management</p>
                 </div>
             </div>
-            
             <div class="flex items-center gap-3">
                 <button onclick="logoutGlobal()" id="globalLogoutBtn" class="hidden bg-rose-500/10 border border-rose-500/30 text-rose-400 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-rose-500/20 transition-all flex items-center gap-2 shadow-sm">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
                 </button>
             </div>
-
         </div>
     </header>
 
@@ -430,7 +231,6 @@
                 </div>
             </div>
 
-            <!-- Self Diagnostics Bottom Tab -->
             <div class="mt-16 text-center">
                 <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-4 drop-shadow-sm">Troubleshoot your issue before requesting support</p>
                 <button onclick="switchView('kb')" class="bg-emerald-600/90 border border-emerald-500/50 text-white font-bold text-sm px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-emerald-500 transition-all duration-300 flex items-center justify-center gap-2 uppercase tracking-wide mx-auto">
@@ -472,6 +272,36 @@
                             Cancel
                         </button>
                     </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- PASSWORD RESET VIEW                        -->
+        <!-- ========================================== -->
+        <div id="resetPasswordView" class="view-section max-w-sm mx-auto mt-10">
+            <div class="glass-panel rounded-[32px] p-10 text-center transition-all duration-300">
+                <div class="w-20 h-20 bg-emerald-900/50 backdrop-blur-md text-emerald-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-6 shadow-inner border border-emerald-700/50">
+                    <i class="fa-solid fa-unlock-keyhole drop-shadow-md"></i>
+                </div>
+                <h2 class="text-2xl font-black text-white mb-2">New Password</h2>
+                <p class="text-sm text-slate-400 font-medium mb-8">Enter a new secure key.</p>
+                <form onsubmit="handlePasswordResetSubmit(event)" class="text-left">
+                    <input type="hidden" id="resetToken">
+                    <input type="hidden" id="resetEmail">
+                    <div class="itsm-input-wrapper">
+                        <i class="fa-solid fa-key input-icon"></i>
+                        <input type="password" id="newResetPass" required class="itsm-input pl-10" placeholder=" " minlength="8" autocomplete="new-password">
+                        <span class="itsm-label" style="left:44px;">New Password</span>
+                    </div>
+                    <div class="itsm-input-wrapper">
+                        <i class="fa-solid fa-key input-icon"></i>
+                        <input type="password" id="confirmResetPass" required class="itsm-input pl-10" placeholder=" " minlength="8" autocomplete="new-password">
+                        <span class="itsm-label" style="left:44px;">Confirm Password</span>
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-4 rounded-full shadow-lg border border-emerald-500/30 hover:bg-emerald-500 active:scale-95 transition-all mt-4">
+                        Save Password
+                    </button>
                 </form>
             </div>
         </div>
@@ -531,7 +361,7 @@
                         </div>
                         <div class="itsm-input-wrapper hidden" id="peerWrapper">
                             <i class="fa-solid fa-users input-icon"></i>
-                            <select id="ticketForPeer" class="itsm-input appearance-none cursor-pointer pl-10"></select>
+                            <select id="ticketForPeer" class="itsm-input appearance-none cursor-pointer pl-10" disabled></select>
                             <span class="itsm-label" style="left:44px;">Select User *</span>
                         </div>
                     </div>
@@ -563,10 +393,6 @@
                                     <option value="+91">🇮🇳 +91</option>
                                     <option value="+1">🇺🇸 +1</option>
                                     <option value="+44">🇬🇧 +44</option>
-                                    <option value="+966">🇸🇦 +966</option>
-                                    <option value="+968">🇴🇲 +968</option>
-                                    <option value="+973">🇧🇭 +973</option>
-                                    <option value="+974">🇶🇦 +974</option>
                                 </select>
                                 <span class="itsm-label" style="left:44px;">Code</span>
                             </div>
@@ -605,7 +431,7 @@
                         </div>
                         <div class="itsm-input-wrapper">
                             <i class="fa-solid fa-laptop-code input-icon"></i>
-                            <select id="deviceType" class="itsm-input appearance-none cursor-pointer pl-10" onchange="updateFormLogic()"></select>
+                            <select id="deviceType" required class="itsm-input appearance-none cursor-pointer pl-10" onchange="updateFormLogic()"></select>
                             <span class="itsm-label" style="left:44px;">Category *</span>
                         </div>
                     </div>
@@ -613,7 +439,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                         <div class="itsm-input-wrapper" id="priorityWrapper">
                             <i class="fa-solid fa-triangle-exclamation input-icon"></i>
-                            <select id="priority" class="itsm-input appearance-none cursor-pointer pl-10" onchange="updateFormLogic()">
+                            <select id="priority" class="itsm-input appearance-none cursor-pointer pl-10">
                                 <option value="Low">Low (General)</option>
                                 <option value="Medium" selected>Medium (Degraded Service)</option>
                                 <option value="High">High (System Outage / VIP)</option>
@@ -631,12 +457,12 @@
                     <div id="newJoineeFields" class="hidden grid-cols-2 gap-5 mb-5 border-l-4 border-blue-500 pl-5 glass-surface p-5 rounded-r-2xl">
                         <div class="itsm-input-wrapper mb-0">
                             <i class="fa-solid fa-user-check input-icon"></i>
-                            <input type="text" id="joineeName" class="itsm-input pl-10" placeholder=" ">
+                            <input type="text" id="joineeName" class="itsm-input pl-10" placeholder=" " disabled>
                             <span class="itsm-label" style="left:44px;">New Joinee Name *</span>
                         </div>
                         <div class="itsm-input-wrapper mb-0">
                             <i class="fa-solid fa-location-dot input-icon"></i>
-                            <input type="text" id="joineeLocation" class="itsm-input pl-10" placeholder=" ">
+                            <input type="text" id="joineeLocation" class="itsm-input pl-10" placeholder=" " disabled>
                             <span class="itsm-label" style="left:44px;">Desk Location / Branch *</span>
                         </div>
                     </div>
@@ -644,7 +470,7 @@
                     <div id="newPeripheralFields" class="hidden mb-5 border-l-4 border-blue-500 pl-5 glass-surface p-5 rounded-r-2xl">
                         <div class="itsm-input-wrapper mb-0">
                             <i class="fa-solid fa-mouse input-icon"></i>
-                            <select id="peripheralList" class="itsm-input appearance-none cursor-pointer pl-10">
+                            <select id="peripheralList" class="itsm-input appearance-none cursor-pointer pl-10" disabled>
                                 <option value="" disabled selected></option>
                                 <option value="Wireless Mouse">Wireless Mouse</option>
                                 <option value="Wired Mouse">Wired Mouse</option>
@@ -671,7 +497,7 @@
                         <p class="text-xs text-rose-300 mb-5 font-semibold">Action Required: For Low/Medium endpoint incidents, you MUST enter your remote connection credentials below OR attach a screenshot of the issue.</p>
                         <div class="itsm-input-wrapper mb-5">
                             <i class="fa-solid fa-network-wired input-icon text-rose-400"></i>
-                            <select id="remoteApp" class="itsm-input appearance-none cursor-pointer text-white pl-10 !border-rose-500/50 !bg-rose-950/40" onchange="handleRemoteAppChange()">
+                            <select id="remoteApp" class="itsm-input appearance-none cursor-pointer text-white pl-10 !border-rose-500/50 !bg-rose-950/40" onchange="handleRemoteAppChange()" disabled>
                                 <option value="UltraViewer" selected>UltraViewer</option>
                                 <option value="AnyDesk">AnyDesk</option>
                                 <option value="TeamViewer">TeamViewer</option>
@@ -681,12 +507,12 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div class="itsm-input-wrapper mb-0">
                                 <i class="fa-solid fa-id-badge input-icon text-rose-400"></i>
-                                <input type="text" id="remoteId" class="itsm-input pl-10 !border-rose-500/50 text-white !bg-rose-950/40" placeholder=" ">
+                                <input type="text" id="remoteId" class="itsm-input pl-10 !border-rose-500/50 text-white !bg-rose-950/40" placeholder=" " disabled>
                                 <span class="itsm-label text-rose-400" style="left:44px;">Remote ID / Address</span>
                             </div>
                             <div class="itsm-input-wrapper mb-0">
                                 <i class="fa-solid fa-key input-icon text-rose-400"></i>
-                                <input type="text" id="remotePass" class="itsm-input pl-10 !border-rose-500/50 text-white !bg-rose-950/40" placeholder=" ">
+                                <input type="text" id="remotePass" class="itsm-input pl-10 !border-rose-500/50 text-white !bg-rose-950/40" placeholder=" " disabled>
                                 <span id="remotePassLabel" class="itsm-label text-rose-400" style="left:44px;">Remote Password</span>
                             </div>
                         </div>
@@ -709,7 +535,7 @@
                             <label class="block text-sm font-bold text-slate-200">
                                 <i class="fa-solid fa-paperclip mr-2 text-blue-400"></i>Upload Diagnostic Evidence
                             </label>
-                            <p class="text-xs text-slate-400 mt-1 font-medium">Accepts screenshots, PDFs, or log files (Max 5MB).</p>
+                            <p class="text-xs text-slate-400 mt-1 font-medium">Accepts screenshots, PDFs, or log files (Max 5MB). Automatically saves to Google Drive.</p>
                         </div>
                         <input type="file" id="attachmentFile" accept="image/*,.pdf,.log" class="text-sm text-slate-300 file:mr-4 file:py-2.5 file:px-5 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-slate-700 file:text-blue-400 file:shadow-sm hover:file:bg-slate-600 cursor-pointer transition-colors w-full sm:w-auto"/>
                     </div>
@@ -793,7 +619,7 @@
             <!-- TAB: Global Queue View -->
             <div id="noc-allView" class="animate-fade-in">
                 
-                <!-- KPI Cards (6 Tiles now) -->
+                <!-- KPI Cards (6 Tiles) -->
                 <div class="grid grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
                     <div class="glass-panel p-6 rounded-[32px] flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 !bg-[#1e293b]/80 !border-none cursor-pointer" onclick="setQuickFilter('All')">
                         <div class="absolute -right-2 -top-2 opacity-10 text-7xl text-blue-500"><i class="fa-solid fa-layer-group"></i></div>
@@ -1350,7 +1176,24 @@
         let chartDataExport = [];
         let activeChatTimer = null; 
         let clientPollingTimer = null;
+        let nocPollingTimer = null;
         let currentSort = { col: 'date', desc: true }; 
+
+        /**
+         * XSS SANITIZATION ENGINE
+         */
+        function escapeHTML(str) {
+            if (!str) return "";
+            return str.replace(/[&<>'"]/g, 
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag] || tag)
+            );
+        }
 
         /**
          * SLA Calculator Engine
@@ -1393,7 +1236,7 @@
                 }
             }
         }
-        setInterval(validateSession, 60000); // Check every minute
+        setInterval(validateSession, 60000); 
 
         /**
          * DOM Load Bootstrapper
@@ -1428,14 +1271,7 @@
                 switchView('home'); 
             }
         });
-
-        function toggleDarkMode() { 
-            document.documentElement.classList.toggle('dark'); 
-        }
         
-        /**
-         * Core Navigation Controller
-         */
         function switchView(viewName) {
             document.querySelectorAll('form').forEach(f => f.reset()); 
             document.querySelectorAll('.itsm-input').forEach(i => i.classList.remove('has-val'));
@@ -1476,14 +1312,8 @@
                 activeBtn.classList.add('ent-tab-active');
             }
             
-            if (tab === 'analytics') {
-                renderCompanyGrid();
-            }
-            
-            if (tab === 'admin') { 
-                fetchUsersList(); 
-                loadPlatformSettings(); 
-            }
+            if (tab === 'analytics') { renderCompanyGrid(); }
+            if (tab === 'admin') { fetchUsersList(); loadPlatformSettings(); }
         }
 
         function switchAdminTab(subTab) {
@@ -1494,7 +1324,6 @@
                 const btnEl = document.getElementById(`admTabBtn-${t}`);
                 if (viewEl) viewEl.classList.add('hidden');
                 if (btnEl) {
-                    // Force complete reset of the active classes
                     btnEl.classList.remove('bg-blue-600', 'text-white', 'border-blue-500/30', 'border');
                     btnEl.classList.add('glass-surface', 'text-slate-400', 'border-transparent', 'border');
                 }
@@ -1531,9 +1360,6 @@
             }
         }
 
-        /**
-         * Fetch API Wrapper for Google Apps Script
-         */
         async function apiPost(payload) {
             try { 
                 return await fetch(DB_CONFIG.apiUrl, { 
@@ -1548,9 +1374,7 @@
         }
 
         function logoutGlobal() {
-            IT_ROLE = ""; 
-            IT_NAME = ""; 
-            clientSession = null; 
+            IT_ROLE = ""; IT_NAME = ""; clientSession = null; 
             localStorage.removeItem('spread_client_session');
             
             const logoutBtn = document.getElementById('globalLogoutBtn');
@@ -1559,20 +1383,13 @@
             const approverSec = document.getElementById('approverSection');
             if (approverSec) approverSec.classList.add('hidden');
             
-            const cc1 = document.getElementById('clientActiveTicketsContainer'); 
-            if(cc1) cc1.innerHTML = ''; 
-            const cc2 = document.getElementById('clientClosedTicketsContainer'); 
-            if(cc2) cc2.innerHTML = ''; 
+            const cc1 = document.getElementById('clientActiveTicketsContainer'); if(cc1) cc1.innerHTML = ''; 
+            const cc2 = document.getElementById('clientClosedTicketsContainer'); if(cc2) cc2.innerHTML = ''; 
             
-            const db = document.getElementById('dashboardTableBody'); 
-            if(db) db.innerHTML = '';
+            const db = document.getElementById('dashboardTableBody'); if(db) db.innerHTML = '';
             
-            if(activeChatTimer) {
-                clearInterval(activeChatTimer);
-                activeChatTimer = null;
-            }
-            stopClientPolling();
-            
+            if(activeChatTimer) { clearInterval(activeChatTimer); activeChatTimer = null; }
+            stopClientPolling(); stopNocPolling();
             switchView('home');
         }
 
@@ -1586,19 +1403,14 @@
             const pass = document.getElementById('clientPassword').value.trim(); 
             const btn = e.target.querySelector('button[type="submit"]'); 
             
-            btn.innerHTML = "Verifying..."; 
-            btn.disabled = true;
+            btn.innerHTML = "Verifying..."; btn.disabled = true;
             
             try {
                 const res = await apiPost({ action: 'login_client', email: email, password: pass }); 
                 const data = await res.json();
                 
                 if(data.status === 'success') {
-                    clientSession = { 
-                        email: email, company: data.company, name: data.name, 
-                        role: data.role, phone: data.phone, peers: data.peers || [],
-                        loginTime: Date.now()
-                    }; 
+                    clientSession = { email: email, company: data.company, name: data.name, role: data.role, phone: data.phone, peers: data.peers || [], loginTime: Date.now() }; 
                     localStorage.setItem('spread_client_session', JSON.stringify(clientSession)); 
                     
                     document.getElementById('globalLogoutBtn').classList.remove('hidden'); 
@@ -1612,14 +1424,9 @@
                     }
                     switchView('clientDashboard'); 
                     startClientPolling();
-                } else { 
-                    alert(data.message || "Invalid credentials."); 
-                }
-            } catch(e) { 
-                alert("Database Connection Failed. Please wait a moment and try again."); 
-            }
-            btn.innerHTML = "Access Portal"; 
-            btn.disabled = false;
+                } else { alert(data.message || "Invalid credentials."); }
+            } catch(e) { alert("Database Connection Failed."); }
+            btn.innerHTML = "Access Portal"; btn.disabled = false;
         }
 
         async function handleITLogin(e) {
@@ -1628,8 +1435,7 @@
             const pass = document.getElementById('itPassword').value.trim(); 
             const btn = e.target.querySelector('button[type="submit"]'); 
             
-            btn.innerHTML = "Verifying..."; 
-            btn.disabled = true;
+            btn.innerHTML = "Verifying..."; btn.disabled = true;
             
             try {
                 const res = await apiPost({ action: 'login_admin', email: email, password: pass }); 
@@ -1640,17 +1446,12 @@
                     document.getElementById('nocTab-all').innerHTML = `<i class="fa-solid fa-layer-group"></i> Global Queue <span class="text-[10px] ml-2 font-bold px-2 py-0.5 bg-blue-600 text-white rounded-full shadow-md">(${data.name} | ${data.role})</span>`; 
                     document.getElementById('globalLogoutBtn').classList.remove('hidden'); 
                     switchView('nocDashboard'); 
-                    // Fetch global user list first so "Assign To" dropdown works properly, then fetch tickets
                     await fetchUsersList();
                     fetchDashboardTickets();
-                } else { 
-                    alert(data.message || "Invalid credentials."); 
-                }
-            } catch(e) { 
-                alert("Database Connection Failed. Please wait a moment and try again."); 
-            }
-            btn.innerHTML = "Login Admin"; 
-            btn.disabled = false;
+                    startNocPolling();
+                } else { alert(data.message || "Invalid credentials."); }
+            } catch(e) { alert("Database Connection Failed."); }
+            btn.innerHTML = "Login Admin"; btn.disabled = false;
         }
 
         async function triggerForgotPassword() {
@@ -1658,51 +1459,23 @@
             if (!email) return alert("Please type your email address in the Email field first, then click Forgot Password.");
             
             const btn = document.querySelector('button[onclick="triggerForgotPassword()"]'); 
-            const originalText = btn.innerText;
-            btn.innerText = "Sending..."; 
-            btn.disabled = true;
+            const originalText = btn.innerText; btn.innerText = "Sending..."; btn.disabled = true;
 
             try {
-                // Fetch user to verify email exists
                 const resU = await apiPost({ action: 'db_read', target_sheet: 'Users' });
                 const dataU = await resU.json();
                 const user = dataU.data.find(u => u.email && u.email.toLowerCase() === email.toLowerCase());
                 
-                if(!user) {
-                    alert("Email not found in our system.");
-                    btn.innerText = originalText; btn.disabled = false;
-                    return;
-                }
+                if(!user) { alert("Email not found in our system."); btn.innerText = originalText; btn.disabled = false; return; }
                 
-                // Generate password
                 const autoPass = Math.random().toString(36).slice(-8) + "A1!";
-                
-                // Update password in DB
                 await apiPost({ action: 'db_upsert', target_sheet: 'Users', primary_key: 'email', email: user.email, password: autoPass });
                 
-                // Send custom formatted email with Global JVP Link
-                const emailHtml = `
-                    <div style="font-family: sans-serif; padding: 20px; color: #333;">
-                        <h2 style="color: #005ac1;">Password Reset Successful</h2>
-                        <p>Hello,</p>
-                        <p>Your password for the Support Portal has been reset successfully.</p>
-                        <div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #cbd5e1;">
-                            <p style="margin: 0;"><b>New Temporary Password:</b> <code style="background: #e2e8f0; padding: 3px 6px; border-radius: 4px; font-size: 16px;">${autoPass}</code></p>
-                        </div>
-                        <p>You can use this to log in immediately via the web portal.</p>
-                        <br>
-                        <a href="https://tickets.globaljvp.com/" style="display: inline-block; padding: 12px 24px; background-color: #005ac1; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">Login to Portal</a>
-                    </div>
-                `;
-                
+                const emailHtml = `<div style="font-family: sans-serif; padding: 20px; color: #333;"><h2 style="color: #005ac1;">Password Reset Successful</h2><p>Hello,</p><p>Your password for the Support Portal has been reset successfully.</p><div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #cbd5e1;"><p style="margin: 0;"><b>New Temporary Password:</b> <code style="background: #e2e8f0; padding: 3px 6px; border-radius: 4px; font-size: 16px;">${autoPass}</code></p></div><p>You can use this to log in immediately via the web portal.</p><br><a href="https://tickets.globaljvp.com/" style="display: inline-block; padding: 12px 24px; background-color: #005ac1; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">Login to Portal</a></div>`;
                 await apiPost({ action: 'send_email', to: user.email, subject: "Spread Technical - Password Reset", htmlBody: emailHtml });
                 alert(`Success! A temporary password has been emailed to ${email}.`); 
-            } catch(e) { 
-                alert("Error connecting to server."); 
-            }
-            
-            btn.innerText = originalText; 
-            btn.disabled = false;
+            } catch(e) { alert("Error connecting to server."); }
+            btn.innerText = originalText; btn.disabled = false;
         }
 
         // ==========================================
@@ -1724,27 +1497,12 @@
                     if(te) te.checked = (String(data.settings.ENABLE_TELEGRAM).toLowerCase() === 'true');
                     if(ee) ee.checked = (String(data.settings.ENABLE_EMAIL).toLowerCase() === 'true');
                 }
-            } catch(e) { 
-                console.error("Failed to load settings:", e); 
-            }
+            } catch(e) { console.error("Failed to load settings:", e); }
         }
 
         async function savePlatformSettings() {
-            const payload = { 
-                action: 'save_settings', 
-                settings: { 
-                    TELEGRAM_BOT_TOKEN: document.getElementById('setBotToken').value.trim(), 
-                    TELEGRAM_CHAT_ID: document.getElementById('setChatId').value.trim(), 
-                    ENABLE_TELEGRAM: document.getElementById('setTelegramEnable').checked ? "true" : "false", 
-                    ENABLE_EMAIL: document.getElementById('setEmailEnable').checked ? "true" : "false" 
-                }
-            };
-            try { 
-                await apiPost(payload); 
-                alert("Settings saved successfully."); 
-            } catch(e) { 
-                alert("Failed to save settings."); 
-            }
+            const payload = { action: 'save_settings', settings: { TELEGRAM_BOT_TOKEN: document.getElementById('setBotToken').value.trim(), TELEGRAM_CHAT_ID: document.getElementById('setChatId').value.trim(), ENABLE_TELEGRAM: document.getElementById('setTelegramEnable').checked ? "true" : "false", ENABLE_EMAIL: document.getElementById('setEmailEnable').checked ? "true" : "false" } };
+            try { await apiPost(payload); alert("Settings saved successfully."); } catch(e) { alert("Failed to save settings."); }
         }
 
         // ==========================================
@@ -1757,16 +1515,11 @@
             
             document.getElementById('modalTicketId').innerText = ticket.id;
             let dDate = "Unknown Date"; 
-            if(ticket.date) { 
-                const d = new Date(ticket.date); 
-                if(!isNaN(d)) dDate = d.toLocaleString(); 
-            }
-            
+            if(ticket.date) { const d = new Date(ticket.date); if(!isNaN(d)) dDate = d.toLocaleString(); }
             document.getElementById('modalTicketDate').innerText = dDate;
             document.getElementById('modalRequesterName').innerText = ticket.name;
             document.getElementById('modalActiveTicketId').value = ticket.id;
 
-            // Generate Pipeline
             const idx = STATUS_FLOW.indexOf(ticket.status); 
             let pipeHtml = '';
             STATUS_FLOW.forEach((step, i) => {
@@ -1778,61 +1531,46 @@
             });
             document.getElementById('modalPipeline').innerHTML = pipeHtml;
 
-            // Inject Details
-            document.getElementById('modalSubject').innerText = ticket.subject;
+            document.getElementById('modalSubject').innerText = escapeHTML(ticket.subject);
             
             document.getElementById('modalBadges').innerHTML = `
-                <span class="px-2 py-0.5 bg-slate-800/80 border border-slate-600/50 text-slate-300 rounded text-[10px] font-bold uppercase shadow-sm"><i class="fa-solid fa-building mr-1 text-blue-400"></i> ${ticket.company}</span>
-                <span class="px-2 py-0.5 bg-blue-900/50 border border-blue-500/50 text-blue-400 rounded text-[10px] font-bold uppercase shadow-sm">${ticket.request_type}</span>
-                <span class="px-2 py-0.5 bg-blue-900/50 border border-blue-500/50 text-blue-400 rounded text-[10px] font-bold uppercase shadow-sm">${ticket.category}</span>
-                <span class="px-2 py-0.5 ${ticket.priority === 'High' ? 'bg-rose-900/50 border border-rose-500/50 text-rose-400' : 'bg-amber-900/50 border border-amber-500/50 text-amber-400'} rounded text-[10px] font-bold uppercase shadow-sm">Impact: ${ticket.impact_level}</span>
+                <span class="px-2 py-0.5 bg-slate-800/80 border border-slate-600/50 text-slate-300 rounded text-[10px] font-bold uppercase shadow-sm"><i class="fa-solid fa-building mr-1 text-blue-400"></i> ${escapeHTML(ticket.company)}</span>
+                <span class="px-2 py-0.5 bg-blue-900/50 border border-blue-500/50 text-blue-400 rounded text-[10px] font-bold uppercase shadow-sm">${escapeHTML(ticket.request_type)}</span>
+                <span class="px-2 py-0.5 bg-blue-900/50 border border-blue-500/50 text-blue-400 rounded text-[10px] font-bold uppercase shadow-sm">${escapeHTML(ticket.category)}</span>
+                <span class="px-2 py-0.5 ${ticket.priority === 'High' ? 'bg-rose-900/50 border border-rose-500/50 text-rose-400' : 'bg-amber-900/50 border border-amber-500/50 text-amber-400'} rounded text-[10px] font-bold uppercase shadow-sm">Impact: ${escapeHTML(ticket.impact_level)}</span>
             `;
             
-            document.getElementById('modalDescription').innerText = ticket.description;
+            document.getElementById('modalDescription').innerText = ticket.description; // Trusting description as it's textarea escaped
             
+            document.getElementById('modalAttachmentContainer').innerHTML = ticket.attachment && ticket.attachment.startsWith("http") 
+                ? `<a href="${ticket.attachment}" target="_blank" class="inline-flex items-center px-4 py-2 bg-slate-700 hover:bg-slate-600 text-blue-400 text-xs font-bold rounded-lg shadow-sm border border-slate-600 transition"><i class="fa-solid fa-paperclip mr-2"></i> View Attached Evidence</a>`
+                : '';
+
             document.getElementById('modalRemoteContainer').innerHTML = ticket.remote_support && ticket.remote_support !== 'N/A' 
-                ? `<div class="p-3 bg-rose-900/30 border border-rose-700/50 text-rose-300 rounded-xl mt-4 shadow-sm"><strong class="block text-[10px] font-black text-rose-400 uppercase tracking-widest mb-1">Remote Access Validation</strong><span class="font-mono text-xs">${ticket.remote_support}</span></div>` 
+                ? `<div class="p-3 bg-rose-900/30 border border-rose-700/50 text-rose-300 rounded-xl mt-4 shadow-sm"><strong class="block text-[10px] font-black text-rose-400 uppercase tracking-widest mb-1">Remote Access Validation</strong><span class="font-mono text-xs">${escapeHTML(ticket.remote_support)}</span></div>` 
                 : '';
                 
-            document.getElementById('modalRequesterContact').innerHTML = `${ticket.email}<br>${ticket.phone}`;
-            document.getElementById('modalAssignment').innerText = ticket.assigned_to || 'Unassigned';
+            document.getElementById('modalRequesterContact').innerHTML = `${escapeHTML(ticket.email)}<br>${escapeHTML(ticket.phone)}`;
+            document.getElementById('modalAssignment').innerText = escapeHTML(ticket.assigned_to) || 'Unassigned';
             document.getElementById('modalAssignDate').innerText = ticket.assigned_date ? 'Assigned: ' + ticket.assigned_date : 'Awaiting dispatch';
 
-            // Start Polling Timer for this ticket's chat immediately
             if(activeChatTimer) clearInterval(activeChatTimer);
-            activeChatTimer = setInterval(() => {
-                refreshJustTheChat(ticketId);
-            }, 5000);
-            
-            // Do initial chat render
+            activeChatTimer = setInterval(() => { refreshJustTheChat(ticketId); }, 5000);
             refreshJustTheChat(ticketId);
             
             const modal = document.getElementById('ticketModalOverlay'); 
             if(modal) {
                 modal.classList.remove('hidden'); 
-                setTimeout(() => { 
-                    modal.classList.remove('opacity-0'); 
-                    document.getElementById('ticketModal').classList.remove('scale-95'); 
-                }, 10);
+                setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('ticketModal').classList.remove('scale-95'); }, 10);
             }
         }
 
         function closeTicketModal() { 
             const modal = document.getElementById('ticketModalOverlay'); 
             if(!modal) return;
-            
-            modal.classList.add('opacity-0'); 
-            document.getElementById('ticketModal').classList.add('scale-95'); 
-            
-            setTimeout(() => { 
-                modal.classList.add('hidden'); 
-            }, 300); 
-
-            // Stop Polling
-            if (activeChatTimer) {
-                clearInterval(activeChatTimer);
-                activeChatTimer = null;
-            }
+            modal.classList.add('opacity-0'); document.getElementById('ticketModal').classList.add('scale-95'); 
+            setTimeout(() => { modal.classList.add('hidden'); }, 300); 
+            if (activeChatTimer) { clearInterval(activeChatTimer); activeChatTimer = null; }
         }
 
         // ==========================================
@@ -1846,7 +1584,6 @@
                 const updatedTicket = data.tickets.find(t => t.id === ticketId);
                 
                 if (updatedTicket) {
-                    // Update cache
                     const cacheIndex = nocDashboardTickets.findIndex(t => t.id === ticketId);
                     if(cacheIndex > -1) nocDashboardTickets[cacheIndex] = updatedTicket;
 
@@ -1854,16 +1591,15 @@
                     if(updatedTicket.chat_history && updatedTicket.chat_history !== "[]") {
                         try {
                             JSON.parse(updatedTicket.chat_history).forEach(c => {
-                                // Align admin messages to the right, user messages to the left
                                 const isMe = !(c.sender === updatedTicket.name || c.sender === 'User');
                                 const alignClass = isMe ? 'me' : 'them';
-                                const senderName = isMe ? '' : `<span class="chat-sender">${c.sender}</span>`;
+                                const senderName = isMe ? '' : `<span class="chat-sender">${escapeHTML(c.sender)}</span>`;
                                 
                                 chatsHTML += `
                                 <div class="chat-bubble-container ${alignClass}">
                                     <div class="chat-bubble ${alignClass}">
                                         ${senderName}
-                                        <span class="chat-message-text">${c.message}</span>
+                                        <span class="chat-message-text">${escapeHTML(c.message)}</span>
                                         <span class="chat-meta">${c.time}</span>
                                     </div>
                                 </div>`;
@@ -1878,7 +1614,7 @@
                         chatBox.scrollTop = chatBox.scrollHeight;
                     }
                 }
-            } catch(e) {} // Fail silently if network cuts out during a background check
+            } catch(e) {} 
         }
 
         async function postModalChatMessage() { 
@@ -1887,55 +1623,32 @@
             
             if(!input.value.trim() || !ticketId) return; 
             
-            const payload = { 
-                action: 'chat', 
-                id: ticketId, 
-                sender: IT_NAME || 'IT Support', 
-                message: input.value.trim(), 
-                time: new Date().toLocaleString() 
-            }; 
-            
-            input.value = "Sending..."; 
-            input.disabled = true; 
-            
+            const payload = { action: 'chat', id: ticketId, sender: IT_NAME || 'IT Support', message: input.value.trim(), time: new Date().toLocaleString() }; 
+            input.value = "Sending..."; input.disabled = true; 
             try { 
-                const res = await apiPost(payload); 
-                const data = await res.json();
-                
-                if (data.status === "error") {
-                    alert("Backend Error: " + data.message);
-                } else {
-                    await refreshJustTheChat(ticketId); 
-                }
-            } catch(e) { 
-                alert("Network Error: Failed to reach the database."); 
-            } 
-            
-            input.disabled = false; 
-            input.value = ''; 
-            input.focus();
+                const res = await apiPost(payload); const data = await res.json();
+                if (data.status === "error") { alert("Backend Error: " + data.message); } 
+                else { await refreshJustTheChat(ticketId); }
+            } catch(e) { alert("Network Error: Failed to reach the database."); } 
+            input.disabled = false; input.value = ''; input.focus();
         }
 
         // --- Client Polling Engine ---
         function startClientPolling() {
             if (clientPollingTimer) clearInterval(clientPollingTimer);
-            clientPollingTimer = setInterval(refreshClientChatsSilently, 5000);
+            clientPollingTimer = setInterval(refreshClientDashboardSilently, 5000);
         }
 
         function stopClientPolling() {
-            if (clientPollingTimer) {
-                clearInterval(clientPollingTimer);
-                clientPollingTimer = null;
-            }
+            if (clientPollingTimer) { clearInterval(clientPollingTimer); clientPollingTimer = null; }
         }
 
-        async function refreshClientChatsSilently() {
+        async function refreshClientDashboardSilently() {
             if (!clientSession) return;
             try {
                 const res = await apiPost({ action: "get_tickets" }); 
                 let data = await res.json(); 
                 let tickets = data.tickets || [];
-                
                 tickets = tickets.filter(t => t.id && t.email && t.email.toLowerCase() === clientSession.email.toLowerCase());
                 
                 tickets.forEach(t => {
@@ -1947,25 +1660,35 @@
                                 JSON.parse(t.chat_history).forEach(c => { 
                                     const isMe = (c.sender === t.name || c.sender === 'User' || c.sender === clientSession.name);
                                     const alignClass = isMe ? 'me' : 'them';
-                                    const senderName = isMe ? '' : `<span class="chat-sender">${c.sender}</span>`;
-                                    
+                                    const senderName = isMe ? '' : `<span class="chat-sender">${escapeHTML(c.sender)}</span>`;
                                     chatsHTML += `
                                     <div class="chat-bubble-container ${alignClass}">
                                         <div class="chat-bubble ${alignClass}">
                                             ${senderName}
-                                            <span class="chat-message-text">${c.message}</span>
+                                            <span class="chat-message-text">${escapeHTML(c.message)}</span>
                                             <span class="chat-meta">${c.time}</span>
                                         </div>
                                     </div>`;
                                 }); 
                             } catch(e){} 
                         }
-                        
                         const newHTML = chatsHTML || '<div class="h-full flex items-center justify-center"><p class="text-[10px] font-bold uppercase tracking-wider text-slate-500 text-center">No messages yet.</p></div>';
-                        if (chatBox.innerHTML !== newHTML) {
-                            chatBox.innerHTML = newHTML;
-                            chatBox.scrollTop = chatBox.scrollHeight;
+                        if (chatBox.innerHTML !== newHTML) { chatBox.innerHTML = newHTML; chatBox.scrollTop = chatBox.scrollHeight; }
+                    }
+
+                    const statusBadge = document.getElementById(`clientStatusBadge_${t.id}`);
+                    if(statusBadge && statusBadge.innerText !== t.status) { statusBadge.innerText = t.status; }
+
+                    const slaContainer = document.getElementById(`clientSlaText_${t.id}`);
+                    if(slaContainer) {
+                        const dynamicSla = getSLAString(t.date, t.priority, t.status);
+                        let slaText = `<span class="text-amber-500 font-bold"><i class="fa-solid fa-clock"></i> Logged. Awaiting IT Assignment. <br>Target: ${dynamicSla}</span>`; 
+                        if(t.assigned_to) { 
+                            slaText = `<span class="text-emerald-400 font-bold"><i class="fa-solid fa-user-check"></i> Assigned to ${escapeHTML(t.assigned_to)}</span>`; 
+                            if(t.status === "Working") slaText += `<br><span class="text-blue-400 font-bold"><i class="fa-solid fa-spinner fa-spin"></i> IT is actively working on this... <br>Target: ${dynamicSla}</span>`; 
+                            if(t.status === "Resolved") slaText = `<span class="text-emerald-500 font-bold"><i class="fa-solid fa-check-double"></i> Ticket Resolved</span>`; 
                         }
+                        if(slaContainer.innerHTML !== slaText) slaContainer.innerHTML = slaText;
                     }
                 });
             } catch(e) {}
@@ -1975,38 +1698,64 @@
             const input = document.getElementById(`chatInput_${ticketId}`); 
             if(!input.value.trim()) return; 
             
-            const payload = { 
-                action: 'chat', 
-                id: ticketId, 
-                sender: clientSession ? clientSession.name : 'User', 
-                message: input.value.trim(), 
-                time: new Date().toLocaleString() 
-            }; 
-            
-            input.value = "Sending..."; 
-            input.disabled = true; 
+            const payload = { action: 'chat', id: ticketId, sender: clientSession ? clientSession.name : 'User', message: input.value.trim(), time: new Date().toLocaleString() }; 
+            input.value = "Sending..."; input.disabled = true; 
             
             try { 
-                const res = await apiPost(payload); 
-                const data = await res.json();
-                
-                if (data.status === "error") {
-                    alert("Backend Error: " + data.message);
-                } else {
-                    await refreshClientChatsSilently(); 
-                }
-            } catch(e) { 
-                alert("Network Error: Failed to reach the database."); 
-            } 
+                const res = await apiPost(payload); const data = await res.json();
+                if (data.status === "error") { alert("Backend Error: " + data.message); } 
+                else { await refreshClientDashboardSilently(); }
+            } catch(e) { alert("Network Error: Failed to reach the database."); } 
             
-            input.disabled = false; 
-            input.value = ''; 
-            input.focus();
+            input.disabled = false; input.value = ''; input.focus();
         }
 
         // ==========================================
-        // MASTER QUEUE ENGINE (WITH SORTING)
+        // MASTER QUEUE ENGINE (WITH SORTING & POLLING)
         // ==========================================
+
+        function startNocPolling() {
+            if(nocPollingTimer) clearInterval(nocPollingTimer);
+            nocPollingTimer = setInterval(refreshNOCDashboardSilently, 5000); 
+        }
+
+        function stopNocPolling() {
+            if(nocPollingTimer) { clearInterval(nocPollingTimer); nocPollingTimer = null; }
+        }
+
+        async function refreshNOCDashboardSilently() {
+            if (!IT_ROLE) return;
+            try {
+                const res = await apiPost({ action: "get_tickets" });
+                const data = await res.json();
+                let newTickets = data.tickets || [];
+                newTickets = newTickets.filter(t => t && t.id);
+
+                const currentStr = JSON.stringify(nocDashboardTickets.map(t => ({status: t.status, assigned_to: t.assigned_to, chat_history: t.chat_history})));
+                const newStr = JSON.stringify(newTickets.reverse().map(t => ({status: t.status, assigned_to: t.assigned_to, chat_history: t.chat_history})));
+
+                if (currentStr !== newStr) {
+                    const checkedIds = Array.from(document.querySelectorAll('.ticket-checkbox:checked')).map(cb => cb.value);
+                    nocDashboardTickets = newTickets; 
+                    
+                    document.getElementById('kpiTotal').innerText = nocDashboardTickets.length; 
+                    document.getElementById('kpiUnassigned').innerText = nocDashboardTickets.filter(t => !t.assigned_to || t.assigned_to.trim() === "").length;
+                    document.getElementById('kpiOpen').innerText = nocDashboardTickets.filter(t => t.status === "Pending Approval" || t.status === "Monitoring").length; 
+                    document.getElementById('kpiAssigned').innerText = nocDashboardTickets.filter(t => t.status === "Assigned").length; 
+                    document.getElementById('kpiWorking').innerText = nocDashboardTickets.filter(t => t.status === "Working").length; 
+                    document.getElementById('kpiResolved').innerText = nocDashboardTickets.filter(t => t.status === "Resolved").length;
+                    
+                    updateChart(nocDashboardTickets); 
+                    filterDashboard(); 
+
+                    checkedIds.forEach(id => {
+                        const cb = document.querySelector(`.ticket-checkbox[value="${id}"]`);
+                        if(cb) cb.checked = true;
+                    });
+                }
+            } catch(e) {}
+        }
+
         async function fetchDashboardTickets() {
             const tbody = document.getElementById('dashboardTableBody'); 
             if(!tbody) return;
@@ -2017,9 +1766,8 @@
                 const data = await res.json();
                 
                 nocDashboardTickets = data.tickets || []; 
-                nocDashboardTickets = nocDashboardTickets.filter(t => t && t.id); // Base array
+                nocDashboardTickets = nocDashboardTickets.filter(t => t && t.id).reverse(); 
                 
-                // Update KPI Tiles
                 document.getElementById('kpiTotal').innerText = nocDashboardTickets.length; 
                 document.getElementById('kpiUnassigned').innerText = nocDashboardTickets.filter(t => !t.assigned_to || t.assigned_to.trim() === "").length;
                 document.getElementById('kpiOpen').innerText = nocDashboardTickets.filter(t => t.status === "Pending Approval" || t.status === "Monitoring").length; 
@@ -2044,23 +1792,16 @@
         }
 
         function sortTable(column) {
-            // Update Sort State
             if (currentSort.col === column) {
                 currentSort.desc = !currentSort.desc;
             } else {
                 currentSort.col = column;
-                currentSort.desc = (column === 'date' || column === 'id'); // Default desc for date/id
+                currentSort.desc = (column === 'date' || column === 'id'); 
             }
 
-            // Update UI Icons
-            document.querySelectorAll('.sort-icon').forEach(icon => {
-                icon.className = 'fa-solid fa-sort sort-icon'; // Reset all
-            });
+            document.querySelectorAll('.sort-icon').forEach(icon => { icon.className = 'fa-solid fa-sort sort-icon'; });
             const activeIcon = document.getElementById(`sortIcon_${column}`);
-            if (activeIcon) {
-                activeIcon.className = `fa-solid fa-sort-${currentSort.desc ? 'down' : 'up'} sort-icon sort-active`;
-            }
-
+            if (activeIcon) { activeIcon.className = `fa-solid fa-sort-${currentSort.desc ? 'down' : 'up'} sort-icon sort-active`; }
             filterDashboard();
         }
 
@@ -2075,9 +1816,7 @@
             
             if(!confirm(`Delete ${checkboxes.length} ticket(s) permanently?`)) return; 
             
-            for(let cb of checkboxes) { 
-                await apiPost({ action: 'delete_ticket', id: cb.value }); 
-            } 
+            for(let cb of checkboxes) { await apiPost({ action: 'delete_ticket', id: cb.value }); } 
             alert("Tickets disposed."); 
             document.getElementById('selectAllCheckbox').checked = false; 
             fetchDashboardTickets(); 
@@ -2085,37 +1824,25 @@
 
         async function deleteTicket(ticketId) { 
             if(!confirm(`Are you sure you want to permanently delete ticket ${ticketId}?\n\nThis action cannot be undone.`)) return; 
-            
-            try { 
-                await apiPost({ action: 'delete_ticket', id: ticketId }); 
-                fetchDashboardTickets(); 
-            } catch(e) { 
-                alert("Error deleting ticket."); 
-            } 
+            try { await apiPost({ action: 'delete_ticket', id: ticketId }); fetchDashboardTickets(); } catch(e) { alert("Error deleting ticket."); } 
         }
 
         function filterByCompany(company) { 
-            currentCompanyFilter = company; 
-            switchNocTab('all'); 
+            currentCompanyFilter = company; switchNocTab('all'); 
             
-            const filterWrapper = document.createElement('div'); 
-            filterWrapper.id = "activeFilterWrapper"; 
+            const filterWrapper = document.createElement('div'); filterWrapper.id = "activeFilterWrapper"; 
             filterWrapper.className = "flex items-center glass-surface bg-blue-900/40 border border-blue-500/50 text-blue-300 px-4 py-1.5 rounded-full text-xs font-bold mr-3 shadow-sm"; 
             filterWrapper.innerHTML = `<span id="activeFilterBadge">${company}</span><button onclick="clearCompanyFilter()" class="ml-3 hover:text-rose-400 transition-colors"><i class="fa-solid fa-times"></i></button>`; 
             
-            const headerActions = document.getElementById('queueHeaderActions'); 
-            const existing = document.getElementById('activeFilterWrapper'); 
-            
+            const headerActions = document.getElementById('queueHeaderActions'); const existing = document.getElementById('activeFilterWrapper'); 
             if(existing) existing.remove(); 
             if(headerActions) headerActions.appendChild(filterWrapper); 
-            
             filterDashboard(); 
         }
 
         function clearCompanyFilter() { 
             currentCompanyFilter = "All"; 
-            const existing = document.getElementById('activeFilterWrapper'); 
-            if(existing) existing.remove(); 
+            const existing = document.getElementById('activeFilterWrapper'); if(existing) existing.remove(); 
             filterDashboard(); 
         }
 
@@ -2131,42 +1858,22 @@
                 return mFilter && mSearch && mComp; 
             });
             
-            // Execute Sort
             filtered.sort((a, b) => {
-                let valA = a[currentSort.col] || '';
-                let valB = b[currentSort.col] || '';
-
-                if (currentSort.col === 'id') {
-                    valA = parseInt((a.id || '').replace(/[^0-9]/g, '')) || 0;
-                    valB = parseInt((b.id || '').replace(/[^0-9]/g, '')) || 0;
-                }
-
+                let valA = a[currentSort.col] || ''; let valB = b[currentSort.col] || '';
+                if (currentSort.col === 'id') { valA = parseInt((a.id || '').replace(/[^0-9]/g, '')) || 0; valB = parseInt((b.id || '').replace(/[^0-9]/g, '')) || 0; }
                 if (valA < valB) return currentSort.desc ? 1 : -1;
                 if (valA > valB) return currentSort.desc ? -1 : 1;
                 return 0;
             });
 
             filteredTicketsCache = filtered; 
-            const tbody = document.getElementById('dashboardTableBody'); 
-            if(!tbody) return;
-            
+            const tbody = document.getElementById('dashboardTableBody'); if(!tbody) return;
             tbody.innerHTML = '';
             
-            if(filtered.length === 0) { 
-                tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-bold uppercase tracking-wider">No tickets match this view.</td></tr>`; 
-                return; 
-            }
+            if(filtered.length === 0) { tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-bold uppercase tracking-wider">No tickets match this view.</td></tr>`; return; }
 
             let htmlStr = '';
             
-            // Build reusable IT Staff dropdown options (Master/Tier 1 only)
-            let itStaffOptions = `<option value="">Unassigned</option>`;
-            globalUsersList.forEach(u => {
-                if(u.role === 'Master Admin' || u.role === 'Tier 1 Support') {
-                    itStaffOptions += `<option value="${u.name}">${u.name}</option>`;
-                }
-            });
-
             filtered.forEach(t => {
                 const isPending = (t.status === 'Pending Approval'); 
                 const canApprove = (IT_ROLE === 'Master Admin' || IT_ROLE === 'Approver');
@@ -2179,7 +1886,6 @@
                 let displayDate = "Unknown Date"; 
                 if(t.date) { const d = new Date(t.date); if(!isNaN(d)) displayDate = d.toLocaleString(); }
                 
-                // Dynamic Assign To Dropdown - Only show full dropdown for Master Admins
                 let assignSelect = "";
                 if (IT_ROLE === 'Master Admin') {
                     assignSelect = `<select onchange="assignTicketToUser('${t.id}', this.value)" class="mt-2 p-1.5 w-full bg-slate-800 border border-slate-600 rounded text-xs font-bold text-white outline-none cursor-pointer focus:border-blue-500 transition-all">`;
@@ -2191,7 +1897,6 @@
                     });
                     assignSelect += `</select>`;
                 } else {
-                    // For Tier 1: Claim or Unclaim
                     if (!t.assigned_to || t.assigned_to === "") {
                         assignSelect = `<button onclick="assignTicketToUser('${t.id}', '${IT_NAME}')" class="text-[10px] bg-blue-600 text-white px-3 py-1.5 rounded-lg font-bold hover:bg-blue-500 transition block mt-2 w-full text-center shadow-md active:scale-95">Assign to Me</button>`;
                     } else if (t.assigned_to === IT_NAME) {
@@ -2199,7 +1904,7 @@
                     }
                 }
 
-                let slaBadge = `<span class="text-[10px] font-bold block ${t.assigned_to ? 'text-emerald-400' : 'text-amber-400'} mb-1">${t.assigned_to ? ('Assigned to: ' + t.assigned_to) : 'Unassigned'}</span>
+                let slaBadge = `<span class="text-[10px] font-bold block ${t.assigned_to ? 'text-emerald-400' : 'text-amber-400'} mb-1">${t.assigned_to ? ('Assigned to: ' + escapeHTML(t.assigned_to)) : 'Unassigned'}</span>
                                 <span class="text-[10px] font-bold block">${dynamicSla}</span>
                                 ${assignSelect}`;
 
@@ -2208,24 +1913,27 @@
                     remoteBadge = `
                         <div class="mt-3 p-2 bg-rose-900/30 border border-rose-700/50 rounded-lg shadow-sm w-max">
                             <span class="text-[9px] font-black text-rose-400 uppercase tracking-widest block mb-0.5"><i class="fa-solid fa-desktop mr-1"></i> Remote Access</span>
-                            <span class="text-xs font-mono font-bold text-rose-200 drop-shadow-sm">${t.remote_support}</span>
+                            <span class="text-xs font-mono font-bold text-rose-200 drop-shadow-sm">${escapeHTML(t.remote_support)}</span>
                         </div>`;
                 }
+
+                let attachBadge = t.attachment && t.attachment.startsWith("http") 
+                    ? `<a href="${t.attachment}" target="_blank" class="mt-2 inline-block text-[10px] text-blue-400 hover:text-blue-300 transition underline"><i class="fa-solid fa-paperclip"></i> View File</a>` 
+                    : '';
                 
                 htmlStr += `
                     <tr class="hover:bg-slate-800/80 border-b border-slate-800 transition-colors">
-                        <td class="px-5 py-5 text-center">
-                            <input type="checkbox" class="ticket-checkbox w-4 h-4 cursor-pointer accent-blue-500 drop-shadow-sm" value="${t.id}">
-                        </td>
+                        <td class="px-5 py-5 text-center"><input type="checkbox" class="ticket-checkbox w-4 h-4 cursor-pointer accent-blue-500 drop-shadow-sm" value="${t.id}"></td>
                         <td class="px-5 py-5 align-top">
                             <button onclick="openTicketModal('${t.id}')" class="font-black text-blue-400 hover:underline hover:text-blue-300 text-sm block mb-1 text-left drop-shadow-sm">${t.id}</button>
                             <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider whitespace-nowrap">${displayDate}</span>
                         </td>
                         <td class="px-6 py-5 align-top w-36">${slaBadge}</td>
                         <td class="px-6 py-5 align-top text-sm">
-                            <strong class="block text-white mb-1 truncate max-w-sm drop-shadow-sm">${t.subject}</strong>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${t.company}</span>
-                            <span class="text-[10px] text-slate-500 ml-1">| ${t.name}</span>
+                            <strong class="block text-white mb-1 truncate max-w-sm drop-shadow-sm">${escapeHTML(t.subject)}</strong>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${escapeHTML(t.company)}</span>
+                            <span class="text-[10px] text-slate-500 ml-1">| ${escapeHTML(t.name)}</span>
+                            ${attachBadge}
                             ${remoteBadge}
                         </td>
                         <td class="px-6 py-5 align-top w-40">
@@ -2243,20 +1951,12 @@
         async function assignTicketToUser(ticketId, assignedUser) {
             const t = nocDashboardTickets.find(x => x.id === ticketId);
             if (!t) return;
-            
             let newStatus = t.status;
-            // Auto-shift status if assigned from new state
-            if (assignedUser !== "") {
-                if (t.status === 'Monitoring' || t.status === 'Pending Approval') newStatus = 'Assigned';
-            } else {
-                if (t.status === 'Assigned') newStatus = (t.request_type === 'Service') ? 'Pending Approval' : 'Monitoring';
-            }
+            if (assignedUser !== "") { if (t.status === 'Monitoring' || t.status === 'Pending Approval') newStatus = 'Assigned'; } 
+            else { if (t.status === 'Assigned') newStatus = (t.request_type === 'Service') ? 'Pending Approval' : 'Monitoring'; }
             
             const payload = { action: 'update', id: ticketId, status: newStatus, assigned_to: assignedUser, assigned_date: new Date().toLocaleString() };
-            try { 
-                await apiPost(payload); 
-                fetchDashboardTickets(); 
-            } catch(e) { alert("Failed to assign."); }
+            try { await apiPost(payload); fetchDashboardTickets(); } catch(e) { alert("Failed to assign."); }
         }
 
         async function updateAdminTicketStatus(ticketId, newStatus) {
@@ -2265,7 +1965,7 @@
                 rca = prompt(`Please enter the Root Cause Analysis (RCA) or resolution details for ${ticketId}:`);
                 if (!rca) { alert("RCA is required to close a ticket."); return fetchDashboardTickets(); }
             }
-            const payload = { action: 'update', id: ticketId, status: newStatus, resolve_description: rca };
+            const payload = { action: 'update', id: ticketId, status: newStatus, resolve_description: escapeHTML(rca) };
             try { await apiPost(payload); fetchDashboardTickets(); } catch(e) { alert("Failed to update status."); }
         }
 
@@ -2280,7 +1980,7 @@
             
             let slaText = `<span class="text-amber-500 font-bold"><i class="fa-solid fa-clock"></i> Logged. Awaiting IT Assignment. <br>Target: ${dynamicSla}</span>`; 
             if(t.assigned_to) { 
-                slaText = `<span class="text-emerald-400 font-bold"><i class="fa-solid fa-user-check"></i> Assigned to ${t.assigned_to}</span>`; 
+                slaText = `<span class="text-emerald-400 font-bold"><i class="fa-solid fa-user-check"></i> Assigned to ${escapeHTML(t.assigned_to)}</span>`; 
                 if(t.status === "Working") slaText += `<br><span class="text-blue-400 font-bold"><i class="fa-solid fa-spinner fa-spin"></i> IT is actively working on this... <br>Target: ${dynamicSla}</span>`; 
                 if(t.status === "Resolved") slaText = `<span class="text-emerald-500 font-bold"><i class="fa-solid fa-check-double"></i> Ticket Resolved</span>`; 
             }
@@ -2291,12 +1991,12 @@
                     JSON.parse(t.chat_history).forEach(c => { 
                         const isMe = (c.sender === t.name || c.sender === 'User' || c.sender === clientSession.name);
                         const alignClass = isMe ? 'me' : 'them';
-                        const senderName = isMe ? '' : `<span class="chat-sender">${c.sender}</span>`;
+                        const senderName = isMe ? '' : `<span class="chat-sender">${escapeHTML(c.sender)}</span>`;
                         chatsHTML += `
                         <div class="chat-bubble-container ${alignClass}">
                             <div class="chat-bubble ${alignClass}">
                                 ${senderName}
-                                <span class="chat-message-text">${c.message}</span>
+                                <span class="chat-message-text">${escapeHTML(c.message)}</span>
                                 <span class="chat-meta">${c.time}</span>
                             </div>
                         </div>`;
@@ -2304,51 +2004,54 @@
                 } catch(e){} 
             }
             
+            let attachBadge = t.attachment && t.attachment.startsWith("http") 
+                ? `<a href="${t.attachment}" target="_blank" class="mt-3 inline-block text-[10px] text-blue-400 hover:text-blue-300 transition underline"><i class="fa-solid fa-paperclip"></i> View Uploaded File</a>` 
+                : '';
+
             return `
             <div class="glass-surface rounded-[20px] shadow-md hover:shadow-lg transition-shadow border border-slate-700/50 overflow-hidden bg-slate-800/40 flex flex-col lg:flex-row w-full">
-                <!-- LEFT SIDE: Ticket Details -->
                 <div class="w-full lg:w-7/12 p-6 flex flex-col border-b lg:border-b-0 lg:border-r border-slate-700/50 relative">
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <span class="font-black text-blue-400 text-lg drop-shadow-sm">${t.id}</span>
-                            <span class="ml-2 text-[9px] px-2.5 py-0.5 bg-slate-700/60 border border-slate-600/50 text-slate-300 rounded-full font-bold uppercase tracking-wider shadow-sm">${t.status}</span>
+                            <span id="clientStatusBadge_${t.id}" class="ml-2 text-[9px] px-2.5 py-0.5 bg-slate-700/60 border border-slate-600/50 text-slate-300 rounded-full font-bold uppercase tracking-wider shadow-sm">${t.status}</span>
                         </div>
                         <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider text-right">${displayDate}</div>
                     </div>
                     
-                    <h4 class="font-extrabold text-base mb-3 text-white drop-shadow-sm leading-tight pr-4">${t.subject}</h4>
+                    <h4 class="font-extrabold text-base mb-3 text-white drop-shadow-sm leading-tight pr-4">${escapeHTML(t.subject)}</h4>
                     
                     <div class="flex gap-2 mb-4 flex-wrap">
-                        <span class="text-[9px] bg-blue-900/50 border border-blue-500/30 text-blue-400 px-2 py-1 rounded font-bold uppercase shadow-sm">${t.request_type}</span>
-                        <span class="text-[9px] bg-blue-900/50 border border-blue-500/30 text-blue-400 px-2 py-1 rounded font-bold uppercase shadow-sm">${t.category}</span>
-                        <span class="text-[9px] bg-slate-800 border border-slate-600/50 text-slate-300 px-2 py-1 rounded font-bold uppercase shadow-sm">Impact: ${t.impact_level}</span>
+                        <span class="text-[9px] bg-blue-900/50 border border-blue-500/30 text-blue-400 px-2 py-1 rounded font-bold uppercase shadow-sm">${escapeHTML(t.request_type)}</span>
+                        <span class="text-[9px] bg-blue-900/50 border border-blue-500/30 text-blue-400 px-2 py-1 rounded font-bold uppercase shadow-sm">${escapeHTML(t.category)}</span>
+                        <span class="text-[9px] bg-slate-800 border border-slate-600/50 text-slate-300 px-2 py-1 rounded font-bold uppercase shadow-sm">Impact: ${escapeHTML(t.impact_level)}</span>
                     </div>
                     
                     <div class="bg-slate-900/50 p-4 rounded-xl text-xs mb-4 border border-slate-700/50 shadow-inner flex-grow">
-                        <p class="text-slate-300 whitespace-pre-wrap leading-relaxed">${t.description}</p>
+                        <p class="text-slate-300 whitespace-pre-wrap leading-relaxed">${escapeHTML(t.description)}</p>
+                        ${attachBadge}
                     </div>
                     
                     <div class="glass-surface p-4 rounded-xl text-xs border border-slate-700/50 shadow-sm bg-slate-800/80 mt-auto">
                         <strong class="uppercase text-[9px] text-slate-400 tracking-wider mb-1 block">Ticket Activity:</strong>
-                        <div class="text-xs">${slaText}</div>
+                        <div id="clientSlaText_${t.id}" class="text-xs">${slaText}</div>
                     </div>
                 </div>
 
-                <!-- RIGHT SIDE: Chat -->
                 <div class="w-full lg:w-5/12 flex flex-col bg-slate-900/30 h-[350px] lg:h-auto">
                     <div class="p-4 border-b border-slate-700/50 bg-slate-800/50 flex justify-between items-center">
                         <h5 class="text-[10px] font-bold uppercase tracking-wider text-blue-400 flex items-center">
-                            <i class="fa-regular fa-comments mr-2"></i> Support Chat
+                            <i class="fa-brands fa-whatsapp mr-2 text-emerald-400 text-lg"></i> Support Chat
                         </h5>
                     </div>
                     
-                    <div id="clientChatHistory_${t.id}" class="flex-grow p-4 overflow-y-auto flex flex-col space-y-2 scroll-smooth">
+                    <div id="clientChatHistory_${t.id}" class="flex-grow p-4 overflow-y-auto flex flex-col space-y-2 scroll-smooth chat-bg">
                         ${chatsHTML || '<div class="h-full flex items-center justify-center"><p class="text-[10px] font-bold uppercase tracking-wider text-slate-500 text-center">No messages yet.</p></div>'}
                     </div>
                     
                     <div class="p-4 glass-surface border-t border-slate-700/50 bg-slate-900/80 mt-auto">
                         <div class="flex gap-2 relative">
-                            <input type="text" id="chatInput_${t.id}" class="flex-grow px-4 py-2.5 text-xs bg-slate-800 border border-slate-600/50 rounded-full outline-none focus:border-blue-500 text-white shadow-inner" placeholder="Reply to IT...">
+                            <input type="text" id="chatInput_${t.id}" onkeypress="if(event.key === 'Enter') postClientChatMessage('${t.id}')" class="flex-grow px-4 py-2.5 text-xs bg-slate-800 border border-slate-600/50 rounded-full outline-none focus:border-blue-500 text-white shadow-inner" placeholder="Reply to IT...">
                             <button onclick="postClientChatMessage('${t.id}')" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:bg-blue-500 active:scale-95 transition-all flex-shrink-0">
                                 <i class="fa-solid fa-paper-plane text-xs"></i>
                             </button>
@@ -2422,13 +2125,13 @@
                         <div class="glass-panel border-amber-500/30 rounded-xl p-5 shadow-sm hover:shadow-md transition bg-amber-900/20">
                             <div class="flex justify-between items-start mb-3">
                                 <div>
-                                    <span class="font-extrabold text-amber-400 text-lg drop-shadow-sm">${t.subject}</span><br>
-                                    <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Requested by: ${t.name}</span>
+                                    <span class="font-extrabold text-amber-400 text-lg drop-shadow-sm">${escapeHTML(t.subject)}</span><br>
+                                    <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Requested by: ${escapeHTML(t.name)}</span>
                                 </div>
                                 <span class="text-[10px] font-bold text-amber-500 bg-amber-900/50 border border-amber-500/30 px-3 py-1 rounded-full shadow-sm">${t.id}</span>
                             </div>
                             <div class="bg-amber-950/40 p-4 rounded-lg border border-amber-800/50 mb-4 shadow-inner">
-                                <p class="text-xs text-amber-200 font-medium whitespace-pre-wrap">${t.description}</p>
+                                <p class="text-xs text-amber-200 font-medium whitespace-pre-wrap">${escapeHTML(t.description)}</p>
                             </div>
                             <div class="flex gap-3 justify-end">
                                 <button onclick="managerApproveReject('${t.id}', 'Rejected')" class="glass-surface border border-rose-500/50 text-rose-400 hover:bg-rose-900/50 px-6 py-2.5 rounded-full text-xs font-bold transition shadow-sm active:scale-95">Reject</button>
@@ -2448,9 +2151,7 @@
                 alert(`Ticket ${ticketId} has been ${newStatus === 'Monitoring' ? 'Approved' : 'Rejected'}.`); 
                 fetchApproverTickets(); 
                 fetchClientTickets(); 
-            } catch(e) { 
-                alert("Network Error updating ticket."); 
-            } 
+            } catch(e) { alert("Network Error updating ticket."); } 
         }
         
         // ==========================================
@@ -2459,11 +2160,9 @@
 
         async function fetchUsersList() { 
             try { 
-                // Fetch Users
                 const resU = await apiPost({ action: 'get_users' }); 
                 const dataU = await resU.json(); 
                 
-                // Fetch Full Companies Details using NoSQL db_read
                 const resC = await apiPost({ action: 'db_read', target_sheet: 'Companies' });
                 const dataC = await resC.json();
 
@@ -2474,21 +2173,15 @@
                     const compNames = globalRegisteredCompanies.map(c => c.company || c["company name"] || c.name);
 
                     const compFilter = document.getElementById('corpUserCompanyFilter'); 
-                    if(compFilter) {
-                        compFilter.innerHTML = '<option value="All">All Companies</option>' + compNames.map(c => `<option value="${c}">${c}</option>`).join(''); 
-                    }
+                    if(compFilter) { compFilter.innerHTML = '<option value="All">All Companies</option>' + compNames.map(c => `<option value="${c}">${c}</option>`).join(''); }
                     
                     const newUComp = document.getElementById('newUserCompany'); 
-                    if(newUComp) { 
-                        newUComp.innerHTML = '<option value="" disabled selected>Select Company</option>' + compNames.map(c => `<option value="${c}">${c}</option>`).join(''); 
-                    } 
+                    if(newUComp) { newUComp.innerHTML = '<option value="" disabled selected>Select Company</option>' + compNames.map(c => `<option value="${c}">${c}</option>`).join(''); } 
                     
                     renderUsersList(); 
                     renderRegisteredCompanies(); 
                 } 
-            } catch(e) { 
-                console.error("Failed to fetch users", e); 
-            } 
+            } catch(e) { console.error("Failed to fetch users", e); } 
         }
         
         function renderUsersList() {
@@ -2502,14 +2195,12 @@
             let itHTML = ''; 
             globalUsersList.forEach(u => { 
                 if(u.role !== 'Client' && u.role !== 'Approver') { 
-                    
                     let telegramBadge = u.telegram_id ? `<span class="px-2 py-0.5 ml-3 bg-blue-900/50 border border-blue-500/50 text-blue-400 rounded text-[9px] shadow-sm"><i class="fa-brands fa-telegram"></i> ${u.telegram_id}</span>` : '';
-
                     itHTML += `
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 glass-surface border border-slate-700/50 bg-slate-800/50 rounded-xl mb-3 hover:shadow-md transition-shadow">
                             <div>
-                                <p class="font-extrabold text-sm text-white drop-shadow-sm flex items-center">${u.name} ${telegramBadge}</p>
-                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mt-1">${u.email} | ${u.company}</p>
+                                <p class="font-extrabold text-sm text-white drop-shadow-sm flex items-center">${escapeHTML(u.name)} ${telegramBadge}</p>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mt-1">${escapeHTML(u.email)} | ${escapeHTML(u.company)}</p>
                             </div>
                             <div class="flex items-center gap-3 mt-3 sm:mt-0">
                                 <span class="px-3 py-1 bg-blue-900/50 border border-blue-500/30 text-blue-400 rounded-full text-[10px] font-bold uppercase shadow-sm">${u.role}</span>
@@ -2533,7 +2224,7 @@
             companies.forEach(company => { 
                 hierarchyHTML += `
                     <div class="mb-8">
-                        <h4 class="font-black text-xl text-white border-b border-slate-700/50 pb-3 mb-4 drop-shadow-sm"><i class="fa-solid fa-building text-blue-500 mr-3"></i> ${company}</h4>`; 
+                        <h4 class="font-black text-xl text-white border-b border-slate-700/50 pb-3 mb-4 drop-shadow-sm"><i class="fa-solid fa-building text-blue-500 mr-3"></i> ${escapeHTML(company)}</h4>`; 
                 
                 const compUsers = filteredCorpUsers.filter(u => u.company === company); 
                 const managers = [...new Set(compUsers.map(u => u.manager || 'No Assigned Manager'))]; 
@@ -2541,7 +2232,7 @@
                 managers.forEach(manager => { 
                     hierarchyHTML += `
                         <div class="ml-4 mb-5">
-                            <h5 class="text-[11px] font-extrabold text-slate-400 mb-3 uppercase tracking-widest"><i class="fa-solid fa-sitemap mr-2"></i> Manager: ${manager}</h5>`; 
+                            <h5 class="text-[11px] font-extrabold text-slate-400 mb-3 uppercase tracking-widest"><i class="fa-solid fa-sitemap mr-2"></i> Manager: ${escapeHTML(manager)}</h5>`; 
                     
                     const reports = compUsers.filter(u => (u.manager || 'No Assigned Manager') === manager); 
                     reports.forEach(u => { 
@@ -2549,13 +2240,12 @@
                         hierarchyHTML += `
                             <div class="flex items-center justify-between p-4 glass-surface border border-slate-700/50 bg-slate-800/40 rounded-xl shadow-sm mb-3 ml-6 hover:shadow-md transition-shadow">
                                 <div>
-                                    <p class="font-extrabold text-sm text-white drop-shadow-sm flex items-center">${u.name} ${roleBadge}</p>
-                                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mt-1">${u.email} | ${u.phone || 'No Phone'}</p>
+                                    <p class="font-extrabold text-sm text-white drop-shadow-sm flex items-center">${escapeHTML(u.name)} ${roleBadge}</p>
+                                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mt-1">${escapeHTML(u.email)} | ${escapeHTML(u.phone || 'No Phone')}</p>
                                 </div>
                                 <div class="flex gap-2">
-                                    <button onclick="openEditCorpUserModal('${u.email}', '${u.role}', '${u.manager}', '${u.company}', '${u.phone}')" class="w-8 h-8 rounded-full bg-slate-700 text-blue-400 hover:bg-slate-600 hover:text-white shadow-sm transition-all" title="Edit Profile"><i class="fa-solid fa-pen text-xs"></i></button>
-                                    <button onclick="adminResetPassword('${u.email}')" class="w-8 h-8 rounded-full bg-slate-700 text-emerald-400 hover:bg-slate-600 hover:text-white flex items-center justify-center shadow-sm transition-all" title="Reset Password"><i class="fa-solid fa-key text-xs"></i></button>
-                                    <button onclick="deleteCorporateUser('${u.email}')" class="w-8 h-8 rounded-full bg-rose-900/50 border border-rose-700/50 text-rose-400 hover:bg-rose-500 hover:text-white flex items-center justify-center shadow-sm transition-all" title="Delete User"><i class="fa-solid fa-trash text-xs"></i></button>
+                                    <button onclick="openEditCorpUserModal('${u.email}', '${u.role}', '${escapeHTML(u.manager)}', '${escapeHTML(u.company)}', '${escapeHTML(u.phone)}')" class="w-8 h-8 rounded-full bg-slate-700 text-blue-400 hover:bg-slate-600 hover:text-white shadow-sm transition-all"><i class="fa-solid fa-pen text-xs"></i></button>
+                                    <button onclick="adminResetPassword('${u.email}')" class="w-8 h-8 rounded-full bg-rose-900/50 border border-rose-700/50 text-rose-400 hover:bg-rose-500 hover:text-white flex items-center justify-center shadow-sm transition-all"><i class="fa-solid fa-key text-xs"></i></button>
                                 </div>
                             </div>`; 
                     }); 
@@ -2564,17 +2254,6 @@
                 hierarchyHTML += `</div>`; 
             }); 
             corpContainer.innerHTML = hierarchyHTML || '<p class="text-sm font-bold uppercase tracking-wider text-slate-500 text-center py-10">No corporate users found.</p>';
-        }
-
-        async function deleteCorporateUser(email) {
-            if(!confirm(`WARNING: Are you sure you want to permanently delete user ${email}?\n\nThis will remove their access to the portal.`)) return;
-            try {
-                await apiPost({ action: 'delete_user', email: email });
-                alert(`User ${email} has been deleted.`);
-                fetchUsersList();
-            } catch(e) {
-                alert("Failed to delete user.");
-            }
         }
 
         function renderRegisteredCompanies() {
@@ -2595,10 +2274,10 @@
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-blue-900/50 border border-blue-500/30 backdrop-blur-md text-blue-400 rounded-full flex items-center justify-center font-bold text-xl shadow-inner flex-shrink-0"><i class="fa-solid fa-building"></i></div>
                             <div>
-                                <h4 class="font-black text-lg text-white drop-shadow-sm">${compName}</h4>
+                                <h4 class="font-black text-lg text-white drop-shadow-sm">${escapeHTML(compName)}</h4>
                                 <div class="text-xs text-slate-400 mt-1 flex flex-wrap gap-x-4 gap-y-1">
-                                    ${c.domain ? `<span><i class="fa-solid fa-globe mr-1 text-slate-500"></i>${c.domain}</span>` : ''}
-                                    ${c.phone ? `<span><i class="fa-solid fa-phone mr-1 text-slate-500"></i>${c.phone}</span>` : ''}
+                                    ${c.domain ? `<span><i class="fa-solid fa-globe mr-1 text-slate-500"></i>${escapeHTML(c.domain)}</span>` : ''}
+                                    ${c.phone ? `<span><i class="fa-solid fa-phone mr-1 text-slate-500"></i>${escapeHTML(c.phone)}</span>` : ''}
                                 </div>
                             </div>
                         </div>
@@ -2611,39 +2290,25 @@
         async function registerNewCompany(e) {
             e.preventDefault(); 
             const btn = e.target.querySelector('button[type="submit"]'); 
-            btn.innerHTML = "Registering..."; 
-            btn.disabled = true;
+            btn.innerHTML = "Registering..."; btn.disabled = true;
             
-            const compName = document.getElementById('newRegCompanyName').value.trim();
-            const domain = document.getElementById('newRegDomain').value.trim();
-            const address = document.getElementById('newRegAddress').value.trim();
-            const phone = document.getElementById('newRegPhone').value.trim();
-            const itContact = document.getElementById('newRegContact').value.trim();
-
             const payload = {
-                action: 'db_upsert',
-                target_sheet: 'Companies',
-                primary_key: 'company',
-                company: compName,
-                domain: domain,
-                address: address,
-                phone: phone,
-                it_contact: itContact,
+                action: 'db_upsert', target_sheet: 'Companies', primary_key: 'company',
+                company: document.getElementById('newRegCompanyName').value.trim(),
+                domain: document.getElementById('newRegDomain').value.trim(),
+                address: document.getElementById('newRegAddress').value.trim(),
+                phone: document.getElementById('newRegPhone').value.trim(),
+                it_contact: document.getElementById('newRegContact').value.trim(),
                 created_date: new Date().toISOString()
             };
 
             try { 
-                const res = await apiPost(payload); 
-                const data = await res.json(); 
+                await apiPost(payload); 
                 alert("Company Registered Successfully!"); 
-                e.target.reset(); 
-                fetchUsersList(); 
-            } catch(e) { 
-                alert("Network error."); 
-            } 
+                e.target.reset(); fetchUsersList(); 
+            } catch(e) { alert("Network error."); } 
             
-            btn.innerHTML = "Register Company"; 
-            btn.disabled = false;
+            btn.innerHTML = "Register Company"; btn.disabled = false;
         }
 
         function openEditCompanyModal(companyName) {
@@ -2659,36 +2324,23 @@
 
             ['editCompDomain', 'editCompAddress', 'editCompPhone', 'editCompContact', 'editCompNotes'].forEach(id => {
                 const el = document.getElementById(id);
-                if(el.value) el.classList.add('has-val');
-                else el.classList.remove('has-val');
+                if(el.value) el.classList.add('has-val'); else el.classList.remove('has-val');
             });
 
             const modalBox = document.getElementById('editCompanyModalBox');
             const modal = document.getElementById('editCompanyModal');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalBox.classList.remove('scale-95');
-            }, 10);
+            modal.classList.remove('hidden'); setTimeout(() => { modal.classList.remove('opacity-0'); modalBox.classList.remove('scale-95'); }, 10);
         }
 
         function closeEditCompanyModal() {
-            const modalBox = document.getElementById('editCompanyModalBox');
-            const modal = document.getElementById('editCompanyModal');
-            modal.classList.add('opacity-0');
-            modalBox.classList.add('scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+            const modalBox = document.getElementById('editCompanyModalBox'); const modal = document.getElementById('editCompanyModal');
+            modal.classList.add('opacity-0'); modalBox.classList.add('scale-95'); setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
 
         async function saveCompanyEdits(e) {
-            const btn = e.target;
-            btn.innerHTML = "Saving...";
-            btn.disabled = true;
-
+            const btn = e.target; btn.innerHTML = "Saving..."; btn.disabled = true;
             const payload = {
-                action: 'db_upsert',
-                target_sheet: 'Companies',
-                primary_key: 'company',
+                action: 'db_upsert', target_sheet: 'Companies', primary_key: 'company',
                 company: document.getElementById('editCompName').value,
                 domain: document.getElementById('editCompDomain').value.trim(),
                 address: document.getElementById('editCompAddress').value.trim(),
@@ -2696,27 +2348,16 @@
                 it_contact: document.getElementById('editCompContact').value.trim(),
                 notes: document.getElementById('editCompNotes').value.trim()
             };
-
-            try {
-                await apiPost(payload);
-                closeEditCompanyModal();
-                fetchUsersList(); // reloads full list
-            } catch(e) {
-                alert("Error saving company profile.");
-            }
-            btn.innerHTML = "Save Profile";
-            btn.disabled = false;
+            try { await apiPost(payload); closeEditCompanyModal(); fetchUsersList(); } catch(e) { alert("Error saving company profile."); }
+            btn.innerHTML = "Save Profile"; btn.disabled = false;
         }
 
         function updateManagerDropdown() {
             const selectedComp = document.getElementById('newUserCompany').value; 
             const managerSelect = document.getElementById('newUserManager');
             const managers = globalUsersList.filter(u => u.company === selectedComp && u.role === 'Approver');
-            
             let opts = `<option value="">No Manager / Self</option>`; 
-            managers.forEach(m => { 
-                opts += `<option value="${m.name}">${m.name} (${m.email})</option>`; 
-            }); 
+            managers.forEach(m => { opts += `<option value="${m.name}">${m.name} (${m.email})</option>`; }); 
             managerSelect.innerHTML = opts;
         }
 
@@ -2724,19 +2365,13 @@
             document.getElementById('editCorpUserEmail').value = email; 
             document.getElementById('editCorpUserRole').value = currentRole || 'Client';
             document.getElementById('editCorpUserPhone').value = currentPhone || '';
-            
-            if(currentPhone) {
-                document.getElementById('editCorpUserPhone').classList.add('has-val');
-            } else {
-                document.getElementById('editCorpUserPhone').classList.remove('has-val');
-            }
+            if(currentPhone) document.getElementById('editCorpUserPhone').classList.add('has-val');
+            else document.getElementById('editCorpUserPhone').classList.remove('has-val');
             
             const compSelect = document.getElementById('editCorpUserCompany');
             let cOpts = `<option value="">Select Company</option>`;
             const compNames = globalRegisteredCompanies.map(c => c.company || c["company name"] || c.name);
-            compNames.forEach(c => { 
-                cOpts += `<option value="${c}" ${c === currentCompany ? 'selected' : ''}>${c}</option>`; 
-            });
+            compNames.forEach(c => { cOpts += `<option value="${c}" ${c === currentCompany ? 'selected' : ''}>${c}</option>`; });
             compSelect.innerHTML = cOpts;
             
             populateEditManagerDropdown(currentCompany, currentManager, email);
@@ -2744,31 +2379,18 @@
 
             const modalBox = document.getElementById('editCorpUserModalBox');
             const modal = document.getElementById('editCorpUserModal');
-            
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalBox.classList.remove('scale-95');
-            }, 10);
+            modal.classList.remove('hidden'); setTimeout(() => { modal.classList.remove('opacity-0'); modalBox.classList.remove('scale-95'); }, 10);
         }
         
         function closeEditCorpUserModal() {
-            const modalBox = document.getElementById('editCorpUserModalBox');
-            const modal = document.getElementById('editCorpUserModal');
-            
-            modal.classList.add('opacity-0');
-            modalBox.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            const modalBox = document.getElementById('editCorpUserModalBox'); const modal = document.getElementById('editCorpUserModal');
+            modal.classList.add('opacity-0'); modalBox.classList.add('scale-95'); setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
 
         function populateEditManagerDropdown(companyName, currentManager, userEmail) {
             const managers = globalUsersList.filter(u => u.role === 'Approver' && u.email !== userEmail && u.company === companyName);
             let opts = `<option value="">No Manager Assigned</option>`;
-            managers.forEach(m => { 
-                opts += `<option value="${m.name}" ${m.name === currentManager ? 'selected' : ''}>${m.name}</option>`; 
-            });
+            managers.forEach(m => { opts += `<option value="${m.name}" ${m.name === currentManager ? 'selected' : ''}>${m.name}</option>`; });
             document.getElementById('editCorpUserManager').innerHTML = opts;
         }
 
@@ -2778,21 +2400,10 @@
             const manager = document.getElementById('editCorpUserManager').value; 
             const company = document.getElementById('editCorpUserCompany').value;
             const phone = document.getElementById('editCorpUserPhone').value;
-            
-            const btn = e.target; 
-            btn.innerHTML = "Saving..."; 
-            btn.disabled = true;
-            
-            try { 
-                await apiPost({ action: 'update_user_profile', email: email, role: role, manager: manager, company: company, phone: phone }); 
-                closeEditCorpUserModal();
-                fetchUsersList(); 
-            } catch(e) { 
-                alert("Error saving user."); 
-            }
-            
-            btn.innerHTML = "Save Changes"; 
-            btn.disabled = false;
+            const btn = e.target; btn.innerHTML = "Saving..."; btn.disabled = true;
+            try { await apiPost({ action: 'update_user_profile', email: email, role: role, manager: manager, company: company, phone: phone }); closeEditCorpUserModal(); fetchUsersList(); } 
+            catch(e) { alert("Error saving user."); }
+            btn.innerHTML = "Save Changes"; btn.disabled = false;
         }
 
         function openEditITStaffModal(email, currentRole, currentPhone, currentTelegram) {
@@ -2801,31 +2412,16 @@
             document.getElementById('editITStaffPhone').value = currentPhone || '';
             document.getElementById('editITStaffTelegram').value = currentTelegram || '';
             
-            if(currentPhone) document.getElementById('editITStaffPhone').classList.add('has-val');
-            else document.getElementById('editITStaffPhone').classList.remove('has-val');
-            
-            if(currentTelegram) document.getElementById('editITStaffTelegram').classList.add('has-val');
-            else document.getElementById('editITStaffTelegram').classList.remove('has-val');
+            if(currentPhone) document.getElementById('editITStaffPhone').classList.add('has-val'); else document.getElementById('editITStaffPhone').classList.remove('has-val');
+            if(currentTelegram) document.getElementById('editITStaffTelegram').classList.add('has-val'); else document.getElementById('editITStaffTelegram').classList.remove('has-val');
 
-            const modalBox = document.getElementById('editITStaffModalBox');
-            const modal = document.getElementById('editITStaffModal');
-            
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalBox.classList.remove('scale-95');
-            }, 10);
+            const modalBox = document.getElementById('editITStaffModalBox'); const modal = document.getElementById('editITStaffModal');
+            modal.classList.remove('hidden'); setTimeout(() => { modal.classList.remove('opacity-0'); modalBox.classList.remove('scale-95'); }, 10);
         }
 
         function closeEditITStaffModal() {
-            const modalBox = document.getElementById('editITStaffModalBox');
-            const modal = document.getElementById('editITStaffModal');
-            
-            modal.classList.add('opacity-0');
-            modalBox.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            const modalBox = document.getElementById('editITStaffModalBox'); const modal = document.getElementById('editITStaffModal');
+            modal.classList.add('opacity-0'); modalBox.classList.add('scale-95'); setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
 
         async function saveITStaffEdits(e) {
@@ -2833,21 +2429,10 @@
             const role = document.getElementById('editITStaffRole').value; 
             const phone = document.getElementById('editITStaffPhone').value;
             const telegram_id = document.getElementById('editITStaffTelegram').value;
-            
-            const btn = e.target; 
-            btn.innerHTML = "Updating..."; 
-            btn.disabled = true;
-            
-            try { 
-                await apiPost({ action: 'update_user_profile', email: email, role: role, phone: phone, telegram_id: telegram_id }); 
-                closeEditITStaffModal();
-                fetchUsersList(); 
-            } catch(e) { 
-                alert("Error saving IT staff profile."); 
-            }
-            
-            btn.innerHTML = "Update Staff"; 
-            btn.disabled = false;
+            const btn = e.target; btn.innerHTML = "Updating..."; btn.disabled = true;
+            try { await apiPost({ action: 'update_user_profile', email: email, role: role, phone: phone, telegram_id: telegram_id }); closeEditITStaffModal(); fetchUsersList(); } 
+            catch(e) { alert("Error saving IT staff profile."); }
+            btn.innerHTML = "Update Staff"; btn.disabled = false;
         }
 
 
@@ -2855,174 +2440,67 @@
             if(globalUsersList.length === 0) return alert("No users to export."); 
             const corpUsers = globalUsersList.filter(u => u.role === 'Client' || u.role === 'Approver').map(u => ({ Name: u.name, Email: u.email, Phone: u.phone, Company: u.company, Role: u.role, Manager: u.manager })); 
             if(corpUsers.length === 0) return alert("No corporate users found."); 
-            
-            const ws = XLSX.utils.json_to_sheet(corpUsers); 
-            const wb = XLSX.utils.book_new(); 
-            XLSX.utils.book_append_sheet(wb, ws, "Corporate Users"); 
-            XLSX.writeFile(wb, "Spread_Corporate_Users.xlsx"); 
+            const ws = XLSX.utils.json_to_sheet(corpUsers); const wb = XLSX.utils.book_new(); 
+            XLSX.utils.book_append_sheet(wb, ws, "Corporate Users"); XLSX.writeFile(wb, "Spread_Corporate_Users.xlsx"); 
         }
 
         async function adminResetPassword(email) { 
             if (!confirm(`Are you sure you want to reset the password for ${email}?`)) return; 
-            
             const autoPass = Math.random().toString(36).slice(-8) + "A1!"; 
-            
             try { 
                 await apiPost({ action: 'db_upsert', target_sheet: 'Users', primary_key: 'email', email: email, password: autoPass });
-                
-                // Email it quietly
-                const emailHtml = `
-                    <div style="font-family: sans-serif; padding: 20px; color: #333;">
-                        <h2 style="color: #005ac1;">Password Reset Successful</h2>
-                        <p>Hello,</p>
-                        <p>Your password for the Support Portal has been reset successfully.</p>
-                        <div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #cbd5e1;">
-                            <p style="margin: 0;"><b>New Temporary Password:</b> <code style="background: #e2e8f0; padding: 3px 6px; border-radius: 4px; font-size: 16px;">${autoPass}</code></p>
-                        </div>
-                        <p>You can use this to log in immediately via the web portal.</p>
-                        <br>
-                        <a href="https://tickets.globaljvp.com/" style="display: inline-block; padding: 12px 24px; background-color: #005ac1; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">Login to Portal</a>
-                    </div>
-                `;
+                const emailHtml = `<div style="font-family: sans-serif; padding: 20px; color: #333;"><h2 style="color: #005ac1;">Password Reset Successful</h2><p>Hello,</p><p>Your password for the Support Portal has been reset successfully.</p><div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #cbd5e1;"><p style="margin: 0;"><b>New Temporary Password:</b> <code style="background: #e2e8f0; padding: 3px 6px; border-radius: 4px; font-size: 16px;">${autoPass}</code></p></div><p>You can use this to log in immediately via the web portal.</p><br><a href="https://tickets.globaljvp.com/" style="display: inline-block; padding: 12px 24px; background-color: #005ac1; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">Login to Portal</a></div>`;
                 await apiPost({ action: 'send_email', to: email, subject: "Spread Technical - Password Reset", htmlBody: emailHtml });
-                
                 alert(`Password successfully reset!\n\nNew Password for ${email}: ${autoPass}\n\nA copy of this has been emailed to the user.`); 
             } catch(e) { alert("Network error connecting to database."); } 
         }
 
         async function createCorporateUser(e) { 
             e.preventDefault(); 
-            const btn = e.target.querySelector('button[type="submit"]'); 
-            btn.innerHTML = "Creating..."; 
-            btn.disabled = true; 
+            const btn = e.target.querySelector('button[type="submit"]'); btn.innerHTML = "Creating..."; btn.disabled = true; 
             
             const autoPass = Math.random().toString(36).slice(-8) + "A1!"; 
             const email = document.getElementById('newUserEmail').value.trim().toLowerCase();
             const name = document.getElementById('newUserName').value.trim();
             
             const payload = { 
-                action: 'register_client', 
-                email: email, 
-                password: autoPass, 
-                company: document.getElementById('newUserCompany').value.trim(), 
-                name: name, 
-                phone: document.getElementById('newUserPhone').value.trim(), 
-                role: document.getElementById('newUserRole').value, 
-                manager: document.getElementById('newUserManager').value.trim() 
+                action: 'register_client', email: email, password: autoPass, company: document.getElementById('newUserCompany').value.trim(), 
+                name: name, phone: document.getElementById('newUserPhone').value.trim(), role: document.getElementById('newUserRole').value, manager: document.getElementById('newUserManager').value.trim() 
             }; 
             
             try { 
-                const res = await apiPost(payload); 
-                const data = await res.json(); 
-                
-                // 📧 DISPATCH CUSTOM WELCOME EMAIL
-                const emailHtml = `
-                    <div style="font-family: sans-serif; padding: 20px; color: #333; line-height: 1.6;">
-                        <h2 style="color: #005ac1;">Welcome to the Support Portal</h2>
-                        <p>Hello ${name},</p>
-                        <p>Your corporate support account has been created successfully.</p>
-                        
-                        <div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #cbd5e1;">
-                            <p style="margin: 0 0 10px 0;"><b>Login Email:</b> ${email}</p>
-                            <p style="margin: 0;"><b>Temporary Password:</b> <code style="background: #e2e8f0; padding: 3px 6px; border-radius: 4px; font-size: 16px;">${autoPass}</code></p>
-                        </div>
-                        
-                        <a href="https://tickets.globaljvp.com/" style="display: inline-block; padding: 12px 24px; background-color: #005ac1; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; margin-bottom: 20px;">Access IT Portal</a>
-
-                        <h3 style="color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">How to Raise a Support Ticket</h3>
-                        <ol style="padding-left: 20px;">
-                            <li style="margin-bottom: 10px;">Log in to the Support Portal using the credentials above.</li>
-                            <li style="margin-bottom: 10px;">Click the <b>"New Request"</b> button on your dashboard.</li>
-                            <li style="margin-bottom: 10px;">Select your <b>Request Type</b>:
-                                <ul style="margin-top: 5px;">
-                                    <li style="margin-bottom: 5px;"><b>Incident (Break/Fix):</b> Choose this if something is broken, crashing, or inaccessible (e.g., Laptop won't turn on, Network is down).</li>
-                                    <li style="margin-bottom: 5px;"><b>Service Request (New/Change):</b> Choose this for new requirements (e.g., Requesting a new monitor, software license, or onboarding a new employee).</li>
-                                </ul>
-                            </li>
-                            <li style="margin-bottom: 10px;">Fill in the mandatory details and provide a clear description of your issue or request.</li>
-                            <li style="margin-bottom: 10px; color: #b91c1c;"><b>Important:</b> If you are raising a Low or Medium priority Endpoint Incident, please ensure you provide your Remote Access (AnyDesk/UltraViewer) ID and Password so IT can assist you immediately without delays.</li>
-                            <li>Click <b>Submit Ticket</b>.</li>
-                        </ol>
-                        
-                        <p style="margin-top: 30px;">Our IT team will be notified instantly and will assist you shortly.</p>
-                        <p style="font-size: 12px; color: #64748b; margin-top: 20px;">This is an automated message from Spread Technical IT Service Management.</p>
-                    </div>
-                `;
-
-                await apiPost({
-                    action: 'send_email',
-                    to: email,
-                    subject: "Welcome to Spread Technical Support - Your Login Details",
-                    htmlBody: emailHtml
-                });
-
+                await apiPost(payload); 
+                const emailHtml = `<div style="font-family: sans-serif; padding: 20px; color: #333; line-height: 1.6;"><h2 style="color: #005ac1;">Welcome to the Support Portal</h2><p>Hello ${name},</p><p>Your corporate support account has been created successfully.</p><div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #cbd5e1;"><p style="margin: 0 0 10px 0;"><b>Login Email:</b> ${email}</p><p style="margin: 0;"><b>Temporary Password:</b> <code style="background: #e2e8f0; padding: 3px 6px; border-radius: 4px; font-size: 16px;">${autoPass}</code></p></div><a href="https://tickets.globaljvp.com/" style="display: inline-block; padding: 12px 24px; background-color: #005ac1; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; margin-bottom: 20px;">Access IT Portal</a><h3 style="color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">How to Raise a Support Ticket</h3><ol style="padding-left: 20px;"><li style="margin-bottom: 10px;">Log in to the Support Portal using the credentials above.</li><li style="margin-bottom: 10px;">Click the <b>"New Request"</b> button on your dashboard.</li><li style="margin-bottom: 10px;">Select your <b>Request Type</b>:<ul style="margin-top: 5px;"><li style="margin-bottom: 5px;"><b>Incident (Break/Fix):</b> Choose this if something is broken, crashing, or inaccessible (e.g., Laptop won't turn on, Network is down).</li><li style="margin-bottom: 5px;"><b>Service Request (New/Change):</b> Choose this for new requirements (e.g., Requesting a new monitor, software license, or onboarding a new employee).</li></ul></li><li style="margin-bottom: 10px;">Fill in the mandatory details and provide a clear description of your issue or request.</li><li style="margin-bottom: 10px; color: #b91c1c;"><b>Important:</b> If you are raising a Low or Medium priority Endpoint Incident, please ensure you provide your Remote Access (AnyDesk/UltraViewer) ID and Password so IT can assist you immediately without delays.</li><li>Click <b>Submit Ticket</b>.</li></ol><p style="margin-top: 30px;">Our IT team will be notified instantly and will assist you shortly.</p><p style="font-size: 12px; color: #64748b; margin-top: 20px;">This is an automated message from Spread Technical IT Service Management.</p></div>`;
+                await apiPost({ action: 'send_email', to: email, subject: "Welcome to Spread Technical Support - Your Login Details", htmlBody: emailHtml });
                 alert("User created successfully!\n\nAn automated welcome email containing the password and ticket instructions has been sent to " + email); 
-                e.target.reset(); 
-                fetchUsersList(); 
+                e.target.reset(); fetchUsersList(); 
             } catch(e) { alert("Network error."); } 
             
-            btn.innerHTML = "Generate User"; 
-            btn.disabled = false; 
+            btn.innerHTML = "Generate User"; btn.disabled = false; 
         }
 
         async function registerNewAdmin(e) { 
             e.preventDefault(); 
-            const btn = e.target.querySelector('button[type="submit"]'); 
-            btn.innerHTML = "Provisioning..."; 
-            btn.disabled = true; 
+            const btn = e.target.querySelector('button[type="submit"]'); btn.innerHTML = "Provisioning..."; btn.disabled = true; 
             
             let pass = document.getElementById('newAdminPass').value.trim();
-            if(!pass) {
-                pass = Math.random().toString(36).slice(-8) + "A1!"; 
-            }
-
+            if(!pass) { pass = Math.random().toString(36).slice(-8) + "A1!"; }
             const email = document.getElementById('newAdminEmail').value.trim().toLowerCase();
             const name = document.getElementById('newAdminName').value.trim();
             
             const payload = { 
-                action: 'register_it_staff', 
-                email: email, 
-                password: pass, 
-                company: "Spread Technical", 
-                name: name, 
-                role: document.getElementById('newAdminRole').value,
-                telegram_id: document.getElementById('newAdminTelegram').value.trim()
+                action: 'register_it_staff', email: email, password: pass, company: "Spread Technical", name: name, role: document.getElementById('newAdminRole').value, telegram_id: document.getElementById('newAdminTelegram').value.trim()
             }; 
             
             try { 
-                const res = await apiPost(payload); 
-                const data = await res.json(); 
-                
-                // 📧 DISPATCH CUSTOM IT WELCOME EMAIL
-                const emailHtml = `
-                    <div style="font-family: sans-serif; padding: 20px; color: #333;">
-                        <h2 style="color: #005ac1;">IT Admin Account Provisioned</h2>
-                        <p>Hello ${name},</p>
-                        <p>You have been granted IT Administrator access to the Support Portal.</p>
-                        <div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #cbd5e1;">
-                            <p style="margin: 0 0 10px 0;"><b>Login Email:</b> ${email}</p>
-                            <p style="margin: 0;"><b>Temporary Password:</b> <code style="background: #e2e8f0; padding: 3px 6px; border-radius: 4px; font-size: 16px;">${pass}</code></p>
-                        </div>
-                        <a href="https://tickets.globaljvp.com/" style="display: inline-block; padding: 12px 24px; background-color: #005ac1; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; margin-bottom: 20px;">Access IT Portal</a>
-                        <p>Please log in to manage the Global IT Queue.</p>
-                        <p style="font-size: 12px; color: #64748b; margin-top: 20px;">Spread Technical IT Service Management</p>
-                    </div>
-                `;
-
-                await apiPost({
-                    action: 'send_email',
-                    to: email,
-                    subject: "Your IT Admin Access Details",
-                    htmlBody: emailHtml
-                });
-
+                const res = await apiPost(payload); const data = await res.json(); 
+                const emailHtml = `<div style="font-family: sans-serif; padding: 20px; color: #333;"><h2 style="color: #005ac1;">IT Admin Account Provisioned</h2><p>Hello ${name},</p><p>You have been granted IT Administrator access to the Support Portal.</p><div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #cbd5e1;"><p style="margin: 0 0 10px 0;"><b>Login Email:</b> ${email}</p><p style="margin: 0;"><b>Temporary Password:</b> <code style="background: #e2e8f0; padding: 3px 6px; border-radius: 4px; font-size: 16px;">${pass}</code></p></div><a href="https://tickets.globaljvp.com/" style="display: inline-block; padding: 12px 24px; background-color: #005ac1; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; margin-bottom: 20px;">Access IT Portal</a><p>Please log in to manage the Global IT Queue.</p><p style="font-size: 12px; color: #64748b; margin-top: 20px;">Spread Technical IT Service Management</p></div>`;
+                await apiPost({ action: 'send_email', to: email, subject: "Your IT Admin Access Details", htmlBody: emailHtml });
                 alert(data.message + "\n\nWelcome email sent to IT Staff successfully!"); 
-                e.target.reset(); 
-                fetchUsersList(); 
+                e.target.reset(); fetchUsersList(); 
             } catch(e) { alert("Network error."); } 
             
-            btn.innerHTML = "Provision Account"; 
-            btn.disabled = false; 
+            btn.innerHTML = "Provision Account"; btn.disabled = false; 
         }
 
         // ==========================================
@@ -3035,37 +2513,24 @@
             const priority = document.getElementById('priority').value; 
             
             if(reqType === 'Service') { 
-                document.getElementById('priorityWrapper').style.display = 'none'; 
-                document.getElementById('assetTagWrapper').style.display = 'none'; 
+                document.getElementById('priorityWrapper').style.display = 'none'; document.getElementById('assetTagWrapper').style.display = 'none'; 
             } else { 
-                document.getElementById('priorityWrapper').style.display = 'flex'; 
-                document.getElementById('assetTagWrapper').style.display = 'flex'; 
+                document.getElementById('priorityWrapper').style.display = 'flex'; document.getElementById('assetTagWrapper').style.display = 'flex'; 
             } 
             
-            const joineeFields = document.getElementById('newJoineeFields'); 
-            const jName = document.getElementById('joineeName'); 
-            const jLoc = document.getElementById('joineeLocation'); 
-            if(category === 'New Asset Setup') { 
-                joineeFields.classList.remove('hidden'); jName.required = true; jLoc.required = true; 
-            } else { 
-                joineeFields.classList.add('hidden'); jName.required = false; jLoc.required = false; jName.value = ''; jLoc.value = ''; 
-            } 
+            const joineeFields = document.getElementById('newJoineeFields'); const jName = document.getElementById('joineeName'); const jLoc = document.getElementById('joineeLocation'); 
+            if(category === 'New Asset Setup') { joineeFields.classList.remove('hidden'); jName.disabled = false; jLoc.disabled = false; } 
+            else { joineeFields.classList.add('hidden'); jName.disabled = true; jLoc.disabled = true; jName.value = ''; jLoc.value = ''; } 
             
-            const peripheralFields = document.getElementById('newPeripheralFields'); 
-            const pList = document.getElementById('peripheralList'); 
-            if(category === 'New Device Peripherals') { 
-                peripheralFields.classList.remove('hidden'); pList.required = true; 
-            } else { 
-                peripheralFields.classList.add('hidden'); pList.required = false; pList.value = ''; 
-            } 
+            const peripheralFields = document.getElementById('newPeripheralFields'); const pList = document.getElementById('peripheralList'); 
+            if(category === 'New Device Peripherals') { peripheralFields.classList.remove('hidden'); pList.disabled = false; } 
+            else { peripheralFields.classList.add('hidden'); pList.disabled = true; pList.value = ''; } 
             
-            const rsFields = document.getElementById('remoteSupportFields'); 
-            const rsId = document.getElementById('remoteId'); 
-            const rsPass = document.getElementById('remotePass'); 
+            const rsFields = document.getElementById('remoteSupportFields'); const rsId = document.getElementById('remoteId'); const rsPass = document.getElementById('remotePass'); const rApp = document.getElementById('remoteApp');
             if(reqType === 'Incident' && (category === 'Laptop/Desktop' || category === 'Software/App') && (priority === 'Low' || priority === 'Medium')) { 
-                rsFields.classList.remove('hidden'); 
+                rsFields.classList.remove('hidden'); rsId.disabled = false; rsPass.disabled = false; rApp.disabled = false;
             } else { 
-                rsFields.classList.add('hidden'); rsId.value = ''; rsPass.value = ''; 
+                rsFields.classList.add('hidden'); rsId.disabled = true; rsPass.disabled = true; rApp.disabled = true; rsId.value = ''; rsPass.value = ''; 
             } 
         }
 
@@ -3073,47 +2538,23 @@
             const isElse = document.getElementById('ticketFor').value === 'Someone Else'; 
             const peerWrapper = document.getElementById('peerWrapper'); 
             const peerSelect = document.getElementById('ticketForPeer'); 
-            const tName = document.getElementById('ticketName'); 
-            const tEmail = document.getElementById('ticketEmail'); 
-            const tPhone = document.getElementById('phoneNumber'); 
-            const pLabel = document.getElementById('phoneLabel'); 
+            const tName = document.getElementById('ticketName'); const tEmail = document.getElementById('ticketEmail'); 
+            const tPhone = document.getElementById('phoneNumber'); const pLabel = document.getElementById('phoneLabel'); 
             
             if (isElse) { 
-                peerWrapper.classList.remove('hidden'); 
-                tPhone.required = true; pLabel.innerText = "Contact Number *"; 
+                peerWrapper.classList.remove('hidden'); tPhone.required = true; pLabel.innerText = "Contact Number *"; 
                 let opts = `<option value="" disabled selected></option>`; 
-                
-                if(clientSession && clientSession.peers) { 
-                    clientSession.peers.forEach(p => { 
-                        if(p.email.toLowerCase() !== clientSession.email.toLowerCase()) { 
-                            opts += `<option value="${p.email}" data-name="${p.name}" data-phone="${p.phone || ''}">${p.name} (${p.email})</option>`; 
-                        }
-                    }); 
-                } 
-                
-                peerSelect.innerHTML = opts; 
-                peerSelect.required = true; 
-                
+                if(clientSession && clientSession.peers) { clientSession.peers.forEach(p => { if(p.email.toLowerCase() !== clientSession.email.toLowerCase()) { opts += `<option value="${p.email}" data-name="${p.name}" data-phone="${p.phone || ''}">${p.name} (${p.email})</option>`; } }); } 
+                peerSelect.innerHTML = opts; peerSelect.disabled = false; 
                 peerSelect.onchange = () => { 
-                    const opt = peerSelect.options[peerSelect.selectedIndex]; 
-                    tName.value = opt.getAttribute('data-name'); 
-                    tEmail.value = opt.value; 
-                    tPhone.value = opt.getAttribute('data-phone') || ''; 
-                    tName.classList.add('has-val'); 
-                    tEmail.classList.add('has-val'); 
-                    if(tPhone.value) tPhone.classList.add('has-val'); else tPhone.classList.remove('has-val'); 
+                    const opt = peerSelect.options[peerSelect.selectedIndex]; tName.value = opt.getAttribute('data-name'); tEmail.value = opt.value; tPhone.value = opt.getAttribute('data-phone') || ''; 
+                    tName.classList.add('has-val'); tEmail.classList.add('has-val'); if(tPhone.value) tPhone.classList.add('has-val'); else tPhone.classList.remove('has-val'); 
                 }; 
-                
-                tName.value = ""; tEmail.value = ""; tPhone.value = ""; 
-                tName.classList.remove('has-val'); tEmail.classList.remove('has-val'); tPhone.classList.remove('has-val'); 
+                tName.value = ""; tEmail.value = ""; tPhone.value = ""; tName.classList.remove('has-val'); tEmail.classList.remove('has-val'); tPhone.classList.remove('has-val'); 
             } else { 
-                peerWrapper.classList.add('hidden'); 
-                peerSelect.required = false; tPhone.required = false; pLabel.innerText = "Contact Number"; 
-                tName.value = clientSession.name; 
-                tEmail.value = clientSession.email; 
-                tPhone.value = clientSession.phone || ""; 
-                tName.classList.add('has-val'); tEmail.classList.add('has-val'); 
-                if(tPhone.value) tPhone.classList.add('has-val'); else tPhone.classList.remove('has-val'); 
+                peerWrapper.classList.add('hidden'); peerSelect.disabled = true; tPhone.required = false; pLabel.innerText = "Contact Number"; 
+                tName.value = clientSession.name; tEmail.value = clientSession.email; tPhone.value = clientSession.phone || ""; 
+                tName.classList.add('has-val'); tEmail.classList.add('has-val'); if(tPhone.value) tPhone.classList.add('has-val'); else tPhone.classList.remove('has-val'); 
             } 
         }
 
@@ -3138,13 +2579,8 @@
             const form = document.getElementById('newTicketFormContainer'); 
             form.classList.toggle('hidden'); 
             if(!form.classList.contains('hidden')) { 
-                const reqTypeSelect = document.getElementById('requestType'); 
                 handleRequestTypeChange(); 
-                if(clientSession) { 
-                    document.getElementById('ticketCompany').value = clientSession.company; 
-                    document.getElementById('ticketCompany').classList.add('has-val'); 
-                    handleTicketForChange(); 
-                } 
+                if(clientSession) { document.getElementById('ticketCompany').value = clientSession.company; document.getElementById('ticketCompany').classList.add('has-val'); handleTicketForChange(); } 
             } 
         }
 
@@ -3167,19 +2603,17 @@
                 } 
             } 
             
-            btn.innerHTML = 'Processing...'; 
-            btn.disabled = true; 
+            btn.innerHTML = 'Processing...'; btn.disabled = true; 
             
             const reqType = document.getElementById('requestType').value; 
             const category = document.getElementById('deviceType').value; 
-            let desc = document.getElementById('message').value; 
+            let desc = escapeHTML(document.getElementById('message').value); 
             const contactMethod = document.getElementById('contactMethod').value; 
-            const ccEmail = document.getElementById('ticketCC').value.trim(); 
+            const ccEmail = escapeHTML(document.getElementById('ticketCC').value.trim()); 
             
             desc = `[Contact via: ${contactMethod}]\n` + (ccEmail ? `[CC: ${ccEmail}]\n\n` : '\n') + desc; 
             
             let status = (reqType === "Service") ? "Pending Approval" : "Monitoring"; 
-            
             let remoteSupportStr = "N/A"; 
             
             if (!rsFields.classList.contains('hidden') && (rsIdVal || rsPassVal)) { 
@@ -3187,8 +2621,8 @@
             } 
             
             if(category === 'New Asset Setup') { 
-                const jName = document.getElementById('joineeName').value; 
-                const jLoc = document.getElementById('joineeLocation').value; 
+                const jName = escapeHTML(document.getElementById('joineeName').value); 
+                const jLoc = escapeHTML(document.getElementById('joineeLocation').value); 
                 desc = `[NEW JOINEE SETUP]\nJoinee Name: ${jName}\nLocation/Desk: ${jLoc}\n\nAdditional Notes:\n${desc}`; 
             } else if (category === 'New Device Peripherals') { 
                 const selectedPeripheral = document.getElementById('peripheralList').value; 
@@ -3203,34 +2637,27 @@
                 const file = fileInput.files[0]; 
                 if(file.size > 5 * 1024 * 1024) { 
                     alert("File too large. Max 5MB allowed."); 
-                    btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Submit Ticket'; 
-                    btn.disabled = false; 
-                    return; 
+                    btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Submit Ticket'; btn.disabled = false; return; 
                 } 
-                fileName = file.name; 
-                fileMimeType = file.type; 
-                fileData = await new Promise((resolve) => { 
-                    const reader = new FileReader(); 
-                    reader.onloadend = () => resolve(reader.result.split(',')[1]); 
-                    reader.readAsDataURL(file); 
-                }); 
+                fileName = file.name; fileMimeType = file.type; 
+                fileData = await new Promise((resolve) => { const reader = new FileReader(); reader.onloadend = () => resolve(reader.result.split(',')[1]); reader.readAsDataURL(file); }); 
             } 
             
             const payload = { 
                 action: "create_ticket", 
-                id: "", // Backend generates this
-                name: document.getElementById('ticketName').value.trim(), 
-                company: document.getElementById('ticketCompany').value.trim(), 
-                phone: fullPhone, 
-                email: document.getElementById('ticketEmail').value.trim(), 
+                id: "", 
+                name: escapeHTML(document.getElementById('ticketName').value.trim()), 
+                company: escapeHTML(document.getElementById('ticketCompany').value.trim()), 
+                phone: escapeHTML(fullPhone), 
+                email: escapeHTML(document.getElementById('ticketEmail').value.trim()), 
                 request_type: reqType, 
                 category: category, 
                 impact_level: reqType === 'Service' ? 'Low' : document.getElementById('priority').value, 
-                asset: document.getElementById('assetTag').value || "N/A", 
+                asset: escapeHTML(document.getElementById('assetTag').value) || "N/A", 
                 device: category, 
                 remote_support: remoteSupportStr, 
                 priority: reqType === 'Service' ? 'Low' : document.getElementById('priority').value, 
-                subject: document.getElementById('ticketSubject').value, 
+                subject: escapeHTML(document.getElementById('ticketSubject').value), 
                 description: desc, 
                 date: new Date().toISOString(), 
                 status: status, 
@@ -3240,18 +2667,13 @@
             }; 
             
             try { 
-                const res = await apiPost(payload); 
-                const data = await res.json(); 
+                const res = await apiPost(payload); const data = await res.json(); 
                 alert(`Ticket ${data.id} Submitted!\nStatus: ${status}`); 
-                
-                document.getElementById('ticketForm').reset(); 
-                toggleNewTicketForm(); 
-                fetchClientTickets(); 
+                document.getElementById('ticketForm').reset(); toggleNewTicketForm(); fetchClientTickets(); 
                 if(clientSession.role === 'Approver') fetchApproverTickets(); 
             } catch(e) { alert('Error submitting ticket.'); } 
             
-            btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Submit Ticket'; 
-            btn.disabled = false; 
+            btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Submit Ticket'; btn.disabled = false; 
         }
 
         // ==========================================
@@ -3263,11 +2685,8 @@
             
             tickets.forEach(t => { 
                 try { 
-                    const d = new Date(t.date); 
-                    const monthYear = d.toLocaleString('default', { month: 'short', year: 'numeric' }); 
-                    if(monthYear !== "Invalid Date") { 
-                        monthlyCounts[monthYear] = (monthlyCounts[monthYear] || 0) + 1; 
-                    } 
+                    const d = new Date(t.date); const monthYear = d.toLocaleString('default', { month: 'short', year: 'numeric' }); 
+                    if(monthYear !== "Invalid Date") { monthlyCounts[monthYear] = (monthlyCounts[monthYear] || 0) + 1; } 
                 } catch(e) {} 
             }); 
             
@@ -3281,27 +2700,9 @@
                 type: 'line', 
                 data: { 
                     labels: labels, 
-                    datasets: [{ 
-                        label: 'Service Requests', 
-                        data: data, 
-                        borderColor: '#3b82f6', 
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)', 
-                        borderWidth: 3, 
-                        fill: true, 
-                        tension: 0.4, 
-                        pointBackgroundColor: '#3b82f6', 
-                        pointRadius: 4 
-                    }] 
+                    datasets: [{ label: 'Service Requests', data: data, borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.1)', borderWidth: 3, fill: true, tension: 0.4, pointBackgroundColor: '#3b82f6', pointRadius: 4 }] 
                 }, 
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: false, 
-                    plugins: { legend: { display: false } }, 
-                    scales: { 
-                        y: { beginAtZero: true, ticks: { precision: 0, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
-                        x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } } 
-                    } 
-                } 
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } } } } 
             }); 
         }
     </script>
